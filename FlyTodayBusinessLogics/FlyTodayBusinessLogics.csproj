@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="BusinessLogics\" />
+    <ProjectReference Include="..\FlyTodayContracts\FlyTodayContracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="OfficePackage\" />
   </ItemGroup>
 
 </Project>
