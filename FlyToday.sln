@@ -5,7 +5,15 @@ VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlyToday", "FlyToday\FlyToday.csproj", "{75DE480D-311D-41E5-938A-418BBEB28D64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlyTodayDatabaseImplements", "FlyTodayDatabaseImplements\FlyTodayDatabaseImplements.csproj", "{F580E6D2-EC09-4FCE-82F4-925F1B36BDF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlyTodayDatabaseImplements", "FlyTodayDatabaseImplements\FlyTodayDatabaseImplements.csproj", "{F580E6D2-EC09-4FCE-82F4-925F1B36BDF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlyTodayContracts", "FlyTodayContracts\FlyTodayContracts.csproj", "{FEACB9B6-4E8C-4437-B5AF-2A72CE6D518D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlyTodayBusinessLogic", "FlyTodayBusiinessLogic\FlyTodayBusinessLogic.csproj", "{D8732F1F-7CD2-4060-B746-239F33A66509}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlyTodayDataModels", "FlyTodayDataModels\FlyTodayDataModels.csproj", "{FE4333C4-5828-4305-B5B2-BA26C725CDF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlyTodayViews", "FlyTodayViews\FlyTodayViews.csproj", "{20250AC7-3770-4548-82E1-6BB76CE15E6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +29,22 @@ Global
 		{F580E6D2-EC09-4FCE-82F4-925F1B36BDF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F580E6D2-EC09-4FCE-82F4-925F1B36BDF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F580E6D2-EC09-4FCE-82F4-925F1B36BDF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEACB9B6-4E8C-4437-B5AF-2A72CE6D518D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEACB9B6-4E8C-4437-B5AF-2A72CE6D518D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEACB9B6-4E8C-4437-B5AF-2A72CE6D518D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEACB9B6-4E8C-4437-B5AF-2A72CE6D518D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8732F1F-7CD2-4060-B746-239F33A66509}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8732F1F-7CD2-4060-B746-239F33A66509}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8732F1F-7CD2-4060-B746-239F33A66509}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8732F1F-7CD2-4060-B746-239F33A66509}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE4333C4-5828-4305-B5B2-BA26C725CDF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE4333C4-5828-4305-B5B2-BA26C725CDF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE4333C4-5828-4305-B5B2-BA26C725CDF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE4333C4-5828-4305-B5B2-BA26C725CDF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20250AC7-3770-4548-82E1-6BB76CE15E6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20250AC7-3770-4548-82E1-6BB76CE15E6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20250AC7-3770-4548-82E1-6BB76CE15E6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20250AC7-3770-4548-82E1-6BB76CE15E6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
