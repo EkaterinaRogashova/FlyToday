@@ -9,5 +9,6 @@ namespace FlyTodayDatabaseImplements.Models
 {
     public class Rent : IRentModel
     {
+        public int Id => throw new NotImplementedException();
     }
 }
