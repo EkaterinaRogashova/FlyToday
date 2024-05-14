@@ -8,5 +8,10 @@ namespace FlyTodayDataModels.Models
 {
     public interface IScheduleModel : IId
     {
+        int EmployeeId { get; }
+        DateTime Date { get; }
+        string Shift { get; }
+        bool Presence { get; }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlyTodayDataModels.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace FlyTodayContracts.BindingModels
 {
-    public class BoardingPassBindingModel
+    public class BoardingPassBindingModel: IBoardingPassModel
     {
+        public int Id { get; set; }
+        public int TicketId { get; }
+        public int PlaceId { get; }
     }
 }

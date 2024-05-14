@@ -1,4 +1,7 @@
-﻿using System;
+﻿using FlyTodayContracts.BindingModels;
+using FlyTodayContracts.SearchModels;
+using FlyTodayContracts.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +11,11 @@ namespace FlyTodayContracts.StoragesContracts
 {
     public interface IBoardingPassStorage
     {
+        List<BoardingPassViewModel> GetFullList();
+        List<BoardingPassViewModel> GetFilteredList(BoardingPassSearchModel model);
+        BoardingPassViewModel? GetElement(BoardingPassSearchModel model);
+        BoardingPassViewModel? Insert(BoardingPassBindingModel model);
+        BoardingPassViewModel? Update(BoardingPassBindingModel model);
+        BoardingPassViewModel? Delete(BoardingPassBindingModel model);
     }
 }

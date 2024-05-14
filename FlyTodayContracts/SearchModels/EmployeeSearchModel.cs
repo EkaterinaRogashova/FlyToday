@@ -8,5 +8,10 @@ namespace FlyTodayContracts.SearchModels
 {
     public class EmployeeSearchModel
     {
+        public int? Id { get; set; }
+        public string? Surname { get; set; }
+        public bool? MedAnalys { get; set; }
+        public string? JobTitle { get; set; }
+        public string? FlightId { get; set;}
     }
 }

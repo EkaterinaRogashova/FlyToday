@@ -8,5 +8,7 @@ namespace FlyTodayDataModels.Models
 {
     public interface IBoardingPassModel : IId
     {
+        int TicketId { get; }
+        int PlaceId { get; }
     }
 }

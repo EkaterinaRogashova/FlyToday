@@ -8,5 +8,9 @@ namespace FlyTodayContracts.SearchModels
 {
     public class UserSearchModel
     {
+        public int? Id { get; set; }
+        public string? Email { get; set; }
+        public string? AccessRule { get; set; }
+
     }
 }

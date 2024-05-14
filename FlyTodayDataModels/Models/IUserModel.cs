@@ -8,5 +8,12 @@ namespace FlyTodayDataModels.Models
 {
     public interface IUserModel : IId
     {
+        string Surname { get; }
+        string Name { get; }
+        string LastName { get; }
+        string Email { get; }
+        string Password { get; }
+        DateTime DateOfBirthday { get; }
+        string AccessRule { get; }
     }
 }

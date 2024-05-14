@@ -8,5 +8,7 @@ namespace FlyTodayDataModels.Models
 {
     public interface ISaleModel : IId
     {
+        string Category { get; }
+        double Percent {  get; }
     }
 }

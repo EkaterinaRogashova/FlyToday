@@ -8,5 +8,16 @@ namespace FlyTodayDataModels.Models
 {
     public interface ITicketModel : IId
     {
+        int RentId { get; }
+        string Surname { get; }
+        string Name { get; }
+        string LastName { get; }
+        string SeriesOfDocument { get; }
+        string NumberOfDocument { get; }
+        DateTime DateOfBirthday { get; }
+        string Sex { get; }
+        bool Bags { get; }
+        int SaleId { get; }
+        double TicketCost { get; }
     }
 }
