@@ -8,5 +8,9 @@ namespace FlyTodayDataModels.Models
 {
     public interface IDirectionModel : IId
     {
+        string CountryFrom { get; }
+        string CountryTo { get; }
+        string CityFrom { get; }
+        string CityTo { get; }
     }
 }

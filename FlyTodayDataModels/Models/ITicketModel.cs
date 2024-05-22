@@ -15,7 +15,7 @@ namespace FlyTodayDataModels.Models
         string SeriesOfDocument { get; }
         string NumberOfDocument { get; }
         DateTime DateOfBirthday { get; }
-        string Sex { get; }
+        string Gender { get; }
         bool Bags { get; }
         int SaleId { get; }
         double TicketCost { get; }

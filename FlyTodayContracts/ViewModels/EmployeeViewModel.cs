@@ -23,7 +23,7 @@ namespace FlyTodayContracts.ViewModels
         [DisplayName("Дата рождения")]
         public DateTime DateOfBirth { get; set; }
         [DisplayName("Пол")]
-        public string Sex { get; set; } = string.Empty;
+        public string Gender { get; set; } = string.Empty;
         [DisplayName("Должность")]
         public string JobTitle { get; set; } = string.Empty;
         [DisplayName("Рейс")]

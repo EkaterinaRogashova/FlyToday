@@ -15,7 +15,7 @@ namespace FlyTodayDataModels.Models
         bool MedAnalys {  get; }
         DateTime DateMedAnalys { get; }
         DateTime DateOfBirth {  get; }
-        string Sex { get; }
+        string Gender { get; }
         string JobTitle { get; }
         int FlightId { get; }
 

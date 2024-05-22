@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace FlyTodayContracts.SearchModels
 {
-    public class PlaneSearchModel
+    public class PlaceSearchModel
     {
         public int? Id {  get; set; }
-        public string? ModelName {  get; set; }
-        public int? EconomPlacesCount {  get; set; }
-        public int? BusinessPlacesCount {  get; set; }
+        public string? Place {  get; set; }
+        public bool? IsFree {  get; set; }
     }
 }

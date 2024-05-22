@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlyTodayDataModels.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace FlyTodayContracts.SearchModels
     {
         public int? Id { get; set; }
         public string? Email { get; set; }
-        public string? AccessRule { get; set; }
+        public AccessEnum? AccessRule { get; set; }
 
     }
 }

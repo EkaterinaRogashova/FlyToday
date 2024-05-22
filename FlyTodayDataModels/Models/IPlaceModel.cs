@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace FlyTodayDataModels.Models
 {
-    public interface IRentModel : IId
+    public interface IPlaceModel : IId
     {
+        string Place { get; }
         int FlightId { get; }
-        int UserId { get; }
-        double Cost { get; }
-        int NumberOfBusiness {  get; }
-        int NumberOfEconomy { get; }
-        string Status { get; }
+        bool IsFree { get; }
     }
 }

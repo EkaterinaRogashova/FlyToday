@@ -1,4 +1,5 @@
-﻿using FlyTodayDataModels.Models;
+﻿using FlyTodayDataModels.Enums;
+using FlyTodayDataModels.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace FlyTodayContracts.BindingModels
 
         public DateTime DateOfBirthday { get; set; }
 
-        public string AccessRule { get; set; } = string.Empty;
+        public AccessEnum AccessRule { get; set; }
 
         public int Id { get; set; }
     }

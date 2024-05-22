@@ -1,4 +1,5 @@
-﻿using FlyTodayDataModels.Models;
+﻿using FlyTodayDataModels.Enums;
+using FlyTodayDataModels.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,7 +23,7 @@ namespace FlyTodayContracts.ViewModels
         public string Password { get; set; } = string.Empty;
         [DisplayName("Дата рождения")]
         public DateTime DateOfBirthday { get; set; }
-        public string AccessRule { get; set; } = string.Empty;
+        public AccessEnum AccessRule { get; set; } = AccessEnum.Неизвестен;
 
         public int Id { get; set; }
     }

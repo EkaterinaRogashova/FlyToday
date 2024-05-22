@@ -21,7 +21,7 @@ namespace FlyTodayContracts.BindingModels
 
         public DateTime DateOfBirth { get; set; }
 
-        public string Sex { get; set; } = string.Empty;
+        public string Gender { get; set; } = string.Empty;
 
         public string JobTitle { get; set; } = string.Empty;
 

@@ -17,7 +17,7 @@ namespace FlyTodayContracts.BindingModels
 
         public int NumberOfBusiness { get; set; }
 
-        public int NuberOfEconomy { get; set; }
+        public int NumberOfEconomy { get; set; }
 
         public int Id { get; set; }
         public string Status { get; set; } = string.Empty;

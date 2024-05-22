@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace FlyTodayContracts.BindingModels
 {
-    public class PlaneBindingModel : IPlaneModel
+    public class PlaceBindingModel : IPlaceModel
     {
-        public string ModelName { get; set; } = string.Empty;
+        public string Place { get; set; } = string.Empty;
 
-        public int EconomPlacesCount { get; set; }
+        public int FlightId { get; set; }
 
-        public int BusinessPlacesCount { get; set; }
+        public bool IsFree { get; set; } = true;
 
         public int Id { get; set; }
     }

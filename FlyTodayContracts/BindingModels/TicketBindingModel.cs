@@ -23,7 +23,7 @@ namespace FlyTodayContracts.BindingModels
 
         public DateTime DateOfBirthday { get; set; }
 
-        public string Sex { get; set; } = string.Empty;
+        public string Gender { get; set; } = string.Empty;
 
         public bool Bags { get; set; }
 

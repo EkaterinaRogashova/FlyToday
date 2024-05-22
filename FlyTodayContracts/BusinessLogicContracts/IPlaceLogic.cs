@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace FlyTodayContracts.BusinessLogicContracts
 {
-    public interface IPlaneLogic
+    public interface IPlaceLogic
     {
-        List<PlaneViewModel>? ReadList(PlaneSearchModel? model);
-        PlaneViewModel? ReadElement(PlaneSearchModel model);
-        bool Create(PlaneBindingModel model);
-        bool Update(PlaneBindingModel model);
-        bool Delete(PlaneBindingModel model);
+        List<PlaceViewModel>? ReadList(PlaceSearchModel? model);
+        PlaceViewModel? ReadElement(PlaceSearchModel model);
+        bool Create(PlaceBindingModel model);
+        bool Update(PlaceBindingModel model);
+        bool Delete(PlaceBindingModel model);
     }
 }
