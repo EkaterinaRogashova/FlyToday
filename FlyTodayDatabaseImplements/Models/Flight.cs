@@ -9,6 +9,6 @@ namespace FlyTodayDatabaseImplements.Models
 {
     public class Flight : IFlightModel
     {
-        public int Id => throw new NotImplementedException();
+        public int Id { get; private set; }
     }
 }
