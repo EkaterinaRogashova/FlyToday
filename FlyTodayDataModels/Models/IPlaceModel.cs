@@ -8,7 +8,7 @@ namespace FlyTodayDataModels.Models
 {
     public interface IPlaceModel : IId
     {
-        string Place { get; }
+        string PlaceName { get; }
         int FlightId { get; }
         bool IsFree { get; }
     }

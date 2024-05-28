@@ -11,7 +11,7 @@ namespace FlyTodayContracts.ViewModels
     public class PlaceViewModel : IPlaceModel
     {
         [DisplayName("Место")]
-        public string Place { get; set; } = string.Empty;
+        public string PlaceName { get; set; } = string.Empty;
         [DisplayName("Рейс")]
         public int FlightId { get; set; }
         [DisplayName("Статус")]

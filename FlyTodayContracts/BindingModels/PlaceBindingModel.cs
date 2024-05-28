@@ -9,7 +9,7 @@ namespace FlyTodayContracts.BindingModels
 {
     public class PlaceBindingModel : IPlaceModel
     {
-        public string Place { get; set; } = string.Empty;
+        public string PlaceName { get; set; } = string.Empty;
 
         public int FlightId { get; set; }
 

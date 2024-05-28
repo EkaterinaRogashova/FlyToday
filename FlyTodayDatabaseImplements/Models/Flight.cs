@@ -1,28 +1,75 @@
-﻿using FlyTodayDataModels.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FlyTodayContracts.BindingModels;
+using FlyTodayContracts.ViewModels;
+using FlyTodayDataModels.Models;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FlyTodayDatabaseImplements.Models
 {
     public class Flight : IFlightModel
     {
         public int Id { get; private set; }
+        [Required]
+        public int PlaneId { get; private set; }
+        [Required]
+        public DateTime DepartureDate { get; private set; } = DateTime.Now;
+        [Required]
+        public int FreePlacesCount { get; private set; }
+        [Required]
+        public int DirectionId { get; private set; }
+        [Required]
+        public double EconomPrice { get; private set; }
+        [Required]
+        public double BusinessPrice { get; private set; }
+        [Required]
+        public double TimeInFlight { get; private set; }
+        [ForeignKey("FlightId")]
+        public virtual List<Employee> Employees { get; set; } = new();
+        public Plane Plane { get; set; }
+        public Direction Direction { get; set; }
 
-        public int PlaneId => throw new NotImplementedException();
+        public static Flight? Create(FlightBindingModel model)
+        {
+            if (model == null)
+            {
+                return null;
+            }
+            return new Flight()
+            {
+                Id = model.Id,
+                PlaneId = model.PlaneId,
+                DepartureDate = model.DepartureDate,
+                FreePlacesCount = model.FreePlacesCount,
+                DirectionId = model.DirectionId,
+                EconomPrice = model.EconomPrice,
+                BusinessPrice = model.BusinessPrice,
+                TimeInFlight = model.TimeInFlight
+            };
+        }
 
-        public DateTime DepartureDate => throw new NotImplementedException();
+        public void Update(FlightBindingModel model)
+        {
+            if (model == null)
+            {
+                return;
+            }
+            DepartureDate = model.DepartureDate;
+            FreePlacesCount = model.FreePlacesCount;
+            EconomPrice = model.EconomPrice;
+            BusinessPrice = model.BusinessPrice;
+            TimeInFlight = model.TimeInFlight;
+        }
 
-        public int FreePlacesCount => throw new NotImplementedException();
-
-        public int DirectionId => throw new NotImplementedException();
-
-        public double EconomPrice => throw new NotImplementedException();
-
-        public double BusinessPrice => throw new NotImplementedException();
-
-        public double TimeInFlight => throw new NotImplementedException();
+        public FlightViewModel GetViewModel => new()
+        {
+            Id = Id,
+            PlaneId = PlaneId,
+            DepartureDate = DepartureDate,
+            FreePlacesCount = FreePlacesCount,
+            DirectionId = DirectionId,
+            EconomPrice = EconomPrice,
+            BusinessPrice = BusinessPrice,
+            TimeInFlight = TimeInFlight
+        };
     }
 }
