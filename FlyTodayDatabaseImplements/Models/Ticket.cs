@@ -3,6 +3,7 @@ using FlyTodayContracts.ViewModels;
 using FlyTodayDataModels.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,74 +14,99 @@ namespace FlyTodayDatabaseImplements.Models
     public class Ticket : ITicketModel
     {
         public int Id { get; private set; }
-
+        [Required]
         public int RentId { get; private set; }
-
+        [Required]
         public string Surname { get; private set; } = string.Empty;
-
+        [Required]
         public string Name { get; private set; } = string.Empty;
 
         public string LastName { get; private set; } = string.Empty;
-
+        [Required]
         public string SeriesOfDocument { get; private set; } = string.Empty;
-
+        [Required]
         public string NumberOfDocument { get; private set; } = string.Empty;
-
+        [Required]
         public DateTime DateOfBirthday { get; private set; }
-
-        public string Sex { get; private set; } = string.Empty;
-
+        [Required]
+        public string Gender { get; private set; } = string.Empty;
+        [Required]
         public bool Bags { get; private set; }
 
         public int SaleId { get; private set; }
-
+        [Required]
         public double TicketCost { get; private set; }
 
-        public string Gender => throw new NotImplementedException();
-
-        //public static Ticket? Create(TicketBindingModel model)
-        //{
-        //    if (model == null)
-        //    {
-        //        return null;
-        //    }
-        //    return new Ticket()
-        //    {
-        //        Id = model.Id,
-        //        EmployeeId = model.EmployeeId,
-        //        Date = model.Date,
-        //        Shift = model.Shift,
-        //        Presence = model.Presence
-        //    };
-        //}
-        //public static Ticket Create(TicketViewModel model)
-        //{
-        //    return new Ticket
-        //    {
-        //        Id = model.Id,
-        //        EmployeeId = model.EmployeeId,
-        //        Date = model.Date,
-        //        Shift = model.Shift,
-        //        Presence = model.Presence
-        //    };
-        //}
-        //public void Update(TicketBindingModel model)
-        //{
-        //    if (model == null)
-        //    {
-        //        return;
-        //    }
-        //    Date = model.Date;
-        //    Shift = model.Shift;
-        //    Presence = model.Presence;
-        //}
-        //public TicketViewModel GetViewModel => new()
-        //{
-        //    Id = Id,
-        //    EmployeeId = EmployeeId,
-        //    Date = Date,
-        //    Shift = Shift,
-        //    Presence = Presence
-        //};
+        public Sale Sale { get; set; }
+        public Rent Rent { get; set; }
+        public static Ticket? Create(TicketBindingModel model)
+        {
+            if (model == null)
+            {
+                return null;
+            }
+            return new Ticket()
+            {
+                Id = model.Id,
+                Surname = model.Surname,
+                Name = model.Name,
+                LastName = model.LastName,
+                SeriesOfDocument = model.SeriesOfDocument,
+                NumberOfDocument = model.NumberOfDocument,
+                DateOfBirthday = model.DateOfBirthday,
+                Gender = model.Gender,
+                Bags = model.Bags,
+                SaleId = model.SaleId,
+                TicketCost = model.TicketCost
+            };
+        }
+        public static Ticket Create(TicketViewModel model)
+        {
+            return new Ticket
+            {
+                Id = model.Id,
+                Surname = model.Surname,
+                Name = model.Name,
+                LastName = model.LastName,
+                SeriesOfDocument = model.SeriesOfDocument,
+                NumberOfDocument = model.NumberOfDocument,
+                DateOfBirthday = model.DateOfBirthday,
+                Gender = model.Gender,
+                Bags = model.Bags,
+                SaleId = model.SaleId,
+                TicketCost = model.TicketCost
+            };
+        }
+        public void Update(TicketBindingModel model)
+        {
+            if (model == null)
+            {
+                return;
+            }
+            Surname = model.Surname;
+            Name = model.Name;
+            LastName = model.LastName;
+            SeriesOfDocument = model.SeriesOfDocument;
+            NumberOfDocument = model.NumberOfDocument;
+            DateOfBirthday = model.DateOfBirthday;
+            Gender = model.Gender;
+            Bags = model.Bags;
+            SaleId = model.SaleId;
+            TicketCost = model.TicketCost;
+        }
+        public TicketViewModel GetViewModel => new()
+        {
+            Id = Id,
+            Surname = Surname,
+            Name = Name,
+            LastName = LastName,
+            SeriesOfDocument = SeriesOfDocument,
+            NumberOfDocument = NumberOfDocument,
+            DateOfBirthday = DateOfBirthday,
+            Gender = Gender,
+            Bags = Bags,
+            SaleId = SaleId,
+            TicketCost = TicketCost
+        };
     }
 }

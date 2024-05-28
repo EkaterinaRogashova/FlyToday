@@ -1,7 +1,9 @@
 ﻿using FlyTodayContracts.BindingModels;
 using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
+using FlyTodayContracts.StoragesContracts;
 using FlyTodayContracts.ViewModels;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +14,13 @@ namespace FlyTodayBusinessLogics.BusinessLogics
 {
     public class ScheduleLogic : IScheduleLogic
     {
+        private readonly ILogger _logger;
+        private readonly IScheduleStorage _scheduleStorage;
+        public ScheduleLogic(ILogger<ScheduleLogic> logger, IScheduleStorage scheduleStorage)
+        {
+            _logger = logger;
+            _scheduleStorage = scheduleStorage;
+        }
         public bool Create(ScheduleBindingModel model)
         {
             throw new NotImplementedException();

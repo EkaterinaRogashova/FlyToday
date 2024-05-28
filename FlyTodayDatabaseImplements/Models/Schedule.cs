@@ -22,6 +22,7 @@ namespace FlyTodayDatabaseImplements.Models
         [Required]
         public bool Presence { get; private set; }
 
+        public Employee Employee { get; set; }
         public static Schedule? Create(ScheduleBindingModel model)
         {
             if (model == null)

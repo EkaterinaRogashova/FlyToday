@@ -32,6 +32,7 @@ namespace FlyTodayDatabaseImplements.Models
         public string JobTitle { get; private set; } = string.Empty;
         [Required]
         public int FlightId { get; private set; }
+        public Flight Flight { get; set; }
 
         public static Employee? Create(EmployeeBindingModel model)
         {
