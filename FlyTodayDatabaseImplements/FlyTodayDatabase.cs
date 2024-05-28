@@ -13,7 +13,7 @@ namespace FlyTodayDatabaseImplements
         {
             if (optionsBuilder.IsConfigured == false)
             {
-                optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-50HHOEG\SQLEXPRESS;Initial Catalog=FlyTodayDatabaseFull;Integrated Security=True;MultipleActiveResultSets=True;;TrustServerCertificate=True");
+                optionsBuilder.UseNpgsql("Host = 192.168.56.101; Port = 5432; Database = BookShopBd; Username = postgres; Password = 123456789");
             }
             base.OnConfiguring(optionsBuilder);
         }
