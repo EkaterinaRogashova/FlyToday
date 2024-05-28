@@ -11,7 +11,6 @@ namespace FlyTodayContracts.SearchModels
     {
         public int? Id { get; set; }
         public string? Email { get; set; }
-        public AccessEnum? AccessRule { get; set; }
 
     }
 }

@@ -23,27 +23,111 @@ namespace FlyTodayBusinessLogics.BusinessLogics
         }
         public bool Create(EmployeeBindingModel model)
         {
-            throw new NotImplementedException();
+            CheckModel(model);
+            if (_employeeStorage.Insert(model) == null)
+            {
+                _logger.LogWarning("Insert operation failed");
+                return false;
+            }
+            return true;
         }
 
         public bool Delete(EmployeeBindingModel model)
         {
-            throw new NotImplementedException();
+            CheckModel(model, false);
+            _logger.LogInformation("Delete. Id:{Id}", model.Id);
+            if (_employeeStorage.Delete(model) == null)
+            {
+                _logger.LogWarning("Delete operation failed");
+                return false;
+            }
+            return true;
         }
 
         public EmployeeViewModel? ReadElement(EmployeeSearchModel model)
         {
-            throw new NotImplementedException();
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+            _logger.LogInformation("ReadElement. Employee. Surname: {Surname}. MedAnalys: {MedAnalys}. JobTitle: {JobTitle}. FlightId: {FlightId}. Id: {Id}", model.Surname, model.MedAnalys, model.JobTitle, model.FlightId, model.Id);
+            var element = _employeeStorage.GetElement(model);
+            if (element == null)
+            {
+                _logger.LogWarning("ReadElement element not found");
+                return null;
+            }
+            _logger.LogInformation("ReadElement find. Id:{Id}", element.Id);
+            return element;
         }
 
         public List<EmployeeViewModel>? ReadList(EmployeeSearchModel? model)
         {
-            throw new NotImplementedException();
+            _logger.LogInformation("ReadList. Surname: {Surname}. MedAnalys: {MedAnalys}. JobTitle: {JobTitle}. FlightId: {FlightId}. Id: {Id}", model?.Surname, model?.MedAnalys, model?.JobTitle, model?.FlightId, model?.Id);
+            var list = model == null ? _employeeStorage.GetFullList() : _employeeStorage.GetFilteredList(model);
+            if (list == null)
+            {
+                _logger.LogWarning("ReadList return null list");
+                return null;
+            }
+            _logger.LogInformation("ReadList. Count:{Count}", list.Count);
+            return list;
         }
 
         public bool Update(EmployeeBindingModel model)
         {
-            throw new NotImplementedException();
+            CheckModel(model);
+            if (_employeeStorage.Update(model) == null)
+            {
+                _logger.LogWarning("Update operation failed");
+                return false;
+            }
+            return true;
+        }
+
+        private void CheckModel(EmployeeBindingModel model, bool withParams = true)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+            if (!withParams)
+            {
+                return;
+            }
+            if (string.IsNullOrEmpty(model.Surname))
+            {
+                throw new ArgumentNullException("Нет фамилии сотрудника", nameof(model.Surname));
+            }
+            if (string.IsNullOrEmpty(model.Name))
+            {
+                throw new ArgumentNullException("Нет имени сотрудника", nameof(model.Name));
+            }
+            if (string.IsNullOrEmpty(model.Gender))
+            {
+                throw new ArgumentNullException("Нет пола сотрудника", nameof(model.Gender));
+            }
+            if (model.DateOfBirth < new DateTime(1900, 1, 1) || model.DateOfBirth > DateTime.Now)
+            {
+                throw new ArgumentNullException("Неверная дата рождения сотрудника", nameof(model.DateOfBirth));
+            }
+            if (string.IsNullOrEmpty(model.JobTitle))
+            {
+                throw new ArgumentNullException("Нет должности сотрудника", nameof(model.JobTitle));
+            }
+            if (model.FlightId < 0)
+            {
+                throw new ArgumentNullException("Неверныый идентификатор рейса", nameof(model.FlightId));
+            }
+            _logger.LogInformation("Employee. Surname: {Surname}. Name: {Name}. LastName: {LastName}. DateOfBirth: {DateOfBirth}. MedAnalys: {MedAnalys}. DateMedAnalys: {DateMedAnalys}. Gender: {Gender}. JobTitle: {JobTitle}. FlightId: {FlightId}. Id: {Id}", model.Name, model.Surname, model.LastName, model.DateOfBirth, model.DateMedAnalys, model.MedAnalys, model.JobTitle, model.FlightId, model.Gender, model.Id);
+            var element = _employeeStorage.GetElement(new EmployeeSearchModel
+            {
+                Surname = model.Surname
+            });
+            if (element != null && element.Id != model.Id)
+            {
+                throw new InvalidOperationException("Такой сотрудник уже есть");
+            }
         }
     }
 }
