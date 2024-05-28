@@ -36,6 +36,8 @@ namespace FlyTodayDatabaseImplements.Models
 
         public double TicketCost { get; private set; }
 
+        public string Gender => throw new NotImplementedException();
+
         //public static Ticket? Create(TicketBindingModel model)
         //{
         //    if (model == null)

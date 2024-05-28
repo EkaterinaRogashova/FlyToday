@@ -23,5 +23,7 @@ namespace FlyTodayDatabaseImplements.Models
         public int NuberOfEconomy { get; private set; }
         [Required]
         public string Status { get; private set; } = string.Empty;
+
+        public int NumberOfEconomy => throw new NotImplementedException();
     }
 }

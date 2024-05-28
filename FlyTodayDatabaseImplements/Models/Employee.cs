@@ -27,7 +27,7 @@ namespace FlyTodayDatabaseImplements.Models
         [Required]
         public DateTime DateOfBirth { get; private set; }
         [Required]
-        public string Sex { get; private set; } = string.Empty;
+        public string Gender { get; private set; } = string.Empty;
         [Required]
         public string JobTitle { get; private set; } = string.Empty;
         [Required]
@@ -48,7 +48,7 @@ namespace FlyTodayDatabaseImplements.Models
                 DateOfBirth = model.DateOfBirth,
                 MedAnalys = model.MedAnalys,
                 DateMedAnalys = model.DateMedAnalys,
-                Sex = model.Sex,
+                Gender = model.Gender,
                 JobTitle = model.JobTitle,
                 FlightId = model.FlightId
             };
@@ -64,7 +64,7 @@ namespace FlyTodayDatabaseImplements.Models
                 DateOfBirth = model.DateOfBirth,
                 MedAnalys = model.MedAnalys,
                 DateMedAnalys = model.DateMedAnalys,
-                Sex = model.Sex,
+                Gender = model.Gender,
                 JobTitle = model.JobTitle,
                 FlightId = model.FlightId
             };
@@ -81,7 +81,7 @@ namespace FlyTodayDatabaseImplements.Models
             DateOfBirth = model.DateOfBirth;
             MedAnalys = model.MedAnalys;
             DateMedAnalys = model.DateMedAnalys;
-            Sex = model.Sex;
+            Gender = model.Gender;
             JobTitle = model.JobTitle;
             FlightId = model.FlightId;
         }
@@ -94,7 +94,7 @@ namespace FlyTodayDatabaseImplements.Models
             DateOfBirth = DateOfBirth,
             MedAnalys = MedAnalys,
             DateMedAnalys = DateMedAnalys,
-            Sex = Sex,
+            Gender = Gender,
             JobTitle = JobTitle,
             FlightId = FlightId
         };
