@@ -9,6 +9,12 @@ namespace FlyTodayDatabaseImplements.Models
 {
     public class Plane : IPlaneModel
     {
-        public int Id => throw new NotImplementedException();
+        public int Id { get; private set; }
+
+        public string ModelName => throw new NotImplementedException();
+
+        public int EconomPlacesCount => throw new NotImplementedException();
+
+        public int BusinessPlacesCount => throw new NotImplementedException();
     }
 }
