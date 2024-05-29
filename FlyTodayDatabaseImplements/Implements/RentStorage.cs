@@ -2,6 +2,7 @@
 using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.StoragesContracts;
 using FlyTodayContracts.ViewModels;
+using FlyTodayDatabaseImplements.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +15,27 @@ namespace FlyTodayDatabaseImplements.Implements
     {
         public RentViewModel? Delete(RentBindingModel model)
         {
-            throw new NotImplementedException();
+            using var context = new FlyTodayDatabase();
+            var element = context.Rents.FirstOrDefault(rec => rec.Id == model.Id);
+            if (element != null)
+            {
+                context.Rents.Remove(element);
+                context.SaveChanges();
+                return element.GetViewModel;
+            }
+            return null;
         }
 
         public RentViewModel? GetElement(RentSearchModel model)
         {
-            throw new NotImplementedException();
+            //using var context = new FlyTodayDatabase();
+            //if (model.Id.HasValue)
+            //    return context.Rents.FirstOrDefault(x => x.Id == model.Id)?.GetViewModel;
+            //if (!string.IsNullOrEmpty(model.Email) && !string.IsNullOrEmpty(model.Password))
+            //    return context.Rents.FirstOrDefault(x => x.Email.Equals(model.Email) && x.Password.Equals(model.Password))?.GetViewModel;
+            //if (!string.IsNullOrEmpty(model.Email))
+            //    return context.Rents.FirstOrDefault(x => x.Email.Equals(model.Email))?.GetViewModel;
+            return null;
         }
 
         public List<RentViewModel> GetFilteredList(RentSearchModel model)
@@ -29,17 +45,21 @@ namespace FlyTodayDatabaseImplements.Implements
 
         public List<RentViewModel> GetFullList()
         {
-            throw new NotImplementedException();
+            using var context = new FlyTodayDatabase();
+            return context.Rents.Select(x => x.GetViewModel).ToList();
         }
 
         public RentViewModel? Insert(RentBindingModel model)
         {
-            throw new NotImplementedException();
-        }
-
-        public RentViewModel? Update(RentBindingModel model)
-        {
-            throw new NotImplementedException();
+            var newRent = Rent.Create(model);
+            if (newRent == null)
+            {
+                return null;
+            }
+            using var context = new FlyTodayDatabase();
+            context.Rents.Add(newRent);
+            context.SaveChanges();
+            return newRent.GetViewModel; ;
         }
     }
 }

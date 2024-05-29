@@ -15,7 +15,5 @@ namespace FlyTodayContracts.StoragesContracts
         List<BoardingPassViewModel> GetFilteredList(BoardingPassSearchModel model);
         BoardingPassViewModel? GetElement(BoardingPassSearchModel model);
         BoardingPassViewModel? Insert(BoardingPassBindingModel model);
-        BoardingPassViewModel? Update(BoardingPassBindingModel model);
-        BoardingPassViewModel? Delete(BoardingPassBindingModel model);
     }
 }

@@ -2,6 +2,7 @@
 using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.StoragesContracts;
 using FlyTodayContracts.ViewModels;
+using FlyTodayDatabaseImplements.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +15,27 @@ namespace FlyTodayDatabaseImplements.Implements
     {
         public UserViewModel? Delete(UserBindingModel model)
         {
-            throw new NotImplementedException();
+            using var context = new FlyTodayDatabase();
+            var element = context.Users.FirstOrDefault(rec => rec.Id == model.Id);
+            if (element != null)
+            {
+                context.Users.Remove(element);
+                context.SaveChanges();
+                return element.GetViewModel;
+            }
+            return null;
         }
 
         public UserViewModel? GetElement(UserSearchModel model)
         {
-            throw new NotImplementedException();
+            //using var context = new FlyTodayDatabase();
+            //if (model.Id.HasValue)
+            //    return context.Users.FirstOrDefault(x => x.Id == model.Id)?.GetViewModel;
+            //if (!string.IsNullOrEmpty(model.Email) && !string.IsNullOrEmpty(model.Password))
+            //    return context.Users.FirstOrDefault(x => x.Email.Equals(model.Email) && x.Password.Equals(model.Password))?.GetViewModel;
+            //if (!string.IsNullOrEmpty(model.Email))
+            //    return context.Users.FirstOrDefault(x => x.Email.Equals(model.Email))?.GetViewModel;
+            return null;
         }
 
         public List<UserViewModel> GetFilteredList(UserSearchModel model)
@@ -29,17 +45,34 @@ namespace FlyTodayDatabaseImplements.Implements
 
         public List<UserViewModel> GetFullList()
         {
-            throw new NotImplementedException();
+            using var context = new FlyTodayDatabase();
+            return context.Users.Select(x => x.GetViewModel).ToList();
         }
 
         public UserViewModel? Insert(UserBindingModel model)
         {
-            throw new NotImplementedException();
+            var newUser = User.Create(model);
+            if (newUser == null)
+            {
+                return null;
+            }
+            using var context = new FlyTodayDatabase();
+            context.Users.Add(newUser);
+            context.SaveChanges();
+            return newUser.GetViewModel;
         }
 
         public UserViewModel? Update(UserBindingModel model)
         {
-            throw new NotImplementedException();
+            using var context = new FlyTodayDatabase();
+            var user = context.Users.FirstOrDefault(x => x.Id == model.Id);
+            if (user == null)
+            {
+                return null;
+            }
+            user.Update(model);
+            context.SaveChanges();
+            return user.GetViewModel;
         }
     }
 }

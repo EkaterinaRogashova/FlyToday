@@ -2,6 +2,7 @@
 using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.StoragesContracts;
 using FlyTodayContracts.ViewModels;
+using FlyTodayDatabaseImplements.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +15,27 @@ namespace FlyTodayDatabaseImplements.Implements
     {
         public TicketViewModel? Delete(TicketBindingModel model)
         {
-            throw new NotImplementedException();
+            using var context = new FlyTodayDatabase();
+            var element = context.Tickets.FirstOrDefault(rec => rec.Id == model.Id);
+            if (element != null)
+            {
+                context.Tickets.Remove(element);
+                context.SaveChanges();
+                return element.GetViewModel;
+            }
+            return null;
         }
 
         public TicketViewModel? GetElement(TicketSearchModel model)
         {
-            throw new NotImplementedException();
+            //using var context = new FlyTodayDatabase();
+            //if (model.Id.HasValue)
+            //    return context.Tickets.FirstOrDefault(x => x.Id == model.Id)?.GetViewModel;
+            //if (!string.IsNullOrEmpty(model.Email) && !string.IsNullOrEmpty(model.Password))
+            //    return context.Tickets.FirstOrDefault(x => x.Email.Equals(model.Email) && x.Password.Equals(model.Password))?.GetViewModel;
+            //if (!string.IsNullOrEmpty(model.Email))
+            //    return context.Tickets.FirstOrDefault(x => x.Email.Equals(model.Email))?.GetViewModel;
+            return null;
         }
 
         public List<TicketViewModel> GetFilteredList(TicketSearchModel model)
@@ -29,17 +45,34 @@ namespace FlyTodayDatabaseImplements.Implements
 
         public List<TicketViewModel> GetFullList()
         {
-            throw new NotImplementedException();
+            using var context = new FlyTodayDatabase();
+            return context.Tickets.Select(x => x.GetViewModel).ToList();
         }
 
         public TicketViewModel? Insert(TicketBindingModel model)
         {
-            throw new NotImplementedException();
+            var newTicket = Ticket.Create(model);
+            if (newTicket == null)
+            {
+                return null;
+            }
+            using var context = new FlyTodayDatabase();
+            context.Tickets.Add(newTicket);
+            context.SaveChanges();
+            return newTicket.GetViewModel;
         }
 
         public TicketViewModel? Update(TicketBindingModel model)
         {
-            throw new NotImplementedException();
+            using var context = new FlyTodayDatabase();
+            var ticket = context.Tickets.FirstOrDefault(x => x.Id == model.Id);
+            if (ticket == null)
+            {
+                return null;
+            }
+            ticket.Update(model);
+            context.SaveChanges();
+            return ticket.GetViewModel;
         }
     }
 }

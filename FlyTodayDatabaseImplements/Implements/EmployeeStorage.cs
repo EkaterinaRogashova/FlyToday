@@ -2,6 +2,7 @@
 using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.StoragesContracts;
 using FlyTodayContracts.ViewModels;
+using FlyTodayDatabaseImplements.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +15,25 @@ namespace FlyTodayDatabaseImplements.Implements
     {
         public EmployeeViewModel? Delete(EmployeeBindingModel model)
         {
-            throw new NotImplementedException();
+            using var context = new FlyTodayDatabase();
+            var element = context.Employees.FirstOrDefault(rec => rec.Id == model.Id);
+            if (element != null)
+            {
+                context.Employees.Remove(element);
+                context.SaveChanges();
+                return element.GetViewModel;
+            }
+            return null;
         }
 
         public EmployeeViewModel? GetElement(EmployeeSearchModel model)
         {
-            throw new NotImplementedException();
+            using var context = new FlyTodayDatabase();
+            if (model.Id.HasValue)
+                return context.Employees.FirstOrDefault(x => x.Id == model.Id)?.GetViewModel;
+            if (!string.IsNullOrEmpty(model.Surname) && !string.IsNullOrEmpty(model.JobTitle))
+                return context.Employees.FirstOrDefault(x => x.Surname.Equals(model.Surname) && x.JobTitle.Equals(model.JobTitle))?.GetViewModel;
+            return null;
         }
 
         public List<EmployeeViewModel> GetFilteredList(EmployeeSearchModel model)
@@ -29,17 +43,34 @@ namespace FlyTodayDatabaseImplements.Implements
 
         public List<EmployeeViewModel> GetFullList()
         {
-            throw new NotImplementedException();
+            using var context = new FlyTodayDatabase();
+            return context.Employees.Select(x => x.GetViewModel).ToList();
         }
 
         public EmployeeViewModel? Insert(EmployeeBindingModel model)
         {
-            throw new NotImplementedException();
+            var newEmployee = Employee.Create(model);
+            if (newEmployee == null)
+            {
+                return null;
+            }
+            using var context = new FlyTodayDatabase();
+            context.Employees.Add(newEmployee);
+            context.SaveChanges();
+            return newEmployee.GetViewModel;
         }
 
         public EmployeeViewModel? Update(EmployeeBindingModel model)
         {
-            throw new NotImplementedException();
+            using var context = new FlyTodayDatabase();
+            var employee = context.Employees.FirstOrDefault(x => x.Id == model.Id);
+            if (employee == null)
+            {
+                return null;
+            }
+            employee.Update(model);
+            context.SaveChanges();
+            return employee.GetViewModel;
         }
     }
 }

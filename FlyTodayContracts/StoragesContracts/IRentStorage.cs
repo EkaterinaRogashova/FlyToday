@@ -15,7 +15,6 @@ namespace FlyTodayContracts.StoragesContracts
         List<RentViewModel> GetFilteredList(RentSearchModel model);
         RentViewModel? GetElement(RentSearchModel model);
         RentViewModel? Insert(RentBindingModel model);
-        RentViewModel? Update(RentBindingModel model);
         RentViewModel? Delete(RentBindingModel model);
     }
 }
