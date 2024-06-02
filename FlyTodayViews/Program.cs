@@ -39,6 +39,9 @@ namespace FlyTodayViews
             services.AddTransient<FormEnter>();
             services.AddTransient<FormRegistration>();
             services.AddTransient<FormEmployee>();
+            services.AddTransient<FormEmployees>();
+            services.AddTransient<FormSale>();
+            services.AddTransient<FormSales>();
         }
     }
 }

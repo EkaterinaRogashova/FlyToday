@@ -28,107 +28,155 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
-            textBox4 = new TextBox();
-            dateTimePicker1 = new DateTimePicker();
-            dateTimePicker2 = new DateTimePicker();
+            buttonSave = new Button();
+            textBoxSurname = new TextBox();
+            textBoxLastName = new TextBox();
+            textBoxName = new TextBox();
+            textBoxJob = new TextBox();
+            dateTimePickerMedAnalys = new DateTimePicker();
+            dateTimePickerBirth = new DateTimePicker();
             groupBox1 = new GroupBox();
+            label6 = new Label();
+            comboBoxGender = new ComboBox();
+            label4 = new Label();
+            label3 = new Label();
+            label2 = new Label();
             label1 = new Label();
             groupBox2 = new GroupBox();
-            checkBox1 = new CheckBox();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
             label5 = new Label();
-            comboBox1 = new ComboBox();
-            label6 = new Label();
+            checkBoxMedAnalys = new CheckBox();
             groupBox3 = new GroupBox();
-            label7 = new Label();
-            textBox5 = new TextBox();
             label8 = new Label();
+            textBoxFlightTeam = new TextBox();
+            label7 = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
             SuspendLayout();
             // 
-            // button1
+            // buttonSave
             // 
-            button1.BackColor = SystemColors.ActiveCaption;
-            button1.Font = new Font("Segoe UI", 16F);
-            button1.Location = new Point(315, 391);
-            button1.Name = "button1";
-            button1.Size = new Size(168, 47);
-            button1.TabIndex = 0;
-            button1.Text = "Сохранить";
-            button1.UseVisualStyleBackColor = false;
+            buttonSave.BackColor = SystemColors.ActiveCaption;
+            buttonSave.Font = new Font("Segoe UI", 16F);
+            buttonSave.Location = new Point(315, 391);
+            buttonSave.Name = "buttonSave";
+            buttonSave.Size = new Size(168, 47);
+            buttonSave.TabIndex = 0;
+            buttonSave.Text = "Сохранить";
+            buttonSave.UseVisualStyleBackColor = false;
             // 
-            // textBox1
+            // textBoxSurname
             // 
-            textBox1.Location = new Point(15, 54);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(284, 27);
-            textBox1.TabIndex = 1;
+            textBoxSurname.Location = new Point(15, 54);
+            textBoxSurname.Name = "textBoxSurname";
+            textBoxSurname.Size = new Size(284, 27);
+            textBoxSurname.TabIndex = 1;
             // 
-            // textBox2
+            // textBoxLastName
             // 
-            textBox2.Location = new Point(15, 176);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(284, 27);
-            textBox2.TabIndex = 2;
+            textBoxLastName.Location = new Point(15, 176);
+            textBoxLastName.Name = "textBoxLastName";
+            textBoxLastName.Size = new Size(284, 27);
+            textBoxLastName.TabIndex = 2;
             // 
-            // textBox3
+            // textBoxName
             // 
-            textBox3.Location = new Point(17, 115);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(282, 27);
-            textBox3.TabIndex = 3;
+            textBoxName.Location = new Point(17, 115);
+            textBoxName.Name = "textBoxName";
+            textBoxName.Size = new Size(282, 27);
+            textBoxName.TabIndex = 3;
             // 
-            // textBox4
+            // textBoxJob
             // 
-            textBox4.Location = new Point(20, 64);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(280, 27);
-            textBox4.TabIndex = 4;
-            textBox4.TextChanged += textBox4_TextChanged;
+            textBoxJob.Location = new Point(20, 64);
+            textBoxJob.Name = "textBoxJob";
+            textBoxJob.Size = new Size(280, 27);
+            textBoxJob.TabIndex = 4;
+            textBoxJob.TextChanged += textBox4_TextChanged;
             // 
-            // dateTimePicker1
+            // dateTimePickerMedAnalys
             // 
-            dateTimePicker1.Font = new Font("Segoe UI", 10F);
-            dateTimePicker1.Location = new Point(24, 109);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(276, 30);
-            dateTimePicker1.TabIndex = 5;
+            dateTimePickerMedAnalys.Font = new Font("Segoe UI", 10F);
+            dateTimePickerMedAnalys.Location = new Point(24, 109);
+            dateTimePickerMedAnalys.Name = "dateTimePickerMedAnalys";
+            dateTimePickerMedAnalys.Size = new Size(276, 30);
+            dateTimePickerMedAnalys.TabIndex = 5;
             // 
-            // dateTimePicker2
+            // dateTimePickerBirth
             // 
-            dateTimePicker2.Font = new Font("Segoe UI", 10F);
-            dateTimePicker2.Location = new Point(15, 237);
-            dateTimePicker2.Name = "dateTimePicker2";
-            dateTimePicker2.Size = new Size(284, 30);
-            dateTimePicker2.TabIndex = 6;
+            dateTimePickerBirth.Font = new Font("Segoe UI", 10F);
+            dateTimePickerBirth.Location = new Point(15, 237);
+            dateTimePickerBirth.Name = "dateTimePickerBirth";
+            dateTimePickerBirth.Size = new Size(284, 30);
+            dateTimePickerBirth.TabIndex = 6;
             // 
             // groupBox1
             // 
             groupBox1.BackColor = SystemColors.GradientActiveCaption;
             groupBox1.Controls.Add(label6);
-            groupBox1.Controls.Add(comboBox1);
+            groupBox1.Controls.Add(comboBoxGender);
             groupBox1.Controls.Add(label4);
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(label1);
-            groupBox1.Controls.Add(textBox1);
-            groupBox1.Controls.Add(dateTimePicker2);
-            groupBox1.Controls.Add(textBox3);
-            groupBox1.Controls.Add(textBox2);
+            groupBox1.Controls.Add(textBoxSurname);
+            groupBox1.Controls.Add(dateTimePickerBirth);
+            groupBox1.Controls.Add(textBoxName);
+            groupBox1.Controls.Add(textBoxLastName);
             groupBox1.Location = new Point(49, 23);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(322, 353);
             groupBox1.TabIndex = 7;
             groupBox1.TabStop = false;
             groupBox1.Text = "Личные данные";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 12F);
+            label6.Location = new Point(15, 274);
+            label6.Name = "label6";
+            label6.Size = new Size(53, 28);
+            label6.TabIndex = 12;
+            label6.Text = "Пол:";
+            // 
+            // comboBoxGender
+            // 
+            comboBoxGender.FormattingEnabled = true;
+            comboBoxGender.Location = new Point(15, 305);
+            comboBoxGender.Name = "comboBoxGender";
+            comboBoxGender.Size = new Size(284, 28);
+            comboBoxGender.TabIndex = 11;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 12F);
+            label4.Location = new Point(17, 84);
+            label4.Name = "label4";
+            label4.Size = new Size(55, 28);
+            label4.TabIndex = 10;
+            label4.Text = "Имя:";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F);
+            label3.Location = new Point(15, 145);
+            label3.Name = "label3";
+            label3.Size = new Size(100, 28);
+            label3.TabIndex = 9;
+            label3.Text = "Отчество:";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 12F);
+            label2.Location = new Point(15, 206);
+            label2.Name = "label2";
+            label2.Size = new Size(157, 28);
+            label2.TabIndex = 8;
+            label2.Text = "Дата рождения:";
             // 
             // label1
             // 
@@ -144,55 +192,14 @@
             // 
             groupBox2.BackColor = SystemColors.GradientActiveCaption;
             groupBox2.Controls.Add(label5);
-            groupBox2.Controls.Add(checkBox1);
-            groupBox2.Controls.Add(dateTimePicker1);
+            groupBox2.Controls.Add(checkBoxMedAnalys);
+            groupBox2.Controls.Add(dateTimePickerMedAnalys);
             groupBox2.Location = new Point(432, 23);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(322, 165);
             groupBox2.TabIndex = 8;
             groupBox2.TabStop = false;
             groupBox2.Text = "Медицинский осмотр";
-            // 
-            // checkBox1
-            // 
-            checkBox1.AutoSize = true;
-            checkBox1.Font = new Font("Segoe UI", 12F);
-            checkBox1.Location = new Point(26, 36);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(71, 32);
-            checkBox1.TabIndex = 6;
-            checkBox1.Text = "Есть";
-            checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(15, 206);
-            label2.Name = "label2";
-            label2.Size = new Size(157, 28);
-            label2.TabIndex = 8;
-            label2.Text = "Дата рождения:";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 12F);
-            label3.Location = new Point(15, 145);
-            label3.Name = "label3";
-            label3.Size = new Size(100, 28);
-            label3.TabIndex = 9;
-            label3.Text = "Отчество:";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 12F);
-            label4.Location = new Point(17, 84);
-            label4.Name = "label4";
-            label4.Size = new Size(55, 28);
-            label4.TabIndex = 10;
-            label4.Text = "Имя:";
             // 
             // label5
             // 
@@ -204,54 +211,30 @@
             label5.TabIndex = 7;
             label5.Text = "Действует до:";
             // 
-            // comboBox1
+            // checkBoxMedAnalys
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(15, 305);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(284, 28);
-            comboBox1.TabIndex = 11;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 12F);
-            label6.Location = new Point(15, 274);
-            label6.Name = "label6";
-            label6.Size = new Size(53, 28);
-            label6.TabIndex = 12;
-            label6.Text = "Пол:";
+            checkBoxMedAnalys.AutoSize = true;
+            checkBoxMedAnalys.Font = new Font("Segoe UI", 12F);
+            checkBoxMedAnalys.Location = new Point(26, 36);
+            checkBoxMedAnalys.Name = "checkBoxMedAnalys";
+            checkBoxMedAnalys.Size = new Size(71, 32);
+            checkBoxMedAnalys.TabIndex = 6;
+            checkBoxMedAnalys.Text = "Есть";
+            checkBoxMedAnalys.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
             groupBox3.BackColor = SystemColors.GradientActiveCaption;
             groupBox3.Controls.Add(label8);
-            groupBox3.Controls.Add(textBox5);
+            groupBox3.Controls.Add(textBoxFlightTeam);
             groupBox3.Controls.Add(label7);
-            groupBox3.Controls.Add(textBox4);
+            groupBox3.Controls.Add(textBoxJob);
             groupBox3.Location = new Point(432, 199);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(322, 177);
             groupBox3.TabIndex = 9;
             groupBox3.TabStop = false;
             groupBox3.Text = "Данные о работе";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 12F);
-            label7.Location = new Point(20, 30);
-            label7.Name = "label7";
-            label7.Size = new Size(119, 28);
-            label7.TabIndex = 5;
-            label7.Text = "Должность:";
-            // 
-            // textBox5
-            // 
-            textBox5.Location = new Point(20, 129);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(280, 27);
-            textBox5.TabIndex = 6;
             // 
             // label8
             // 
@@ -263,6 +246,23 @@
             label8.TabIndex = 7;
             label8.Text = "Экипаж:";
             // 
+            // textBoxFlightTeam
+            // 
+            textBoxFlightTeam.Location = new Point(20, 129);
+            textBoxFlightTeam.Name = "textBoxFlightTeam";
+            textBoxFlightTeam.Size = new Size(280, 27);
+            textBoxFlightTeam.TabIndex = 6;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 12F);
+            label7.Location = new Point(20, 30);
+            label7.Name = "label7";
+            label7.Size = new Size(119, 28);
+            label7.TabIndex = 5;
+            label7.Text = "Должность:";
+            // 
             // FormEmployee
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -271,7 +271,7 @@
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
-            Controls.Add(button1);
+            Controls.Add(buttonSave);
             Name = "FormEmployee";
             Text = "Сотрудник";
             groupBox1.ResumeLayout(false);
@@ -285,26 +285,26 @@
 
         #endregion
 
-        private Button button1;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
-        private TextBox textBox4;
-        private DateTimePicker dateTimePicker1;
-        private DateTimePicker dateTimePicker2;
+        private Button buttonSave;
+        private TextBox textBoxSurname;
+        private TextBox textBoxLastName;
+        private TextBox textBoxName;
+        private TextBox textBoxJob;
+        private DateTimePicker dateTimePickerMedAnalys;
+        private DateTimePicker dateTimePickerBirth;
         private GroupBox groupBox1;
         private Label label1;
         private Label label4;
         private Label label3;
         private Label label2;
         private GroupBox groupBox2;
-        private CheckBox checkBox1;
+        private CheckBox checkBoxMedAnalys;
         private Label label6;
-        private ComboBox comboBox1;
+        private ComboBox comboBoxGender;
         private Label label5;
         private GroupBox groupBox3;
         private Label label8;
-        private TextBox textBox5;
+        private TextBox textBoxFlightTeam;
         private Label label7;
     }
 }
