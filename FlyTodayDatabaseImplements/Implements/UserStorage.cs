@@ -28,13 +28,13 @@ namespace FlyTodayDatabaseImplements.Implements
 
         public UserViewModel? GetElement(UserSearchModel model)
         {
-            //using var context = new FlyTodayDatabase();
-            //if (model.Id.HasValue)
-            //    return context.Users.FirstOrDefault(x => x.Id == model.Id)?.GetViewModel;
-            //if (!string.IsNullOrEmpty(model.Email) && !string.IsNullOrEmpty(model.Password))
-            //    return context.Users.FirstOrDefault(x => x.Email.Equals(model.Email) && x.Password.Equals(model.Password))?.GetViewModel;
-            //if (!string.IsNullOrEmpty(model.Email))
-            //    return context.Users.FirstOrDefault(x => x.Email.Equals(model.Email))?.GetViewModel;
+            using var context = new FlyTodayDatabase();
+            if (model.Id.HasValue)
+                return context.Users.FirstOrDefault(x => x.Id == model.Id)?.GetViewModel;
+            if (!string.IsNullOrEmpty(model.Email) && !string.IsNullOrEmpty(model.Password))
+                return context.Users.FirstOrDefault(x => x.Email.Equals(model.Email) && x.Password.Equals(model.Password))?.GetViewModel;
+            if (!string.IsNullOrEmpty(model.Email))
+                return context.Users.FirstOrDefault(x => x.Email.Equals(model.Email))?.GetViewModel;
             return null;
         }
 

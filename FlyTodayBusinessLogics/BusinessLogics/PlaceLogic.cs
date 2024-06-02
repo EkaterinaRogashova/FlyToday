@@ -15,12 +15,12 @@ namespace FlyTodayBusinessLogics.BusinessLogics
     public class PlaceLogic : IPlaceLogic
     {
         private readonly ILogger _logger;
-        private readonly IPlaceStorage _PlaceStorage;
-        public PlaceLogic(ILogger<PlaceLogic> logger, IPlaceStorage placeStorage)
-        {
-            _logger = logger;
-            _placeStorage = placeStorage;
-        }
+        //private readonly IPlaceStorage _PlaceStorage;
+        //public PlaceLogic(ILogger<PlaceLogic> logger, IPlaceStorage placeStorage)
+        //{
+        //    _logger = logger;
+        //    _placeStorage = placeStorage;
+        //}
         public bool Create(PlaceBindingModel model)
         {
             throw new NotImplementedException();
