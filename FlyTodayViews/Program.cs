@@ -35,6 +35,10 @@ namespace FlyTodayViews
             });
             services.AddTransient<IUserStorage, UserStorage>();
             services.AddTransient<IUserLogic, UserLogic>();
+            services.AddTransient<ISaleStorage, SaleStorage>();
+            services.AddTransient<ISaleLogic, SaleLogic>();
+            services.AddTransient<IPositionAtWorkStorage, PositionAtWorkStorage>();
+            services.AddTransient<IPositionAtWorkLogic, PositionAtWorkLogic>();
             services.AddTransient<FormMainMenu>();
             services.AddTransient<FormEnter>();
             services.AddTransient<FormRegistration>();
@@ -42,6 +46,8 @@ namespace FlyTodayViews
             services.AddTransient<FormEmployees>();
             services.AddTransient<FormSale>();
             services.AddTransient<FormSales>();
+            services.AddTransient<FormPositionAtWork>();
+            services.AddTransient<FormPositionAtWorks>();
         }
     }
 }

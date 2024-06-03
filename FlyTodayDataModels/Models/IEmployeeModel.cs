@@ -16,7 +16,7 @@ namespace FlyTodayDataModels.Models
         DateTime DateMedAnalys { get; }
         DateTime DateOfBirth {  get; }
         string Gender { get; }
-        string JobTitle { get; }
+        int PositionAtWorkId { get; }
         int FlightId { get; }
 
     }

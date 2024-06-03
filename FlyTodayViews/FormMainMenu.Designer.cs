@@ -33,6 +33,8 @@
             buttonMainEnter = new Button();
             buttonMainRegistration = new Button();
             buttonMainLK = new Button();
+            buttonEmployees = new Button();
+            buttonSales = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -89,11 +91,35 @@
             buttonMainLK.Text = "Личный кабинет";
             buttonMainLK.UseVisualStyleBackColor = true;
             // 
+            // buttonEmployees
+            // 
+            buttonEmployees.Font = new Font("Segoe UI", 12F);
+            buttonEmployees.Location = new Point(575, 12);
+            buttonEmployees.Name = "buttonEmployees";
+            buttonEmployees.Size = new Size(213, 67);
+            buttonEmployees.TabIndex = 5;
+            buttonEmployees.Text = "К подбору персонала";
+            buttonEmployees.UseVisualStyleBackColor = true;
+            buttonEmployees.Click += buttonEmployees_Click;
+            // 
+            // buttonSales
+            // 
+            buttonSales.Font = new Font("Segoe UI", 12F);
+            buttonSales.Location = new Point(575, 94);
+            buttonSales.Name = "buttonSales";
+            buttonSales.Size = new Size(213, 67);
+            buttonSales.TabIndex = 6;
+            buttonSales.Text = "Льготы";
+            buttonSales.UseVisualStyleBackColor = true;
+            buttonSales.Click += buttonSales_Click;
+            // 
             // FormMainMenu
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(buttonSales);
+            Controls.Add(buttonEmployees);
             Controls.Add(buttonMainLK);
             Controls.Add(buttonMainRegistration);
             Controls.Add(buttonMainEnter);
@@ -112,5 +138,7 @@
         private Button buttonMainEnter;
         private Button buttonMainRegistration;
         private Button buttonMainLK;
+        private Button buttonEmployees;
+        private Button buttonSales;
     }
 }

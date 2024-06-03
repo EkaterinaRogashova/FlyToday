@@ -13,17 +13,17 @@ using System.Windows.Forms;
 
 namespace FlyTodayViews
 {
-    public partial class FormSales : Form
+    public partial class FormPositionAtWorks : Form
     {
         private readonly ILogger _logger;
-        private readonly ISaleLogic _logic;
-        public FormSales(ILogger<FormSales> logger, ISaleLogic logic)
+        private readonly IPositionAtWorkLogic _logic;
+        public FormPositionAtWorks(ILogger<FormPositionAtWorks> logger, IPositionAtWorkLogic logic)
         {
             InitializeComponent();
             _logger = logger;
             _logic = logic;
         }
-        private void FormSales_Load(object sender, EventArgs e)
+        private void FormPositionAtWorks_Load(object sender, EventArgs e)
         {
             LoadData();
         }
@@ -37,22 +37,22 @@ namespace FlyTodayViews
                 {
                     dataGridView1.DataSource = list;
                     dataGridView1.Columns["Id"].Visible = false;
-                    dataGridView1.Columns["Category"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView1.Columns["Percent"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView1.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
-                _logger.LogInformation("Загрузка льгот");
+                _logger.LogInformation("Загрузка должностей");
 
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Ошибка загрузки льгот");
+                _logger.LogError(ex, "Ошибка загрузки должностей");
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         private void buttonAdd_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormSale));
-            if (service is FormSale form)
+            var service = Program.ServiceProvider?.GetService(typeof(FormPositionAtWork));
+            if (service is FormPositionAtWork form)
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -65,8 +65,8 @@ namespace FlyTodayViews
         {
             if (dataGridView1.SelectedRows.Count == 1)
             {
-                var service = Program.ServiceProvider?.GetService(typeof(FormSale));
-                if (service is FormSale form)
+                var service = Program.ServiceProvider?.GetService(typeof(FormPositionAtWork));
+                if (service is FormPositionAtWork form)
                 {
                     form.Id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
                     if (form.ShowDialog() == DialogResult.OK)
@@ -85,10 +85,10 @@ namespace FlyTodayViews
                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     int id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
-                    _logger.LogInformation("Удаление льготы");
+                    _logger.LogInformation("Удаление должности");
                     try
                     {
-                        if (!_logic.Delete(new SaleBindingModel
+                        if (!_logic.Delete(new PositionAtWorkBindingModel
                         {
                             Id = id
                         }))
@@ -99,7 +99,7 @@ namespace FlyTodayViews
                     }
                     catch (Exception ex)
                     {
-                        _logger.LogError(ex, "Ошибка удаления льготы");
+                        _logger.LogError(ex, "Ошибка удаления должности");
                         MessageBox.Show(ex.Message, "Ошибка",
                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }

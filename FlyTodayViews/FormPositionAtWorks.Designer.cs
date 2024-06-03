@@ -1,6 +1,6 @@
 ﻿namespace FlyTodayViews
 {
-    partial class FormSales
+    partial class FormPositionAtWorks
     {
         /// <summary>
         /// Required designer variable.
@@ -37,7 +37,7 @@
             // 
             // dataGridView1
             // 
-            dataGridView1.BackgroundColor = SystemColors.ButtonFace;
+            dataGridView1.BackgroundColor = SystemColors.Control;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(12, 12);
             dataGridView1.Name = "dataGridView1";
@@ -50,7 +50,7 @@
             buttonAdd.Font = new Font("Segoe UI", 12F);
             buttonAdd.Location = new Point(294, 12);
             buttonAdd.Name = "buttonAdd";
-            buttonAdd.Size = new Size(126, 48);
+            buttonAdd.Size = new Size(130, 47);
             buttonAdd.TabIndex = 1;
             buttonAdd.Text = "Добавить";
             buttonAdd.UseVisualStyleBackColor = true;
@@ -59,9 +59,9 @@
             // buttonEdit
             // 
             buttonEdit.Font = new Font("Segoe UI", 12F);
-            buttonEdit.Location = new Point(294, 66);
+            buttonEdit.Location = new Point(294, 65);
             buttonEdit.Name = "buttonEdit";
-            buttonEdit.Size = new Size(126, 48);
+            buttonEdit.Size = new Size(130, 47);
             buttonEdit.TabIndex = 2;
             buttonEdit.Text = "Изменить";
             buttonEdit.UseVisualStyleBackColor = true;
@@ -70,15 +70,15 @@
             // buttonDelete
             // 
             buttonDelete.Font = new Font("Segoe UI", 12F);
-            buttonDelete.Location = new Point(294, 120);
+            buttonDelete.Location = new Point(294, 118);
             buttonDelete.Name = "buttonDelete";
-            buttonDelete.Size = new Size(126, 48);
+            buttonDelete.Size = new Size(130, 47);
             buttonDelete.TabIndex = 3;
             buttonDelete.Text = "Удалить";
             buttonDelete.UseVisualStyleBackColor = true;
             buttonDelete.Click += buttonDelete_Click;
             // 
-            // FormSales
+            // FormPositionAtWorks
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -87,9 +87,9 @@
             Controls.Add(buttonEdit);
             Controls.Add(buttonAdd);
             Controls.Add(dataGridView1);
-            Name = "FormSales";
-            Text = "Льготы";
-            Load += FormSales_Load;
+            Name = "FormPositionAtWorks";
+            Text = "Должности";
+            Load += FormPositionAtWorks_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }

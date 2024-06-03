@@ -31,8 +31,8 @@ namespace FlyTodayDatabaseImplements.Implements
             using var context = new FlyTodayDatabase();
             if (model.Id.HasValue)
                 return context.Employees.FirstOrDefault(x => x.Id == model.Id)?.GetViewModel;
-            if (!string.IsNullOrEmpty(model.Surname) && !string.IsNullOrEmpty(model.JobTitle))
-                return context.Employees.FirstOrDefault(x => x.Surname.Equals(model.Surname) && x.JobTitle.Equals(model.JobTitle))?.GetViewModel;
+            if (!string.IsNullOrEmpty(model.Surname) && model.PositionAtWorkId != null)
+                return context.Employees.FirstOrDefault(x => x.Surname.Equals(model.Surname) && x.PositionAtWorkId.Equals(model.PositionAtWorkId))?.GetViewModel;
             return null;
         }
 

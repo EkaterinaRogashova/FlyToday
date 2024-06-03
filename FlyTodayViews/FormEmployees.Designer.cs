@@ -33,13 +33,14 @@
             buttonEdit = new Button();
             buttonDelete = new Button();
             groupBox1 = new GroupBox();
-            comboBoxJob = new ComboBox();
-            label1 = new Label();
             buttonSaveFilter = new Button();
+            label1 = new Label();
+            comboBoxJob = new ComboBox();
             menuStrip1 = new MenuStrip();
             менюToolStripMenuItem = new ToolStripMenuItem();
             scheduleToolStripMenuItem = new ToolStripMenuItem();
             tabelToolStripMenuItem = new ToolStripMenuItem();
+            должностиToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             groupBox1.SuspendLayout();
             menuStrip1.SuspendLayout();
@@ -64,6 +65,7 @@
             buttonAdd.TabIndex = 1;
             buttonAdd.Text = "Добавить";
             buttonAdd.UseVisualStyleBackColor = true;
+            buttonAdd.Click += buttonAdd_Click;
             // 
             // buttonEdit
             // 
@@ -98,13 +100,15 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Фильтр";
             // 
-            // comboBoxJob
+            // buttonSaveFilter
             // 
-            comboBoxJob.FormattingEnabled = true;
-            comboBoxJob.Location = new Point(5, 54);
-            comboBoxJob.Name = "comboBoxJob";
-            comboBoxJob.Size = new Size(151, 28);
-            comboBoxJob.TabIndex = 0;
+            buttonSaveFilter.Font = new Font("Segoe UI", 12F);
+            buttonSaveFilter.Location = new Point(8, 100);
+            buttonSaveFilter.Name = "buttonSaveFilter";
+            buttonSaveFilter.Size = new Size(145, 49);
+            buttonSaveFilter.TabIndex = 5;
+            buttonSaveFilter.Text = "Применить";
+            buttonSaveFilter.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -116,15 +120,13 @@
             label1.TabIndex = 1;
             label1.Text = "По должности:";
             // 
-            // buttonSaveFilter
+            // comboBoxJob
             // 
-            buttonSaveFilter.Font = new Font("Segoe UI", 12F);
-            buttonSaveFilter.Location = new Point(8, 100);
-            buttonSaveFilter.Name = "buttonSaveFilter";
-            buttonSaveFilter.Size = new Size(145, 49);
-            buttonSaveFilter.TabIndex = 5;
-            buttonSaveFilter.Text = "Применить";
-            buttonSaveFilter.UseVisualStyleBackColor = true;
+            comboBoxJob.FormattingEnabled = true;
+            comboBoxJob.Location = new Point(5, 54);
+            comboBoxJob.Name = "comboBoxJob";
+            comboBoxJob.Size = new Size(151, 28);
+            comboBoxJob.TabIndex = 0;
             // 
             // menuStrip1
             // 
@@ -138,7 +140,7 @@
             // 
             // менюToolStripMenuItem
             // 
-            менюToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { scheduleToolStripMenuItem, tabelToolStripMenuItem });
+            менюToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { scheduleToolStripMenuItem, tabelToolStripMenuItem, должностиToolStripMenuItem });
             менюToolStripMenuItem.Name = "менюToolStripMenuItem";
             менюToolStripMenuItem.Size = new Size(65, 24);
             менюToolStripMenuItem.Text = "Меню";
@@ -154,6 +156,13 @@
             tabelToolStripMenuItem.Name = "tabelToolStripMenuItem";
             tabelToolStripMenuItem.Size = new Size(224, 26);
             tabelToolStripMenuItem.Text = "Табель";
+            // 
+            // должностиToolStripMenuItem
+            // 
+            должностиToolStripMenuItem.Name = "должностиToolStripMenuItem";
+            должностиToolStripMenuItem.Size = new Size(224, 26);
+            должностиToolStripMenuItem.Text = "Должности";
+            должностиToolStripMenuItem.Click += должностиToolStripMenuItem_Click;
             // 
             // FormEmployees
             // 
@@ -192,5 +201,6 @@
         private ToolStripMenuItem менюToolStripMenuItem;
         private ToolStripMenuItem scheduleToolStripMenuItem;
         private ToolStripMenuItem tabelToolStripMenuItem;
+        private ToolStripMenuItem должностиToolStripMenuItem;
     }
 }

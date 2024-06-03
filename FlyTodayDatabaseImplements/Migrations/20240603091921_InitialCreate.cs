@@ -59,6 +59,19 @@ namespace FlyTodayDatabaseImplements.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PositionAtWorks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PositionAtWorks", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Sales",
                 columns: table => new
                 {
@@ -83,7 +96,7 @@ namespace FlyTodayDatabaseImplements.Migrations
                     LastName = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
                     Password = table.Column<string>(type: "text", nullable: false),
-                    DateOfBirthday = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    DateOfBirthday = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     AccessRule = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -135,7 +148,7 @@ namespace FlyTodayDatabaseImplements.Migrations
                     DateMedAnalys = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Gender = table.Column<string>(type: "text", nullable: false),
-                    JobTitle = table.Column<string>(type: "text", nullable: false),
+                    PositionAtWorkId = table.Column<int>(type: "integer", nullable: false),
                     FlightId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -145,6 +158,12 @@ namespace FlyTodayDatabaseImplements.Migrations
                         name: "FK_Employees_Flights_FlightId",
                         column: x => x.FlightId,
                         principalTable: "Flights",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Employees_PositionAtWorks_PositionAtWorkId",
+                        column: x => x.PositionAtWorkId,
+                        principalTable: "PositionAtWorks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -278,6 +297,11 @@ namespace FlyTodayDatabaseImplements.Migrations
                 column: "FlightId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Employees_PositionAtWorkId",
+                table: "Employees",
+                column: "PositionAtWorkId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Flights_DirectionId",
                 table: "Flights",
                 column: "DirectionId");
@@ -336,6 +360,9 @@ namespace FlyTodayDatabaseImplements.Migrations
 
             migrationBuilder.DropTable(
                 name: "Sales");
+
+            migrationBuilder.DropTable(
+                name: "PositionAtWorks");
 
             migrationBuilder.DropTable(
                 name: "Flights");

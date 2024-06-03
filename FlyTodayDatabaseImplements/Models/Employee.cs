@@ -29,10 +29,11 @@ namespace FlyTodayDatabaseImplements.Models
         [Required]
         public string Gender { get; private set; } = string.Empty;
         [Required]
-        public string JobTitle { get; private set; } = string.Empty;
+        public int PositionAtWorkId { get; private set; }
         [Required]
         public int FlightId { get; private set; }
         public Flight Flight { get; set; }
+        public PositionAtWork PositionAtWork { get; set; }
 
         public static Employee? Create(EmployeeBindingModel model)
         {
@@ -50,7 +51,7 @@ namespace FlyTodayDatabaseImplements.Models
                 MedAnalys = model.MedAnalys,
                 DateMedAnalys = model.DateMedAnalys,
                 Gender = model.Gender,
-                JobTitle = model.JobTitle,
+                PositionAtWorkId = model.PositionAtWorkId,
                 FlightId = model.FlightId
             };
         }
@@ -66,7 +67,7 @@ namespace FlyTodayDatabaseImplements.Models
                 MedAnalys = model.MedAnalys,
                 DateMedAnalys = model.DateMedAnalys,
                 Gender = model.Gender,
-                JobTitle = model.JobTitle,
+                PositionAtWorkId = model.PositionAtWorkId,
                 FlightId = model.FlightId
             };
         }
@@ -83,7 +84,7 @@ namespace FlyTodayDatabaseImplements.Models
             MedAnalys = model.MedAnalys;
             DateMedAnalys = model.DateMedAnalys;
             Gender = model.Gender;
-            JobTitle = model.JobTitle;
+            PositionAtWorkId = model.PositionAtWorkId;
             FlightId = model.FlightId;
         }
         public EmployeeViewModel GetViewModel => new()
@@ -96,7 +97,7 @@ namespace FlyTodayDatabaseImplements.Models
             MedAnalys = MedAnalys,
             DateMedAnalys = DateMedAnalys,
             Gender = Gender,
-            JobTitle = JobTitle,
+            PositionAtWorkId = PositionAtWorkId,
             FlightId = FlightId
         };
     }

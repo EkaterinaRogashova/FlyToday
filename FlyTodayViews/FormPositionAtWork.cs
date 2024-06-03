@@ -14,59 +14,59 @@ using System.Windows.Forms;
 
 namespace FlyTodayViews
 {
-    public partial class FormSale : Form
+    public partial class FormPositionAtWork : Form
     {
         private readonly ILogger _logger;
-        private readonly ISaleLogic _logic;
+        private readonly IPositionAtWorkLogic _logic;
         private int? _id;
         public int Id { set { _id = value; } }
-        public FormSale(ILogger<FormSale> logger, ISaleLogic logic)
+        public FormPositionAtWork(ILogger<FormPositionAtWork> logger, IPositionAtWorkLogic logic)
         {
             InitializeComponent();
             _logger = logger;
             _logic = logic;
         }
-        private void FormSale_Load(object sender, EventArgs e)
+
+        private void FormPositionAtWork_Load(object sender, EventArgs e)
         {
             if (_id.HasValue)
             {
                 try
                 {
-                    _logger.LogInformation("Получение льготы");
-                    var view = _logic.ReadElement(new SaleSearchModel
+                    _logger.LogInformation("Получение должности");
+                    var view = _logic.ReadElement(new PositionAtWorkSearchModel
                     {
                         Id = _id.Value
                     });
                     if (view != null)
                     {
-                        textBoxCategoryName.Text = view.Category;
-                        textBoxPercent.Text = view.Percent.ToString();
+                        textBoxName.Text = view.Name;
                     }
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Ошибка получения льготы");
+                    _logger.LogError(ex, "Ошибка получения должности");
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 }
             }
         }
+
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(textBoxCategoryName.Text) || string.IsNullOrEmpty(textBoxPercent.Text))
+            if (string.IsNullOrEmpty(textBoxName.Text))
             {
-                MessageBox.Show("Заполните поля", "Ошибка",
+                MessageBox.Show("Заполните поле", "Ошибка",
                MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            _logger.LogInformation("Сохранение льготы");
+            _logger.LogInformation("Сохранение должности");
             try
             {
-                var model = new SaleBindingModel
+                var model = new PositionAtWorkBindingModel
                 {
                     Id = _id ?? 0,
-                    Category = textBoxCategoryName.Text,
-                    Percent = Convert.ToDouble(textBoxPercent.Text)
+                    Name = textBoxName.Text
                 };
                 var operationResult = _id.HasValue ? _logic.Update(model) :
                _logic.Create(model);
@@ -81,7 +81,7 @@ namespace FlyTodayViews
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Ошибка сохранения льготы");
+                _logger.LogError(ex, "Ошибка сохранения должности");
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
                MessageBoxIcon.Error);
             }

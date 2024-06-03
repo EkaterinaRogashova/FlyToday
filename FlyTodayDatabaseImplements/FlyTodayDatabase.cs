@@ -31,6 +31,7 @@ namespace FlyTodayDatabaseImplements
         public virtual DbSet<Schedule> Schedules { set; get; }
         public virtual DbSet<Ticket> Tickets { set; get; }
         public virtual DbSet<User> Users { set; get; }
+        public virtual DbSet<PositionAtWork> PositionAtWorks { set; get; }
 
     }
 }

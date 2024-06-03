@@ -25,7 +25,7 @@ namespace FlyTodayContracts.ViewModels
         [DisplayName("Пол")]
         public string Gender { get; set; } = string.Empty;
         [DisplayName("Должность")]
-        public string JobTitle { get; set; } = string.Empty;
+        public int PositionAtWorkId { get; set; }
         [DisplayName("Рейс")]
         public int FlightId { get; set; }
 

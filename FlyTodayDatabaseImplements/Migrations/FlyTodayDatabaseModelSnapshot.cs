@@ -95,10 +95,6 @@ namespace FlyTodayDatabaseImplements.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("JobTitle")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("text");
@@ -110,6 +106,9 @@ namespace FlyTodayDatabaseImplements.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("PositionAtWorkId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Surname")
                         .IsRequired()
                         .HasColumnType("text");
@@ -117,6 +116,8 @@ namespace FlyTodayDatabaseImplements.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("FlightId");
+
+                    b.HasIndex("PositionAtWorkId");
 
                     b.ToTable("Employees");
                 });
@@ -203,6 +204,23 @@ namespace FlyTodayDatabaseImplements.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Planes");
+                });
+
+            modelBuilder.Entity("FlyTodayDatabaseImplements.Models.PositionAtWork", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PositionAtWorks");
                 });
 
             modelBuilder.Entity("FlyTodayDatabaseImplements.Models.Rent", b =>
@@ -357,7 +375,7 @@ namespace FlyTodayDatabaseImplements.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("DateOfBirthday")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -411,7 +429,15 @@ namespace FlyTodayDatabaseImplements.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("FlyTodayDatabaseImplements.Models.PositionAtWork", "PositionAtWork")
+                        .WithMany()
+                        .HasForeignKey("PositionAtWorkId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Flight");
+
+                    b.Navigation("PositionAtWork");
                 });
 
             modelBuilder.Entity("FlyTodayDatabaseImplements.Models.Flight", b =>

@@ -23,7 +23,7 @@ namespace FlyTodayContracts.BindingModels
 
         public string Gender { get; set; } = string.Empty;
 
-        public string JobTitle { get; set; } = string.Empty;
+        public int PositionAtWorkId { get; set; }
 
         public int FlightId { get; set; }
 

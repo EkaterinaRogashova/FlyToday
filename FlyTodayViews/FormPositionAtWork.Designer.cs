@@ -1,6 +1,6 @@
 ﻿namespace FlyTodayViews
 {
-    partial class FormSale
+    partial class FormPositionAtWork
     {
         /// <summary>
         /// Required designer variable.
@@ -30,18 +30,16 @@
         {
             buttonSave = new Button();
             label1 = new Label();
-            textBoxCategoryName = new TextBox();
-            textBoxPercent = new TextBox();
-            label2 = new Label();
+            textBoxName = new TextBox();
             SuspendLayout();
             // 
             // buttonSave
             // 
             buttonSave.BackColor = SystemColors.ActiveCaption;
             buttonSave.Font = new Font("Segoe UI", 12F);
-            buttonSave.Location = new Point(80, 176);
+            buttonSave.Location = new Point(75, 174);
             buttonSave.Name = "buttonSave";
-            buttonSave.Size = new Size(159, 42);
+            buttonSave.Size = new Size(144, 46);
             buttonSave.TabIndex = 0;
             buttonSave.Text = "Сохранить";
             buttonSave.UseVisualStyleBackColor = false;
@@ -51,49 +49,30 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(28, 14);
+            label1.Location = new Point(21, 39);
             label1.Name = "label1";
-            label1.Size = new Size(199, 28);
+            label1.Size = new Size(211, 28);
             label1.TabIndex = 1;
-            label1.Text = "Название категории";
+            label1.Text = "Название должности:";
             // 
-            // textBoxCategoryName
+            // textBoxName
             // 
-            textBoxCategoryName.Location = new Point(28, 45);
-            textBoxCategoryName.Name = "textBoxCategoryName";
-            textBoxCategoryName.Size = new Size(245, 27);
-            textBoxCategoryName.TabIndex = 2;
+            textBoxName.Location = new Point(21, 72);
+            textBoxName.Name = "textBoxName";
+            textBoxName.Size = new Size(269, 27);
+            textBoxName.TabIndex = 2;
             // 
-            // textBoxPercent
-            // 
-            textBoxPercent.Location = new Point(28, 115);
-            textBoxPercent.Name = "textBoxPercent";
-            textBoxPercent.Size = new Size(245, 27);
-            textBoxPercent.TabIndex = 4;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(28, 84);
-            label2.Name = "label2";
-            label2.Size = new Size(184, 28);
-            label2.TabIndex = 3;
-            label2.Text = "Размер скидки в %";
-            // 
-            // FormSale
+            // FormPositionAtWork
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(302, 263);
-            Controls.Add(textBoxPercent);
-            Controls.Add(label2);
-            Controls.Add(textBoxCategoryName);
+            Controls.Add(textBoxName);
             Controls.Add(label1);
             Controls.Add(buttonSave);
-            Name = "FormSale";
-            Text = "Льгота";
-            Load += FormSale_Load;
+            Name = "FormPositionAtWork";
+            Text = "Должность";
+            Load += FormPositionAtWork_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -102,8 +81,6 @@
 
         private Button buttonSave;
         private Label label1;
-        private TextBox textBoxCategoryName;
-        private TextBox textBoxPercent;
-        private Label label2;
+        private TextBox textBoxName;
     }
 }

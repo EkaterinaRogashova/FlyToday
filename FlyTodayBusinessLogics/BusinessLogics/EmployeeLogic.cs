@@ -50,7 +50,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             {
                 throw new ArgumentNullException(nameof(model));
             }
-            _logger.LogInformation("ReadElement. Employee. Surname: {Surname}. MedAnalys: {MedAnalys}. JobTitle: {JobTitle}. FlightId: {FlightId}. Id: {Id}", model.Surname, model.MedAnalys, model.JobTitle, model.FlightId, model.Id);
+            _logger.LogInformation("ReadElement. Employee. Surname: {Surname}. MedAnalys: {MedAnalys}. PositionAtWorkId: {PositionAtWorkId}. FlightId: {FlightId}. Id: {Id}", model.Surname, model.MedAnalys, model.PositionAtWorkId, model.FlightId, model.Id);
             var element = _employeeStorage.GetElement(model);
             if (element == null)
             {
@@ -63,7 +63,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
 
         public List<EmployeeViewModel>? ReadList(EmployeeSearchModel? model)
         {
-            _logger.LogInformation("ReadList. Surname: {Surname}. MedAnalys: {MedAnalys}. JobTitle: {JobTitle}. FlightId: {FlightId}. Id: {Id}", model?.Surname, model?.MedAnalys, model?.JobTitle, model?.FlightId, model?.Id);
+            _logger.LogInformation("ReadList. Surname: {Surname}. MedAnalys: {MedAnalys}. PositionAtWorkId: {PositionAtWorkId}. FlightId: {FlightId}. Id: {Id}", model?.Surname, model?.MedAnalys, model?.PositionAtWorkId, model?.FlightId, model?.Id);
             var list = model == null ? _employeeStorage.GetFullList() : _employeeStorage.GetFilteredList(model);
             if (list == null)
             {
@@ -111,18 +111,19 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             {
                 throw new ArgumentNullException("Неверная дата рождения сотрудника", nameof(model.DateOfBirth));
             }
-            if (string.IsNullOrEmpty(model.JobTitle))
+            if (model.PositionAtWorkId < 0)
             {
-                throw new ArgumentNullException("Нет должности сотрудника", nameof(model.JobTitle));
+                throw new ArgumentNullException("Неверный идентификатор должности", nameof(model.PositionAtWorkId));
             }
             if (model.FlightId < 0)
             {
                 throw new ArgumentNullException("Неверныый идентификатор рейса", nameof(model.FlightId));
             }
-            _logger.LogInformation("Employee. Surname: {Surname}. Name: {Name}. LastName: {LastName}. DateOfBirth: {DateOfBirth}. MedAnalys: {MedAnalys}. DateMedAnalys: {DateMedAnalys}. Gender: {Gender}. JobTitle: {JobTitle}. FlightId: {FlightId}. Id: {Id}", model.Name, model.Surname, model.LastName, model.DateOfBirth, model.DateMedAnalys, model.MedAnalys, model.JobTitle, model.FlightId, model.Gender, model.Id);
+            _logger.LogInformation("Employee. Surname: {Surname}. Name: {Name}. LastName: {LastName}. DateOfBirth: {DateOfBirth}. MedAnalys: {MedAnalys}. DateMedAnalys: {DateMedAnalys}. Gender: {Gender}. PositionAtWorkId: {PositionAtWorkId}. FlightId: {FlightId}. Id: {Id}", model.Name, model.Surname, model.LastName, model.DateOfBirth, model.DateMedAnalys, model.MedAnalys, model.PositionAtWorkId, model.FlightId, model.Gender, model.Id);
             var element = _employeeStorage.GetElement(new EmployeeSearchModel
             {
-                Surname = model.Surname
+                Surname = model.Surname,
+                PositionAtWorkId = model.PositionAtWorkId
             });
             if (element != null && element.Id != model.Id)
             {

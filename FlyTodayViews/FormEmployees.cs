@@ -16,5 +16,29 @@ namespace FlyTodayViews
         {
             InitializeComponent();
         }
+
+        private void должностиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormPositionAtWorks));
+            if (service is FormPositionAtWorks form)
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    //LoadData();
+                }
+            }
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormEmployee));
+            if (service is FormEmployee form)
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    //LoadData();
+                }
+            }
+        }
     }
 }

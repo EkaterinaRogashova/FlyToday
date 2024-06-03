@@ -11,57 +11,57 @@ using System.Threading.Tasks;
 
 namespace FlyTodayDatabaseImplements.Implements
 {
-    public class SaleStorage : ISaleStorage
+    public class PositionAtWorkStorage : IPositionAtWorkStorage
     {
-        public SaleViewModel? Delete(SaleBindingModel model)
+        public PositionAtWorkViewModel? Delete(PositionAtWorkBindingModel model)
         {
             using var context = new FlyTodayDatabase();
-            var element = context.Sales.FirstOrDefault(rec => rec.Id == model.Id);
+            var element = context.PositionAtWorks.FirstOrDefault(rec => rec.Id == model.Id);
             if (element != null)
             {
-                context.Sales.Remove(element);
+                context.PositionAtWorks.Remove(element);
                 context.SaveChanges();
                 return element.GetViewModel;
             }
             return null;
         }
 
-        public SaleViewModel? GetElement(SaleSearchModel model)
+        public PositionAtWorkViewModel? GetElement(PositionAtWorkSearchModel model)
         {
             using var context = new FlyTodayDatabase();
             if (model.Id.HasValue)
-                return context.Sales.FirstOrDefault(x => x.Id == model.Id)?.GetViewModel;
+                return context.PositionAtWorks.FirstOrDefault(x => x.Id == model.Id)?.GetViewModel;
             return null;
         }
 
-        public List<SaleViewModel> GetFilteredList(SaleSearchModel model)
+        public List<PositionAtWorkViewModel> GetFilteredList(PositionAtWorkSearchModel model)
         {
             throw new NotImplementedException();
         }
 
-        public List<SaleViewModel> GetFullList()
+        public List<PositionAtWorkViewModel> GetFullList()
         {
             using var context = new FlyTodayDatabase();
-            return context.Sales.Select(x => x.GetViewModel).ToList();
+            return context.PositionAtWorks.Select(x => x.GetViewModel).ToList();
         }
 
-        public SaleViewModel? Insert(SaleBindingModel model)
+        public PositionAtWorkViewModel? Insert(PositionAtWorkBindingModel model)
         {
-            var newSale = Sale.Create(model);
-            if (newSale == null)
+            var newPositionAtWork = PositionAtWork.Create(model);
+            if (newPositionAtWork == null)
             {
                 return null;
             }
             using var context = new FlyTodayDatabase();
-            context.Sales.Add(newSale);
+            context.PositionAtWorks.Add(newPositionAtWork);
             context.SaveChanges();
-            return newSale.GetViewModel;
+            return newPositionAtWork.GetViewModel;
         }
 
-        public SaleViewModel? Update(SaleBindingModel model)
+        public PositionAtWorkViewModel? Update(PositionAtWorkBindingModel model)
         {
             using var context = new FlyTodayDatabase();
-            var sale = context.Sales.FirstOrDefault(x => x.Id == model.Id);
+            var sale = context.PositionAtWorks.FirstOrDefault(x => x.Id == model.Id);
             if (sale == null)
             {
                 return null;
