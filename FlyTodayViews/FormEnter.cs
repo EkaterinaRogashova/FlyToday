@@ -10,7 +10,8 @@ namespace FlyTodayViews
     {
         private readonly ILogger _logger;
         private readonly IUserLogic _logic;
-        public FormEnter(ILogger<FormRegistration> logger, IUserLogic logic)
+
+        public FormEnter(ILogger<FormEnter> logger, IUserLogic logic)
         {
             InitializeComponent();
             _logger = logger;
@@ -48,6 +49,7 @@ namespace FlyTodayViews
                 _logger.LogError(ex, "Ошибка входа в систему");
                 throw;
             }
+
 
         }
     }

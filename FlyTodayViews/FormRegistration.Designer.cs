@@ -102,6 +102,7 @@
             textBoxPassword.Name = "textBoxPassword";
             textBoxPassword.Size = new Size(250, 27);
             textBoxPassword.TabIndex = 7;
+            textBoxPassword.PasswordChar = '*';
             // 
             // textBoxRepeatPassword
             // 
@@ -109,6 +110,7 @@
             textBoxRepeatPassword.Name = "textBoxRepeatPassword";
             textBoxRepeatPassword.Size = new Size(250, 27);
             textBoxRepeatPassword.TabIndex = 8;
+            textBoxRepeatPassword.PasswordChar = '*';
             // 
             // label2
             // 

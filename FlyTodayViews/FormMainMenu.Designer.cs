@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMainMenu));
             pictureBox1 = new PictureBox();
             buttonMainSearch = new Button();
             buttonMainEnter = new Button();
@@ -40,10 +41,10 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.Снимок_экрана_2024_06_02_141321;
-            pictureBox1.Location = new Point(293, 12);
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(327, 12);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(269, 194);
+            pictureBox1.Size = new Size(205, 183);
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
@@ -117,6 +118,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ButtonHighlight;
             ClientSize = new Size(800, 450);
             Controls.Add(buttonSales);
             Controls.Add(buttonEmployees);

@@ -32,7 +32,6 @@
             textBoxSurname = new TextBox();
             textBoxLastName = new TextBox();
             textBoxName = new TextBox();
-            textBoxJob = new TextBox();
             dateTimePickerMedAnalys = new DateTimePicker();
             dateTimePickerBirth = new DateTimePicker();
             groupBox1 = new GroupBox();
@@ -46,6 +45,7 @@
             label5 = new Label();
             checkBoxMedAnalys = new CheckBox();
             groupBox3 = new GroupBox();
+            comboBoxJob = new ComboBox();
             label8 = new Label();
             textBoxFlightTeam = new TextBox();
             label7 = new Label();
@@ -64,6 +64,7 @@
             buttonSave.TabIndex = 0;
             buttonSave.Text = "Сохранить";
             buttonSave.UseVisualStyleBackColor = false;
+            buttonSave.Click += buttonSave_Click;
             // 
             // textBoxSurname
             // 
@@ -85,14 +86,6 @@
             textBoxName.Name = "textBoxName";
             textBoxName.Size = new Size(282, 27);
             textBoxName.TabIndex = 3;
-            // 
-            // textBoxJob
-            // 
-            textBoxJob.Location = new Point(20, 64);
-            textBoxJob.Name = "textBoxJob";
-            textBoxJob.Size = new Size(280, 27);
-            textBoxJob.TabIndex = 4;
-            textBoxJob.TextChanged += textBox4_TextChanged;
             // 
             // dateTimePickerMedAnalys
             // 
@@ -143,6 +136,7 @@
             // comboBoxGender
             // 
             comboBoxGender.FormattingEnabled = true;
+            comboBoxGender.Items.AddRange(new object[] { "Ж", "М" });
             comboBoxGender.Location = new Point(15, 305);
             comboBoxGender.Name = "comboBoxGender";
             comboBoxGender.Size = new Size(284, 28);
@@ -225,16 +219,24 @@
             // groupBox3
             // 
             groupBox3.BackColor = SystemColors.GradientActiveCaption;
+            groupBox3.Controls.Add(comboBoxJob);
             groupBox3.Controls.Add(label8);
             groupBox3.Controls.Add(textBoxFlightTeam);
             groupBox3.Controls.Add(label7);
-            groupBox3.Controls.Add(textBoxJob);
             groupBox3.Location = new Point(432, 199);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(322, 177);
             groupBox3.TabIndex = 9;
             groupBox3.TabStop = false;
             groupBox3.Text = "Данные о работе";
+            // 
+            // comboBoxJob
+            // 
+            comboBoxJob.FormattingEnabled = true;
+            comboBoxJob.Location = new Point(20, 64);
+            comboBoxJob.Name = "comboBoxJob";
+            comboBoxJob.Size = new Size(280, 28);
+            comboBoxJob.TabIndex = 8;
             // 
             // label8
             // 
@@ -274,6 +276,7 @@
             Controls.Add(buttonSave);
             Name = "FormEmployee";
             Text = "Сотрудник";
+            Load += FormEmployee_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
@@ -289,7 +292,6 @@
         private TextBox textBoxSurname;
         private TextBox textBoxLastName;
         private TextBox textBoxName;
-        private TextBox textBoxJob;
         private DateTimePicker dateTimePickerMedAnalys;
         private DateTimePicker dateTimePickerBirth;
         private GroupBox groupBox1;
@@ -306,5 +308,6 @@
         private Label label8;
         private TextBox textBoxFlightTeam;
         private Label label7;
+        private ComboBox comboBoxJob;
     }
 }

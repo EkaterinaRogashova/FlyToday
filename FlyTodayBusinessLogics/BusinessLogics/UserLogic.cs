@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -22,9 +23,18 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             _logger = logger;
             _userStorage = userStorage;
         }
+        private string EncryptPassword(string password)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                return Convert.ToBase64String(hashedBytes);
+            }
+        }
         public bool Create(UserBindingModel model)
         {
             CheckModel(model);
+            model.Password = EncryptPassword(model.Password);
             if (_userStorage.Insert(model) == null)
             {
                 _logger.LogWarning("Insert operation failed");
@@ -58,8 +68,42 @@ namespace FlyTodayBusinessLogics.BusinessLogics
                 _logger.LogWarning("ReadElement element not found");
                 return null;
             }
+            element.Password = DecryptPassword(element.Password);
+
             _logger.LogInformation("ReadElement find. Id: {Id}", element.Id);
             return element;
+        }
+        private string DecryptPassword(string encryptedPassword)
+        {
+            byte[] hashedBytes = Convert.FromBase64String(encryptedPassword);
+
+            using (var sha256 = SHA256.Create())
+            {
+                byte[] originalBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(encryptedPassword));
+
+                if (ByteArraysEqual(hashedBytes, originalBytes))
+                {
+                    return encryptedPassword;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        private bool ByteArraysEqual(byte[] a, byte[] b)
+        {
+            if (a.Length != b.Length)
+                return false;
+
+            for (int i = 0; i < a.Length; i++)
+            {
+                if (a[i] != b[i])
+                    return false;
+            }
+
+            return true;
         }
 
         public List<UserViewModel>? ReadList(UserSearchModel? model)

@@ -39,6 +39,8 @@ namespace FlyTodayViews
             services.AddTransient<ISaleLogic, SaleLogic>();
             services.AddTransient<IPositionAtWorkStorage, PositionAtWorkStorage>();
             services.AddTransient<IPositionAtWorkLogic, PositionAtWorkLogic>();
+            services.AddTransient<IEmployeeStorage, EmployeeStorage>();
+            services.AddTransient<IEmployeeLogic, EmployeeLogic>();
             services.AddTransient<FormMainMenu>();
             services.AddTransient<FormEnter>();
             services.AddTransient<FormRegistration>();

@@ -63,6 +63,7 @@
             textBoxPassword.Name = "textBoxPassword";
             textBoxPassword.Size = new Size(252, 27);
             textBoxPassword.TabIndex = 2;
+            textBoxPassword.PasswordChar = '*';
             // 
             // label1
             // 

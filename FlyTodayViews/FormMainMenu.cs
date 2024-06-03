@@ -1,4 +1,8 @@
-﻿using System;
+﻿using FlyTodayContracts.BusinessLogicContracts;
+using FlyTodayContracts.SearchModels;
+using Microsoft.Extensions.Logging;
+using FlyTodayDataModels.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,16 +11,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace FlyTodayViews
 {
     public partial class FormMainMenu : Form
     {
-        public FormMainMenu()
+        private readonly ILogger _logger;
+        private readonly IUserLogic _logic;
+        private int _currentUserId;
+        public FormMainMenu(ILogger<FormMainMenu> logger, IUserLogic logic)
         {
             InitializeComponent();
+            _logger = logger;
+            _logic = logic;
         }
-
+        public int CurrentUserId
+        {
+            get { return _currentUserId; }
+            set { _currentUserId = value; }
+        }
         private void buttonMainEnter_Click(object sender, EventArgs e)
         {
             var service = Program.ServiceProvider?.GetService(typeof(FormEnter));
