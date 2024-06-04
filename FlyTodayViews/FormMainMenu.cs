@@ -1,17 +1,5 @@
 ﻿using FlyTodayContracts.BusinessLogicContracts;
-using FlyTodayContracts.SearchModels;
 using Microsoft.Extensions.Logging;
-using FlyTodayDataModels.Enums;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace FlyTodayViews
 {
@@ -71,6 +59,18 @@ namespace FlyTodayViews
         {
             var service = Program.ServiceProvider?.GetService(typeof(FormSales));
             if (service is FormSales form)
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    //LoadData();
+                }
+            }
+        }
+
+        private void buttonMainSearch_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormFlights));
+            if (service is FormFlights form)
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
