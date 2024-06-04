@@ -47,6 +47,34 @@ namespace FlyTodayDatabaseImplements.Models
             };
         }
 
+        public void UpdatePlane(FlyTodayDatabase context, FlightBindingModel model)
+        {
+            Plane plane = context.Planes.First(x => x.Id == model.PlaneId);
+            if (plane == null)
+            {
+                return;
+            }
+            else
+            {
+                model.PlaneId = plane.Id;
+                Plane = plane;
+            }            
+        }
+
+        public void UpdateDirection(FlyTodayDatabase context, FlightBindingModel model)
+        {
+            Direction direction = context.Directions.First(x => x.Id == model.DirectionId);
+            if (direction == null)
+            {
+                return;
+            }
+            else
+            {
+                model.DirectionId = direction.Id;
+                Direction = direction;
+            }
+        }
+
         public void Update(FlightBindingModel model)
         {
             if (model == null)

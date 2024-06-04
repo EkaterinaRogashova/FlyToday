@@ -6,81 +6,82 @@ using FlyTodayDatabaseImplements.Models;
 
 namespace FlyTodayDatabaseImplements.Implements
 {
-    public class PlaneStorage : IPlaneStorage
+    public class PlaceStorage : IPlaceStorage
     {
-        public PlaneViewModel? Delete(PlaneBindingModel model)
+        public PlaceViewModel? Delete(PlaceBindingModel model)
         {
             using var context = new FlyTodayDatabase();
-            var element = context.Planes.FirstOrDefault(rec => rec.Id == model.Id);
+            var element = context.Places.FirstOrDefault(rec => rec.Id == model.Id);
             if (element != null)
             {
-                context.Planes.Remove(element);
+                context.Places.Remove(element);
                 context.SaveChanges();
                 return element.GetViewModel;
             }
             return null;
         }
 
-        public PlaneViewModel? GetElement(PlaneSearchModel model)
+        public PlaceViewModel? GetElement(PlaceSearchModel model)
         {
-            if (string.IsNullOrEmpty(model.ModelName) && !model.Id.HasValue)
+            if (string.IsNullOrEmpty(model.PlaceName) && !model.Id.HasValue)
             {
                 return null;
             }
             using var context = new FlyTodayDatabase();
-            return context.Planes
+            return context.Places
             .FirstOrDefault(x =>
-           (!string.IsNullOrEmpty(model.ModelName) && x.ModelName ==
-           model.ModelName) ||
+           (!string.IsNullOrEmpty(model.PlaceName) && x.PlaceName ==
+           model.PlaceName) ||
             (model.Id.HasValue && x.Id == model.Id))
             ?.GetViewModel;
         }
 
-        public List<PlaneViewModel> GetFilteredList(PlaneSearchModel model)
+        public List<PlaceViewModel> GetFilteredList(PlaceSearchModel model)
         {
-            if (string.IsNullOrEmpty(model.ModelName))
+            if (string.IsNullOrEmpty(model.PlaceName))
             {
                 return new();
             }
             using var context = new FlyTodayDatabase();
-            return context.Planes
-            .Where(x => x.ModelName.Contains(model.ModelName))
+            return context.Places
+            .Where(x => x.PlaceName.Contains(model.PlaceName))
            .Select(x => x.GetViewModel)
            .ToList();
         }
 
-        public List<PlaneViewModel> GetFullList()
+        public List<PlaceViewModel> GetFullList()
         {
             using var context = new FlyTodayDatabase();
-            return context.Planes
+            return context.Places
             .Select(x => x.GetViewModel)
            .ToList();
         }
 
-        public PlaneViewModel? Insert(PlaneBindingModel model)
+        public PlaceViewModel? Insert(PlaceBindingModel model)
         {
-            var newPlane = Plane.Create(model);
-            if (newPlane == null)
+            var newPlace = Place.Create(model);
+            if (newPlace == null)
             {
                 return null;
             }
             using var context = new FlyTodayDatabase();
-            context.Planes.Add(newPlane);
+            context.Places.Add(newPlace);
             context.SaveChanges();
-            return newPlane.GetViewModel;
+            return newPlace.GetViewModel;
         }
 
-        public PlaneViewModel? Update(PlaneBindingModel model)
+        public PlaceViewModel? Update(PlaceBindingModel model)
         {
             using var context = new FlyTodayDatabase();
-            var component = context.Planes.FirstOrDefault(x => x.Id == model.Id);
-            if (component == null)
+            var place = context.Places.FirstOrDefault(x => x.Id ==
+           model.Id);
+            if (place == null)
             {
                 return null;
             }
-            component.Update(model);
+            place.Update(model);
             context.SaveChanges();
-            return component.GetViewModel;
+            return place.GetViewModel;
         }
     }
 }

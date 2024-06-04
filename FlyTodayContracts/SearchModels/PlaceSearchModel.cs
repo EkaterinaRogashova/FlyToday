@@ -9,7 +9,7 @@ namespace FlyTodayContracts.SearchModels
     public class PlaceSearchModel
     {
         public int? Id {  get; set; }
-        public string? Place {  get; set; }
+        public string? PlaceName {  get; set; }
         public bool? IsFree {  get; set; }
     }
 }
