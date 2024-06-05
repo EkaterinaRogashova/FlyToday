@@ -105,9 +105,9 @@ namespace FlyTodayBusinessLogics.BusinessLogics
                 throw new ArgumentException("Не указана дата вылета", nameof(model.DepartureDate));
             }
 
-            if (model.FreePlacesCount <= 0)
+            if (model.FreePlacesCount < 0)
             {
-                throw new ArgumentException("Количество свободных мест должно быть больше 0", nameof(model.FreePlacesCount));
+                throw new ArgumentException("Количество свободных мест должно быть больше или равно 0", nameof(model.FreePlacesCount));
             }
 
             if (model.DirectionId == 0)

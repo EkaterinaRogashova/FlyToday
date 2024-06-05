@@ -1,5 +1,6 @@
 ﻿using FlyTodayContracts.BindingModels;
 using FlyTodayContracts.BusinessLogicContracts;
+using FlyTodayContracts.SearchModels;
 using Microsoft.Extensions.Logging;
 
 namespace FlyTodayViews
@@ -8,11 +9,17 @@ namespace FlyTodayViews
     {
         private readonly ILogger _logger;
         private readonly IFlightLogic _logic;
-        public FormFlights(ILogger<FormFlights> logger, IFlightLogic logic)
+        private readonly IPlaneLogic _planeLogic;
+        private readonly IDirectionLogic _directionLogic;
+        public FormFlights(ILogger<FormFlights> logger, IFlightLogic logic, IPlaneLogic planeLogic, IDirectionLogic directionLogic)
         {
             InitializeComponent();
             _logger = logger;
             _logic = logic;
+            _planeLogic = planeLogic;
+            dataGridView.Columns.Add("FlightDirection", "Направление");
+            dataGridView.Columns.Add("PlaneModel", "Самолет");
+            _directionLogic = directionLogic;
         }
 
         private void FormFlights_Load(object sender, EventArgs e)
@@ -30,12 +37,46 @@ namespace FlyTodayViews
                     dataGridView.DataSource = list;
                     dataGridView.Columns["Id"].Visible = false;
                     dataGridView.Columns["DepartureDate"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns["FreePlacesCount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns["EconomPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns["BusinessPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns["TimeInFlight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns["DirectionId"].DataPropertyName = "Direction.CountryFrom + ' - ' + Direction.CityFrom + ' - ' + Direction.CountryTo + ' - ' + Direction.CityTo";
-                    dataGridView.Columns["PlaneId"].DataPropertyName = "Plane.ModelName";
+                    dataGridView.Columns["FreePlacesCount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dataGridView.Columns["EconomPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dataGridView.Columns["BusinessPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dataGridView.Columns["TimeInFlight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dataGridView.Columns["PlaneId"].Visible = false;
+                    dataGridView.Columns["DirectionId"].Visible = false;
+                    dataGridView.Columns["PlaneModel"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dataGridView.Columns["FlightDirection"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+                    foreach (DataGridViewRow row in dataGridView.Rows)
+                    {
+                        int planeId = Convert.ToInt32(row.Cells["PlaneId"].Value);
+                        var plane = _planeLogic.ReadElement(new PlaneSearchModel
+                        {
+                            Id = planeId
+                        });
+                        if (plane != null)
+                        {
+                            row.Cells["PlaneModel"].Value = plane.ModelName;
+                        }
+                        else
+                        {
+                            row.Cells["PlaneModel"].Value = "Модель не найдена";
+                        }
+
+                        int directionId = Convert.ToInt32(row.Cells["DirectionId"].Value);
+                        var direction = _directionLogic.ReadElement(new DirectionSearchModel
+                        {
+                            Id = directionId
+                        });
+                        if (direction != null)
+                        {
+                            row.Cells["FlightDirection"].Value = direction.CountryFrom + " " + direction.CityFrom + " - " + direction.CountryTo + " " + direction.CityTo;
+                        }
+                        else
+                        {
+                            row.Cells["FlightDirection"].Value = "Направление не найдено";
+                        }
+                    }
+
                 }
                 _logger.LogInformation("Загрузка рейсов");
             }

@@ -159,9 +159,9 @@ namespace FlyTodayViews
                     var view = _logic.ReadElement(new FlightSearchModel { Id = _id.Value });
                     if (view != null)
                     {
-                        comboBoxSelectDirection.SelectedIndex = view.DirectionId;
+                        comboBoxSelectDirection.SelectedValue = view.DirectionId;
                         dateTimePickerDeparture.Value = view.DepartureDate;
-                        comboBoxSelectPlane.SelectedIndex = view.PlaneId;
+                        comboBoxSelectPlane.SelectedValue = view.PlaneId;
                         textBoxFreePlacesCount.Text = view.FreePlacesCount.ToString();
                         textBoxEconomCost.Text = view.EconomPrice.ToString();
                         textBoxBusinessCost.Text = view.BusinessPrice.ToString();

@@ -56,8 +56,8 @@ namespace FlyTodayDatabaseImplements.Implements
         {
             using var context = new FlyTodayDatabase();
             return context.Directions
-            .Select(x => x.GetViewModel)
-            .ToList();
+                .Select(x => x.GetViewModel)
+                .ToList();
         }
 
         public DirectionViewModel? Insert(DirectionBindingModel model)

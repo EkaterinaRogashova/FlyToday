@@ -42,12 +42,12 @@
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView.Location = new Point(12, 12);
             dataGridView.Name = "dataGridView";
-            dataGridView.Size = new Size(765, 426);
+            dataGridView.Size = new Size(1027, 426);
             dataGridView.TabIndex = 0;
             // 
             // buttonAdd
             // 
-            buttonAdd.Location = new Point(805, 131);
+            buttonAdd.Location = new Point(1076, 136);
             buttonAdd.Name = "buttonAdd";
             buttonAdd.Size = new Size(75, 23);
             buttonAdd.TabIndex = 1;
@@ -57,7 +57,7 @@
             // 
             // buttonUpd
             // 
-            buttonUpd.Location = new Point(805, 179);
+            buttonUpd.Location = new Point(1076, 184);
             buttonUpd.Name = "buttonUpd";
             buttonUpd.Size = new Size(75, 23);
             buttonUpd.TabIndex = 2;
@@ -67,7 +67,7 @@
             // 
             // buttonDel
             // 
-            buttonDel.Location = new Point(805, 231);
+            buttonDel.Location = new Point(1076, 236);
             buttonDel.Name = "buttonDel";
             buttonDel.Size = new Size(75, 23);
             buttonDel.TabIndex = 3;
@@ -77,7 +77,7 @@
             // 
             // buttonRef
             // 
-            buttonRef.Location = new Point(805, 287);
+            buttonRef.Location = new Point(1076, 292);
             buttonRef.Name = "buttonRef";
             buttonRef.Size = new Size(75, 23);
             buttonRef.TabIndex = 4;
@@ -89,7 +89,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(909, 450);
+            ClientSize = new Size(1187, 450);
             Controls.Add(buttonRef);
             Controls.Add(buttonDel);
             Controls.Add(buttonUpd);

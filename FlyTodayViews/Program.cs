@@ -1,6 +1,5 @@
 using FlyTodayBusinessLogics.BusinessLogics;
 using FlyTodayBusinessLogics.MailWorker;
-using FlyTodayContracts.BindingModels;
 using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.StoragesContracts;
 using FlyTodayDatabaseImplements.Implements;
