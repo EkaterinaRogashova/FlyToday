@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using System.Configuration;
 using Microsoft.Extensions.Configuration.Json;
+using FlyTodayContracts.BindingModels;
 
 namespace FlyTodayViews
 {
@@ -45,7 +46,7 @@ namespace FlyTodayViews
                 logger?.LogError(ex, "Ошибка работы с почтой");
             }
 
-            Application.Run(_serviceProvider.GetRequiredService<FormMainMenu>());
+            Application.Run(_serviceProvider.GetRequiredService<FormEnter>());
         }
         private static void ConfigureServices(ServiceCollection services)
         {
@@ -101,8 +102,8 @@ namespace FlyTodayViews
             services.AddTransient<FormFlight>();
             services.AddTransient<FormFlights>();
             services.AddTransient<ConfirmationDialog>();
+            services.AddTransient<FormProfile>();
 
-            
         }
         //private static void MailCheck(object obj) => ServiceProvider?.GetService<AbstractMailWorker>()?.MailCheck();
     }

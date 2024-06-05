@@ -36,21 +36,27 @@ namespace FlyTodayViews
                 {
                     MessageBox.Show("Вы вошли", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DialogResult = DialogResult.OK;
+                    
+                    var service = Program.ServiceProvider?.GetService(typeof(FormMainMenu));
+                    if (service is FormMainMenu form)
+                    {
+                        form.CurrentUserId = CurrentUser.Id;
+                        form.Password = CurrentUser.Password;
+                        form.Email = CurrentUser.Email;
+                        form.ShowDialog();
+                    }
                     Close();
                 }
                 else
                 {
                     MessageBox.Show("Неправильный адрес электронной почты или пароль.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Ошибка входа в систему");
                 throw;
             }
-
-
         }
     }
 }

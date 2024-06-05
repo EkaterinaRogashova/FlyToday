@@ -100,6 +100,7 @@
             buttonMainLK.TabIndex = 4;
             buttonMainLK.Text = "Личный кабинет";
             buttonMainLK.UseVisualStyleBackColor = true;
+            buttonMainLK.Click += buttonMainLK_Click;
             // 
             // buttonEmployees
             // 

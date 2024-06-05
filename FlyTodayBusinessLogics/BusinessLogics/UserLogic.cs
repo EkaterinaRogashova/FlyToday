@@ -27,11 +27,8 @@ namespace FlyTodayBusinessLogics.BusinessLogics
         }
         private string EncryptPassword(string password)
         {
-            using (var sha256 = SHA256.Create())
-            {
-                byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return Convert.ToBase64String(hashedBytes);
-            }
+            byte[] hashedBytes = SHA256.HashData(Encoding.UTF8.GetBytes(password));
+            return Convert.ToBase64String(hashedBytes);
         }
         public bool Create(UserBindingModel model)
         {
@@ -63,9 +60,18 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             {
                 throw new ArgumentNullException(nameof(model));
             }
+
+            // Проверяем, есть ли пароль
+            if (string.IsNullOrEmpty(model.Password))
+            {
+                _logger.LogWarning("ReadElement. Password is null or empty.");
+                return null;
+            }
+
+
+            var element = _userStorage.GetElement(model);
             _logger.LogInformation("ReadElement. Email: {Email}. Id: {Id}.", model.Email, model.Id);
             string hashedPassword = EncryptPassword(model.Password);
-            var element = _userStorage.GetElement(model);
             if (element == null)
             {
                 _logger.LogWarning("ReadElement element not found");
@@ -73,14 +79,14 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             }
             else
             {
-                if (element.Password == hashedPassword)
-                {
+                //if (element.Password == hashedPassword)
+                //{
                     _logger.LogInformation("ReadElement find. Id: {Id}", element.Id);
                     return element;
-                }
+                //}
             }
-            return null;
         }
+
 
         public List<UserViewModel>? ReadList(UserSearchModel? model)
         {
