@@ -29,7 +29,9 @@ namespace FlyTodayViews
                 {
                     dataGridView.DataSource = list;
                     dataGridView.Columns["Id"].Visible = false;
+                    dataGridView.Columns["CountryFrom"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView.Columns["CityFrom"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns["CountryTo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;                    
                     dataGridView.Columns["CityTo"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
                 _logger.LogInformation("Загрузка направлений");

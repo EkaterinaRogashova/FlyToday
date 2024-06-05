@@ -67,6 +67,8 @@ namespace FlyTodayViews
             services.AddTransient<FormSales>();
             services.AddTransient<FormPlane>();
             services.AddTransient<FormPlanes>();
+            services.AddTransient<FormFlight>();
+            services.AddTransient<FormFlights>();
         }
     }
 }

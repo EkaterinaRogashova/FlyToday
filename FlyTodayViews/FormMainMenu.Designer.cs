@@ -38,6 +38,7 @@
             buttonSales = new Button();
             buttonDirections = new Button();
             buttonPlanes = new Button();
+            buttonFlights = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -144,12 +145,23 @@
             buttonPlanes.UseVisualStyleBackColor = true;
             buttonPlanes.Click += buttonPlanes_Click;
             // 
+            // buttonFlights
+            // 
+            buttonFlights.Location = new Point(503, 188);
+            buttonFlights.Name = "buttonFlights";
+            buttonFlights.Size = new Size(185, 23);
+            buttonFlights.TabIndex = 9;
+            buttonFlights.Text = "Рейсы";
+            buttonFlights.UseVisualStyleBackColor = true;
+            buttonFlights.Click += buttonFlights_Click;
+            // 
             // FormMainMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ButtonHighlight;
             ClientSize = new Size(700, 338);
+            Controls.Add(buttonFlights);
             Controls.Add(buttonPlanes);
             Controls.Add(buttonDirections);
             Controls.Add(buttonSales);
@@ -177,5 +189,6 @@
         private Button buttonSales;
         private Button buttonDirections;
         private Button buttonPlanes;
+        private Button buttonFlights;
     }
 }

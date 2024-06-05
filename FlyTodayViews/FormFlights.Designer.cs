@@ -28,99 +28,86 @@
         /// </summary>
         private void InitializeComponent()
         {
-            menuStrip = new MenuStrip();
-            cправочникиToolStripMenuItem = new ToolStripMenuItem();
-            компонентыToolStripMenuItem = new ToolStripMenuItem();
-            изделияToolStripMenuItem = new ToolStripMenuItem();
             dataGridView = new DataGridView();
+            buttonAdd = new Button();
+            buttonUpd = new Button();
+            buttonDel = new Button();
             buttonRef = new Button();
-            buttonSearch = new Button();
-            menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
-            // 
-            // menuStrip
-            // 
-            menuStrip.Items.AddRange(new ToolStripItem[] { cправочникиToolStripMenuItem });
-            menuStrip.Location = new Point(0, 0);
-            menuStrip.Name = "menuStrip";
-            menuStrip.Size = new Size(1069, 24);
-            menuStrip.TabIndex = 0;
-            menuStrip.Text = "menuStrip1";
-            // 
-            // cправочникиToolStripMenuItem
-            // 
-            cправочникиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { компонентыToolStripMenuItem, изделияToolStripMenuItem });
-            cправочникиToolStripMenuItem.Name = "cправочникиToolStripMenuItem";
-            cправочникиToolStripMenuItem.Size = new Size(94, 20);
-            cправочникиToolStripMenuItem.Text = "Cправочники";
-            // 
-            // компонентыToolStripMenuItem
-            // 
-            компонентыToolStripMenuItem.Name = "компонентыToolStripMenuItem";
-            компонентыToolStripMenuItem.Size = new Size(180, 22);
-            компонентыToolStripMenuItem.Text = "Компоненты";
-            // 
-            // изделияToolStripMenuItem
-            // 
-            изделияToolStripMenuItem.Name = "изделияToolStripMenuItem";
-            изделияToolStripMenuItem.Size = new Size(180, 22);
-            изделияToolStripMenuItem.Text = "Изделия";
             // 
             // dataGridView
             // 
             dataGridView.BackgroundColor = SystemColors.Control;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView.Location = new Point(12, 27);
+            dataGridView.Location = new Point(12, 12);
             dataGridView.Name = "dataGridView";
-            dataGridView.Size = new Size(840, 369);
-            dataGridView.TabIndex = 1;
+            dataGridView.Size = new Size(765, 426);
+            dataGridView.TabIndex = 0;
+            // 
+            // buttonAdd
+            // 
+            buttonAdd.Location = new Point(805, 131);
+            buttonAdd.Name = "buttonAdd";
+            buttonAdd.Size = new Size(75, 23);
+            buttonAdd.TabIndex = 1;
+            buttonAdd.Text = "Добавить";
+            buttonAdd.UseVisualStyleBackColor = true;
+            buttonAdd.Click += ButtonAdd_Click;
+            // 
+            // buttonUpd
+            // 
+            buttonUpd.Location = new Point(805, 179);
+            buttonUpd.Name = "buttonUpd";
+            buttonUpd.Size = new Size(75, 23);
+            buttonUpd.TabIndex = 2;
+            buttonUpd.Text = "Изменить";
+            buttonUpd.UseVisualStyleBackColor = true;
+            buttonUpd.Click += ButtonUpd_Click;
+            // 
+            // buttonDel
+            // 
+            buttonDel.Location = new Point(805, 231);
+            buttonDel.Name = "buttonDel";
+            buttonDel.Size = new Size(75, 23);
+            buttonDel.TabIndex = 3;
+            buttonDel.Text = "Удалить";
+            buttonDel.UseVisualStyleBackColor = true;
+            buttonDel.Click += ButtonDel_Click;
             // 
             // buttonRef
             // 
-            buttonRef.Location = new Point(882, 207);
+            buttonRef.Location = new Point(805, 287);
             buttonRef.Name = "buttonRef";
-            buttonRef.Size = new Size(159, 23);
-            buttonRef.TabIndex = 6;
-            buttonRef.Text = "Обновить список";
+            buttonRef.Size = new Size(75, 23);
+            buttonRef.TabIndex = 4;
+            buttonRef.Text = "Обновить";
             buttonRef.UseVisualStyleBackColor = true;
-            // 
-            // buttonSearch
-            // 
-            buttonSearch.Location = new Point(882, 178);
-            buttonSearch.Name = "buttonSearch";
-            buttonSearch.Size = new Size(159, 23);
-            buttonSearch.TabIndex = 7;
-            buttonSearch.Text = "Поиск";
-            buttonSearch.UseVisualStyleBackColor = true;
+            buttonRef.Click += ButtonRef_Click;
             // 
             // FormFlights
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1069, 408);
-            Controls.Add(buttonSearch);
+            ClientSize = new Size(909, 450);
             Controls.Add(buttonRef);
+            Controls.Add(buttonDel);
+            Controls.Add(buttonUpd);
+            Controls.Add(buttonAdd);
             Controls.Add(dataGridView);
-            Controls.Add(menuStrip);
-            MainMenuStrip = menuStrip;
             Name = "FormFlights";
-            Text = "Поиск авиабилетов";
-            menuStrip.ResumeLayout(false);
-            menuStrip.PerformLayout();
+            Text = "Рейсы";
+            Load += FormFlights_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private MenuStrip menuStrip;
-        private ToolStripMenuItem cправочникиToolStripMenuItem;
         private DataGridView dataGridView;
+        private Button buttonAdd;
+        private Button buttonUpd;
+        private Button buttonDel;
         private Button buttonRef;
-        private ToolStripMenuItem компонентыToolStripMenuItem;
-        private ToolStripMenuItem изделияToolStripMenuItem;
-        private Button buttonSearch;
     }
 }
