@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FlyTodayBusinessLogics.MailWorker;
 
 namespace FlyTodayViews
 {
@@ -18,13 +19,24 @@ namespace FlyTodayViews
     {
         private readonly ILogger _logger;
         private readonly IUserLogic _logic;
+        private readonly AbstractMailWorker _mailWorker;
         private int? _id;
+        Random rnd = new Random();
         public int Id { set { _id = value; } }
-        public FormRegistration(ILogger<FormRegistration> logger, IUserLogic logic)
+        public FormRegistration(ILogger<FormRegistration> logger, IUserLogic logic, AbstractMailWorker mailWorker)
         {
             InitializeComponent();
             _logger = logger;
             _logic = logic;
+            _mailWorker = mailWorker;
+        }
+        private static readonly Random _random = new Random();
+
+        public static string GenerateRandomString()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, 6)
+                .Select(s => s[_random.Next(s.Length)]).ToArray());
         }
         private void buttonRegistration_Click(object sender, EventArgs e)
         {
@@ -52,14 +64,31 @@ namespace FlyTodayViews
                     Password = textBoxPassword.Text,
                     AccessRule = AccessEnum.Администратор
                 };
-                var operationResult = _logic.Create(model);
-                if (!operationResult)
-                {
-                    throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
-                }
-                MessageBox.Show("Вы зарегестрировались", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                DialogResult = DialogResult.OK;
-                Close();
+                //string confirmationCode = GenerateRandomString();
+                //var mailmodel = new MailSendInfoBindingModel 
+                //{
+                //    MailAddress = textBoxEmail.Text,
+                //    Text = confirmationCode,
+                //    Subject = "Код подтверждения"
+                //};
+                //_mailWorker.MailSendAsync(mailmodel);
+
+                //ConfirmationDialog confirmationDialog = new ConfirmationDialog(confirmationCode);
+                //if (confirmationDialog.ShowDialog() == DialogResult.OK)
+                //{
+                    var operationResult = _logic.Create(model);
+                    if (!operationResult)
+                    {
+                        throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
+                    }
+                    MessageBox.Show("Вы зарегестрировались", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult = DialogResult.OK;
+                    Close();
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Неверный код подтверждения", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //}
             }
             catch (Exception ex)
             {

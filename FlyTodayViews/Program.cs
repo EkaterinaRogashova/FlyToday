@@ -1,4 +1,6 @@
 using FlyTodayBusinessLogics.BusinessLogics;
+using FlyTodayBusinessLogics.MailWorker;
+using FlyTodayContracts.BindingModels;
 using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.StoragesContracts;
 using FlyTodayDatabaseImplements.Implements;
@@ -54,6 +56,8 @@ namespace FlyTodayViews
             services.AddTransient<IScheduleLogic, ScheduleLogic>();
             services.AddTransient<ITicketLogic, TicketLogic>();
 
+            services.AddTransient<AbstractMailWorker, MailKitWorker>();
+
             services.AddTransient<FormMainMenu>();
             services.AddTransient<FormDirection>();
             services.AddTransient<FormDirections>();
@@ -69,6 +73,8 @@ namespace FlyTodayViews
             services.AddTransient<FormPlanes>();
             services.AddTransient<FormFlight>();
             services.AddTransient<FormFlights>();
+            services.AddTransient<ConfirmationDialog>();
+
         }
     }
 }
