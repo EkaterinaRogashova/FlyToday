@@ -62,48 +62,22 @@ namespace FlyTodayBusinessLogics.BusinessLogics
                 throw new ArgumentNullException(nameof(model));
             }
             _logger.LogInformation("ReadElement. Email: {Email}. Id: {Id}.", model.Email, model.Id);
+            string hashedPassword = EncryptPassword(model.Password);
             var element = _userStorage.GetElement(model);
             if (element == null)
             {
                 _logger.LogWarning("ReadElement element not found");
                 return null;
             }
-            element.Password = DecryptPassword(element.Password);
-
-            _logger.LogInformation("ReadElement find. Id: {Id}", element.Id);
-            return element;
-        }
-        private string DecryptPassword(string encryptedPassword)
-        {
-            byte[] hashedBytes = Convert.FromBase64String(encryptedPassword);
-
-            using (var sha256 = SHA256.Create())
+            else
             {
-                byte[] originalBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(encryptedPassword));
-
-                if (ByteArraysEqual(hashedBytes, originalBytes))
+                if (element.Password == hashedPassword)
                 {
-                    return encryptedPassword;
-                }
-                else
-                {
-                    return null;
+                    _logger.LogInformation("ReadElement find. Id: {Id}", element.Id);
+                    return element;
                 }
             }
-        }
-
-        private bool ByteArraysEqual(byte[] a, byte[] b)
-        {
-            if (a.Length != b.Length)
-                return false;
-
-            for (int i = 0; i < a.Length; i++)
-            {
-                if (a[i] != b[i])
-                    return false;
-            }
-
-            return true;
+            return null;
         }
 
         public List<UserViewModel>? ReadList(UserSearchModel? model)
