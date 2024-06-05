@@ -2,6 +2,8 @@
 using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.ViewModels;
+using FlyTodayDatabaseImplements.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace FlyTodayViews
 {
@@ -20,16 +23,20 @@ namespace FlyTodayViews
         private readonly ILogger _logger;
         private readonly IEmployeeLogic _logic;
         private readonly IPositionAtWorkLogic _joblogic;
+        private readonly IFlightLogic _flightlogic;
         private int? _id;
         public int Id { set { _id = value; } }
-        private readonly List<PositionAtWorkViewModel>? _list;
-        public FormEmployee(ILogger<FormEmployee> logger, IEmployeeLogic logic, IPositionAtWorkLogic joblogic)
+        private readonly List<PositionAtWorkViewModel>? _joblist;
+        private readonly List<FlightViewModel>? _flightlist;
+        public FormEmployee(ILogger<FormEmployee> logger, IEmployeeLogic logic, IPositionAtWorkLogic joblogic, IFlightLogic flightlogic)
         {
             InitializeComponent();
             _logger = logger;
             _logic = logic;
             _joblogic = joblogic;
-            _list = new List<PositionAtWorkViewModel>();
+            _joblist = new List<PositionAtWorkViewModel>();
+            _flightlist = new List<FlightViewModel>();
+            _flightlogic = flightlogic;
         }
 
         private void FormEmployee_Load(object sender, EventArgs e)
@@ -38,6 +45,11 @@ namespace FlyTodayViews
             comboBoxJob.DataSource = list;
             comboBoxJob.DisplayMember = "Name";
             comboBoxJob.ValueMember = "Id";
+
+            var listFlights = _flightlogic.ReadList(null);
+            comboBoxFlights.DataSource = listFlights;
+            comboBoxFlights.DisplayMember = "DepartureDate";
+            comboBoxFlights.ValueMember = "Id";
             if (_id.HasValue)
             {
                 _logger.LogInformation("Загрузка сотрудника");
@@ -52,11 +64,18 @@ namespace FlyTodayViews
                         textBoxSurname.Text = view.Surname;
                         textBoxName.Text = view.Name;
                         textBoxLastName.Text = view.LastName;
-                        textBoxFlightTeam.Text = view.FlightId.ToString();
+                        comboBoxFlights.SelectedItem = view.FlightId.ToString();
                         dateTimePickerBirth.Value = view.DateOfBirth;
                         dateTimePickerMedAnalys.Value = view.DateMedAnalys;
                         checkBoxMedAnalys.Checked = view.MedAnalys;
-                        comboBoxGender.Text = view.Gender;
+                        if (view.Gender == "Женский")
+                        {
+                            comboBoxGender.SelectedItem = "Ж";
+                        }
+                        else
+                        {
+                            comboBoxGender.SelectedItem = "М";
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -80,7 +99,8 @@ namespace FlyTodayViews
             {
                 // Получить выбранный элемент из comboBoxGender
                 string selectedGender = comboBoxGender.SelectedItem.ToString();
-
+                var selectedFlight = (FlightViewModel)comboBoxFlights.SelectedItem;
+                var selectedJob = (PositionAtWorkViewModel)comboBoxJob.SelectedItem;
                 // Преобразовать выбранное значение в соответствующую строку
                 string genderAsString = (selectedGender == "Ж") ? "Женский" : "Мужской";
                 var model = new EmployeeBindingModel
@@ -91,8 +111,9 @@ namespace FlyTodayViews
                     LastName = textBoxLastName.Text,
                     DateOfBirth = dateTimePickerBirth.Value.ToUniversalTime(),
                     MedAnalys = checkBoxMedAnalys.Checked,
-                    PositionAtWorkId = comboBoxJob.SelectedIndex,
-                    Gender = genderAsString
+                    PositionAtWorkId = selectedJob.Id,
+                    Gender = genderAsString,
+                    FlightId = selectedFlight.Id
                 };
                 if (checkBoxMedAnalys.Checked)
                 {
@@ -102,10 +123,10 @@ namespace FlyTodayViews
                 {
                     model.DateMedAnalys = DateTime.MinValue;
                 }
-                if (!string.IsNullOrEmpty(textBoxFlightTeam.Text))
-                {
-                    model.FlightId = Convert.ToInt32(textBoxFlightTeam.Text);
-                }
+                //if (!string.IsNullOrEmpty(textBoxFlightTeam.Text))
+                //{
+                //    model.FlightId = Convert.ToInt32(textBoxFlightTeam.Text);
+                //}
                 var operationResult = _id.HasValue ? _logic.Update(model) :
                _logic.Create(model);
                 if (!operationResult)

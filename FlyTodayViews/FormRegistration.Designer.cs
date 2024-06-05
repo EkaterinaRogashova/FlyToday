@@ -44,6 +44,7 @@
             label7 = new Label();
             label8 = new Label();
             dateTimePickerBirth = new DateTimePicker();
+            label9 = new Label();
             SuspendLayout();
             // 
             // label1
@@ -91,26 +92,26 @@
             // 
             // textBoxEmail
             // 
-            textBoxEmail.Location = new Point(493, 115);
+            textBoxEmail.Location = new Point(490, 85);
             textBoxEmail.Name = "textBoxEmail";
             textBoxEmail.Size = new Size(250, 27);
             textBoxEmail.TabIndex = 6;
             // 
             // textBoxPassword
             // 
-            textBoxPassword.Location = new Point(493, 176);
+            textBoxPassword.Location = new Point(490, 146);
             textBoxPassword.Name = "textBoxPassword";
+            textBoxPassword.PasswordChar = '*';
             textBoxPassword.Size = new Size(250, 27);
             textBoxPassword.TabIndex = 7;
-            textBoxPassword.PasswordChar = '*';
             // 
             // textBoxRepeatPassword
             // 
-            textBoxRepeatPassword.Location = new Point(492, 237);
+            textBoxRepeatPassword.Location = new Point(489, 271);
             textBoxRepeatPassword.Name = "textBoxRepeatPassword";
+            textBoxRepeatPassword.PasswordChar = '*';
             textBoxRepeatPassword.Size = new Size(250, 27);
             textBoxRepeatPassword.TabIndex = 8;
-            textBoxRepeatPassword.PasswordChar = '*';
             // 
             // label2
             // 
@@ -156,7 +157,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F);
-            label6.Location = new Point(492, 84);
+            label6.Location = new Point(489, 54);
             label6.Name = "label6";
             label6.Size = new Size(71, 28);
             label6.TabIndex = 13;
@@ -166,7 +167,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F);
-            label7.Location = new Point(492, 145);
+            label7.Location = new Point(489, 115);
             label7.Name = "label7";
             label7.Size = new Size(85, 28);
             label7.TabIndex = 14;
@@ -176,7 +177,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 12F);
-            label8.Location = new Point(492, 206);
+            label8.Location = new Point(489, 240);
             label8.Name = "label8";
             label8.Size = new Size(187, 28);
             label8.TabIndex = 15;
@@ -189,11 +190,24 @@
             dateTimePickerBirth.Size = new Size(250, 27);
             dateTimePickerBirth.TabIndex = 18;
             // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 7F);
+            label9.ForeColor = Color.DarkCyan;
+            label9.Location = new Point(500, 189);
+            label9.Name = "label9";
+            label9.Size = new Size(230, 30);
+            label9.TabIndex = 19;
+            label9.Text = "Пароль должен состоять обязательно\r\nиз цифр, букв и небуквенных символов.\r\n";
+            label9.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // FormRegistration
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label9);
             Controls.Add(dateTimePickerBirth);
             Controls.Add(label8);
             Controls.Add(label7);
@@ -234,5 +248,6 @@
         private Label label7;
         private Label label8;
         private DateTimePicker dateTimePickerBirth;
+        private Label label9;
     }
 }

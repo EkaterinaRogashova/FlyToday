@@ -53,13 +53,13 @@
             dataGridView1.Location = new Point(12, 43);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(612, 395);
+            dataGridView1.Size = new Size(972, 395);
             dataGridView1.TabIndex = 0;
             // 
             // buttonAdd
             // 
             buttonAdd.Font = new Font("Segoe UI", 12F);
-            buttonAdd.Location = new Point(638, 238);
+            buttonAdd.Location = new Point(1012, 229);
             buttonAdd.Name = "buttonAdd";
             buttonAdd.Size = new Size(145, 49);
             buttonAdd.TabIndex = 1;
@@ -70,17 +70,18 @@
             // buttonEdit
             // 
             buttonEdit.Font = new Font("Segoe UI", 12F);
-            buttonEdit.Location = new Point(638, 293);
+            buttonEdit.Location = new Point(1012, 284);
             buttonEdit.Name = "buttonEdit";
             buttonEdit.Size = new Size(145, 49);
             buttonEdit.TabIndex = 2;
             buttonEdit.Text = "Изменить";
             buttonEdit.UseVisualStyleBackColor = true;
+            buttonEdit.Click += buttonEdit_Click;
             // 
             // buttonDelete
             // 
             buttonDelete.Font = new Font("Segoe UI", 12F);
-            buttonDelete.Location = new Point(638, 348);
+            buttonDelete.Location = new Point(1012, 339);
             buttonDelete.Name = "buttonDelete";
             buttonDelete.Size = new Size(145, 49);
             buttonDelete.TabIndex = 3;
@@ -93,7 +94,7 @@
             groupBox1.Controls.Add(buttonSaveFilter);
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(comboBoxJob);
-            groupBox1.Location = new Point(630, 68);
+            groupBox1.Location = new Point(1004, 59);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(159, 164);
             groupBox1.TabIndex = 4;
@@ -134,7 +135,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { менюToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(800, 28);
+            menuStrip1.Size = new Size(1185, 28);
             menuStrip1.TabIndex = 5;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -148,19 +149,19 @@
             // scheduleToolStripMenuItem
             // 
             scheduleToolStripMenuItem.Name = "scheduleToolStripMenuItem";
-            scheduleToolStripMenuItem.Size = new Size(224, 26);
+            scheduleToolStripMenuItem.Size = new Size(174, 26);
             scheduleToolStripMenuItem.Text = "Расписание";
             // 
             // tabelToolStripMenuItem
             // 
             tabelToolStripMenuItem.Name = "tabelToolStripMenuItem";
-            tabelToolStripMenuItem.Size = new Size(224, 26);
+            tabelToolStripMenuItem.Size = new Size(174, 26);
             tabelToolStripMenuItem.Text = "Табель";
             // 
             // должностиToolStripMenuItem
             // 
             должностиToolStripMenuItem.Name = "должностиToolStripMenuItem";
-            должностиToolStripMenuItem.Size = new Size(224, 26);
+            должностиToolStripMenuItem.Size = new Size(174, 26);
             должностиToolStripMenuItem.Text = "Должности";
             должностиToolStripMenuItem.Click += должностиToolStripMenuItem_Click;
             // 
@@ -168,7 +169,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1185, 450);
             Controls.Add(groupBox1);
             Controls.Add(buttonDelete);
             Controls.Add(buttonEdit);
@@ -178,6 +179,7 @@
             MainMenuStrip = menuStrip1;
             Name = "FormEmployees";
             Text = "Сотрудники";
+            Load += FormEmployees_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
