@@ -3,9 +3,12 @@ using FlyTodayBusinessLogics.MailWorker;
 using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.StoragesContracts;
 using FlyTodayDatabaseImplements.Implements;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
+using System.Configuration;
+using Microsoft.Extensions.Configuration.Json;
 
 namespace FlyTodayViews
 {
@@ -20,6 +23,28 @@ namespace FlyTodayViews
             var services = new ServiceCollection();
             ConfigureServices(services);
             _serviceProvider = services.BuildServiceProvider();
+            try
+            {
+                var mailSender =
+                _serviceProvider.GetService<AbstractMailWorker>();
+                mailSender?.MailConfig(new MailConfigBindingModel
+                {
+                    MailLogin = System.Configuration.ConfigurationManager.AppSettings["MailLogin"] ?? string.Empty,
+                    MailPassword = System.Configuration.ConfigurationManager.AppSettings["MailPassword"] ?? string.Empty,
+                    SmtpClientHost = System.Configuration.ConfigurationManager.AppSettings["SmtpClientHost"] ?? string.Empty,
+                    SmtpClientPort = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["SmtpClientPort"]),
+                    PopHost = System.Configuration.ConfigurationManager.AppSettings["PopHost"] ?? string.Empty,
+                    PopPort = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["PopPort"])
+                });
+                // создаем таймер
+                //var timer = new System.Threading.Timer(new TimerCallback(MailCheck!), null, 0, 100000);
+            }
+            catch (Exception ex)
+            {
+                var logger = _serviceProvider.GetService<ILogger>();
+                logger?.LogError(ex, "Ошибка работы с почтой");
+            }
+
             Application.Run(_serviceProvider.GetRequiredService<FormMainMenu>());
         }
         private static void ConfigureServices(ServiceCollection services)
@@ -29,7 +54,10 @@ namespace FlyTodayViews
                 option.SetMinimumLevel(LogLevel.Information);
                 option.AddNLog("nlog.config");
             });
+            services.AddTransient<IUserLogic, UserLogic>();
             services.AddTransient<IUserStorage, UserStorage>();
+            services.AddSingleton<AbstractMailWorker, MailKitWorker>();
+
             services.AddTransient<IBoardingPassStorage, BoardingPassStorage>();
             services.AddTransient<IDirectionStorage, DirectionStorage>();
             services.AddTransient<IEmployeeStorage, EmployeeStorage>();
@@ -42,7 +70,7 @@ namespace FlyTodayViews
             services.AddTransient<IScheduleStorage, ScheduleStorage>();
             services.AddTransient<ITicketStorage, TicketStorage>();
 
-            services.AddTransient<IUserLogic, UserLogic>();
+            
             services.AddTransient<IBoardingPassLogic, BoardingPassLogic>();
             services.AddTransient<IDirectionLogic, DirectionLogic>();
             services.AddTransient<IEmployeeLogic, EmployeeLogic>();
@@ -55,7 +83,7 @@ namespace FlyTodayViews
             services.AddTransient<IScheduleLogic, ScheduleLogic>();
             services.AddTransient<ITicketLogic, TicketLogic>();
 
-            services.AddTransient<AbstractMailWorker, MailKitWorker>();
+            
 
             services.AddTransient<FormMainMenu>();
             services.AddTransient<FormDirection>();
@@ -74,6 +102,8 @@ namespace FlyTodayViews
             services.AddTransient<FormFlights>();
             services.AddTransient<ConfirmationDialog>();
 
+            
         }
+        //private static void MailCheck(object obj) => ServiceProvider?.GetService<AbstractMailWorker>()?.MailCheck();
     }
 }
