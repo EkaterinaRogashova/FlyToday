@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using System.Configuration;
 using Microsoft.Extensions.Configuration.Json;
+using FlyTodayContracts.BindingModels;
 
 namespace FlyTodayViews
 {

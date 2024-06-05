@@ -26,14 +26,16 @@ namespace FlyTodayViews
         private readonly IFlightLogic _flightlogic;
         private int? _id;
         public int Id { set { _id = value; } }
-        private readonly List<PositionAtWorkViewModel>? _list;
+        private readonly List<PositionAtWorkViewModel>? _joblist;
+        private readonly List<FlightViewModel>? _flightlist;
         public FormEmployee(ILogger<FormEmployee> logger, IEmployeeLogic logic, IPositionAtWorkLogic joblogic, IFlightLogic flightlogic)
         {
             InitializeComponent();
             _logger = logger;
             _logic = logic;
             _joblogic = joblogic;
-            _list = new List<PositionAtWorkViewModel>();
+            _joblist = new List<PositionAtWorkViewModel>();
+            _flightlist = new List<FlightViewModel>();
             _flightlogic = flightlogic;
         }
 
@@ -62,11 +64,18 @@ namespace FlyTodayViews
                         textBoxSurname.Text = view.Surname;
                         textBoxName.Text = view.Name;
                         textBoxLastName.Text = view.LastName;
-                        comboBoxFlights.Text = view.FlightId.ToString();
+                        comboBoxFlights.SelectedItem = view.FlightId.ToString();
                         dateTimePickerBirth.Value = view.DateOfBirth;
                         dateTimePickerMedAnalys.Value = view.DateMedAnalys;
                         checkBoxMedAnalys.Checked = view.MedAnalys;
-                        comboBoxGender.Text = view.Gender;
+                        if (view.Gender == "Женский")
+                        {
+                            comboBoxGender.SelectedItem = "Ж";
+                        }
+                        else
+                        {
+                            comboBoxGender.SelectedItem = "М";
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -91,7 +100,7 @@ namespace FlyTodayViews
                 // Получить выбранный элемент из comboBoxGender
                 string selectedGender = comboBoxGender.SelectedItem.ToString();
                 var selectedFlight = (FlightViewModel)comboBoxFlights.SelectedItem;
-                int flightId = selectedFlight.Id;
+                var selectedJob = (PositionAtWorkViewModel)comboBoxJob.SelectedItem;
                 // Преобразовать выбранное значение в соответствующую строку
                 string genderAsString = (selectedGender == "Ж") ? "Женский" : "Мужской";
                 var model = new EmployeeBindingModel
@@ -102,7 +111,7 @@ namespace FlyTodayViews
                     LastName = textBoxLastName.Text,
                     DateOfBirth = dateTimePickerBirth.Value.ToUniversalTime(),
                     MedAnalys = checkBoxMedAnalys.Checked,
-                    PositionAtWorkId = comboBoxJob.SelectedIndex,
+                    PositionAtWorkId = selectedJob.Id,
                     Gender = genderAsString,
                     FlightId = selectedFlight.Id
                 };
