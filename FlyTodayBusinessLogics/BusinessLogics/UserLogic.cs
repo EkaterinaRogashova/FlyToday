@@ -1,4 +1,5 @@
-﻿using FlyTodayContracts.BindingModels;
+﻿using FlyTodayBusinessLogics.MailWorker;
+using FlyTodayContracts.BindingModels;
 using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.StoragesContracts;
@@ -18,6 +19,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
     {
         private readonly ILogger _logger;
         private readonly IUserStorage _userStorage;
+
         public UserLogic(ILogger<UserLogic> logger, IUserStorage userStorage)
         {
             _logger = logger;

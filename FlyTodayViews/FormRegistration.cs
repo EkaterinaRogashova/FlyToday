@@ -64,18 +64,16 @@ namespace FlyTodayViews
                     Password = textBoxPassword.Text,
                     AccessRule = AccessEnum.Администратор
                 };
-                //string confirmationCode = GenerateRandomString();
-                //var mailmodel = new MailSendInfoBindingModel 
-                //{
-                //    MailAddress = textBoxEmail.Text,
-                //    Text = confirmationCode,
-                //    Subject = "Код подтверждения"
-                //};
-                //_mailWorker.MailSendAsync(mailmodel);
-
-                //ConfirmationDialog confirmationDialog = new ConfirmationDialog(confirmationCode);
-                //if (confirmationDialog.ShowDialog() == DialogResult.OK)
-                //{
+                string confirmationCode = GenerateRandomString();
+                _mailWorker.MailSendAsync(new()
+                {
+                    MailAddress = model.Email,
+                    Subject = "Код подтверждения регистрации",
+                    Text = $"Ваш код подтверждения: {confirmationCode}"
+                });
+                ConfirmationDialog confirmationDialog = new ConfirmationDialog(confirmationCode);
+                if (confirmationDialog.ShowDialog() == DialogResult.OK)
+                {
                     var operationResult = _logic.Create(model);
                     if (!operationResult)
                     {
@@ -84,11 +82,11 @@ namespace FlyTodayViews
                     MessageBox.Show("Вы зарегестрировались", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DialogResult = DialogResult.OK;
                     Close();
-                //}
-                //else
-                //{
-                //    MessageBox.Show("Неверный код подтверждения", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //}
+                }
+                else
+                {
+                    MessageBox.Show("Неверный код подтверждения", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception ex)
             {
