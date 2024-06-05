@@ -159,7 +159,7 @@ namespace FlyTodayDatabaseImplements.Migrations
                         column: x => x.FlightId,
                         principalTable: "Flights",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Employees_PositionAtWorks_PositionAtWorkId",
                         column: x => x.PositionAtWorkId,

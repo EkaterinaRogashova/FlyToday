@@ -36,8 +36,6 @@ namespace FlyTodayViews
                     PopHost = System.Configuration.ConfigurationManager.AppSettings["PopHost"] ?? string.Empty,
                     PopPort = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["PopPort"])
                 });
-                // создаем таймер
-                //var timer = new System.Threading.Timer(new TimerCallback(MailCheck!), null, 0, 100000);
             }
             catch (Exception ex)
             {
@@ -69,8 +67,7 @@ namespace FlyTodayViews
             services.AddTransient<ISaleStorage, SaleStorage>();
             services.AddTransient<IScheduleStorage, ScheduleStorage>();
             services.AddTransient<ITicketStorage, TicketStorage>();
-
-            
+ 
             services.AddTransient<IBoardingPassLogic, BoardingPassLogic>();
             services.AddTransient<IDirectionLogic, DirectionLogic>();
             services.AddTransient<IEmployeeLogic, EmployeeLogic>();
@@ -82,8 +79,6 @@ namespace FlyTodayViews
             services.AddTransient<ISaleLogic, SaleLogic>();
             services.AddTransient<IScheduleLogic, ScheduleLogic>();
             services.AddTransient<ITicketLogic, TicketLogic>();
-
-            
 
             services.AddTransient<FormMainMenu>();
             services.AddTransient<FormDirection>();
@@ -104,6 +99,5 @@ namespace FlyTodayViews
 
             
         }
-        //private static void MailCheck(object obj) => ServiceProvider?.GetService<AbstractMailWorker>()?.MailCheck();
     }
 }

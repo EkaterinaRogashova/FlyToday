@@ -115,10 +115,6 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             {
                 throw new ArgumentNullException("Неверный идентификатор должности", nameof(model.PositionAtWorkId));
             }
-            if (model.FlightId < 0)
-            {
-                throw new ArgumentNullException("Неверныый идентификатор рейса", nameof(model.FlightId));
-            }
             _logger.LogInformation("Employee. Surname: {Surname}. Name: {Name}. LastName: {LastName}. DateOfBirth: {DateOfBirth}. MedAnalys: {MedAnalys}. DateMedAnalys: {DateMedAnalys}. Gender: {Gender}. PositionAtWorkId: {PositionAtWorkId}. FlightId: {FlightId}. Id: {Id}", model.Name, model.Surname, model.LastName, model.DateOfBirth, model.DateMedAnalys, model.MedAnalys, model.PositionAtWorkId, model.FlightId, model.Gender, model.Id);
             var element = _employeeStorage.GetElement(new EmployeeSearchModel
             {
