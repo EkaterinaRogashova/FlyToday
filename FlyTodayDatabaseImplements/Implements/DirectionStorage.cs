@@ -24,18 +24,18 @@ namespace FlyTodayDatabaseImplements.Implements
 
         public DirectionViewModel? GetElement(DirectionSearchModel model)
         {
-            if (string.IsNullOrEmpty(model.CountryFrom) && string.IsNullOrEmpty(model.CountryTo) 
+            if (string.IsNullOrEmpty(model.CountryFrom) && string.IsNullOrEmpty(model.CountryTo)
                 && string.IsNullOrEmpty(model.CityFrom) && string.IsNullOrEmpty(model.CityTo) && !model.Id.HasValue)
             {
                 return null;
             }
             using var context = new FlyTodayDatabase();
             return context.Directions
-             .FirstOrDefault(x => (!string.IsNullOrEmpty(model.CountryFrom) && !string.IsNullOrEmpty(model.CountryTo)
-                && !string.IsNullOrEmpty(model.CityFrom) && !string.IsNullOrEmpty(model.CityTo) && x.CityFrom == model.CityFrom) ||
-            (model.Id.HasValue && x.Id == model.Id))
-            ?.GetViewModel;
+                .Where(x => (model.CountryFrom == x.CountryFrom && model.CountryTo == x.CountryTo
+                    && model.CityFrom == x.CityFrom && model.CityTo == x.CityTo) || (model.Id.HasValue && x.Id == model.Id))
+                .FirstOrDefault()?.GetViewModel;
         }
+
 
         public List<DirectionViewModel> GetFilteredList(DirectionSearchModel model)
         {

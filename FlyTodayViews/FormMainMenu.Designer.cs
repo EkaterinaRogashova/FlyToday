@@ -36,6 +36,8 @@
             buttonMainLK = new Button();
             buttonEmployees = new Button();
             buttonSales = new Button();
+            buttonDirections = new Button();
+            buttonPlanes = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -122,12 +124,34 @@
             buttonSales.UseVisualStyleBackColor = true;
             buttonSales.Click += buttonSales_Click;
             // 
+            // buttonDirections
+            // 
+            buttonDirections.Location = new Point(503, 125);
+            buttonDirections.Name = "buttonDirections";
+            buttonDirections.Size = new Size(186, 23);
+            buttonDirections.TabIndex = 7;
+            buttonDirections.Text = "Направления";
+            buttonDirections.UseVisualStyleBackColor = true;
+            buttonDirections.Click += buttonDirections_Click;
+            // 
+            // buttonPlanes
+            // 
+            buttonPlanes.Location = new Point(503, 159);
+            buttonPlanes.Name = "buttonPlanes";
+            buttonPlanes.Size = new Size(186, 23);
+            buttonPlanes.TabIndex = 8;
+            buttonPlanes.Text = "Самолеты";
+            buttonPlanes.UseVisualStyleBackColor = true;
+            buttonPlanes.Click += buttonPlanes_Click;
+            // 
             // FormMainMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ButtonHighlight;
             ClientSize = new Size(700, 338);
+            Controls.Add(buttonPlanes);
+            Controls.Add(buttonDirections);
             Controls.Add(buttonSales);
             Controls.Add(buttonEmployees);
             Controls.Add(buttonMainLK);
@@ -151,5 +175,7 @@
         private Button buttonMainLK;
         private Button buttonEmployees;
         private Button buttonSales;
+        private Button buttonDirections;
+        private Button buttonPlanes;
     }
 }

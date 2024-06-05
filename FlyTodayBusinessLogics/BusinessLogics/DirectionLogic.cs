@@ -127,6 +127,10 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             {
                 throw new InvalidOperationException("Такое направление уже существует.");
             }
+            if (model.CityFrom == model.CityTo || (element != null && element.CityFrom == element.CityTo))
+            {
+                throw new InvalidOperationException("Конечный пункт не может совпадать с начальным.");
+            }
         }
     }
 }

@@ -78,5 +78,29 @@ namespace FlyTodayViews
                 }
             }
         }
+
+        private void buttonPlanes_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormPlanes));
+            if (service is FormPlanes form)
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    //LoadData();
+                }
+            }
+        }
+
+        private void buttonDirections_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormDirections));
+            if (service is FormDirections form)
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    //LoadData();
+                }
+            }
+        }
     }
 }

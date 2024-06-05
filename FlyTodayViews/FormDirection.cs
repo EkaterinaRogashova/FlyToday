@@ -20,7 +20,7 @@ namespace FlyTodayViews
 
         private void ButtonSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(textBoxCityFrom.Text) || string.IsNullOrEmpty(textBoxCityTo.Text) || string.IsNullOrEmpty(textBoxCountryFrom.Text) || string.IsNullOrEmpty(textBoxCountryTo.Text))
+            if (string.IsNullOrEmpty(comboBoxSelectCityTo.Text) || string.IsNullOrEmpty(comboBoxSelectCityFrom.Text) || string.IsNullOrEmpty(textBoxCountryFrom.Text) || string.IsNullOrEmpty(textBoxCountryTo.Text))
             {
                 MessageBox.Show("Заполните названия", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -33,8 +33,8 @@ namespace FlyTodayViews
                     Id = _id ?? 0,
                     CountryFrom = textBoxCountryFrom.Text,
                     CountryTo = textBoxCountryTo.Text,
-                    CityFrom = textBoxCityFrom.Text,
-                    CityTo = textBoxCityTo.Text
+                    CityFrom = comboBoxSelectCityFrom.Text,
+                    CityTo = comboBoxSelectCityTo.Text
                 };
                 var operationResult = _id.HasValue ? _logic.Update(model) : _logic.Create(model);
                 if (!operationResult)
@@ -70,8 +70,8 @@ namespace FlyTodayViews
                     {
                         textBoxCountryFrom.Text = view.CountryFrom;
                         textBoxCountryTo.Text = view.CountryTo;
-                        textBoxCityFrom.Text = view.CityFrom;
-                        textBoxCityTo.Text = view.CityTo;
+                        comboBoxSelectCityFrom.Text = view.CityFrom;
+                        comboBoxSelectCityTo.Text = view.CityTo;
                     }
                 }
                 catch (Exception ex)
