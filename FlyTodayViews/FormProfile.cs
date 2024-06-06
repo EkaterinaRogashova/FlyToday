@@ -2,6 +2,7 @@
 using FlyTodayContracts.SearchModels;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
+using System.Windows.Forms;
 
 namespace FlyTodayViews
 {
@@ -20,16 +21,21 @@ namespace FlyTodayViews
             InitializeComponent();
             _logger = logger;
             _logic = logic;
-            /*labelSurname.Text = "";
-            labelName.Text = "";
-            labelLastName.Text = "";
-            labelDateOfBirth.Text = "";
-            labelEmail.Text = "";*/
         }
 
         private void buttonUpd_Click(object sender, EventArgs e)
         {
-
+            var service = Program.ServiceProvider?.GetService(typeof(FormEditProfile));
+            if (service is FormEditProfile form)
+            {
+                if (_id != null && _email != null && _password != null)
+                {
+                    form.Id = _id.Value;
+                    form.Email = _email;
+                    form.Password = _password;
+                    form.ShowDialog();
+                }
+            }
         }
 
         private void buttonDel_Click(object sender, EventArgs e)
@@ -49,14 +55,12 @@ namespace FlyTodayViews
                 try
                 {
                     _logger.LogInformation("Получение пользователя");
-                    var view = _logic.ReadElement(new UserSearchModel { Id = _id.Value, Email = _email, Password = _password });
+                    var view = _logic.ReadElement(new UserSearchModel { Id = _id.Value });
                     if (view != null)
                     {
-                        labelSurname.Text = view.Surname.ToString();
-                        labelName.Text = view.Name.ToString();
-                        labelLastName.Text = view.LastName.ToString();
-                        labelDateOfBirth.Text = view.DateOfBirthday.ToString();
-                        labelEmail.Text = view.Email.ToString();
+                        labelFIO.Text = view.Surname + " " + view.Name + " " + view.LastName;
+                        labelDateOfBirth.Text = view.DateOfBirthday.ToShortDateString();
+                        labelEmail.Text = view.Email;
                     }
                 }
                 catch (Exception ex)

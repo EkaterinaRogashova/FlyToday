@@ -20,7 +20,7 @@ namespace FlyTodayViews
         {
             InitializeComponent();
             _logger = logger;
-            _logic = logic;          
+            _logic = logic;           
         }
         private void buttonMainEnter_Click(object sender, EventArgs e)
         {
@@ -87,10 +87,7 @@ namespace FlyTodayViews
             var service = Program.ServiceProvider?.GetService(typeof(FormPlanes));
             if (service is FormPlanes form)
             {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    //LoadData();
-                }
+                form.ShowDialog();
             }
         }
 
@@ -99,10 +96,7 @@ namespace FlyTodayViews
             var service = Program.ServiceProvider?.GetService(typeof(FormDirections));
             if (service is FormDirections form)
             {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    //LoadData();
-                }
+                form.ShowDialog();
             }
         }
 
@@ -111,10 +105,7 @@ namespace FlyTodayViews
             var service = Program.ServiceProvider?.GetService(typeof(FormFlights));
             if (service is FormFlights form)
             {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    //LoadData();
-                }
+                form.ShowDialog();
             }
         }
 
@@ -124,19 +115,14 @@ namespace FlyTodayViews
             {
                 try
                 {
-                    var currentUser = _logic.ReadElement(new UserSearchModel { Id = _currentUserId.Value, Email = _email, Password = _password });
+                    var currentUser = _logic.ReadElement(new UserSearchModel { Id = _currentUserId.Value});
                     if (currentUser != null)
                     {
                         var service = Program.ServiceProvider?.GetService(typeof(FormProfile));
                         if (service is FormProfile form)
                         {
                             form.Id = _currentUserId.Value;
-                            form.Password = currentUser.Password;
-                            form.Email = currentUser.Email;
-                            if (form.ShowDialog() == DialogResult.OK)
-                            {
-                                // LoadData();
-                            }
+                            form.ShowDialog();
                         }
                     }
                     else
@@ -152,7 +138,7 @@ namespace FlyTodayViews
             }
             else
             {
-                MessageBox.Show("Идентификатор пользователя null", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Сначала авторизуйтесь в системе!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

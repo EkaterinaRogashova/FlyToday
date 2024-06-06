@@ -81,7 +81,7 @@ namespace FlyTodayDatabaseImplements.Models
             Id = Id,
             Name = Name,
             Surname = Surname,
-            LastName = Name,  
+            LastName = LastName,  
             Email = Email,
             Password = Password,
             DateOfBirthday = DateOfBirthday,

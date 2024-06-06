@@ -29,9 +29,7 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            labelSurname = new Label();
-            labelName = new Label();
-            labelLastName = new Label();
+            labelFIO = new Label();
             label2 = new Label();
             labelDateOfBirth = new Label();
             label3 = new Label();
@@ -39,49 +37,35 @@
             buttonUpd = new Button();
             buttonDel = new Button();
             buttonMyRents = new Button();
+            groupBox1 = new GroupBox();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
+            label1.FlatStyle = FlatStyle.Flat;
             label1.Font = new Font("Segoe UI", 20F);
-            label1.Location = new Point(289, 9);
+            label1.Location = new Point(67, 9);
             label1.Name = "label1";
             label1.Size = new Size(224, 37);
             label1.TabIndex = 0;
             label1.Text = "Личный кабинет";
             // 
-            // labelSurname
+            // labelFIO
             // 
-            labelSurname.AutoSize = true;
-            labelSurname.Location = new Point(46, 80);
-            labelSurname.Name = "labelSurname";
-            labelSurname.Size = new Size(38, 15);
-            labelSurname.TabIndex = 1;
-            labelSurname.Text = "label2";
-            // 
-            // labelName
-            // 
-            labelName.AutoSize = true;
-            labelName.Location = new Point(142, 79);
-            labelName.Name = "labelName";
-            labelName.Size = new Size(38, 15);
-            labelName.TabIndex = 2;
-            labelName.Text = "label2";
-            // 
-            // labelLastName
-            // 
-            labelLastName.AutoSize = true;
-            labelLastName.Location = new Point(249, 80);
-            labelLastName.Name = "labelLastName";
-            labelLastName.Size = new Size(38, 15);
-            labelLastName.TabIndex = 3;
-            labelLastName.Text = "label2";
+            labelFIO.AutoSize = true;
+            labelFIO.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
+            labelFIO.Location = new Point(11, 31);
+            labelFIO.Name = "labelFIO";
+            labelFIO.Size = new Size(35, 15);
+            labelFIO.TabIndex = 1;
+            labelFIO.Text = "ФИО";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(46, 138);
+            label2.Location = new Point(11, 62);
             label2.Name = "label2";
             label2.Size = new Size(93, 15);
             label2.TabIndex = 4;
@@ -90,16 +74,17 @@
             // labelDateOfBirth
             // 
             labelDateOfBirth.AutoSize = true;
-            labelDateOfBirth.Location = new Point(176, 138);
+            labelDateOfBirth.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
+            labelDateOfBirth.Location = new Point(142, 62);
             labelDateOfBirth.Name = "labelDateOfBirth";
-            labelDateOfBirth.Size = new Size(38, 15);
+            labelDateOfBirth.Size = new Size(61, 15);
             labelDateOfBirth.TabIndex = 5;
-            labelDateOfBirth.Text = "label3";
+            labelDateOfBirth.Text = "01.01.2000";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(46, 190);
+            label3.Location = new Point(11, 88);
             label3.Name = "label3";
             label3.Size = new Size(116, 15);
             label3.TabIndex = 6;
@@ -108,27 +93,28 @@
             // labelEmail
             // 
             labelEmail.AutoSize = true;
-            labelEmail.Location = new Point(195, 190);
+            labelEmail.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
+            labelEmail.Location = new Point(142, 88);
             labelEmail.Name = "labelEmail";
-            labelEmail.Size = new Size(38, 15);
+            labelEmail.Size = new Size(100, 15);
             labelEmail.TabIndex = 7;
-            labelEmail.Text = "label3";
+            labelEmail.Text = "example@mail.ru";
             // 
             // buttonUpd
             // 
-            buttonUpd.Location = new Point(569, 34);
+            buttonUpd.Location = new Point(30, 218);
             buttonUpd.Name = "buttonUpd";
-            buttonUpd.Size = new Size(127, 23);
+            buttonUpd.Size = new Size(303, 23);
             buttonUpd.TabIndex = 8;
-            buttonUpd.Text = "Редактировать";
+            buttonUpd.Text = "Редактировать профиль";
             buttonUpd.UseVisualStyleBackColor = true;
             buttonUpd.Click += buttonUpd_Click;
             // 
             // buttonDel
             // 
-            buttonDel.Location = new Point(570, 76);
+            buttonDel.Location = new Point(30, 247);
             buttonDel.Name = "buttonDel";
-            buttonDel.Size = new Size(126, 23);
+            buttonDel.Size = new Size(303, 23);
             buttonDel.TabIndex = 9;
             buttonDel.Text = "Удалить профиль";
             buttonDel.UseVisualStyleBackColor = true;
@@ -136,33 +122,43 @@
             // 
             // buttonMyRents
             // 
-            buttonMyRents.Location = new Point(569, 120);
+            buttonMyRents.Location = new Point(30, 189);
             buttonMyRents.Name = "buttonMyRents";
-            buttonMyRents.Size = new Size(127, 23);
+            buttonMyRents.Size = new Size(303, 23);
             buttonMyRents.TabIndex = 10;
             buttonMyRents.Text = "Мои бронирования";
             buttonMyRents.UseVisualStyleBackColor = true;
             buttonMyRents.Click += buttonMyRents_Click;
             // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(labelFIO);
+            groupBox1.Controls.Add(label2);
+            groupBox1.Controls.Add(labelEmail);
+            groupBox1.Controls.Add(labelDateOfBirth);
+            groupBox1.Controls.Add(label3);
+            groupBox1.Location = new Point(30, 66);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(303, 117);
+            groupBox1.TabIndex = 11;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Личные данные";
+            // 
             // FormProfile
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(360, 285);
+            Controls.Add(groupBox1);
             Controls.Add(buttonMyRents);
             Controls.Add(buttonDel);
             Controls.Add(buttonUpd);
-            Controls.Add(labelEmail);
-            Controls.Add(label3);
-            Controls.Add(labelDateOfBirth);
-            Controls.Add(label2);
-            Controls.Add(labelLastName);
-            Controls.Add(labelName);
-            Controls.Add(labelSurname);
             Controls.Add(label1);
             Name = "FormProfile";
             Text = "Профиль";
             Load += FormProfile_Load;
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -170,9 +166,7 @@
         #endregion
 
         private Label label1;
-        private Label labelSurname;
-        private Label labelName;
-        private Label labelLastName;
+        private Label labelFIO;
         private Label label2;
         private Label labelDateOfBirth;
         private Label label3;
@@ -180,5 +174,6 @@
         private Button buttonUpd;
         private Button buttonDel;
         private Button buttonMyRents;
+        private GroupBox groupBox1;
     }
 }

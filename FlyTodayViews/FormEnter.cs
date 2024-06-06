@@ -10,7 +10,6 @@ namespace FlyTodayViews
     {
         private readonly ILogger _logger;
         private readonly IUserLogic _logic;
-
         public FormEnter(ILogger<FormEnter> logger, IUserLogic logic)
         {
             InitializeComponent();
@@ -36,16 +35,12 @@ namespace FlyTodayViews
                 {
                     MessageBox.Show("Вы вошли", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DialogResult = DialogResult.OK;
-                    
                     var service = Program.ServiceProvider?.GetService(typeof(FormMainMenu));
                     if (service is FormMainMenu form)
                     {
                         form.CurrentUserId = CurrentUser.Id;
-                        form.Password = CurrentUser.Password;
-                        form.Email = CurrentUser.Email;
                         form.ShowDialog();
                     }
-                    Close();
                 }
                 else
                 {

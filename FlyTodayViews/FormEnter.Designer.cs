@@ -42,9 +42,10 @@
             buttonEnter.Cursor = Cursors.Hand;
             buttonEnter.Font = new Font("Segoe UI", 16F);
             buttonEnter.ForeColor = SystemColors.Desktop;
-            buttonEnter.Location = new Point(285, 300);
+            buttonEnter.Location = new Point(249, 225);
+            buttonEnter.Margin = new Padding(3, 2, 3, 2);
             buttonEnter.Name = "buttonEnter";
-            buttonEnter.Size = new Size(250, 60);
+            buttonEnter.Size = new Size(219, 45);
             buttonEnter.TabIndex = 0;
             buttonEnter.Text = "Войти";
             buttonEnter.UseVisualStyleBackColor = false;
@@ -52,26 +53,28 @@
             // 
             // textBoxEmail
             // 
-            textBoxEmail.Location = new Point(285, 154);
+            textBoxEmail.Location = new Point(249, 116);
+            textBoxEmail.Margin = new Padding(3, 2, 3, 2);
             textBoxEmail.Name = "textBoxEmail";
-            textBoxEmail.Size = new Size(252, 27);
+            textBoxEmail.Size = new Size(221, 23);
             textBoxEmail.TabIndex = 1;
             // 
             // textBoxPassword
             // 
-            textBoxPassword.Location = new Point(285, 238);
+            textBoxPassword.Location = new Point(249, 178);
+            textBoxPassword.Margin = new Padding(3, 2, 3, 2);
             textBoxPassword.Name = "textBoxPassword";
-            textBoxPassword.Size = new Size(252, 27);
-            textBoxPassword.TabIndex = 2;
             textBoxPassword.PasswordChar = '*';
+            textBoxPassword.Size = new Size(221, 23);
+            textBoxPassword.TabIndex = 2;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 20F);
-            label1.Location = new Point(247, 44);
+            label1.Location = new Point(216, 33);
             label1.Name = "label1";
-            label1.Size = new Size(329, 46);
+            label1.Size = new Size(264, 37);
             label1.TabIndex = 3;
             label1.Text = "Добро пожаловать!";
             // 
@@ -79,9 +82,9 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(285, 123);
+            label2.Location = new Point(249, 92);
             label2.Name = "label2";
-            label2.Size = new Size(149, 28);
+            label2.Size = new Size(119, 21);
             label2.TabIndex = 4;
             label2.Text = "Введите e-mail:";
             // 
@@ -89,23 +92,24 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F);
-            label3.Location = new Point(289, 206);
+            label3.Location = new Point(253, 154);
             label3.Name = "label3";
-            label3.Size = new Size(161, 28);
+            label3.Size = new Size(126, 21);
             label3.TabIndex = 5;
             label3.Text = "Введите пароль:";
             // 
             // FormEnter
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(700, 338);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(textBoxPassword);
             Controls.Add(textBoxEmail);
             Controls.Add(buttonEnter);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "FormEnter";
             Text = "Вход";
             ResumeLayout(false);
