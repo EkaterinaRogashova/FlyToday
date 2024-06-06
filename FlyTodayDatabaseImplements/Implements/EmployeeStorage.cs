@@ -38,7 +38,12 @@ namespace FlyTodayDatabaseImplements.Implements
 
         public List<EmployeeViewModel> GetFilteredList(EmployeeSearchModel model)
         {
-            throw new NotImplementedException();
+            if (!model.PositionAtWorkId.HasValue)
+            {
+                return new();
+            }
+            using var context = new FlyTodayDatabase();
+            return context.Employees.Where(x => x.PositionAtWorkId == model.PositionAtWorkId).Select(x => x.GetViewModel).ToList();
         }
 
         public List<EmployeeViewModel> GetFullList()

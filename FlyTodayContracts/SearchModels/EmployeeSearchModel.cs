@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlyTodayDataModels.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,6 @@ namespace FlyTodayContracts.SearchModels
         public bool? MedAnalys { get; set; }
         public int? PositionAtWorkId { get; set; }
         public string? FlightId { get; set;}
+        public TypeWorkEnum? TypeWork { get; set; }
     }
 }

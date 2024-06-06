@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FlyTodayDatabaseImplements.Migrations
 {
     [DbContext(typeof(FlyTodayDatabase))]
-    [Migration("20240604130226_InitialCreate1")]
-    partial class InitialCreate1
+    [Migration("20240606210113_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -115,6 +115,9 @@ namespace FlyTodayDatabaseImplements.Migrations
                     b.Property<string>("Surname")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("TypeWork")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -220,6 +223,9 @@ namespace FlyTodayDatabaseImplements.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("NumberOfEmployeesInShift")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

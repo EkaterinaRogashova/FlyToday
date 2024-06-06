@@ -64,7 +64,8 @@ namespace FlyTodayDatabaseImplements.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false)
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    NumberOfEmployeesInShift = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -149,7 +150,8 @@ namespace FlyTodayDatabaseImplements.Migrations
                     DateOfBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Gender = table.Column<string>(type: "text", nullable: false),
                     PositionAtWorkId = table.Column<int>(type: "integer", nullable: false),
-                    FlightId = table.Column<int>(type: "integer", nullable: false)
+                    FlightId = table.Column<int>(type: "integer", nullable: false),
+                    TypeWork = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -159,7 +161,7 @@ namespace FlyTodayDatabaseImplements.Migrations
                         column: x => x.FlightId,
                         principalTable: "Flights",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Employees_PositionAtWorks_PositionAtWorkId",
                         column: x => x.PositionAtWorkId,

@@ -1,4 +1,5 @@
-﻿using FlyTodayDataModels.Models;
+﻿using FlyTodayDataModels.Enums;
+using FlyTodayDataModels.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,5 +29,6 @@ namespace FlyTodayContracts.BindingModels
         public int FlightId { get; set; }
 
         public int Id { get; set; }
+        public TypeWorkEnum TypeWork { get; set; }
     }
 }

@@ -58,7 +58,13 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             {
                 hashedPassword = EncryptPassword(model.Password);
             }
-                
+
+
+            var element = _userStorage.GetElement(model);
+            _logger.LogInformation("ReadElement. Email: {Email}. Id: {Id}.", model.Email, model.Id);
+            string hashedPassword = EncryptPassword(model.Password);
+            _logger.LogInformation("ReadElement. Email: {Email}. Id: {Id}.", model.Email, model.Id);
+            string hashedPassword = EncryptPassword(model.Password);
             if (element == null)
             {
                 _logger.LogWarning("ReadElement element not found");

@@ -45,10 +45,10 @@
             label5 = new Label();
             checkBoxMedAnalys = new CheckBox();
             groupBox3 = new GroupBox();
+            comboBoxFlights = new ComboBox();
             comboBoxJob = new ComboBox();
             label8 = new Label();
             label7 = new Label();
-            comboBoxFlights = new ComboBox();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -230,12 +230,22 @@
             groupBox3.TabStop = false;
             groupBox3.Text = "Данные о работе";
             // 
+            // comboBoxFlights
+            // 
+            comboBoxFlights.FormattingEnabled = true;
+            comboBoxFlights.Location = new Point(20, 129);
+            comboBoxFlights.Name = "comboBoxFlights";
+            comboBoxFlights.Size = new Size(280, 28);
+            comboBoxFlights.TabIndex = 9;
+            // 
             // comboBoxJob
             // 
+            comboBoxJob.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxJob.FormattingEnabled = true;
             comboBoxJob.Location = new Point(20, 64);
             comboBoxJob.Name = "comboBoxJob";
             comboBoxJob.Size = new Size(280, 28);
+            comboBoxJob.Sorted = true;
             comboBoxJob.TabIndex = 8;
             // 
             // label8
@@ -257,14 +267,6 @@
             label7.Size = new Size(119, 28);
             label7.TabIndex = 5;
             label7.Text = "Должность:";
-            // 
-            // comboBoxFlights
-            // 
-            comboBoxFlights.FormattingEnabled = true;
-            comboBoxFlights.Location = new Point(20, 129);
-            comboBoxFlights.Name = "comboBoxFlights";
-            comboBoxFlights.Size = new Size(280, 28);
-            comboBoxFlights.TabIndex = 9;
             // 
             // FormEmployee
             // 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlyTodayDataModels.Enums;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace FlyTodayDataModels.Models
         string Gender { get; }
         int PositionAtWorkId { get; }
         int FlightId { get; }
+        TypeWorkEnum TypeWork { get; }
 
     }
 }

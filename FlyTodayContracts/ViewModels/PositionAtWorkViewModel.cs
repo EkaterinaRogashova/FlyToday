@@ -12,5 +12,7 @@ namespace FlyTodayContracts.ViewModels
         public int Id { get; set; }
         [DisplayName("Название должности")]
         public string Name { get; set; } = string.Empty;
+        [DisplayName("Количество человек на смене")]
+        public int NumberOfEmployeesInShift { get; set; }
     }
 }

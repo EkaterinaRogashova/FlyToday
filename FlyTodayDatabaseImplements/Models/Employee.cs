@@ -1,5 +1,6 @@
 ﻿using FlyTodayContracts.BindingModels;
 using FlyTodayContracts.ViewModels;
+using FlyTodayDataModels.Enums;
 using FlyTodayDataModels.Models;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,7 @@ namespace FlyTodayDatabaseImplements.Models
         public int FlightId { get; private set; }
         public Flight Flight { get; set; }
         public PositionAtWork PositionAtWork { get; set; }
+        public TypeWorkEnum TypeWork { get; private set; }
 
         public static Employee? Create(EmployeeBindingModel model)
         {
@@ -52,7 +54,8 @@ namespace FlyTodayDatabaseImplements.Models
                 DateMedAnalys = model.DateMedAnalys,
                 Gender = model.Gender,
                 PositionAtWorkId = model.PositionAtWorkId,
-                FlightId = model.FlightId
+                FlightId = model.FlightId,
+                TypeWork = model.TypeWork
             };
         }
         public static Employee Create(EmployeeViewModel model)
@@ -68,7 +71,8 @@ namespace FlyTodayDatabaseImplements.Models
                 DateMedAnalys = model.DateMedAnalys,
                 Gender = model.Gender,
                 PositionAtWorkId = model.PositionAtWorkId,
-                FlightId = model.FlightId
+                FlightId = model.FlightId,
+                TypeWork = model.TypeWork
             };
         }
         public void Update(EmployeeBindingModel model)
@@ -86,6 +90,7 @@ namespace FlyTodayDatabaseImplements.Models
             Gender = model.Gender;
             PositionAtWorkId = model.PositionAtWorkId;
             FlightId = model.FlightId;
+            TypeWork = model.TypeWork;
         }
         public EmployeeViewModel GetViewModel => new()
         {
@@ -98,7 +103,10 @@ namespace FlyTodayDatabaseImplements.Models
             DateMedAnalys = DateMedAnalys,
             Gender = Gender,
             PositionAtWorkId = PositionAtWorkId,
-            FlightId = FlightId
+            FlightId = FlightId,
+            TypeWork = TypeWork
         };
+
+        
     }
 }

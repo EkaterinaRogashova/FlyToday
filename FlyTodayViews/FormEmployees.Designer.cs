@@ -33,6 +33,7 @@
             buttonEdit = new Button();
             buttonDelete = new Button();
             groupBox1 = new GroupBox();
+            buttonDeteteFilter = new Button();
             buttonSaveFilter = new Button();
             label1 = new Label();
             comboBoxJob = new ComboBox();
@@ -59,7 +60,7 @@
             // buttonAdd
             // 
             buttonAdd.Font = new Font("Segoe UI", 12F);
-            buttonAdd.Location = new Point(1012, 229);
+            buttonAdd.Location = new Point(1010, 274);
             buttonAdd.Name = "buttonAdd";
             buttonAdd.Size = new Size(145, 49);
             buttonAdd.TabIndex = 1;
@@ -70,7 +71,7 @@
             // buttonEdit
             // 
             buttonEdit.Font = new Font("Segoe UI", 12F);
-            buttonEdit.Location = new Point(1012, 284);
+            buttonEdit.Location = new Point(1010, 329);
             buttonEdit.Name = "buttonEdit";
             buttonEdit.Size = new Size(145, 49);
             buttonEdit.TabIndex = 2;
@@ -81,35 +82,49 @@
             // buttonDelete
             // 
             buttonDelete.Font = new Font("Segoe UI", 12F);
-            buttonDelete.Location = new Point(1012, 339);
+            buttonDelete.Location = new Point(1010, 384);
             buttonDelete.Name = "buttonDelete";
             buttonDelete.Size = new Size(145, 49);
             buttonDelete.TabIndex = 3;
             buttonDelete.Text = "Уволить";
             buttonDelete.UseVisualStyleBackColor = true;
+            buttonDelete.Click += buttonDelete_Click;
             // 
             // groupBox1
             // 
             groupBox1.BackColor = SystemColors.GradientActiveCaption;
+            groupBox1.Controls.Add(buttonDeteteFilter);
             groupBox1.Controls.Add(buttonSaveFilter);
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(comboBoxJob);
-            groupBox1.Location = new Point(1004, 59);
+            groupBox1.Location = new Point(1003, 35);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(159, 164);
+            groupBox1.Size = new Size(159, 235);
             groupBox1.TabIndex = 4;
             groupBox1.TabStop = false;
             groupBox1.Text = "Фильтр";
             // 
+            // buttonDeteteFilter
+            // 
+            buttonDeteteFilter.Font = new Font("Segoe UI", 12F);
+            buttonDeteteFilter.Location = new Point(7, 161);
+            buttonDeteteFilter.Name = "buttonDeteteFilter";
+            buttonDeteteFilter.Size = new Size(145, 49);
+            buttonDeteteFilter.TabIndex = 6;
+            buttonDeteteFilter.Text = "Сбросить";
+            buttonDeteteFilter.UseVisualStyleBackColor = true;
+            buttonDeteteFilter.Click += buttonDeteteFilter_Click;
+            // 
             // buttonSaveFilter
             // 
             buttonSaveFilter.Font = new Font("Segoe UI", 12F);
-            buttonSaveFilter.Location = new Point(8, 100);
+            buttonSaveFilter.Location = new Point(6, 97);
             buttonSaveFilter.Name = "buttonSaveFilter";
             buttonSaveFilter.Size = new Size(145, 49);
             buttonSaveFilter.TabIndex = 5;
             buttonSaveFilter.Text = "Применить";
             buttonSaveFilter.UseVisualStyleBackColor = true;
+            buttonSaveFilter.Click += buttonSaveFilter_Click;
             // 
             // label1
             // 
@@ -123,10 +138,12 @@
             // 
             // comboBoxJob
             // 
+            comboBoxJob.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxJob.FormattingEnabled = true;
             comboBoxJob.Location = new Point(5, 54);
             comboBoxJob.Name = "comboBoxJob";
             comboBoxJob.Size = new Size(151, 28);
+            comboBoxJob.Sorted = true;
             comboBoxJob.TabIndex = 0;
             // 
             // menuStrip1
@@ -149,19 +166,20 @@
             // scheduleToolStripMenuItem
             // 
             scheduleToolStripMenuItem.Name = "scheduleToolStripMenuItem";
-            scheduleToolStripMenuItem.Size = new Size(174, 26);
+            scheduleToolStripMenuItem.Size = new Size(224, 26);
             scheduleToolStripMenuItem.Text = "Расписание";
+            scheduleToolStripMenuItem.Click += scheduleToolStripMenuItem_Click;
             // 
             // tabelToolStripMenuItem
             // 
             tabelToolStripMenuItem.Name = "tabelToolStripMenuItem";
-            tabelToolStripMenuItem.Size = new Size(174, 26);
+            tabelToolStripMenuItem.Size = new Size(224, 26);
             tabelToolStripMenuItem.Text = "Табель";
             // 
             // должностиToolStripMenuItem
             // 
             должностиToolStripMenuItem.Name = "должностиToolStripMenuItem";
-            должностиToolStripMenuItem.Size = new Size(174, 26);
+            должностиToolStripMenuItem.Size = new Size(224, 26);
             должностиToolStripMenuItem.Text = "Должности";
             должностиToolStripMenuItem.Click += должностиToolStripMenuItem_Click;
             // 
@@ -204,5 +222,6 @@
         private ToolStripMenuItem scheduleToolStripMenuItem;
         private ToolStripMenuItem tabelToolStripMenuItem;
         private ToolStripMenuItem должностиToolStripMenuItem;
+        private Button buttonDeteteFilter;
     }
 }

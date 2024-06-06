@@ -9,5 +9,6 @@ namespace FlyTodayDataModels.Models
     public interface IPositionAtWork: IId
     {
         string Name { get; }
+        int NumberOfEmployeesInShift { get; }
     }
 }

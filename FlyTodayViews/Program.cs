@@ -43,7 +43,8 @@ namespace FlyTodayViews
                 var logger = _serviceProvider.GetService<ILogger>();
                 logger?.LogError(ex, "Ошибка работы с почтой");
             }
-            Application.Run(_serviceProvider.GetRequiredService<FormMainMenu>());            
+
+            Application.Run(_serviceProvider.GetRequiredService<FormMainMenu>());           
         }
         private static void ConfigureServices(ServiceCollection services)
         {
@@ -97,6 +98,8 @@ namespace FlyTodayViews
             services.AddTransient<FormFlights>();
             services.AddTransient<ConfirmationDialog>();
             services.AddTransient<FormProfile>();
+            services.AddTransient<FormSchedule>();
+
             services.AddTransient<FormEditProfile>();
         }
     }

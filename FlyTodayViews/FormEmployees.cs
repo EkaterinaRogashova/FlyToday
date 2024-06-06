@@ -2,6 +2,8 @@
 using FlyTodayContracts.BindingModels;
 using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
+using FlyTodayContracts.ViewModels;
+using FlyTodayDatabaseImplements.Models;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -21,17 +23,21 @@ namespace FlyTodayViews
         private readonly IEmployeeLogic _logic;
         private readonly IFlightLogic _flightlogic;
         private readonly IPositionAtWorkLogic _joblogic;
+        private readonly IDirectionLogic _directionlogic;
 
-        public FormEmployees(ILogger<FormEmployee> logger, IEmployeeLogic logic, IFlightLogic flightlogic, IPositionAtWorkLogic joblogic)
+        public FormEmployees(ILogger<FormEmployee> logger, IEmployeeLogic logic, IFlightLogic flightlogic, IPositionAtWorkLogic joblogic, IDirectionLogic directionlogic)
         {
             InitializeComponent();
             _logger = logger;
             _logic = logic;
             _flightlogic = flightlogic;
             _joblogic = joblogic;
+            _directionlogic = directionlogic;
             dataGridView1.Columns.Add("Flight", "Рейс");
             dataGridView1.Columns.Add("Job", "Должность");
         }
+
+
         private void FormEmployees_Load(object sender, EventArgs e)
         {
             LoadData();
@@ -49,14 +55,14 @@ namespace FlyTodayViews
                     dataGridView1.Columns["Surname"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView1.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView1.Columns["LastName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView1.Columns["DateOfBirth"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView1.Columns["MedAnalys"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView1.Columns["DateMedAnalys"].Visible = false;
+                    dataGridView1.Columns["DateOfBirth"].Visible = false;
+                    dataGridView1.Columns["MedAnalys"].Visible = false;
+                    dataGridView1.Columns["DateMedAnalys"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView1.Columns["PositionAtWorkId"].Visible = false;
                     dataGridView1.Columns["FlightId"].Visible = false;
                     dataGridView1.Columns["Job"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView1.Columns["Flight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
+                    dataGridView1.Columns["Flight"].MinimumWidth = 240;
+                    dataGridView1.Columns["Gender"].Visible = false;
                     foreach (DataGridViewRow row in dataGridView1.Rows)
                     {
                         int jobId = Convert.ToInt32(row.Cells["PositionAtWorkId"].Value);
@@ -80,16 +86,28 @@ namespace FlyTodayViews
                         });
                         if (flight != null)
                         {
-                            row.Cells["Flight"].Value = flight.Id;
+                            var directionId = flight.DirectionId;
+                            var direction = _directionlogic.ReadElement(new DirectionSearchModel
+                            {
+                                Id = directionId
+                            });
+                            if (direction != null)
+                            {
+                                row.Cells["Flight"].Value = direction.CountryFrom + " " + direction.CityFrom + " - " + direction.CountryTo + " " + direction.CityTo;
+                            }
                         }
                         else
                         {
-                            row.Cells["Flight"].Value = "Рейс не найден";
+                            row.Cells["Flight"].Value = "Нет";
                         }
                     }
 
                 }
                 _logger.LogInformation("Загрузка сотрудников");
+                var joblist = _joblogic.ReadList(null);
+                comboBoxJob.DataSource = joblist;
+                comboBoxJob.DisplayMember = "Name";
+                comboBoxJob.ValueMember = "Id";
             }
             catch (Exception ex)
             {
@@ -164,6 +182,88 @@ namespace FlyTodayViews
                         MessageBox.Show(ex.Message, "Ошибка",
                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+                }
+            }
+        }
+
+        private void buttonSaveFilter_Click(object sender, EventArgs e)
+        {
+            var selectedJob = (PositionAtWorkViewModel)comboBoxJob.SelectedItem;
+            int selectedJobId = selectedJob.Id;
+            var filltredlist = _logic.ReadList(new EmployeeSearchModel
+            {
+                PositionAtWorkId = selectedJobId
+            });
+            if (filltredlist != null)
+            {
+                dataGridView1.DataSource = filltredlist;
+                dataGridView1.Columns["Id"].Visible = false;
+                dataGridView1.Columns["Surname"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns["LastName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns["DateOfBirth"].Visible = false;
+                dataGridView1.Columns["MedAnalys"].Visible = false;
+                dataGridView1.Columns["DateMedAnalys"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns["PositionAtWorkId"].Visible = false;
+                dataGridView1.Columns["FlightId"].Visible = false;
+                dataGridView1.Columns["Job"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dataGridView1.Columns["Flight"].MinimumWidth = 240;
+                dataGridView1.Columns["Gender"].Visible = false;
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    int jobId = Convert.ToInt32(row.Cells["PositionAtWorkId"].Value);
+                    var job = _joblogic.ReadElement(new PositionAtWorkSearchModel
+                    {
+                        Id = jobId
+                    });
+                    if (job != null)
+                    {
+                        row.Cells["Job"].Value = job.Name;
+                    }
+                    else
+                    {
+                        row.Cells["Job"].Value = "Должность не найдена";
+                    }
+
+                    int flightId = Convert.ToInt32(row.Cells["FlightId"].Value);
+                    var flight = _flightlogic.ReadElement(new FlightSearchModel
+                    {
+                        Id = flightId
+                    });
+                    if (flight != null)
+                    {
+                        var directionId = flight.DirectionId;
+                        var direction = _directionlogic.ReadElement(new DirectionSearchModel
+                        {
+                            Id = directionId
+                        });
+                        if (direction != null)
+                        {
+                            row.Cells["Flight"].Value = direction.CountryFrom + " " + direction.CityFrom + " - " + direction.CountryTo + " " + direction.CityTo;
+                        }
+                    }
+                    else
+                    {
+                        row.Cells["Flight"].Value = "Нет";
+                    }
+                }
+
+            }
+        }
+
+        private void buttonDeteteFilter_Click(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+
+        private void scheduleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormSchedule));
+            if (service is FormSchedule form)
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    LoadData();
                 }
             }
         }

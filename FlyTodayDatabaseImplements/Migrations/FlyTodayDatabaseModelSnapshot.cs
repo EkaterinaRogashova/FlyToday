@@ -113,6 +113,9 @@ namespace FlyTodayDatabaseImplements.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("TypeWork")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("FlightId");
@@ -217,6 +220,9 @@ namespace FlyTodayDatabaseImplements.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("NumberOfEmployeesInShift")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
