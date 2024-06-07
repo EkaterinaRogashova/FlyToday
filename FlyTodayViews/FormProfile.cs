@@ -28,11 +28,9 @@ namespace FlyTodayViews
             var service = Program.ServiceProvider?.GetService(typeof(FormEditProfile));
             if (service is FormEditProfile form)
             {
-                if (_id != null && _email != null && _password != null)
+                if (_id != null)
                 {
                     form.Id = _id.Value;
-                    form.Email = _email;
-                    form.Password = _password;
                     form.ShowDialog();
                 }
             }

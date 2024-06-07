@@ -21,19 +21,14 @@ namespace FlyTodayViews
     {
         private readonly ILogger _logger;
         private readonly IEmployeeLogic _logic;
-        private readonly IFlightLogic _flightlogic;
         private readonly IPositionAtWorkLogic _joblogic;
-        private readonly IDirectionLogic _directionlogic;
 
         public FormEmployees(ILogger<FormEmployee> logger, IEmployeeLogic logic, IFlightLogic flightlogic, IPositionAtWorkLogic joblogic, IDirectionLogic directionlogic)
         {
             InitializeComponent();
             _logger = logger;
             _logic = logic;
-            _flightlogic = flightlogic;
             _joblogic = joblogic;
-            _directionlogic = directionlogic;
-            dataGridView1.Columns.Add("Flight", "Рейс");
             dataGridView1.Columns.Add("Job", "Должность");
         }
 
@@ -59,10 +54,9 @@ namespace FlyTodayViews
                     dataGridView1.Columns["MedAnalys"].Visible = false;
                     dataGridView1.Columns["DateMedAnalys"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView1.Columns["PositionAtWorkId"].Visible = false;
-                    dataGridView1.Columns["FlightId"].Visible = false;
                     dataGridView1.Columns["Job"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView1.Columns["Flight"].MinimumWidth = 240;
                     dataGridView1.Columns["Gender"].Visible = false;
+                    dataGridView1.Columns["TypeWork"].Visible = false;
                     foreach (DataGridViewRow row in dataGridView1.Rows)
                     {
                         int jobId = Convert.ToInt32(row.Cells["PositionAtWorkId"].Value);
@@ -78,28 +72,7 @@ namespace FlyTodayViews
                         {
                             row.Cells["Job"].Value = "Должность не найдена";
                         }
-
-                        int flightId = Convert.ToInt32(row.Cells["FlightId"].Value);
-                        var flight = _flightlogic.ReadElement(new FlightSearchModel
-                        {
-                            Id = flightId
-                        });
-                        if (flight != null)
-                        {
-                            var directionId = flight.DirectionId;
-                            var direction = _directionlogic.ReadElement(new DirectionSearchModel
-                            {
-                                Id = directionId
-                            });
-                            if (direction != null)
-                            {
-                                row.Cells["Flight"].Value = direction.CountryFrom + " " + direction.CityFrom + " - " + direction.CountryTo + " " + direction.CityTo;
-                            }
-                        }
-                        else
-                        {
-                            row.Cells["Flight"].Value = "Нет";
-                        }
+                        
                     }
 
                 }
@@ -205,9 +178,7 @@ namespace FlyTodayViews
                 dataGridView1.Columns["MedAnalys"].Visible = false;
                 dataGridView1.Columns["DateMedAnalys"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 dataGridView1.Columns["PositionAtWorkId"].Visible = false;
-                dataGridView1.Columns["FlightId"].Visible = false;
                 dataGridView1.Columns["Job"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                dataGridView1.Columns["Flight"].MinimumWidth = 240;
                 dataGridView1.Columns["Gender"].Visible = false;
                 foreach (DataGridViewRow row in dataGridView1.Rows)
                 {
@@ -223,29 +194,7 @@ namespace FlyTodayViews
                     else
                     {
                         row.Cells["Job"].Value = "Должность не найдена";
-                    }
-
-                    int flightId = Convert.ToInt32(row.Cells["FlightId"].Value);
-                    var flight = _flightlogic.ReadElement(new FlightSearchModel
-                    {
-                        Id = flightId
-                    });
-                    if (flight != null)
-                    {
-                        var directionId = flight.DirectionId;
-                        var direction = _directionlogic.ReadElement(new DirectionSearchModel
-                        {
-                            Id = directionId
-                        });
-                        if (direction != null)
-                        {
-                            row.Cells["Flight"].Value = direction.CountryFrom + " " + direction.CityFrom + " - " + direction.CountryTo + " " + direction.CityTo;
-                        }
-                    }
-                    else
-                    {
-                        row.Cells["Flight"].Value = "Нет";
-                    }
+                    }                  
                 }
 
             }

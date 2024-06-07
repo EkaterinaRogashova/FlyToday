@@ -150,8 +150,8 @@ namespace FlyTodayDatabaseImplements.Migrations
                     DateOfBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Gender = table.Column<string>(type: "text", nullable: false),
                     PositionAtWorkId = table.Column<int>(type: "integer", nullable: false),
-                    FlightId = table.Column<int>(type: "integer", nullable: false),
-                    TypeWork = table.Column<int>(type: "integer", nullable: false)
+                    TypeWork = table.Column<int>(type: "integer", nullable: false),
+                    FlightId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -160,8 +160,7 @@ namespace FlyTodayDatabaseImplements.Migrations
                         name: "FK_Employees_Flights_FlightId",
                         column: x => x.FlightId,
                         principalTable: "Flights",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Employees_PositionAtWorks_PositionAtWorkId",
                         column: x => x.PositionAtWorkId,

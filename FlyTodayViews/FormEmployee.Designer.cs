@@ -45,9 +45,9 @@
             label5 = new Label();
             checkBoxMedAnalys = new CheckBox();
             groupBox3 = new GroupBox();
-            comboBoxFlights = new ComboBox();
+            comboBoxTypeWork = new ComboBox();
+            label9 = new Label();
             comboBoxJob = new ComboBox();
-            label8 = new Label();
             label7 = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -58,7 +58,7 @@
             // 
             buttonSave.BackColor = SystemColors.ActiveCaption;
             buttonSave.Font = new Font("Segoe UI", 16F);
-            buttonSave.Location = new Point(315, 391);
+            buttonSave.Location = new Point(321, 389);
             buttonSave.Name = "buttonSave";
             buttonSave.Size = new Size(168, 47);
             buttonSave.TabIndex = 0;
@@ -118,7 +118,7 @@
             groupBox1.Controls.Add(textBoxLastName);
             groupBox1.Location = new Point(49, 23);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(322, 353);
+            groupBox1.Size = new Size(322, 360);
             groupBox1.TabIndex = 7;
             groupBox1.TabStop = false;
             groupBox1.Text = "Личные данные";
@@ -219,50 +219,53 @@
             // groupBox3
             // 
             groupBox3.BackColor = SystemColors.GradientActiveCaption;
-            groupBox3.Controls.Add(comboBoxFlights);
+            groupBox3.Controls.Add(comboBoxTypeWork);
+            groupBox3.Controls.Add(label9);
             groupBox3.Controls.Add(comboBoxJob);
-            groupBox3.Controls.Add(label8);
             groupBox3.Controls.Add(label7);
             groupBox3.Location = new Point(432, 199);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(322, 177);
+            groupBox3.Size = new Size(322, 184);
             groupBox3.TabIndex = 9;
             groupBox3.TabStop = false;
             groupBox3.Text = "Данные о работе";
             // 
-            // comboBoxFlights
+            // comboBoxTypeWork
             // 
-            comboBoxFlights.FormattingEnabled = true;
-            comboBoxFlights.Location = new Point(20, 129);
-            comboBoxFlights.Name = "comboBoxFlights";
-            comboBoxFlights.Size = new Size(280, 28);
-            comboBoxFlights.TabIndex = 9;
+            comboBoxTypeWork.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxTypeWork.FormattingEnabled = true;
+            comboBoxTypeWork.Items.AddRange(new object[] { "На рейсе", "Посменная" });
+            comboBoxTypeWork.Location = new Point(20, 61);
+            comboBoxTypeWork.Name = "comboBoxTypeWork";
+            comboBoxTypeWork.Size = new Size(280, 28);
+            comboBoxTypeWork.Sorted = true;
+            comboBoxTypeWork.TabIndex = 11;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 12F);
+            label9.Location = new Point(24, 23);
+            label9.Name = "label9";
+            label9.Size = new Size(123, 28);
+            label9.TabIndex = 10;
+            label9.Text = "Тип работы:";
             // 
             // comboBoxJob
             // 
             comboBoxJob.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxJob.FormattingEnabled = true;
-            comboBoxJob.Location = new Point(20, 64);
+            comboBoxJob.Location = new Point(24, 129);
             comboBoxJob.Name = "comboBoxJob";
             comboBoxJob.Size = new Size(280, 28);
             comboBoxJob.Sorted = true;
             comboBoxJob.TabIndex = 8;
             // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 12F);
-            label8.Location = new Point(20, 98);
-            label8.Name = "label8";
-            label8.Size = new Size(87, 28);
-            label8.TabIndex = 7;
-            label8.Text = "Экипаж:";
-            // 
             // label7
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F);
-            label7.Location = new Point(20, 30);
+            label7.Location = new Point(24, 98);
             label7.Name = "label7";
             label7.Size = new Size(119, 28);
             label7.TabIndex = 5;
@@ -272,7 +275,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 442);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
@@ -308,9 +311,9 @@
         private ComboBox comboBoxGender;
         private Label label5;
         private GroupBox groupBox3;
-        private Label label8;
         private Label label7;
         private ComboBox comboBoxJob;
-        private ComboBox comboBoxFlights;
+        private ComboBox comboBoxTypeWork;
+        private Label label9;
     }
 }

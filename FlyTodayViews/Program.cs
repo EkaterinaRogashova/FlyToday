@@ -99,7 +99,6 @@ namespace FlyTodayViews
             services.AddTransient<ConfirmationDialog>();
             services.AddTransient<FormProfile>();
             services.AddTransient<FormSchedule>();
-
             services.AddTransient<FormEditProfile>();
         }
     }

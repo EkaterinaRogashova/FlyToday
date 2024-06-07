@@ -19,7 +19,7 @@ namespace FlyTodayDatabaseImplements.Models
         public string Surname { get; private set; } = string.Empty;
         [Required]
         public string Name { get; private set; } = string.Empty;
-        [Required]
+
         public string LastName { get; private set; } = string.Empty;
         [Required]
         public bool MedAnalys { get; private set; }
@@ -31,10 +31,8 @@ namespace FlyTodayDatabaseImplements.Models
         public string Gender { get; private set; } = string.Empty;
         [Required]
         public int PositionAtWorkId { get; private set; }
-        [Required]
-        public int FlightId { get; private set; }
-        public Flight Flight { get; set; }
         public PositionAtWork PositionAtWork { get; set; }
+        [Required]
         public TypeWorkEnum TypeWork { get; private set; }
 
         public static Employee? Create(EmployeeBindingModel model)
@@ -54,7 +52,6 @@ namespace FlyTodayDatabaseImplements.Models
                 DateMedAnalys = model.DateMedAnalys,
                 Gender = model.Gender,
                 PositionAtWorkId = model.PositionAtWorkId,
-                FlightId = model.FlightId,
                 TypeWork = model.TypeWork
             };
         }
@@ -71,7 +68,6 @@ namespace FlyTodayDatabaseImplements.Models
                 DateMedAnalys = model.DateMedAnalys,
                 Gender = model.Gender,
                 PositionAtWorkId = model.PositionAtWorkId,
-                FlightId = model.FlightId,
                 TypeWork = model.TypeWork
             };
         }
@@ -89,7 +85,6 @@ namespace FlyTodayDatabaseImplements.Models
             DateMedAnalys = model.DateMedAnalys;
             Gender = model.Gender;
             PositionAtWorkId = model.PositionAtWorkId;
-            FlightId = model.FlightId;
             TypeWork = model.TypeWork;
         }
         public EmployeeViewModel GetViewModel => new()
@@ -103,10 +98,7 @@ namespace FlyTodayDatabaseImplements.Models
             DateMedAnalys = DateMedAnalys,
             Gender = Gender,
             PositionAtWorkId = PositionAtWorkId,
-            FlightId = FlightId,
             TypeWork = TypeWork
         };
-
-        
     }
 }

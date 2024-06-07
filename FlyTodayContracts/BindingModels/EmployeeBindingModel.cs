@@ -26,8 +26,6 @@ namespace FlyTodayContracts.BindingModels
 
         public int PositionAtWorkId { get; set; }
 
-        public int FlightId { get; set; }
-
         public int Id { get; set; }
         public TypeWorkEnum TypeWork { get; set; }
     }

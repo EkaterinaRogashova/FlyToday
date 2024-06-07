@@ -50,7 +50,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             {
                 throw new ArgumentNullException(nameof(model));
             }
-            _logger.LogInformation("ReadElement. Employee. Surname: {Surname}. MedAnalys: {MedAnalys}. PositionAtWorkId: {PositionAtWorkId}. FlightId: {FlightId}. TypeWork: {TypeWork}. Id: {Id}", model.Surname, model.MedAnalys, model.PositionAtWorkId, model.FlightId, model.TypeWork, model.Id);
+            _logger.LogInformation("ReadElement. Employee. Surname: {Surname}. MedAnalys: {MedAnalys}. PositionAtWorkId: {PositionAtWorkId}. TypeWork: {TypeWork}. Id: {Id}", model.Surname, model.MedAnalys, model.PositionAtWorkId, model.TypeWork, model.Id);
             var element = _employeeStorage.GetElement(model);
             if (element == null)
             {
@@ -63,7 +63,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
 
         public List<EmployeeViewModel>? ReadList(EmployeeSearchModel? model)
         {
-            _logger.LogInformation("ReadList. Surname: {Surname}. MedAnalys: {MedAnalys}. PositionAtWorkId: {PositionAtWorkId}. FlightId: {FlightId}. TypeWork: {TypeWork}. Id: {Id}", model?.Surname, model?.MedAnalys, model?.PositionAtWorkId, model?.FlightId, model?.TypeWork, model?.Id);
+            _logger.LogInformation("ReadList. Surname: {Surname}. MedAnalys: {MedAnalys}. PositionAtWorkId: {PositionAtWorkId}. TypeWork: {TypeWork}. Id: {Id}", model?.Surname, model?.MedAnalys, model?.PositionAtWorkId, model?.TypeWork, model?.Id);
             var list = model == null ? _employeeStorage.GetFullList() : _employeeStorage.GetFilteredList(model);
             if (list == null)
             {
@@ -115,7 +115,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             {
                 throw new ArgumentNullException("Неверный идентификатор должности", nameof(model.PositionAtWorkId));
             }
-            _logger.LogInformation("Employee. Surname: {Surname}. Name: {Name}. LastName: {LastName}. DateOfBirth: {DateOfBirth}. MedAnalys: {MedAnalys}. DateMedAnalys: {DateMedAnalys}. Gender: {Gender}. PositionAtWorkId: {PositionAtWorkId}. FlightId: {FlightId}. TypeWork: {TypeWork}. Id: {Id}", model.Name, model.Surname, model.LastName, model.DateOfBirth, model.DateMedAnalys, model.MedAnalys, model.PositionAtWorkId, model.FlightId, model.Gender, model.TypeWork, model.Id);
+            _logger.LogInformation("Employee. Surname: {Surname}. Name: {Name}. LastName: {LastName}. DateOfBirth: {DateOfBirth}. MedAnalys: {MedAnalys}. DateMedAnalys: {DateMedAnalys}. Gender: {Gender}. PositionAtWorkId: {PositionAtWorkId}. TypeWork: {TypeWork}. Id: {Id}", model.Name, model.Surname, model.LastName, model.DateOfBirth, model.DateMedAnalys, model.MedAnalys, model.PositionAtWorkId, model.Gender, model.TypeWork, model.Id);
             var element = _employeeStorage.GetElement(new EmployeeSearchModel
             {
                 Surname = model.Surname,

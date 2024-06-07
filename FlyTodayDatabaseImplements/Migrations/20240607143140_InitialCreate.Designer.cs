@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FlyTodayDatabaseImplements.Migrations
 {
     [DbContext(typeof(FlyTodayDatabase))]
-    [Migration("20240606210113_InitialCreate")]
+    [Migration("20240607143140_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -91,7 +91,7 @@ namespace FlyTodayDatabaseImplements.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("FlightId")
+                    b.Property<int?>("FlightId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Gender")
@@ -432,19 +432,15 @@ namespace FlyTodayDatabaseImplements.Migrations
 
             modelBuilder.Entity("FlyTodayDatabaseImplements.Models.Employee", b =>
                 {
-                    b.HasOne("FlyTodayDatabaseImplements.Models.Flight", "Flight")
+                    b.HasOne("FlyTodayDatabaseImplements.Models.Flight", null)
                         .WithMany("Employees")
-                        .HasForeignKey("FlightId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FlightId");
 
                     b.HasOne("FlyTodayDatabaseImplements.Models.PositionAtWork", "PositionAtWork")
                         .WithMany()
                         .HasForeignKey("PositionAtWorkId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Flight");
 
                     b.Navigation("PositionAtWork");
                 });

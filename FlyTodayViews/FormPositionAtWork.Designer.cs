@@ -31,13 +31,15 @@
             buttonSave = new Button();
             label1 = new Label();
             textBoxName = new TextBox();
+            textBoxNumber = new TextBox();
+            label2 = new Label();
             SuspendLayout();
             // 
             // buttonSave
             // 
             buttonSave.BackColor = SystemColors.ActiveCaption;
             buttonSave.Font = new Font("Segoe UI", 12F);
-            buttonSave.Location = new Point(75, 174);
+            buttonSave.Location = new Point(100, 174);
             buttonSave.Name = "buttonSave";
             buttonSave.Size = new Size(144, 46);
             buttonSave.TabIndex = 0;
@@ -49,7 +51,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(21, 39);
+            label1.Location = new Point(17, 22);
             label1.Name = "label1";
             label1.Size = new Size(211, 28);
             label1.TabIndex = 1;
@@ -57,16 +59,35 @@
             // 
             // textBoxName
             // 
-            textBoxName.Location = new Point(21, 72);
+            textBoxName.Location = new Point(17, 55);
             textBoxName.Name = "textBoxName";
-            textBoxName.Size = new Size(269, 27);
+            textBoxName.Size = new Size(291, 27);
             textBoxName.TabIndex = 2;
+            // 
+            // textBoxNumber
+            // 
+            textBoxNumber.Location = new Point(17, 128);
+            textBoxNumber.Name = "textBoxNumber";
+            textBoxNumber.Size = new Size(291, 27);
+            textBoxNumber.TabIndex = 4;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 12F);
+            label2.Location = new Point(17, 95);
+            label2.Name = "label2";
+            label2.Size = new Size(291, 28);
+            label2.TabIndex = 3;
+            label2.Text = "Количество человек на смене:";
             // 
             // FormPositionAtWork
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(302, 263);
+            ClientSize = new Size(326, 263);
+            Controls.Add(textBoxNumber);
+            Controls.Add(label2);
             Controls.Add(textBoxName);
             Controls.Add(label1);
             Controls.Add(buttonSave);
@@ -82,5 +103,7 @@
         private Button buttonSave;
         private Label label1;
         private TextBox textBoxName;
+        private TextBox textBoxNumber;
+        private Label label2;
     }
 }

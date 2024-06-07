@@ -41,6 +41,7 @@ namespace FlyTodayViews
                     if (view != null)
                     {
                         textBoxName.Text = view.Name;
+                        textBoxNumber.Text = view.NumberOfEmployeesInShift.ToString();
                     }
                 }
                 catch (Exception ex)
@@ -66,7 +67,8 @@ namespace FlyTodayViews
                 var model = new PositionAtWorkBindingModel
                 {
                     Id = _id ?? 0,
-                    Name = textBoxName.Text
+                    Name = textBoxName.Text,
+                    NumberOfEmployeesInShift = Convert.ToInt32(textBoxNumber.Text)
                 };
                 var operationResult = _id.HasValue ? _logic.Update(model) :
                _logic.Create(model);
