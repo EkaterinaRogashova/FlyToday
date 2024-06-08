@@ -1,4 +1,5 @@
-﻿using FlyTodayContracts.BusinessLogicContracts;
+﻿using FlyTodayContracts.BindingModels;
+using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
@@ -38,7 +39,35 @@ namespace FlyTodayViews
 
         private void buttonDel_Click(object sender, EventArgs e)
         {
-
+            var result = MessageBox.Show("Вы дейстительно хотите удалить профиль?", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {                
+                _logger.LogInformation("Удаление пользователя");
+                try
+                {
+                    if (!_logic.Delete(new UserBindingModel { Id = _id.Value }))
+                    {
+                        throw new Exception("Ошибка при удалении. Дополнительная информация в логах.");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Профиль успешно удален.", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Close();
+                        _id = null;
+                        var service = Program.ServiceProvider?.GetService(typeof(FormMainMenu));
+                        if (service is FormMainMenu form)
+                        {
+                            form.CurrentUserId = -1;
+                            form.LoadData();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Ошибка удаления пользователя");
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }            
         }
 
         private void buttonMyRents_Click(object sender, EventArgs e)

@@ -39,6 +39,7 @@
             buttonDirections = new Button();
             buttonPlanes = new Button();
             buttonFlights = new Button();
+            labelIsAuthorized = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -156,12 +157,22 @@
             buttonFlights.UseVisualStyleBackColor = true;
             buttonFlights.Click += buttonFlights_Click;
             // 
+            // labelIsAuthorized
+            // 
+            labelIsAuthorized.AutoSize = true;
+            labelIsAuthorized.Location = new Point(12, 9);
+            labelIsAuthorized.Name = "labelIsAuthorized";
+            labelIsAuthorized.Size = new Size(38, 15);
+            labelIsAuthorized.TabIndex = 10;
+            labelIsAuthorized.Text = "label1";
+            // 
             // FormMainMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ButtonHighlight;
             ClientSize = new Size(700, 338);
+            Controls.Add(labelIsAuthorized);
             Controls.Add(buttonFlights);
             Controls.Add(buttonPlanes);
             Controls.Add(buttonDirections);
@@ -175,8 +186,10 @@
             Margin = new Padding(3, 2, 3, 2);
             Name = "FormMainMenu";
             Text = "Главная";
+            Load += FormMainMenu_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -191,5 +204,6 @@
         private Button buttonDirections;
         private Button buttonPlanes;
         private Button buttonFlights;
+        private Label labelIsAuthorized;
     }
 }

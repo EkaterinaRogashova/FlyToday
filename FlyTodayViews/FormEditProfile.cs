@@ -3,7 +3,6 @@ using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace FlyTodayViews
 {
@@ -76,6 +75,8 @@ namespace FlyTodayViews
 
         private void FormEditProfile_Load(object sender, EventArgs e)
         {
+            textBoxPassword.UseSystemPasswordChar = true;
+            textBoxRepeatPassword.UseSystemPasswordChar = true;
             if (_id.HasValue)
             {
                 try
@@ -112,8 +113,16 @@ namespace FlyTodayViews
 
         private void buttonEditPassword_Click(object sender, EventArgs e)
         {
-            textBoxPassword.ReadOnly = false;
-            textBoxRepeatPassword.ReadOnly = false;
+            var result = MessageBox.Show("Вы дейстительно хотите поменять пароль?", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                textBoxPassword.ReadOnly = false;
+                textBoxRepeatPassword.ReadOnly = false;
+            }
+            else
+            {
+                return;
+            }
         }
 
         private void buttonShowPassword_MouseDown(object sender, MouseEventArgs e)

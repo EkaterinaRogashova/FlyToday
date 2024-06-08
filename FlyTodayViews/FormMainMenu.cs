@@ -20,7 +20,7 @@ namespace FlyTodayViews
         {
             InitializeComponent();
             _logger = logger;
-            _logic = logic;           
+            _logic = logic;
         }
         private void buttonMainEnter_Click(object sender, EventArgs e)
         {
@@ -111,11 +111,11 @@ namespace FlyTodayViews
 
         private void buttonMainLK_Click(object sender, EventArgs e)
         {
-            if (_currentUserId.HasValue)
+            if (_currentUserId.HasValue || _currentUserId > 0)
             {
                 try
                 {
-                    var currentUser = _logic.ReadElement(new UserSearchModel { Id = _currentUserId.Value});
+                    var currentUser = _logic.ReadElement(new UserSearchModel { Id = _currentUserId.Value });
                     if (currentUser != null)
                     {
                         var service = Program.ServiceProvider?.GetService(typeof(FormProfile));
@@ -126,7 +126,7 @@ namespace FlyTodayViews
                         }
                     }
                     else
-                    {
+                    {                        
                         MessageBox.Show("Пользователь не найден", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
@@ -140,6 +140,25 @@ namespace FlyTodayViews
             {
                 MessageBox.Show("Сначала авторизуйтесь в системе!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        public void LoadData()
+        {            
+            if (_currentUserId == null || _currentUserId <= 0)
+            {
+                labelIsAuthorized.Text = "Вы не авторизованы";
+                labelIsAuthorized.ForeColor = Color.Red;
+            }
+            else
+            {
+                labelIsAuthorized.Text = "Вы авторизованы";
+                labelIsAuthorized.ForeColor = Color.Green;
+            }
+            Refresh();
+        }
+
+        private void FormMainMenu_Load(object sender, EventArgs e)
+        {
+            LoadData();
         }
     }
 }
