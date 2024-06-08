@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FlyTodayViews
 {
@@ -29,6 +30,14 @@ namespace FlyTodayViews
             _employeelogic = employeeLogic;
             dataGridView1.Columns.Add("Fio", "Сотрудник");
             _joblogic = joblogic;
+            dateTimePickerFrom.Enabled = false;
+            dateTimePickerTo.Enabled = false;
+            checkBox.CheckedChanged += CheckBox_CheckedChanged;
+        }
+        private void CheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            dateTimePickerFrom.Enabled = checkBox.Checked;
+            dateTimePickerTo.Enabled = checkBox.Checked;
         }
         private void FormSchedule_Load(object sender, EventArgs e)
         {
@@ -89,45 +98,78 @@ namespace FlyTodayViews
 
         private void buttonSaveFilter_Click(object sender, EventArgs e)
         {
+            //список без фильтра
             var list = _schedulelogic.ReadList(null);
+            //получение должности
             var selectedJob = (PositionAtWorkViewModel)comboBox2.SelectedItem;
             int selectedJobId = selectedJob.Id;
-
-            // Получаем список сотрудников с выбранной должностью
+            //получение периода
+            DateTime startDate = dateTimePickerFrom.Value.Date.ToUniversalTime();
+            DateTime endDate = dateTimePickerTo.Value.Date.ToUniversalTime().AddDays(1).AddTicks(-1);
+            //расписание по периоду
+            var listDate = _schedulelogic.ReadList(new ScheduleSearchModel
+            {
+                DateFrom = startDate,
+                DateTo = endDate
+            });
+            //сотрудники по должности
             var employeesList = _employeelogic.ReadList(new EmployeeSearchModel
             {
                 PositionAtWorkId = selectedJobId
             });
-
-            // Получаем список расписания
+            //расписание по смене
             var scheduleList = _schedulelogic.ReadList(new ScheduleSearchModel
             {
-                Shift = comboBox1.SelectedItem?.ToString()
+                Shift = comboBox1.SelectedItem?.ToString(),
+                DateFrom = startDate,
+                DateTo = endDate
             });
-
-            // Объединяем списки сотрудников и расписания
+            //объединение списков сотрудников и расписания (оба фильтрованны)
             var filteredList = from employee in employeesList
                                join schedule in scheduleList
                                on employee.Id equals schedule.EmployeeId
                                select schedule;
-
+            //объединение списков сотрудников и расписания (фильтр только по должности)
             var filltredlist1 = from employee in employeesList
-                           join schedule in list
-                           on employee.Id equals schedule.EmployeeId
-                           select schedule;
+                                join schedule in list
+                                on employee.Id equals schedule.EmployeeId
+                                select schedule;
             // Сохраняем результат в filltredlist
             var filltredlist = filteredList.ToList();
+            ////если комбобоксы не пустые
             if (comboBox1.SelectedItem != null && selectedJobId != 0)
             {
                 filltredlist = filteredList.ToList();
+                //если комбобоксы не пустые и datefrom dateto тоже
+                if (checkBox.Checked)
+                {
+                    filltredlist = filteredList.Where(x => x.Date >= startDate && x.Date <= endDate).ToList();
+                }
             }
+            //если смена есть, а должности нет
             if (comboBox1.SelectedItem != null && selectedJobId == 0)
             {
                 filltredlist = scheduleList;
+                //datefrom dateto не пустые
+                if (checkBox.Checked)
+                {
+                    filltredlist = filteredList.Where(x => x.Date >= startDate && x.Date <= endDate).ToList();
+                }
             }
+            //если смены нет, а должность есть
             if (comboBox1.SelectedItem == null || comboBox1.SelectedItem.ToString() == "" && selectedJobId != 0)
             {
                 filltredlist = filltredlist1.ToList();
+                //datefrom dateto не пустые
+                if (checkBox.Checked)
+                {
+                    filltredlist = filteredList.Where(x => x.Date >= startDate && x.Date <= endDate).ToList();
+                }
+            }
+            //если только фильтр по датам
+            if (comboBox1.SelectedItem == null || comboBox1.SelectedItem.ToString() == "" && selectedJobId == 0 && checkBox.Checked)
+            {
+                filltredlist = listDate;
             }
             try
             {

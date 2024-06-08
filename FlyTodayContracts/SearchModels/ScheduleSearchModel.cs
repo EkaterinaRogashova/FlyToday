@@ -12,6 +12,8 @@ namespace FlyTodayContracts.SearchModels
         public int? EmployeeId { get; set; }
         public DateTime? Date { get; set; }
         public string? Shift { get; set; }
+        public DateTime? DateFrom { get; set; }
+        public DateTime? DateTo { get; set; }
 
     }
 }

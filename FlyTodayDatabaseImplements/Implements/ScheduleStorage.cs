@@ -40,12 +40,28 @@ namespace FlyTodayDatabaseImplements.Implements
 
         public List<ScheduleViewModel> GetFilteredList(ScheduleSearchModel model)
         {
-            if (string.IsNullOrEmpty(model.Shift))
-            {
-                return new();
-            }
             using var context = new FlyTodayDatabase();
-            return context.Schedules.Where(x => x.Shift == model.Shift).Select(x => x.GetViewModel).ToList();
+            IQueryable<Schedule> scheduleQuery = context.Schedules;
+
+            // Фильтрация по смене
+            if (!string.IsNullOrEmpty(model.Shift))
+            {
+                scheduleQuery = scheduleQuery.Where(x => x.Shift == model.Shift);
+            }
+            // Фильтрация по дате
+            if (model.DateFrom.HasValue && model.DateTo.HasValue)
+            {
+                scheduleQuery = scheduleQuery.Where(x => x.Date >= model.DateFrom && x.Date <= model.DateTo);
+            }
+            else if (model.DateFrom.HasValue)
+            {
+                scheduleQuery = scheduleQuery.Where(x => x.Date >= model.DateFrom);
+            }
+            else if (model.DateTo.HasValue)
+            {
+                scheduleQuery = scheduleQuery.Where(x => x.Date <= model.DateTo);
+            }
+            return scheduleQuery.Select(x => x.GetViewModel).ToList();
         }
 
         public List<ScheduleViewModel> GetFullList()
