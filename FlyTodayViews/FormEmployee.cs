@@ -26,22 +26,14 @@ namespace FlyTodayViews
         private readonly ILogger _logger;
         private readonly IEmployeeLogic _logic;
         private readonly IPositionAtWorkLogic _joblogic;
-        private readonly IFlightLogic _flightlogic;
-        private readonly IDirectionLogic _directionlogic;
         private int? _id;
         public int Id { set { _id = value; } }
-        private readonly List<PositionAtWorkViewModel>? _joblist;
-        private readonly List<FlightViewModel>? _flightlist;
-        public FormEmployee(ILogger<FormEmployee> logger, IEmployeeLogic logic, IPositionAtWorkLogic joblogic, IFlightLogic flightlogic, IDirectionLogic directionLogic)
+        public FormEmployee(ILogger<FormEmployee> logger, IEmployeeLogic logic, IPositionAtWorkLogic joblogic)
         {
             InitializeComponent();
             _logger = logger;
             _logic = logic;
             _joblogic = joblogic;
-            _joblist = new List<PositionAtWorkViewModel>();
-            _flightlist = new List<FlightViewModel>();
-            _flightlogic = flightlogic;
-            _directionlogic = directionLogic;
             dateTimePickerMedAnalys.Enabled = false;
             checkBoxMedAnalys.CheckedChanged += CheckBoxMedAnalys_CheckedChanged;
         }
@@ -78,7 +70,7 @@ namespace FlyTodayViews
                         checkBoxMedAnalys.Checked = view.MedAnalys;
                         comboBoxTypeWork.SelectedItem = view.TypeWork == 0 ? "Посменная" : "На рейсе";
                         comboBoxGender.SelectedItem = view.Gender == "Женский" ? "Ж" : "М";
-                        comboBoxJob.SelectedItem = view.PositionAtWorkId;
+                        comboBoxJob.SelectedValue = view.PositionAtWorkId;
                     }
                 }
                 catch (Exception ex)

@@ -29,22 +29,20 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
-            label3 = new Label();
-            dateTimePicker1 = new DateTimePicker();
+            buttonFilterCancel = new Button();
+            buttonSaveFilter = new Button();
             label2 = new Label();
             comboBox2 = new ComboBox();
             label1 = new Label();
             comboBox1 = new ComboBox();
             groupBox2 = new GroupBox();
+            buttonCancel = new Button();
+            buttonSearch = new Button();
             label5 = new Label();
             label4 = new Label();
             dateTimePicker3 = new DateTimePicker();
             dateTimePicker2 = new DateTimePicker();
             dataGridView1 = new DataGridView();
-            buttonSaveFilter = new Button();
-            buttonFilterCancel = new Button();
-            buttonSearch = new Button();
-            buttonCancel = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -55,8 +53,6 @@
             groupBox1.BackColor = SystemColors.GradientActiveCaption;
             groupBox1.Controls.Add(buttonFilterCancel);
             groupBox1.Controls.Add(buttonSaveFilter);
-            groupBox1.Controls.Add(label3);
-            groupBox1.Controls.Add(dateTimePicker1);
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(comboBox2);
             groupBox1.Controls.Add(label1);
@@ -68,21 +64,25 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Фильтр";
             // 
-            // label3
+            // buttonFilterCancel
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(384, 35);
-            label3.Name = "label3";
-            label3.Size = new Size(44, 20);
-            label3.TabIndex = 5;
-            label3.Text = "Дата:";
+            buttonFilterCancel.Location = new Point(296, 95);
+            buttonFilterCancel.Name = "buttonFilterCancel";
+            buttonFilterCancel.Size = new Size(277, 29);
+            buttonFilterCancel.TabIndex = 7;
+            buttonFilterCancel.Text = "Сбросить";
+            buttonFilterCancel.UseVisualStyleBackColor = true;
+            buttonFilterCancel.Click += buttonFilterCancel_Click;
             // 
-            // dateTimePicker1
+            // buttonSaveFilter
             // 
-            dateTimePicker1.Location = new Point(384, 60);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(189, 27);
-            dateTimePicker1.TabIndex = 4;
+            buttonSaveFilter.Location = new Point(12, 95);
+            buttonSaveFilter.Name = "buttonSaveFilter";
+            buttonSaveFilter.Size = new Size(277, 29);
+            buttonSaveFilter.TabIndex = 6;
+            buttonSaveFilter.Text = "Применить";
+            buttonSaveFilter.UseVisualStyleBackColor = true;
+            buttonSaveFilter.Click += buttonSaveFilter_Click;
             // 
             // label2
             // 
@@ -95,6 +95,7 @@
             // 
             // comboBox2
             // 
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox2.FormattingEnabled = true;
             comboBox2.Location = new Point(199, 60);
             comboBox2.Name = "comboBox2";
@@ -112,8 +113,9 @@
             // 
             // comboBox1
             // 
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "День", "Ночь", "Отсыпной", "Выходной" });
+            comboBox1.Items.AddRange(new object[] { "", "День", "Ночь", "Отсыпной", "Выходной" });
             comboBox1.Location = new Point(12, 60);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(148, 28);
@@ -134,6 +136,24 @@
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "Период";
+            // 
+            // buttonCancel
+            // 
+            buttonCancel.Location = new Point(117, 93);
+            buttonCancel.Name = "buttonCancel";
+            buttonCancel.Size = new Size(111, 29);
+            buttonCancel.TabIndex = 9;
+            buttonCancel.Text = "Отмена";
+            buttonCancel.UseVisualStyleBackColor = true;
+            // 
+            // buttonSearch
+            // 
+            buttonSearch.Location = new Point(6, 93);
+            buttonSearch.Name = "buttonSearch";
+            buttonSearch.Size = new Size(105, 29);
+            buttonSearch.TabIndex = 8;
+            buttonSearch.Text = "Найти";
+            buttonSearch.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
@@ -177,42 +197,6 @@
             dataGridView1.Size = new Size(819, 399);
             dataGridView1.TabIndex = 2;
             // 
-            // buttonSaveFilter
-            // 
-            buttonSaveFilter.Location = new Point(12, 95);
-            buttonSaveFilter.Name = "buttonSaveFilter";
-            buttonSaveFilter.Size = new Size(277, 29);
-            buttonSaveFilter.TabIndex = 6;
-            buttonSaveFilter.Text = "Применить";
-            buttonSaveFilter.UseVisualStyleBackColor = true;
-            // 
-            // buttonFilterCancel
-            // 
-            buttonFilterCancel.Location = new Point(296, 95);
-            buttonFilterCancel.Name = "buttonFilterCancel";
-            buttonFilterCancel.Size = new Size(277, 29);
-            buttonFilterCancel.TabIndex = 7;
-            buttonFilterCancel.Text = "Сбросить";
-            buttonFilterCancel.UseVisualStyleBackColor = true;
-            // 
-            // buttonSearch
-            // 
-            buttonSearch.Location = new Point(6, 93);
-            buttonSearch.Name = "buttonSearch";
-            buttonSearch.Size = new Size(105, 29);
-            buttonSearch.TabIndex = 8;
-            buttonSearch.Text = "Найти";
-            buttonSearch.UseVisualStyleBackColor = true;
-            // 
-            // buttonCancel
-            // 
-            buttonCancel.Location = new Point(117, 93);
-            buttonCancel.Name = "buttonCancel";
-            buttonCancel.Size = new Size(111, 29);
-            buttonCancel.TabIndex = 9;
-            buttonCancel.Text = "Отмена";
-            buttonCancel.UseVisualStyleBackColor = true;
-            // 
             // FormSchedule
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -235,8 +219,6 @@
         #endregion
 
         private GroupBox groupBox1;
-        private Label label3;
-        private DateTimePicker dateTimePicker1;
         private Label label2;
         private ComboBox comboBox2;
         private Label label1;

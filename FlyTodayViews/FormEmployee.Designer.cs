@@ -259,7 +259,6 @@
             comboBoxJob.Location = new Point(24, 129);
             comboBoxJob.Name = "comboBoxJob";
             comboBoxJob.Size = new Size(280, 28);
-            comboBoxJob.Sorted = true;
             comboBoxJob.TabIndex = 8;
             // 
             // label7

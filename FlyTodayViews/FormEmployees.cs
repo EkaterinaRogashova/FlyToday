@@ -191,6 +191,7 @@ namespace FlyTodayViews
                 dataGridView1.Columns["PositionAtWorkId"].Visible = false;
                 dataGridView1.Columns["Job"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 dataGridView1.Columns["Gender"].Visible = false;
+                dataGridView1.Columns["TypeWork"].Visible = false;
                 foreach (DataGridViewRow row in dataGridView1.Rows)
                 {
                     int jobId = Convert.ToInt32(row.Cells["PositionAtWorkId"].Value);
@@ -238,6 +239,18 @@ namespace FlyTodayViews
         {
             if (dataGridView1.SelectedRows.Count == 1)
             {
+                // Получаем значение TypeWork из выбранной строки
+                int typeWork = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["TypeWork"].Value);
+
+                // Проверяем, является ли тип работы "на рейсе"
+                if (typeWork == 1)
+                {
+                    // Выводим сообщение и выходим из метода
+                    MessageBox.Show("Этот сотрудник работает на рейсах", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Если тип работы не "на рейсе", продолжаем выполнение метода
                 var service = Program.ServiceProvider?.GetService(typeof(FormScheduleForEmployee));
                 if (service is FormScheduleForEmployee form)
                 {

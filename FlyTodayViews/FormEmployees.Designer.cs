@@ -167,20 +167,20 @@
             // scheduleToolStripMenuItem
             // 
             scheduleToolStripMenuItem.Name = "scheduleToolStripMenuItem";
-            scheduleToolStripMenuItem.Size = new Size(224, 26);
+            scheduleToolStripMenuItem.Size = new Size(174, 26);
             scheduleToolStripMenuItem.Text = "Расписание";
             scheduleToolStripMenuItem.Click += scheduleToolStripMenuItem_Click;
             // 
             // tabelToolStripMenuItem
             // 
             tabelToolStripMenuItem.Name = "tabelToolStripMenuItem";
-            tabelToolStripMenuItem.Size = new Size(224, 26);
+            tabelToolStripMenuItem.Size = new Size(174, 26);
             tabelToolStripMenuItem.Text = "Табель";
             // 
             // должностиToolStripMenuItem
             // 
             должностиToolStripMenuItem.Name = "должностиToolStripMenuItem";
-            должностиToolStripMenuItem.Size = new Size(224, 26);
+            должностиToolStripMenuItem.Size = new Size(174, 26);
             должностиToolStripMenuItem.Text = "Должности";
             должностиToolStripMenuItem.Click += должностиToolStripMenuItem_Click;
             // 
@@ -191,7 +191,7 @@
             buttonScheduleForEmployee.Name = "buttonScheduleForEmployee";
             buttonScheduleForEmployee.Size = new Size(145, 49);
             buttonScheduleForEmployee.TabIndex = 6;
-            buttonScheduleForEmployee.Text = "Добавить расписание";
+            buttonScheduleForEmployee.Text = "Добавить расписание смен";
             buttonScheduleForEmployee.UseVisualStyleBackColor = true;
             buttonScheduleForEmployee.Click += buttonScheduleForEmployee_Click;
             // 
