@@ -16,6 +16,19 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             _logger = logger;
             _directionStorage = directionStorage;
         }
+
+        public List<DirectionViewModel>? Search(DirectionSearchModel? model)
+        {
+            _logger.LogInformation("Search. CountryFrom:{CountryFrom}. CountryTo:{CountryTo}. CityFrom:{CityFrom}. CityTo:{CityTo}. Id:{ Id}", model?.CountryFrom, model?.CountryTo, model?.CityFrom, model?.CityTo, model?.Id);
+            var list = model == null ? _directionStorage.GetFullList() : _directionStorage.Search(model);
+            if (list == null)
+            {
+                _logger.LogWarning("Search return null list");
+                return null;
+            }
+            _logger.LogInformation("Search. Count:{Count}", list.Count);
+            return list;
+        }
         public bool Create(DirectionBindingModel model)
         {
             CheckModel(model);

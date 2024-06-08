@@ -43,7 +43,7 @@ namespace FlyTodayDatabaseImplements.Implements
 
         public List<FlightViewModel> GetFilteredList(FlightSearchModel model)
         {
-            if (model.DepartureDate == null)
+            if (model.DirectionId == null)
             {
                 return new();
             }
@@ -51,7 +51,7 @@ namespace FlyTodayDatabaseImplements.Implements
             return context.Flights
                 .Include(x => x.Direction)
                 .Include(x => x.Plane)
-            .Where(x => x.DepartureDate.Equals(model.DepartureDate))
+            .Where(x => x.DirectionId.Equals(model.DirectionId))
             .ToList()
             .Select(x => x.GetViewModel)
             .ToList();

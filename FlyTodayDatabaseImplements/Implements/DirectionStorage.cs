@@ -8,6 +8,16 @@ namespace FlyTodayDatabaseImplements.Implements
 {
     public class DirectionStorage : IDirectionStorage
     {
+        public List<DirectionViewModel> Search(DirectionSearchModel model)
+        {
+            using var context = new FlyTodayDatabase();
+            return context.Directions
+                .Where(x => x.CountryFrom.Contains(model.CountryFrom) || x.CityFrom.Contains(model.CityFrom) || x.CountryTo.Contains(model.CountryTo) || x.CityTo.Contains(model.CityTo))
+                .ToList()
+                .Select(x => x.GetViewModel)
+                .ToList();
+        }
+
         public DirectionViewModel? Delete(DirectionBindingModel model)
         {
             using var context = new FlyTodayDatabase();
@@ -46,7 +56,7 @@ namespace FlyTodayDatabaseImplements.Implements
             }
             using var context = new FlyTodayDatabase();
             return context.Directions
-            .Where(x => x.CountryFrom.Contains(model.CountryFrom) || x.CityFrom.Contains(model.CityFrom) || x.CountryTo.Contains(model.CountryTo) || x.CityTo.Contains(model.CityTo))
+            .Where(x => x.CountryFrom.Equals(model.CountryFrom) || x.CityFrom.Equals(model.CityFrom) || x.CountryTo.Equals(model.CountryTo) || x.CityTo.Equals(model.CityTo))
             .ToList()
             .Select(x => x.GetViewModel)
             .ToList();

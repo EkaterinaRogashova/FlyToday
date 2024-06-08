@@ -17,5 +17,6 @@ namespace FlyTodayContracts.StoragesContracts
         DirectionViewModel? Insert(DirectionBindingModel model);
         DirectionViewModel? Update(DirectionBindingModel model);
         DirectionViewModel? Delete(DirectionBindingModel model);
+        List<DirectionViewModel> Search(DirectionSearchModel model);
     }
 }

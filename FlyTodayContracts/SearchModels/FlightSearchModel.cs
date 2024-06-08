@@ -7,5 +7,6 @@
         public int? FreePlacesCount {  get; set; }
         public double? EconomPrice {  get; set; }
         public double? BusinessPrice { get; set; }
+        public int? DirectionId { get; set; }
     }
 }

@@ -72,13 +72,10 @@ namespace FlyTodayViews
 
         private void buttonMainSearch_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormFlights));
-            if (service is FormFlights form)
+            var service = Program.ServiceProvider?.GetService(typeof(FormSearchFlights));
+            if (service is FormSearchFlights form)
             {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    //LoadData();
-                }
+                form.ShowDialog();
             }
         }
 
