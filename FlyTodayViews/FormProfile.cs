@@ -1,9 +1,7 @@
 ﻿using FlyTodayContracts.BindingModels;
 using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
-using System.Windows.Forms;
 
 namespace FlyTodayViews
 {

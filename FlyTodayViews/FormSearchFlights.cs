@@ -61,8 +61,8 @@ namespace FlyTodayViews
                                 foreach (var flight in flights)
                                 {
                                     foundFlights.Add(flight);
-                                }                                
-                            }                            
+                                }
+                            }
                         }
                     }
                     else
@@ -126,13 +126,24 @@ namespace FlyTodayViews
             }
         }
 
-        private void FormSearchFlights_Load(object sender, EventArgs e)
-        {            
-        }
-
         private void ButtonRef_Click(object sender, EventArgs e)
         {
             LoadData();
+        }
+
+        private void dataGridView_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (dataGridView.SelectedRows.Count == 1)
+            {
+                var service = Program.ServiceProvider?.GetService(typeof(FormViewFlight));
+                if (service is FormViewFlight form)
+                {
+                    form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
+                    form.DirectionId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["DirectionId"].Value);
+                    form.PlaneId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["PlaneId"].Value);
+                    form.ShowDialog();
+                }
+            }
         }
     }
 }

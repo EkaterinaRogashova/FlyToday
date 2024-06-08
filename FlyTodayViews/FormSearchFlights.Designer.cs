@@ -48,6 +48,7 @@
             dataGridView.Name = "dataGridView";
             dataGridView.Size = new Size(1027, 374);
             dataGridView.TabIndex = 0;
+            dataGridView.RowHeaderMouseDoubleClick += dataGridView_RowHeaderMouseDoubleClick;
             // 
             // label1
             // 
@@ -143,7 +144,6 @@
             Controls.Add(dataGridView);
             Name = "FormSearchFlights";
             Text = "Поиск";
-            Load += FormSearchFlights_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             ResumeLayout(false);
             PerformLayout();
