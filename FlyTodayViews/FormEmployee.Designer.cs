@@ -135,6 +135,7 @@
             // 
             // comboBoxGender
             // 
+            comboBoxGender.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxGender.FormattingEnabled = true;
             comboBoxGender.Items.AddRange(new object[] { "Ж", "М" });
             comboBoxGender.Location = new Point(15, 305);

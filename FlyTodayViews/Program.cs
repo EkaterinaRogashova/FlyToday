@@ -100,6 +100,7 @@ namespace FlyTodayViews
             services.AddTransient<FormProfile>();
             services.AddTransient<FormSchedule>();
             services.AddTransient<FormEditProfile>();
+            services.AddTransient<FormScheduleForEmployee>();
         }
     }
 }

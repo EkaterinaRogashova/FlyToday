@@ -42,6 +42,7 @@
             scheduleToolStripMenuItem = new ToolStripMenuItem();
             tabelToolStripMenuItem = new ToolStripMenuItem();
             должностиToolStripMenuItem = new ToolStripMenuItem();
+            buttonScheduleForEmployee = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             groupBox1.SuspendLayout();
             menuStrip1.SuspendLayout();
@@ -54,7 +55,7 @@
             dataGridView1.Location = new Point(12, 43);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(972, 395);
+            dataGridView1.Size = new Size(972, 445);
             dataGridView1.TabIndex = 0;
             // 
             // buttonAdd
@@ -183,11 +184,23 @@
             должностиToolStripMenuItem.Text = "Должности";
             должностиToolStripMenuItem.Click += должностиToolStripMenuItem_Click;
             // 
+            // buttonScheduleForEmployee
+            // 
+            buttonScheduleForEmployee.Font = new Font("Segoe UI", 9F);
+            buttonScheduleForEmployee.Location = new Point(1010, 439);
+            buttonScheduleForEmployee.Name = "buttonScheduleForEmployee";
+            buttonScheduleForEmployee.Size = new Size(145, 49);
+            buttonScheduleForEmployee.TabIndex = 6;
+            buttonScheduleForEmployee.Text = "Добавить расписание";
+            buttonScheduleForEmployee.UseVisualStyleBackColor = true;
+            buttonScheduleForEmployee.Click += buttonScheduleForEmployee_Click;
+            // 
             // FormEmployees
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1185, 450);
+            ClientSize = new Size(1185, 492);
+            Controls.Add(buttonScheduleForEmployee);
             Controls.Add(groupBox1);
             Controls.Add(buttonDelete);
             Controls.Add(buttonEdit);
@@ -223,5 +236,6 @@
         private ToolStripMenuItem tabelToolStripMenuItem;
         private ToolStripMenuItem должностиToolStripMenuItem;
         private Button buttonDeteteFilter;
+        private Button buttonScheduleForEmployee;
     }
 }

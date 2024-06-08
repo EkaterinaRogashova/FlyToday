@@ -30,6 +30,7 @@ namespace FlyTodayViews
             _logic = logic;
             _joblogic = joblogic;
             dataGridView1.Columns.Add("Job", "Должность");
+            dataGridView1.Columns.Add("MedAnalysData", "Медицинский осмотр действует до:");
         }
 
 
@@ -52,9 +53,11 @@ namespace FlyTodayViews
                     dataGridView1.Columns["LastName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView1.Columns["DateOfBirth"].Visible = false;
                     dataGridView1.Columns["MedAnalys"].Visible = false;
-                    dataGridView1.Columns["DateMedAnalys"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView1.Columns["DateMedAnalys"].Visible = false;
+                    dataGridView1.Columns["DateMedAnalys"].DefaultCellStyle.Format = "d";
                     dataGridView1.Columns["PositionAtWorkId"].Visible = false;
                     dataGridView1.Columns["Job"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView1.Columns["MedAnalysData"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView1.Columns["Gender"].Visible = false;
                     dataGridView1.Columns["TypeWork"].Visible = false;
                     foreach (DataGridViewRow row in dataGridView1.Rows)
@@ -72,7 +75,15 @@ namespace FlyTodayViews
                         {
                             row.Cells["Job"].Value = "Должность не найдена";
                         }
-                        
+                        if (row.Cells["DateMedAnalys"].Value != null && row.Cells["DateMedAnalys"].Value.ToString() == new DateTime(1900, 1, 1).ToUniversalTime().ToString())
+                        {
+                            row.Cells["MedAnalysData"].Value = "Нет осмотра";
+                        }
+                        else {
+                            string dateString = ((DateTime)row.Cells["DateMedAnalys"].Value).ToString("d");
+                            row.Cells["MedAnalysData"].Value = dateString;
+                        }
+
                     }
 
                 }
@@ -194,7 +205,13 @@ namespace FlyTodayViews
                     else
                     {
                         row.Cells["Job"].Value = "Должность не найдена";
-                    }                  
+                    }
+                    if (row.Cells["DateMedAnalys"].Value != null && row.Cells["DateMedAnalys"].Value.ToString() == new DateTime(1900, 1, 1).ToUniversalTime().ToString())
+                    {
+                        row.Cells["MedAnalysData"].Value = "Нет осмотра";
+                    }
+                    else { row.Cells["MedAnalysData"].Value = row.Cells["DateMedAnalys"].Value.ToString(); }
+
                 }
 
             }
@@ -213,6 +230,22 @@ namespace FlyTodayViews
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     LoadData();
+                }
+            }
+        }
+
+        private void buttonScheduleForEmployee_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count == 1)
+            {
+                var service = Program.ServiceProvider?.GetService(typeof(FormScheduleForEmployee));
+                if (service is FormScheduleForEmployee form)
+                {
+                    form.Id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        LoadData();
+                    }
                 }
             }
         }

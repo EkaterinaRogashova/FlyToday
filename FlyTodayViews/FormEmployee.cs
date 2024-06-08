@@ -42,6 +42,14 @@ namespace FlyTodayViews
             _flightlist = new List<FlightViewModel>();
             _flightlogic = flightlogic;
             _directionlogic = directionLogic;
+            dateTimePickerMedAnalys.Enabled = false;
+            checkBoxMedAnalys.CheckedChanged += CheckBoxMedAnalys_CheckedChanged;
+        }
+        
+
+        private void CheckBoxMedAnalys_CheckedChanged(object sender, EventArgs e)
+        {
+            dateTimePickerMedAnalys.Enabled = checkBoxMedAnalys.Checked;
         }
 
         private void FormEmployee_Load(object sender, EventArgs e)
@@ -68,14 +76,9 @@ namespace FlyTodayViews
                         dateTimePickerBirth.Value = view.DateOfBirth;
                         dateTimePickerMedAnalys.Value = view.DateMedAnalys;
                         checkBoxMedAnalys.Checked = view.MedAnalys;
-                        if (view.Gender == "Женский")
-                        {
-                            comboBoxGender.SelectedItem = "Ж";
-                        }
-                        else
-                        {
-                            comboBoxGender.SelectedItem = "М";
-                        }
+                        comboBoxTypeWork.SelectedItem = view.TypeWork == 0 ? "Посменная" : "На рейсе";
+                        comboBoxGender.SelectedItem = view.Gender == "Женский" ? "Ж" : "М";
+                        comboBoxJob.SelectedItem = view.PositionAtWorkId;
                     }
                 }
                 catch (Exception ex)
@@ -115,11 +118,12 @@ namespace FlyTodayViews
                 };
                 if (checkBoxMedAnalys.Checked)
                 {
+                    dateTimePickerMedAnalys.Enabled = true;
                     model.DateMedAnalys = dateTimePickerMedAnalys.Value.ToUniversalTime();
                 }
                 else
                 {
-                    model.DateMedAnalys = DateTime.MinValue;
+                    model.DateMedAnalys = new DateTime(1900, 1, 1).ToUniversalTime();
                 }
                 if (comboBoxTypeWork.SelectedItem.ToString() == "Посменная")
                 {
