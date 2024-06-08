@@ -37,8 +37,6 @@ namespace FlyTodayViews
             dateTimePickerMedAnalys.Enabled = false;
             checkBoxMedAnalys.CheckedChanged += CheckBoxMedAnalys_CheckedChanged;
         }
-        
-
         private void CheckBoxMedAnalys_CheckedChanged(object sender, EventArgs e)
         {
             dateTimePickerMedAnalys.Enabled = checkBoxMedAnalys.Checked;
