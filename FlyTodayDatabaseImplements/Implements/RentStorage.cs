@@ -28,9 +28,9 @@ namespace FlyTodayDatabaseImplements.Implements
 
         public RentViewModel? GetElement(RentSearchModel model)
         {
-            //using var context = new FlyTodayDatabase();
-            //if (model.Id.HasValue)
-            //    return context.Rents.FirstOrDefault(x => x.Id == model.Id)?.GetViewModel;
+            using var context = new FlyTodayDatabase();
+            if (model.Id.HasValue)
+                return context.Rents.FirstOrDefault(x => x.Id == model.Id)?.GetViewModel;
             //if (!string.IsNullOrEmpty(model.Email) && !string.IsNullOrEmpty(model.Password))
             //    return context.Rents.FirstOrDefault(x => x.Email.Equals(model.Email) && x.Password.Equals(model.Password))?.GetViewModel;
             //if (!string.IsNullOrEmpty(model.Email))

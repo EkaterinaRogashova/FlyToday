@@ -65,11 +65,6 @@ namespace FlyTodayViews
             }
         }
 
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (!string.IsNullOrEmpty(textBoxEmail.Text))

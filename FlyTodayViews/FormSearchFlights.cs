@@ -15,6 +15,8 @@ namespace FlyTodayViews
         private readonly IFlightLogic _logic;
         private readonly IPlaneLogic _planeLogic;
         private readonly IDirectionLogic _directionLogic;
+        private int? _currentUserId;
+        public int CurrentUserId { set { _currentUserId = value; } }
         public FormSearchFlights(ILogger<FormFlights> logger, IFlightLogic logic, IPlaneLogic planeLogic, IDirectionLogic directionLogic)
         {
             InitializeComponent();
@@ -168,7 +170,27 @@ namespace FlyTodayViews
 
         private void dataGridView_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (dataGridView.SelectedRows.Count == 1)
+            if (_currentUserId.HasValue || _currentUserId > 0)
+            {
+                try
+                {
+                    var service = Program.ServiceProvider?.GetService(typeof(FormViewFlight));
+                    if (service is FormViewFlight form)
+                    {
+                        form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
+                        form.CurrentUserId = _currentUserId.Value;
+                        form.DirectionId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["DirectionId"].Value);
+                        form.PlaneId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["PlaneId"].Value);
+                        form.ShowDialog();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Ошибка получения пользователя");
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
             {
                 var service = Program.ServiceProvider?.GetService(typeof(FormViewFlight));
                 if (service is FormViewFlight form)
@@ -179,6 +201,7 @@ namespace FlyTodayViews
                     form.ShowDialog();
                 }
             }
+
         }
 
         private void FormSearchFlights_Load(object sender, EventArgs e)

@@ -104,6 +104,8 @@ namespace FlyTodayViews
             services.AddTransient<FormScheduleForEmployee>();
             services.AddTransient<FormSearchFlights>();
             services.AddTransient<FormViewFlight>();
+            services.AddTransient<FormRent>();
+            services.AddTransient<FormTickets>();
         }
     }
 }

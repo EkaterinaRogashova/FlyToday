@@ -72,10 +72,38 @@ namespace FlyTodayViews
 
         private void buttonMainSearch_Click(object sender, EventArgs e)
         {
-            var service = Program.ServiceProvider?.GetService(typeof(FormSearchFlights));
-            if (service is FormSearchFlights form)
+            if (_currentUserId.HasValue || _currentUserId > 0)
             {
-                form.ShowDialog();
+                try
+                {
+                    var currentUser = _logic.ReadElement(new UserSearchModel { Id = _currentUserId.Value });
+                    if (currentUser != null)
+                    {
+                        var service = Program.ServiceProvider?.GetService(typeof(FormSearchFlights));
+                        if (service is FormSearchFlights form)
+                        {
+                            form.CurrentUserId = _currentUserId.Value;
+                            form.ShowDialog();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Пользователь не найден", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Ошибка получения пользователя");
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                var service = Program.ServiceProvider?.GetService(typeof(FormSearchFlights));
+                if (service is FormSearchFlights form)
+                {
+                    form.ShowDialog();
+                }
             }
         }
 

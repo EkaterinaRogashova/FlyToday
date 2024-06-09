@@ -54,9 +54,9 @@
             labelDirection.AutoSize = true;
             labelDirection.FlatStyle = FlatStyle.Flat;
             labelDirection.Font = new Font("Segoe UI", 20F, FontStyle.Italic);
-            labelDirection.Location = new Point(30, 9);
+            labelDirection.Location = new Point(34, 12);
             labelDirection.Name = "labelDirection";
-            labelDirection.Size = new Size(256, 37);
+            labelDirection.Size = new Size(322, 46);
             labelDirection.TabIndex = 0;
             labelDirection.Text = "Ульяновск - Москва";
             // 
@@ -64,18 +64,18 @@
             // 
             label.AutoSize = true;
             label.Font = new Font("Segoe UI", 9F);
-            label.Location = new Point(12, 31);
+            label.Location = new Point(14, 41);
             label.Name = "label";
-            label.Size = new Size(77, 15);
+            label.Size = new Size(97, 20);
             label.TabIndex = 1;
             label.Text = "Дата вылета:";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(264, 31);
+            label2.Location = new Point(302, 41);
             label2.Name = "label2";
-            label2.Size = new Size(93, 15);
+            label2.Size = new Size(118, 20);
             label2.TabIndex = 4;
             label2.Text = "Дата прибытия:";
             // 
@@ -83,18 +83,18 @@
             // 
             labelDepartureDate.AutoSize = true;
             labelDepartureDate.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelDepartureDate.Location = new Point(95, 31);
+            labelDepartureDate.Location = new Point(109, 41);
             labelDepartureDate.Name = "labelDepartureDate";
-            labelDepartureDate.Size = new Size(91, 15);
+            labelDepartureDate.Size = new Size(118, 20);
             labelDepartureDate.TabIndex = 5;
             labelDepartureDate.Text = "01.01.2000 15:00";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(11, 90);
+            label3.Location = new Point(13, 120);
             label3.Name = "label3";
-            label3.Size = new Size(58, 15);
+            label3.Size = new Size(71, 20);
             label3.TabIndex = 6;
             label3.Text = "Самолет:";
             // 
@@ -102,20 +102,22 @@
             // 
             labelTimeInFlight.AutoSize = true;
             labelTimeInFlight.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelTimeInFlight.Location = new Point(209, 61);
+            labelTimeInFlight.Location = new Point(239, 81);
             labelTimeInFlight.Name = "labelTimeInFlight";
-            labelTimeInFlight.Size = new Size(90, 15);
+            labelTimeInFlight.Size = new Size(114, 20);
             labelTimeInFlight.TabIndex = 7;
             labelTimeInFlight.Text = "1 час 30 минут";
             // 
             // buttonRent
             // 
-            buttonRent.Location = new Point(30, 268);
+            buttonRent.Location = new Point(34, 357);
+            buttonRent.Margin = new Padding(3, 4, 3, 4);
             buttonRent.Name = "buttonRent";
-            buttonRent.Size = new Size(497, 23);
+            buttonRent.Size = new Size(568, 31);
             buttonRent.TabIndex = 9;
             buttonRent.Text = "Забронировать";
             buttonRent.UseVisualStyleBackColor = true;
+            buttonRent.Click += buttonRent_Click;
             // 
             // groupBox1
             // 
@@ -133,9 +135,11 @@
             groupBox1.Controls.Add(labelTimeInFlight);
             groupBox1.Controls.Add(labelDepartureDate);
             groupBox1.Controls.Add(label3);
-            groupBox1.Location = new Point(30, 66);
+            groupBox1.Location = new Point(34, 88);
+            groupBox1.Margin = new Padding(3, 4, 3, 4);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(497, 196);
+            groupBox1.Padding = new Padding(3, 4, 3, 4);
+            groupBox1.Size = new Size(568, 261);
             groupBox1.TabIndex = 11;
             groupBox1.TabStop = false;
             groupBox1.Text = "Информация";
@@ -144,9 +148,9 @@
             // 
             labelBusinessPrice.AutoSize = true;
             labelBusinessPrice.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelBusinessPrice.Location = new Point(209, 173);
+            labelBusinessPrice.Location = new Point(262, 231);
             labelBusinessPrice.Name = "labelBusinessPrice";
-            labelBusinessPrice.Size = new Size(25, 15);
+            labelBusinessPrice.Size = new Size(33, 20);
             labelBusinessPrice.TabIndex = 16;
             labelBusinessPrice.Text = "100";
             // 
@@ -154,9 +158,9 @@
             // 
             labelEconomPrice.AutoSize = true;
             labelEconomPrice.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelEconomPrice.Location = new Point(209, 145);
+            labelEconomPrice.Location = new Point(265, 193);
             labelEconomPrice.Name = "labelEconomPrice";
-            labelEconomPrice.Size = new Size(25, 15);
+            labelEconomPrice.Size = new Size(33, 20);
             labelEconomPrice.TabIndex = 15;
             labelEconomPrice.Text = "100";
             // 
@@ -164,9 +168,9 @@
             // 
             labelFreePlacesCount.AutoSize = true;
             labelFreePlacesCount.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelFreePlacesCount.Location = new Point(178, 118);
+            labelFreePlacesCount.Location = new Point(226, 157);
             labelFreePlacesCount.Name = "labelFreePlacesCount";
-            labelFreePlacesCount.Size = new Size(25, 15);
+            labelFreePlacesCount.Size = new Size(33, 20);
             labelFreePlacesCount.TabIndex = 14;
             labelFreePlacesCount.Text = "100";
             // 
@@ -174,9 +178,9 @@
             // 
             labelPlane.AutoSize = true;
             labelPlane.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelPlane.Location = new Point(75, 90);
+            labelPlane.Location = new Point(86, 120);
             labelPlane.Name = "labelPlane";
-            labelPlane.Size = new Size(64, 15);
+            labelPlane.Size = new Size(81, 20);
             labelPlane.TabIndex = 13;
             labelPlane.Text = "Boeing 737";
             // 
@@ -184,53 +188,54 @@
             // 
             labelArrivalDate.AutoSize = true;
             labelArrivalDate.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelArrivalDate.Location = new Point(363, 31);
+            labelArrivalDate.Location = new Point(415, 41);
             labelArrivalDate.Name = "labelArrivalDate";
-            labelArrivalDate.Size = new Size(91, 15);
+            labelArrivalDate.Size = new Size(118, 20);
             labelArrivalDate.TabIndex = 12;
             labelArrivalDate.Text = "01.01.2000 16:30";
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(12, 173);
+            label6.Location = new Point(14, 231);
             label6.Name = "label6";
-            label6.Size = new Size(194, 15);
+            label6.Size = new Size(242, 20);
             label6.TabIndex = 11;
             label6.Text = "Стоимость билета бизнес-класса:";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(12, 145);
+            label5.Location = new Point(14, 193);
             label5.Name = "label5";
-            label5.Size = new Size(198, 15);
+            label5.Size = new Size(245, 20);
             label5.TabIndex = 10;
             label5.Text = "Стоимость билета эконом-класса:";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(11, 118);
+            label4.Location = new Point(13, 157);
             label4.Name = "label4";
-            label4.Size = new Size(168, 15);
+            label4.Size = new Size(210, 20);
             label4.TabIndex = 9;
             label4.Text = "Количество свободных мест:";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(121, 61);
+            label1.Location = new Point(138, 81);
             label1.Name = "label1";
-            label1.Size = new Size(82, 15);
+            label1.Size = new Size(104, 20);
             label1.TabIndex = 8;
             label1.Text = "Время в пути:";
             // 
             // buttonTrackPriceChanges
             // 
-            buttonTrackPriceChanges.Location = new Point(30, 297);
+            buttonTrackPriceChanges.Location = new Point(34, 396);
+            buttonTrackPriceChanges.Margin = new Padding(3, 4, 3, 4);
             buttonTrackPriceChanges.Name = "buttonTrackPriceChanges";
-            buttonTrackPriceChanges.Size = new Size(497, 23);
+            buttonTrackPriceChanges.Size = new Size(568, 31);
             buttonTrackPriceChanges.TabIndex = 12;
             buttonTrackPriceChanges.Text = "Отслеживать изменение цены";
             buttonTrackPriceChanges.UseVisualStyleBackColor = true;
@@ -238,13 +243,14 @@
             // 
             // FormViewFlight
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(539, 326);
+            ClientSize = new Size(616, 435);
             Controls.Add(buttonTrackPriceChanges);
             Controls.Add(groupBox1);
             Controls.Add(buttonRent);
             Controls.Add(labelDirection);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "FormViewFlight";
             Text = "Информация о рейсе";
             Load += FormFlight_Load;
