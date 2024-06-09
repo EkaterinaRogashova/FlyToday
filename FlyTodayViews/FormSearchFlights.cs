@@ -3,6 +3,10 @@ using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.ViewModels;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Windows.Forms;
 namespace FlyTodayViews
 {
     public partial class FormSearchFlights : Form
@@ -58,6 +62,12 @@ namespace FlyTodayViews
                         CityTo = textBoxDirectionCityTo.Text
                     });
 
+                    if (dateTimePickerDateFrom.Value > dateTimePickerDateTo.Value)
+                    {
+                        MessageBox.Show("Начало периода не может быть позже конца", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }                        
+
                     if (directions != null)
                     {
                         foreach (var dir in directions)
@@ -110,36 +120,7 @@ namespace FlyTodayViews
                     dataGridView.Columns["PlaneModel"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView.Columns["FlightDirection"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
 
-                    foreach (DataGridViewRow row in dataGridView.Rows)
-                    {
-                        int planeId = Convert.ToInt32(row.Cells["PlaneId"].Value);
-                        var plane = _planeLogic.ReadElement(new PlaneSearchModel
-                        {
-                            Id = planeId
-                        });
-                        if (plane != null)
-                        {
-                            row.Cells["PlaneModel"].Value = plane.ModelName;
-                        }
-                        else
-                        {
-                            row.Cells["PlaneModel"].Value = "Модель самолета не найдена";
-                        }
-
-                        int directionId = Convert.ToInt32(row.Cells["DirectionId"].Value);
-                        var direction = _directionLogic.ReadElement(new DirectionSearchModel
-                        {
-                            Id = directionId
-                        });
-                        if (direction != null)
-                        {
-                            row.Cells["FlightDirection"].Value = direction.CountryFrom + " " + direction.CityFrom + " - " + direction.CountryTo + " " + direction.CityTo;
-                        }
-                        else
-                        {
-                            row.Cells["FlightDirection"].Value = "Направление не найдено";
-                        }
-                    }
+                    ShowPlanesAndDirections();
                 }
                 MessageBox.Show("Поиск завершен", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 _logger.LogInformation("Загрузка рейсов");
@@ -151,14 +132,43 @@ namespace FlyTodayViews
             }
         }
 
-        private void ButtonRef_Click(object sender, EventArgs e)
+        private void ShowPlanesAndDirections()
         {
-            LoadData();
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                int planeId = Convert.ToInt32(row.Cells["PlaneId"].Value);
+                var plane = _planeLogic.ReadElement(new PlaneSearchModel
+                {
+                    Id = planeId
+                });
+                if (plane != null)
+                {
+                    row.Cells["PlaneModel"].Value = plane.ModelName;
+                }
+                else
+                {
+                    row.Cells["PlaneModel"].Value = "Модель самолета не найдена";
+                }
+
+                int directionId = Convert.ToInt32(row.Cells["DirectionId"].Value);
+                var direction = _directionLogic.ReadElement(new DirectionSearchModel
+                {
+                    Id = directionId
+                });
+                if (direction != null)
+                {
+                    row.Cells["FlightDirection"].Value = direction.CountryFrom + " " + direction.CityFrom + " - " + direction.CountryTo + " " + direction.CityTo;
+                }
+                else
+                {
+                    row.Cells["FlightDirection"].Value = "Направление не найдено";
+                }
+            }
         }
 
         private void dataGridView_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            /*if (dataGridView.SelectedRows.Count == 1)
+            if (dataGridView.SelectedRows.Count == 1)
             {
                 var service = Program.ServiceProvider?.GetService(typeof(FormViewFlight));
                 if (service is FormViewFlight form)
@@ -168,14 +178,14 @@ namespace FlyTodayViews
                     form.PlaneId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["PlaneId"].Value);
                     form.ShowDialog();
                 }
-            }*/
+            }
         }
 
         private void FormSearchFlights_Load(object sender, EventArgs e)
         {
-            checkBoxFilterEconomPrice.Checked = true;
+            checkBoxNoFilters.Checked = true;
             textBoxDirectionCountryFrom.Text = "Россия";
-            textBoxDirectionCountryTo.Text = "Россия";
+            textBoxDirectionCountryTo.Text = "Россия";            
         }
 
         private List<FlightViewModel> FilterByBusinessPrice(List<FlightViewModel> list)
@@ -270,5 +280,46 @@ namespace FlyTodayViews
                 checkBoxFilterFreePlacesCount.Checked = false;
             }
         }
+
+        private bool isAscending = true;
+        private void dataGridView_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex >= 0)
+            {
+                var list = (List<FlightViewModel>)dataGridView.DataSource;
+                var sortedList = SortList(list, dataGridView.Columns[e.ColumnIndex].DataPropertyName, isAscending);
+                dataGridView.DataSource = sortedList;
+                ShowPlanesAndDirections();
+                dataGridView.Refresh();
+
+                isAscending = !isAscending;
+            }
+        }
+
+        private List<T> SortList<T>(List<T> list, string propertyName, bool isAscending)
+        {
+            var property = typeof(T).GetProperty(propertyName);
+
+            if (property != null)
+            {
+                if (isAscending)
+                {
+                    return list.OrderBy(x => GetPropertyValue(x, propertyName)).ToList();
+                }
+                else
+                {
+                    return list.OrderByDescending(x => GetPropertyValue(x, propertyName)).ToList();
+                }
+            }
+
+            return list;
+        }
+
+        private object? GetPropertyValue<T>(T obj, string propertyName)
+        {
+            var property = typeof(T).GetProperty(propertyName);
+            return property?.GetValue(obj, null);
+        }
+
     }
 }

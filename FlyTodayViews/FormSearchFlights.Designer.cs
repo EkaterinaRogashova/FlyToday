@@ -80,6 +80,7 @@
             dataGridView.Name = "dataGridView";
             dataGridView.Size = new Size(823, 315);
             dataGridView.TabIndex = 0;
+            dataGridView.ColumnHeaderMouseDoubleClick += dataGridView_ColumnHeaderMouseDoubleClick;
             dataGridView.RowHeaderMouseDoubleClick += dataGridView_RowHeaderMouseDoubleClick;
             // 
             // label1
