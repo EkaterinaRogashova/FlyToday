@@ -42,13 +42,30 @@
             dateTimePickerDateTo = new DateTimePicker();
             groupBox1 = new GroupBox();
             groupBox2 = new GroupBox();
+            label15 = new Label();
+            label13 = new Label();
+            label14 = new Label();
+            textBoxFilterFreePlacesCountTo = new TextBox();
+            textBoxFilterFreePlacesCountFrom = new TextBox();
+            label11 = new Label();
+            label12 = new Label();
+            textBoxFilterTimeInFlightTo = new TextBox();
+            textBoxFilterTimeInFlightFrom = new TextBox();
+            label9 = new Label();
+            label10 = new Label();
+            textBoxFilterBusinessPriceTo = new TextBox();
+            textBoxFilterBusinessPriceFrom = new TextBox();
+            checkBoxFilterTimeInFlight = new CheckBox();
+            checkBoxFilterFreePlacesCount = new CheckBox();
+            checkBoxFilterBusinessPrice = new CheckBox();
+            checkBoxFilterEconomPrice = new CheckBox();
+            checkBoxNoFilters = new CheckBox();
             label8 = new Label();
             label7 = new Label();
-            textBoxFilterTo = new TextBox();
-            textBoxFilterFrom = new TextBox();
+            textBoxFilterEconomPriceTo = new TextBox();
+            textBoxFilterEconomPriceFrom = new TextBox();
             label5 = new Label();
-            comboBoxChooseFilter = new ComboBox();
-            checkBoxNoTransfer = new CheckBox();
+            checkBoxFilterNoTransfer = new CheckBox();
             label6 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             groupBox1.SuspendLayout();
@@ -61,7 +78,7 @@
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView.Location = new Point(12, 123);
             dataGridView.Name = "dataGridView";
-            dataGridView.Size = new Size(1027, 315);
+            dataGridView.Size = new Size(823, 315);
             dataGridView.TabIndex = 0;
             dataGridView.RowHeaderMouseDoubleClick += dataGridView_RowHeaderMouseDoubleClick;
             // 
@@ -87,7 +104,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(332, 19);
+            label2.Location = new Point(452, 18);
             label2.Name = "label2";
             label2.Size = new Size(111, 15);
             label2.TabIndex = 7;
@@ -97,7 +114,7 @@
             // 
             textBoxDirectionCountryTo.AutoCompleteCustomSource.AddRange(new string[] { "Россия" });
             textBoxDirectionCountryTo.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            textBoxDirectionCountryTo.Location = new Point(449, 16);
+            textBoxDirectionCountryTo.Location = new Point(569, 15);
             textBoxDirectionCountryTo.Name = "textBoxDirectionCountryTo";
             textBoxDirectionCountryTo.PlaceholderText = "Страна";
             textBoxDirectionCountryTo.Size = new Size(171, 23);
@@ -117,7 +134,7 @@
             // 
             textBoxDirectionCityTo.AutoCompleteCustomSource.AddRange(new string[] { "Абаза", "Абакан", "Абдулино", "Абинск", "Агидель", "Агрыз", "Адыгейск", "Азнакаево", "Азов", "Ак-Довурак", "Аксай", "Алагир", "Алапаевск", "Алатырь", "Алдан", "Алейск", "Александров", "Александровск", "Александровск-Сахалинский", "Алексеевка", "Алексин", "Алзамай", "Алупка", "Алушта", "Альметьевск", "Амурск", "Анадырь", "Анапа", "Ангарск", "Андреаполь", "Анжеро-Судженск", "Анива", "Апатиты", "Апрелевка", "Апшеронск", "Арамиль", "Аргун", "Ардатов", "Ардон", "Арзамас", "Аркадак", "Армавир", "Армянск", "Арсеньев", "Арск", "Артём", "Артёмовск", "Артёмовский", "Архангельск", "Асбест", "Асино", "Астрахань", "Аткарск", "Ахтубинск", "Ачинск", "Аша", "Бабаево", "Бабушкин", "Бавлы", "Багратионовск", "Байкальск", "Баймак", "Бакал", "Баксан", "Балабаново", "Балаково", "Балахна", "Балашиха", "Балашов", "Балей", "Балтийск", "Барабинск", "Барнаул", "Барыш", "Батайск", "Бахчисарай", "Бежецк", "Белая Калитва", "Белая Холуница", "Белгород", "Белебей", "Белёв", "Белинский", "Белово", "Белогорск", "Белогорск", "Белозерск", "Белокуриха", "Беломорск", "Белоозёрский", "Белорецк", "Белореченск", "Белоусово", "Белоярский", "Белый", "Бердск", "Березники", "Берёзовский", "Берёзовский", "Беслан", "Бийск", "Бикин", "Билибино", "Биробиджан", "Бирск", "Бирюсинск", "Бирюч", "Благовещенск", "Благовещенск", "Благодарный", "Бобров", "Богданович", "Богородицк", "Богородск", "Боготол", "Богучар", "Бодайбо", "Бокситогорск", "Болгар", "Бологое", "Болотное", "Болохово", "Болхов", "Большой Камень", "Бор", "Борзя", "Борисоглебск", "Боровичи", "Боровск", "Бородино", "Братск", "Бронницы", "Брянск", "Бугульма", "Бугуруслан", "Будённовск", "Бузулук", "Буинск", "Буй", "Буйнакск", "Бутурлиновка", "Валдай", "Валуйки", "Велиж", "Великие Луки", "Великий Новгород", "Великий Устюг", "Вельск", "Венёв", "Верещагино", "Верея", "Верхнеуральск", "Верхний Тагил", "Верхний Уфалей", "Верхняя Пышма", "Верхняя Салда", "Верхняя Тура", "Верхотурье", "Верхоянск", "Весьегонск", "Ветлуга", "Видное", "Вилюйск", "Вилючинск", "Вихоревка", "Вичуга", "Владивосток", "Владикавказ", "Владимир", "Волгоград", "Волгодонск", "Волгореченск", "Волжск", "Волжский", "Вологда", "Володарск", "Волоколамск", "Волосово", "Волхов", "Волчанск", "Вольск", "Воркута", "Воронеж", "Ворсма", "Воскресенск", "Воткинск", "Всеволожск", "Вуктыл", "Выборг", "Выкса", "Высоковск", "Высоцк", "Вытегра", "Вышний Волочёк", "Вяземский", "Вязники", "Вязьма", "Вятские Поляны", "Гаврилов Посад", "Гаврилов-Ям", "Гагарин", "Гаджиево", "Гай", "Галич", "Гатчина", "Гвардейск", "Гдов", "Геленджик", "Георгиевск", "Глазов", "Голицыно", "Горбатов", "Горно-Алтайск", "Горнозаводск", "Горняк", "Городец", "Городище", "Городовиковск", "Гороховец", "Горячий Ключ", "Грайворон", "Гремячинск", "Грозный", "Грязи", "Грязовец", "Губаха", "Губкин", "Губкинский", "Гудермес", "Гуково", "Гулькевичи", "Гурьевск", "Гурьевск", "Гусев", "Гусиноозёрск", "Гусь-Хрустальный", "Давлеканово", "Дагестанские Огни", "Далматово", "Дальнегорск", "Дальнереченск", "Данилов", "Данков", "Дегтярск", "Дедовск", "Демидов", "Дербент", "Десногорск", "Джанкой", "Дзержинск", "Дзержинский", "Дивногорск", "Дигора", "Димитровград", "Дмитриев", "Дмитров", "Дмитровск", "Дно", "Добрянка", "Долгопрудный", "Долинск", "Домодедово", "Донецк", "Донской", "Дорогобуж", "Дрезна", "Дубна", "Дубовка", "Дудинка", "Духовщина", "Дюртюли", "Дятьково", "Евпатория", "Егорьевск", "Ейск", "Екатеринбург", "Елабуга", "Елец", "Елизово", "Ельня", "Еманжелинск", "Емва", "Енисейск", "Ермолино", "Ершов", "Ессентуки", "Ефремов", "Железноводск", "Железногорск", "Железногорск", "Железногорск-Илимский", "Жердевка", "Жигулёвск", "Жиздра", "Жирновск", "Жуков", "Жуковка", "Жуковский", "Завитинск", "Заводоуковск", "Заволжск", "Заволжье", "Задонск", "Заинск", "Закаменск", "Заозёрный", "Заозёрск", "Западная Двина", "Заполярный", "Зарайск", "Заречный", "Заречный", "Заринск", "Звенигово", "Звенигород", "Зверево", "Зеленогорск", "Зеленоградск", "Зеленодольск", "Зеленокумск", "Зерноград", "Зея", "Зима", "Златоуст", "Злынка", "Змеиногорск", "Знаменск", "Зубцов", "Зуевка", "Ивангород", "Иваново", "Ивантеевка", "Ивдель", "Игарка", "Ижевск", "Избербаш", "Изобильный", "Иланский", "Инза", "Иннополис", "Инсар", "Инта", "Ипатово", "Ирбит", "Иркутск", "Исилькуль", "Искитим", "Истра", "Ишим", "Ишимбай", "Йошкар-Ола", "Кадников", "Казань", "Калач", "Калач-на-Дону", "Калачинск", "Калининград", "Калининск", "Калтан", "Калуга", "Калязин", "Камбарка", "Каменка", "Каменногорск", "Каменск-Уральский", "Каменск-Шахтинский", "Камень-на-Оби", "Камешково", "Камызяк", "Камышин", "Камышлов", "Канаш", "Кандалакша", "Канск", "Карабаново", "Карабаш", "Карабулак", "Карасук", "Карачаевск", "Карачев", "Каргат", "Каргополь", "Карпинск", "Карталы", "Касимов", "Касли", "Каспийск", "Катав-Ивановск", "Катайск", "Качканар", "Кашин", "Кашира", "Кедровый", "Кемерово", "Кемь", "Керчь", "Кизел", "Кизилюрт", "Кизляр", "Кимовск", "Кимры", "Кингисепп", "Кинель", "Кинешма", "Киреевск", "Киренск", "Киржач", "Кириллов", "Кириши", "Киров", "Киров", "Кировград", "Кирово-Чепецк", "Кировск", "Кировск", "Кирс", "Кирсанов", "Киселёвск", "Кисловодск", "Клин", "Клинцы", "Княгинино", "Ковдор", "Ковров", "Ковылкино", "Когалым", "Кодинск", "Козельск", "Козловка", "Козьмодемьянск", "Кола", "Кологрив", "Коломна", "Колпашево", "Кольчугино", "Коммунар", "Комсомольск", "Комсомольск-на-Амуре", "Конаково", "Кондопога", "Кондрово", "Константиновск", "Копейск", "Кораблино", "Кореновск", "Коркино", "Королёв", "Короча", "Корсаков", "Коряжма", "Костерёво", "Костомукша", "Кострома", "Котельники", "Котельниково", "Котельнич", "Котлас", "Котово", "Котовск", "Кохма", "Красавино", "Красноармейск", "Красноармейск", "Красновишерск", "Красногорск", "Краснодар", "Краснозаводск", "Краснознаменск", "Краснознаменск", "Краснокаменск", "Краснокамск", "Красноперекопск", "Краснослободск", "Краснослободск", "Краснотурьинск", "Красноуральск", "Красноуфимск", "Красноярск", "Красный Кут", "Красный Сулин", "Красный Холм", "Кремёнки", "Кропоткин", "Крымск", "Кстово", "Кубинка", "Кувандык", "Кувшиново", "Кудрово", "Кудымкар", "Кузнецк", "Куйбышев", "Кукмор", "Кулебаки", "Кумертау", "Кунгур", "Купино", "Курган", "Курганинск", "Курильск", "Курлово", "Куровское", "Курск", "Куртамыш", "Курчалой", "Курчатов", "Куса", "Кушва", "Кызыл", "Кыштым", "Кяхта", "Лабинск", "Лабытнанги", "Лагань", "Ладушкин", "Лаишево", "Лакинск", "Лангепас", "Лахденпохья", "Лебедянь", "Лениногорск", "Ленинск", "Ленинск-Кузнецкий", "Ленск", "Лермонтов", "Лесной", "Лесозаводск", "Лесосибирск", "Ливны", "Ликино-Дулёво", "Липецк", "Липки", "Лиски", "Лихославль", "Лобня", "Лодейное Поле", "Лосино-Петровский", "Луга", "Луза", "Лукоянов", "Луховицы", "Лысково", "Лысьва", "Лыткарино", "Льгов", "Любань", "Люберцы", "Любим", "Людиново", "Лянтор", "Магадан", "Магас", "Магнитогорск", "Майкоп", "Майский", "Макаров", "Макарьев", "Макушино", "Малая Вишера", "Малгобек", "Малмыж", "Малоархангельск", "Малоярославец", "Мамадыш", "Мамоново", "Мантурово", "Мариинск", "Мариинский Посад", "Маркс", "Махачкала", "Мглин", "Мегион", "Медвежьегорск", "Медногорск", "Медынь", "Межгорье", "Междуреченск", "Мезень", "Меленки", "Мелеуз", "Менделеевск", "Мензелинск", "Мещовск", "Миасс", "Микунь", "Миллерово", "Минеральные Воды", "Минусинск", "Миньяр", "Мирный", "Мирный", "Михайлов", "Михайловка", "Михайловск", "Михайловск", "Мичуринск", "Могоча", "Можайск", "Можга", "Моздок", "Мончегорск", "Морозовск", "Моршанск", "Мосальск", "Москва", "Муравленко", "Мураши", "Мурино", "Мурманск", "Муром", "Мценск", "Мыски", "Мытищи", "Мышкин", "Набережные Челны", "Навашино", "Наволоки", "Надым", "Назарово", "Назрань", "Называевск", "Нальчик", "Нариманов", "Наро-Фоминск", "Нарткала", "Нарьян-Мар", "Находка", "Невель", "Невельск", "Невинномысск", "Невьянск", "Нелидово", "Неман", "Нерехта", "Нерчинск", "Нерюнгри", "Нестеров", "Нефтегорск", "Нефтекамск", "Нефтекумск", "Нефтеюганск", "Нея", "Нижневартовск", "Нижнекамск", "Нижнеудинск", "Нижние Серги", "Нижний Ломов", "Нижний Новгород", "Нижний Тагил", "Нижняя Салда", "Нижняя Тура", "Николаевск", "Николаевск-на-Амуре", "Никольск", "Никольск", "Никольское", "Новая Ладога", "Новая Ляля", "Новоалександровск", "Новоалтайск", "Новоаннинский", "Нововоронеж", "Новодвинск", "Новозыбков", "Новокубанск", "Новокузнецк", "Новокуйбышевск", "Новомичуринск", "Новомосковск", "Новопавловск", "Новоржев", "Новороссийск", "Новосибирск", "Новосиль", "Новосокольники", "Новотроицк", "Новоузенск", "Новоульяновск", "Новоуральск", "Новохопёрск", "Новочебоксарск", "Новочеркасск", "Новошахтинск", "Новый Оскол", "Новый Уренгой", "Ногинск", "Нолинск", "Норильск", "Ноябрьск", "Нурлат", "Нытва", "Нюрба", "Нягань", "Нязепетровск", "Няндома", "Облучье", "Обнинск", "Обоянь", "Обь", "Одинцово", "Озёрск", "Озёрск", "Озёры", "Октябрьск", "Октябрьский", "Окуловка", "Олёкминск", "Оленегорск", "Олонец", "Омск", "Омутнинск", "Онега", "Опочка", "Орёл", "Оренбург", "Орехово-Зуево", "Орлов", "Орск", "Оса", "Осинники", "Осташков", "Остров", "Островной", "Острогожск", "Отрадное", "Отрадный", "Оха", "Оханск", "Очёр", "Павлово", "Павловск", "Павловский Посад", "Палласовка", "Партизанск", "Певек", "Пенза", "Первомайск", "Первоуральск", "Перевоз", "Пересвет", "Переславль-Залесский", "Пермь", "Пестово", "Петров Вал", "Петровск", "Петровск-Забайкальский", "Петрозаводск", "Петропавловск-Камчатский", "Петухово", "Петушки", "Печора", "Печоры", "Пикалёво", "Пионерский", "Питкяранта", "Плавск", "Пласт", "Плёс", "Поворино", "Подольск", "Подпорожье", "Покачи", "Покров", "Покровск", "Полевской", "Полесск", "Полысаево", "Полярные Зори", "Полярный", "Поронайск", "Порхов", "Похвистнево", "Почеп", "Починок", "Пошехонье", "Правдинск", "Приволжск", "Приморск", "Приморск", "Приморско-Ахтарск", "Приозерск", "Прокопьевск", "Пролетарск", "Протвино", "Прохладный", "Псков", "Пугачёв", "Пудож", "Пустошка", "Пучеж", "Пушкино", "Пущино", "Пыталово", "Пыть-Ях", "Пятигорск", "Радужный", "Радужный", "Райчихинск", "Раменское", "Рассказово", "Ревда", "Реж", "Реутов", "Ржев", "Родники", "Рославль", "Россошь", "Ростов", "Ростов-на-Дону", "Рошаль", "Ртищево", "Рубцовск", "Рудня", "Руза", "Рузаевка", "Рыбинск", "Рыбное", "Рыльск", "Ряжск", "Рязань", "Саки", "Салават", "Салаир", "Салехард", "Сальск", "Самара", "Санкт-Петербург", "Саранск", "Сарапул", "Саратов", "Саров", "Сасово", "Сатка", "Сафоново", "Саяногорск", "Саянск", "Светлогорск", "Светлоград", "Светлый", "Светогорск", "Свирск", "Свободный", "Себеж", "Севастополь", "Северо-Курильск", "Северобайкальск", "Северодвинск", "Североморск", "Североуральск", "Северск", "Севск", "Сегежа", "Сельцо", "Семёнов", "Семикаракорск", "Семилуки", "Сенгилей", "Серафимович", "Сергач", "Сергиев Посад", "Сердобск", "Серов", "Серпухов", "Сертолово", "Сибай", "Сим", "Симферополь", "Сковородино", "Скопин", "Славгород", "Славск", "Славянск-на-Кубани", "Сланцы", "Слободской", "Слюдянка", "Смоленск", "Снежинск", "Снежногорск", "Собинка", "Советск", "Советск", "Советск", "Советская Гавань", "Советский", "Сокол", "Солигалич", "Соликамск", "Солнечногорск", "Соль-Илецк", "Сольвычегодск", "Сольцы", "Сорочинск", "Сорск", "Сортавала", "Сосенский", "Сосновка", "Сосновоборск", "Сосновый Бор", "Сосногорск", "Сочи", "Спас-Деменск", "Спас-Клепики", "Спасск", "Спасск-Дальний", "Спасск-Рязанский", "Среднеколымск", "Среднеуральск", "Сретенск", "Ставрополь", "Старая Купавна", "Старая Русса", "Старица", "Стародуб", "Старый Крым", "Старый Оскол", "Стерлитамак", "Стрежевой", "Строитель", "Струнино", "Ступино", "Суворов", "Судак", "Суджа", "Судогда", "Суздаль", "Сунжа", "Суоярви", "Сураж", "Сургут", "Суровикино", "Сурск", "Сусуман", "Сухиничи", "Сухой Лог", "Сызрань", "Сыктывкар", "Сысерть", "Сычёвка", "Сясьстрой", "Тавда", "Таганрог", "Тайга", "Тайшет", "Талдом", "Талица", "Тамбов", "Тара", "Тарко-Сале", "Таруса", "Татарск", "Таштагол", "Тверь", "Теберда", "Тейково", "Темников", "Темрюк", "Терек", "Тетюши", "Тимашёвск", "Тихвин", "Тихорецк", "Тобольск", "Тогучин", "Тольятти", "Томари", "Томмот", "Томск", "Топки", "Торжок", "Торопец", "Тосно", "Тотьма", "Трёхгорный", "Троицк", "Трубчевск", "Туапсе", "Туймазы", "Тула", "Тулун", "Туран", "Туринск", "Тутаев", "Тында", "Тырныауз", "Тюкалинск", "Тюмень", "Уварово", "Углегорск", "Углич", "Удачный", "Удомля", "Ужур", "Узловая", "Улан-Удэ", "Ульяновск", "Унеча", "Урай", "Урень", "Уржум", "Урус-Мартан", "Урюпинск", "Усинск", "Усмань", "Усолье", "Усолье-Сибирское", "Уссурийск", "Усть-Джегута", "Усть-Илимск", "Усть-Катав", "Усть-Кут", "Усть-Лабинск", "Устюжна", "Уфа", "Ухта", "Учалы", "Уяр", "Фатеж", "Феодосия", "Фокино", "Фокино", "Фролово", "Фрязино", "Фурманов", "Хабаровск", "Хадыженск", "Ханты-Мансийск", "Харабали", "Харовск", "Хасавюрт", "Хвалынск", "Хилок", "Химки", "Холм", "Холмск", "Хотьково", "Цивильск", "Цимлянск", "Циолковский", "Чадан", "Чайковский", "Чапаевск", "Чаплыгин", "Чебаркуль", "Чебоксары", "Чегем", "Чекалин", "Челябинск", "Чердынь", "Черемхово", "Черепаново", "Череповец", "Черкесск", "Чёрмоз", "Черноголовка", "Черногорск", "Чернушка", "Черняховск", "Чехов", "Чистополь", "Чита", "Чкаловск", "Чудово", "Чулым", "Чусовой", "Чухлома", "Шагонар", "Шадринск", "Шали", "Шарыпово", "Шарья", "Шатура", "Шахты", "Шахунья", "Шацк", "Шебекино", "Шелехов", "Шенкурск", "Шилка", "Шимановск", "Шиханы", "Шлиссельбург", "Шумерля", "Шумиха", "Шуя", "Щёкино", "Щёлкино", "Щёлково", "Щигры", "Щучье", "Электрогорск", "Электросталь", "Электроугли", "Элиста", "Энгельс", "Эртиль", "Югорск", "Южа", "Южно-Сахалинск", "Южно-Сухокумск", "Южноуральск", "Юрга", "Юрьев-Польский", "Юрьевец", "Юрюзань", "Юхнов", "Ядрин", "Якутск", "Ялта", "Ялуторовск", "Янаул", "Яранск", "Яровое", "Ярославль", "Ярцево", "Ясногорск", "Ясный", "Яхрома" });
             textBoxDirectionCityTo.AutoCompleteMode = AutoCompleteMode.Suggest;
-            textBoxDirectionCityTo.Location = new Point(449, 45);
+            textBoxDirectionCityTo.Location = new Point(569, 44);
             textBoxDirectionCityTo.Name = "textBoxDirectionCityTo";
             textBoxDirectionCityTo.PlaceholderText = "Город";
             textBoxDirectionCityTo.Size = new Size(171, 23);
@@ -125,7 +142,7 @@
             // 
             // buttonSearch
             // 
-            buttonSearch.Location = new Point(626, 16);
+            buttonSearch.Location = new Point(746, 15);
             buttonSearch.Name = "buttonSearch";
             buttonSearch.Size = new Size(71, 83);
             buttonSearch.TabIndex = 11;
@@ -180,31 +197,220 @@
             groupBox1.Controls.Add(textBoxDirectionCityTo);
             groupBox1.Location = new Point(12, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(704, 105);
+            groupBox1.Size = new Size(823, 105);
             groupBox1.TabIndex = 17;
             groupBox1.TabStop = false;
             groupBox1.Text = "Поиск";
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(label15);
+            groupBox2.Controls.Add(label13);
+            groupBox2.Controls.Add(label14);
+            groupBox2.Controls.Add(textBoxFilterFreePlacesCountTo);
+            groupBox2.Controls.Add(textBoxFilterFreePlacesCountFrom);
+            groupBox2.Controls.Add(label11);
+            groupBox2.Controls.Add(label12);
+            groupBox2.Controls.Add(textBoxFilterTimeInFlightTo);
+            groupBox2.Controls.Add(textBoxFilterTimeInFlightFrom);
+            groupBox2.Controls.Add(label9);
+            groupBox2.Controls.Add(label10);
+            groupBox2.Controls.Add(textBoxFilterBusinessPriceTo);
+            groupBox2.Controls.Add(textBoxFilterBusinessPriceFrom);
+            groupBox2.Controls.Add(checkBoxFilterTimeInFlight);
+            groupBox2.Controls.Add(checkBoxFilterFreePlacesCount);
+            groupBox2.Controls.Add(checkBoxFilterBusinessPrice);
+            groupBox2.Controls.Add(checkBoxFilterEconomPrice);
+            groupBox2.Controls.Add(checkBoxNoFilters);
             groupBox2.Controls.Add(label8);
             groupBox2.Controls.Add(label7);
-            groupBox2.Controls.Add(textBoxFilterTo);
-            groupBox2.Controls.Add(textBoxFilterFrom);
+            groupBox2.Controls.Add(textBoxFilterEconomPriceTo);
+            groupBox2.Controls.Add(textBoxFilterEconomPriceFrom);
             groupBox2.Controls.Add(label5);
-            groupBox2.Controls.Add(comboBoxChooseFilter);
-            groupBox2.Controls.Add(checkBoxNoTransfer);
-            groupBox2.Location = new Point(722, 12);
+            groupBox2.Controls.Add(checkBoxFilterNoTransfer);
+            groupBox2.Location = new Point(841, 12);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(316, 105);
+            groupBox2.Size = new Size(197, 426);
             groupBox2.TabIndex = 18;
             groupBox2.TabStop = false;
             groupBox2.Text = "Фильтры";
             // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.ForeColor = Color.Teal;
+            label15.Location = new Point(6, 336);
+            label15.Name = "label15";
+            label15.Size = new Size(162, 30);
+            label15.TabIndex = 20;
+            label15.Text = "Для применения фильтров\r\nнажмите на кнопку \"Поиск\"";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(101, 313);
+            label13.Name = "label13";
+            label13.Size = new Size(20, 15);
+            label13.TabIndex = 36;
+            label13.Text = "до";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(6, 313);
+            label14.Name = "label14";
+            label14.Size = new Size(21, 15);
+            label14.TabIndex = 35;
+            label14.Text = "От";
+            // 
+            // textBoxFilterFreePlacesCountTo
+            // 
+            textBoxFilterFreePlacesCountTo.Location = new Point(127, 310);
+            textBoxFilterFreePlacesCountTo.Name = "textBoxFilterFreePlacesCountTo";
+            textBoxFilterFreePlacesCountTo.ReadOnly = true;
+            textBoxFilterFreePlacesCountTo.Size = new Size(62, 23);
+            textBoxFilterFreePlacesCountTo.TabIndex = 34;
+            // 
+            // textBoxFilterFreePlacesCountFrom
+            // 
+            textBoxFilterFreePlacesCountFrom.Location = new Point(33, 310);
+            textBoxFilterFreePlacesCountFrom.Name = "textBoxFilterFreePlacesCountFrom";
+            textBoxFilterFreePlacesCountFrom.ReadOnly = true;
+            textBoxFilterFreePlacesCountFrom.Size = new Size(62, 23);
+            textBoxFilterFreePlacesCountFrom.TabIndex = 33;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(101, 259);
+            label11.Name = "label11";
+            label11.Size = new Size(20, 15);
+            label11.TabIndex = 32;
+            label11.Text = "до";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(6, 259);
+            label12.Name = "label12";
+            label12.Size = new Size(21, 15);
+            label12.TabIndex = 31;
+            label12.Text = "От";
+            // 
+            // textBoxFilterTimeInFlightTo
+            // 
+            textBoxFilterTimeInFlightTo.Location = new Point(127, 256);
+            textBoxFilterTimeInFlightTo.Name = "textBoxFilterTimeInFlightTo";
+            textBoxFilterTimeInFlightTo.ReadOnly = true;
+            textBoxFilterTimeInFlightTo.Size = new Size(62, 23);
+            textBoxFilterTimeInFlightTo.TabIndex = 30;
+            // 
+            // textBoxFilterTimeInFlightFrom
+            // 
+            textBoxFilterTimeInFlightFrom.Location = new Point(33, 256);
+            textBoxFilterTimeInFlightFrom.Name = "textBoxFilterTimeInFlightFrom";
+            textBoxFilterTimeInFlightFrom.ReadOnly = true;
+            textBoxFilterTimeInFlightFrom.Size = new Size(62, 23);
+            textBoxFilterTimeInFlightFrom.TabIndex = 29;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(101, 205);
+            label9.Name = "label9";
+            label9.Size = new Size(20, 15);
+            label9.TabIndex = 28;
+            label9.Text = "до";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(6, 205);
+            label10.Name = "label10";
+            label10.Size = new Size(21, 15);
+            label10.TabIndex = 27;
+            label10.Text = "От";
+            // 
+            // textBoxFilterBusinessPriceTo
+            // 
+            textBoxFilterBusinessPriceTo.Location = new Point(127, 202);
+            textBoxFilterBusinessPriceTo.Name = "textBoxFilterBusinessPriceTo";
+            textBoxFilterBusinessPriceTo.ReadOnly = true;
+            textBoxFilterBusinessPriceTo.Size = new Size(62, 23);
+            textBoxFilterBusinessPriceTo.TabIndex = 26;
+            // 
+            // textBoxFilterBusinessPriceFrom
+            // 
+            textBoxFilterBusinessPriceFrom.Location = new Point(33, 202);
+            textBoxFilterBusinessPriceFrom.Name = "textBoxFilterBusinessPriceFrom";
+            textBoxFilterBusinessPriceFrom.ReadOnly = true;
+            textBoxFilterBusinessPriceFrom.Size = new Size(62, 23);
+            textBoxFilterBusinessPriceFrom.TabIndex = 25;
+            // 
+            // checkBoxFilterTimeInFlight
+            // 
+            checkBoxFilterTimeInFlight.AutoSize = true;
+            checkBoxFilterTimeInFlight.Cursor = Cursors.Hand;
+            checkBoxFilterTimeInFlight.Location = new Point(6, 231);
+            checkBoxFilterTimeInFlight.Name = "checkBoxFilterTimeInFlight";
+            checkBoxFilterTimeInFlight.Size = new Size(151, 19);
+            checkBoxFilterTimeInFlight.TabIndex = 24;
+            checkBoxFilterTimeInFlight.Text = "По времени в пути (ч.)";
+            checkBoxFilterTimeInFlight.UseVisualStyleBackColor = true;
+            checkBoxFilterTimeInFlight.CheckedChanged += checkBoxFilterTimeInFlight_CheckedChanged;
+            // 
+            // checkBoxFilterFreePlacesCount
+            // 
+            checkBoxFilterFreePlacesCount.AutoSize = true;
+            checkBoxFilterFreePlacesCount.Cursor = Cursors.Hand;
+            checkBoxFilterFreePlacesCount.Location = new Point(6, 285);
+            checkBoxFilterFreePlacesCount.Name = "checkBoxFilterFreePlacesCount";
+            checkBoxFilterFreePlacesCount.Size = new Size(175, 19);
+            checkBoxFilterFreePlacesCount.TabIndex = 23;
+            checkBoxFilterFreePlacesCount.Text = "По кол-ву свободных мест";
+            checkBoxFilterFreePlacesCount.UseVisualStyleBackColor = true;
+            checkBoxFilterFreePlacesCount.CheckedChanged += checkBoxFilterFreePlacesCount_CheckedChanged;
+            // 
+            // checkBoxFilterBusinessPrice
+            // 
+            checkBoxFilterBusinessPrice.AutoSize = true;
+            checkBoxFilterBusinessPrice.Cursor = Cursors.Hand;
+            checkBoxFilterBusinessPrice.Location = new Point(6, 177);
+            checkBoxFilterBusinessPrice.Name = "checkBoxFilterBusinessPrice";
+            checkBoxFilterBusinessPrice.Size = new Size(146, 19);
+            checkBoxFilterBusinessPrice.TabIndex = 22;
+            checkBoxFilterBusinessPrice.Text = "По цене бизнес (руб.)";
+            checkBoxFilterBusinessPrice.UseVisualStyleBackColor = true;
+            checkBoxFilterBusinessPrice.CheckedChanged += checkBoxFilterBusinessPrice_CheckedChanged;
+            // 
+            // checkBoxFilterEconomPrice
+            // 
+            checkBoxFilterEconomPrice.AutoSize = true;
+            checkBoxFilterEconomPrice.Cursor = Cursors.Hand;
+            checkBoxFilterEconomPrice.Location = new Point(6, 129);
+            checkBoxFilterEconomPrice.Name = "checkBoxFilterEconomPrice";
+            checkBoxFilterEconomPrice.Size = new Size(150, 19);
+            checkBoxFilterEconomPrice.TabIndex = 21;
+            checkBoxFilterEconomPrice.Text = "По цене эконом (руб.)";
+            checkBoxFilterEconomPrice.UseVisualStyleBackColor = true;
+            checkBoxFilterEconomPrice.CheckedChanged += checkBoxFilterEconomPrice_CheckedChanged;
+            // 
+            // checkBoxNoFilters
+            // 
+            checkBoxNoFilters.AutoSize = true;
+            checkBoxNoFilters.Cursor = Cursors.Hand;
+            checkBoxNoFilters.Location = new Point(6, 80);
+            checkBoxNoFilters.Name = "checkBoxNoFilters";
+            checkBoxNoFilters.Size = new Size(101, 19);
+            checkBoxNoFilters.TabIndex = 20;
+            checkBoxNoFilters.Text = "Без фильтров";
+            checkBoxNoFilters.UseVisualStyleBackColor = true;
+            checkBoxNoFilters.CheckedChanged += checkBoxNoFilters_CheckedChanged;
+            // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(160, 80);
+            label8.Location = new Point(101, 151);
             label8.Name = "label8";
             label8.Size = new Size(20, 15);
             label8.TabIndex = 19;
@@ -213,55 +419,47 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(27, 81);
+            label7.Location = new Point(6, 151);
             label7.Name = "label7";
             label7.Size = new Size(21, 15);
             label7.TabIndex = 18;
             label7.Text = "От";
             // 
-            // textBoxFilterTo
+            // textBoxFilterEconomPriceTo
             // 
-            textBoxFilterTo.Location = new Point(186, 78);
-            textBoxFilterTo.Name = "textBoxFilterTo";
-            textBoxFilterTo.Size = new Size(100, 23);
-            textBoxFilterTo.TabIndex = 17;
+            textBoxFilterEconomPriceTo.Location = new Point(127, 148);
+            textBoxFilterEconomPriceTo.Name = "textBoxFilterEconomPriceTo";
+            textBoxFilterEconomPriceTo.ReadOnly = true;
+            textBoxFilterEconomPriceTo.Size = new Size(62, 23);
+            textBoxFilterEconomPriceTo.TabIndex = 17;
             // 
-            // textBoxFilterFrom
+            // textBoxFilterEconomPriceFrom
             // 
-            textBoxFilterFrom.Location = new Point(54, 78);
-            textBoxFilterFrom.Name = "textBoxFilterFrom";
-            textBoxFilterFrom.Size = new Size(100, 23);
-            textBoxFilterFrom.TabIndex = 16;
+            textBoxFilterEconomPriceFrom.Location = new Point(33, 148);
+            textBoxFilterEconomPriceFrom.Name = "textBoxFilterEconomPriceFrom";
+            textBoxFilterEconomPriceFrom.ReadOnly = true;
+            textBoxFilterEconomPriceFrom.Size = new Size(62, 23);
+            textBoxFilterEconomPriceFrom.TabIndex = 16;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(6, 24);
+            label5.Location = new Point(6, 53);
             label5.Name = "label5";
             label5.Size = new Size(101, 15);
             label5.TabIndex = 15;
             label5.Text = "Выбрать фильтр:";
             // 
-            // comboBoxChooseFilter
+            // checkBoxFilterNoTransfer
             // 
-            comboBoxChooseFilter.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxChooseFilter.FormattingEnabled = true;
-            comboBoxChooseFilter.Items.AddRange(new object[] { "По цене (руб.)", "По времени в пути (ч.)", "По количеству свободных мест", "По длине пересадки" });
-            comboBoxChooseFilter.Location = new Point(6, 45);
-            comboBoxChooseFilter.Name = "comboBoxChooseFilter";
-            comboBoxChooseFilter.Size = new Size(304, 23);
-            comboBoxChooseFilter.TabIndex = 14;
-            // 
-            // checkBoxNoTransfer
-            // 
-            checkBoxNoTransfer.AutoSize = true;
-            checkBoxNoTransfer.Cursor = Cursors.Hand;
-            checkBoxNoTransfer.Location = new Point(206, 23);
-            checkBoxNoTransfer.Name = "checkBoxNoTransfer";
-            checkBoxNoTransfer.Size = new Size(104, 19);
-            checkBoxNoTransfer.TabIndex = 13;
-            checkBoxNoTransfer.Text = "Без пересадки";
-            checkBoxNoTransfer.UseVisualStyleBackColor = true;
+            checkBoxFilterNoTransfer.AutoSize = true;
+            checkBoxFilterNoTransfer.Cursor = Cursors.Hand;
+            checkBoxFilterNoTransfer.Location = new Point(6, 104);
+            checkBoxFilterNoTransfer.Name = "checkBoxFilterNoTransfer";
+            checkBoxFilterNoTransfer.Size = new Size(104, 19);
+            checkBoxFilterNoTransfer.TabIndex = 13;
+            checkBoxFilterNoTransfer.Text = "Без пересадки";
+            checkBoxFilterNoTransfer.UseVisualStyleBackColor = true;
             // 
             // label6
             // 
@@ -311,12 +509,29 @@
         private GroupBox groupBox1;
         private GroupBox groupBox2;
         private Label label5;
-        private ComboBox comboBoxChooseFilter;
-        private CheckBox checkBoxNoTransfer;
+        private CheckBox checkBoxFilterNoTransfer;
         private Label label6;
         private Label label8;
         private Label label7;
-        private TextBox textBoxFilterTo;
-        private TextBox textBoxFilterFrom;
+        private TextBox textBoxFilterEconomPriceTo;
+        private TextBox textBoxFilterEconomPriceFrom;
+        private CheckBox checkBoxFilterFreePlacesCount;
+        private CheckBox checkBoxFilterBusinessPrice;
+        private CheckBox checkBoxFilterEconomPrice;
+        private CheckBox checkBoxNoFilters;
+        private CheckBox checkBoxFilterTimeInFlight;
+        private Label label13;
+        private Label label14;
+        private TextBox textBoxFilterFreePlacesCountTo;
+        private TextBox textBoxFilterFreePlacesCountFrom;
+        private Label label11;
+        private Label label12;
+        private TextBox textBoxFilterTimeInFlightTo;
+        private TextBox textBoxFilterTimeInFlightFrom;
+        private Label label9;
+        private Label label10;
+        private TextBox textBoxFilterBusinessPriceTo;
+        private TextBox textBoxFilterBusinessPriceFrom;
+        private Label label15;
     }
 }

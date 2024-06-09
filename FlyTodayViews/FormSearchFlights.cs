@@ -1,11 +1,8 @@
-﻿using FlyTodayBusinessLogics.BusinessLogics;
-using FlyTodayContracts.BusinessLogicContracts;
+﻿using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.ViewModels;
-using FlyTodayDatabaseImplements.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using System.Collections.Generic;
 namespace FlyTodayViews
 {
     public partial class FormSearchFlights : Form
@@ -19,7 +16,7 @@ namespace FlyTodayViews
             InitializeComponent();
             _logger = logger;
             _logic = logic;
-            _planeLogic = planeLogic;                      
+            _planeLogic = planeLogic;
             dataGridView.Columns.Add("FlightDirection", "Направление");
             dataGridView.Columns.Add("PlaneModel", "Самолет");
             dataGridView.Columns["PlaneModel"].Visible = false;
@@ -30,6 +27,14 @@ namespace FlyTodayViews
             dateTimePickerDateFrom.CustomFormat = "dd.MM.yyyy hh:mm";
             dateTimePickerDateTo.Format = DateTimePickerFormat.Custom;
             dateTimePickerDateTo.CustomFormat = "dd.MM.yyyy hh:mm";
+            textBoxFilterEconomPriceFrom.Text = "0";
+            textBoxFilterEconomPriceTo.Text = "10000";
+            textBoxFilterBusinessPriceFrom.Text = "0";
+            textBoxFilterBusinessPriceTo.Text = "10000";
+            textBoxFilterTimeInFlightFrom.Text = "0";
+            textBoxFilterTimeInFlightTo.Text = "10";
+            textBoxFilterFreePlacesCountFrom.Text = "0";
+            textBoxFilterFreePlacesCountTo.Text = "100";
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
@@ -69,21 +74,41 @@ namespace FlyTodayViews
                     {
                         MessageBox.Show("По запросу ничего не найдено", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    
+
+                    if (checkBoxFilterEconomPrice.Checked)
+                    {
+                        foundFlights = FilterByEconomPrice(foundFlights);
+                    }
+
+                    if (checkBoxFilterBusinessPrice.Checked)
+                    {
+                        foundFlights = FilterByBusinessPrice(foundFlights);
+                    }
+
+                    if (checkBoxFilterTimeInFlight.Checked)
+                    {
+                        foundFlights = FilterByTimeInFlight(foundFlights);
+                    }
+
+                    if (checkBoxFilterFreePlacesCount.Checked)
+                    {
+                        foundFlights = FilterByFreePlacesCount(foundFlights);
+                    }
+
                     dataGridView.Visible = true;
                     dataGridView.DataSource = foundFlights;
                     dataGridView.Columns["Id"].Visible = false;
                     dataGridView.Columns["DepartureDate"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns["FreePlacesCount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                    dataGridView.Columns["EconomPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                    dataGridView.Columns["BusinessPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                    dataGridView.Columns["TimeInFlight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dataGridView.Columns["FreePlacesCount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns["EconomPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns["BusinessPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns["TimeInFlight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView.Columns["PlaneId"].Visible = false;
                     dataGridView.Columns["DirectionId"].Visible = false;
                     dataGridView.Columns["PlaneModel"].Visible = true;
                     dataGridView.Columns["FlightDirection"].Visible = true;
-                    dataGridView.Columns["PlaneModel"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                    dataGridView.Columns["FlightDirection"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns["PlaneModel"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns["FlightDirection"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
 
                     foreach (DataGridViewRow row in dataGridView.Rows)
                     {
@@ -148,9 +173,102 @@ namespace FlyTodayViews
 
         private void FormSearchFlights_Load(object sender, EventArgs e)
         {
-            comboBoxChooseFilter.SelectedItem = "По цене (руб.)";
+            checkBoxFilterEconomPrice.Checked = true;
             textBoxDirectionCountryFrom.Text = "Россия";
             textBoxDirectionCountryTo.Text = "Россия";
+        }
+
+        private List<FlightViewModel> FilterByBusinessPrice(List<FlightViewModel> list)
+        {
+            if (double.TryParse(textBoxFilterBusinessPriceFrom.Text, out double from) && double.TryParse(textBoxFilterBusinessPriceTo.Text, out double to))
+            {
+                var filteredFlights = list.Where(f => f.BusinessPrice >= from && f.BusinessPrice <= to).ToList();
+                return filteredFlights;
+            }
+            else
+            {
+                MessageBox.Show("Параметры фильтра заполнены в недопустимом формате.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return list;
+            }
+        }
+
+        private List<FlightViewModel> FilterByEconomPrice(List<FlightViewModel> list)
+        {
+            if (double.TryParse(textBoxFilterEconomPriceFrom.Text, out double from) && double.TryParse(textBoxFilterEconomPriceTo.Text, out double to))
+            {
+                var filteredFlights = list.Where(f => f.EconomPrice >= from && f.EconomPrice <= to).ToList();
+                return filteredFlights;
+            }
+            else
+            {
+                MessageBox.Show("Параметры фильтра заполнены в недопустимом формате.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return list;
+            }
+        }
+
+        private List<FlightViewModel> FilterByTimeInFlight(List<FlightViewModel> list)
+        {
+            if (double.TryParse(textBoxFilterTimeInFlightFrom.Text, out double from) && double.TryParse(textBoxFilterTimeInFlightTo.Text, out double to))
+            {
+                var filteredFlights = list.Where(f => f.TimeInFlight >= from && f.TimeInFlight <= to).ToList();
+                return filteredFlights;
+            }
+            else
+            {
+                MessageBox.Show("Параметры фильтра заполнены в недопустимом формате.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return list;
+            }
+        }
+        private List<FlightViewModel> FilterByFreePlacesCount(List<FlightViewModel> list)
+        {
+            if (int.TryParse(textBoxFilterFreePlacesCountFrom.Text, out int from) && int.TryParse(textBoxFilterFreePlacesCountTo.Text, out int to))
+            {
+                var filteredFlights = list.Where(f => f.FreePlacesCount >= from && f.FreePlacesCount <= to).ToList();
+                return filteredFlights;
+            }
+            else
+            {
+                MessageBox.Show("Параметры фильтра заполнены в недопустимом формате.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return list;
+            }
+        }
+        private void checkBoxFilterEconomPrice_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBoxNoFilters.Checked = false;
+            textBoxFilterEconomPriceFrom.ReadOnly = !checkBoxFilterEconomPrice.Checked;
+            textBoxFilterEconomPriceTo.ReadOnly = !checkBoxFilterEconomPrice.Checked;
+        }
+
+        private void checkBoxFilterBusinessPrice_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBoxNoFilters.Checked = false;
+            textBoxFilterBusinessPriceFrom.ReadOnly = !checkBoxFilterBusinessPrice.Checked;
+            textBoxFilterBusinessPriceTo.ReadOnly = !checkBoxFilterBusinessPrice.Checked;
+        }
+
+        private void checkBoxFilterTimeInFlight_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBoxNoFilters.Checked = false;
+            textBoxFilterTimeInFlightFrom.ReadOnly = !checkBoxFilterTimeInFlight.Checked;
+            textBoxFilterTimeInFlightTo.ReadOnly = !checkBoxFilterTimeInFlight.Checked;
+        }
+
+        private void checkBoxFilterFreePlacesCount_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBoxNoFilters.Checked = false;
+            textBoxFilterFreePlacesCountFrom.ReadOnly = !checkBoxFilterFreePlacesCount.Checked;
+            textBoxFilterFreePlacesCountTo.ReadOnly = !checkBoxFilterFreePlacesCount.Checked;
+        }
+
+        private void checkBoxNoFilters_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxNoFilters.Checked)
+            {
+                checkBoxFilterEconomPrice.Checked = false;
+                checkBoxFilterBusinessPrice.Checked = false;
+                checkBoxFilterTimeInFlight.Checked = false;
+                checkBoxFilterFreePlacesCount.Checked = false;
+            }
         }
     }
 }
