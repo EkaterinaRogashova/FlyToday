@@ -45,6 +45,7 @@
             label5 = new Label();
             label4 = new Label();
             label1 = new Label();
+            buttonTrackPriceChanges = new Button();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -225,11 +226,22 @@
             label1.TabIndex = 8;
             label1.Text = "Время в пути:";
             // 
+            // buttonTrackPriceChanges
+            // 
+            buttonTrackPriceChanges.Location = new Point(30, 297);
+            buttonTrackPriceChanges.Name = "buttonTrackPriceChanges";
+            buttonTrackPriceChanges.Size = new Size(497, 23);
+            buttonTrackPriceChanges.TabIndex = 12;
+            buttonTrackPriceChanges.Text = "Отслеживать изменение цены";
+            buttonTrackPriceChanges.UseVisualStyleBackColor = true;
+            buttonTrackPriceChanges.Click += buttonTrackPriceChanges_Click;
+            // 
             // FormViewFlight
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(539, 298);
+            ClientSize = new Size(539, 326);
+            Controls.Add(buttonTrackPriceChanges);
             Controls.Add(groupBox1);
             Controls.Add(buttonRent);
             Controls.Add(labelDirection);
@@ -261,5 +273,6 @@
         private Label labelEconomPrice;
         private Label labelFreePlacesCount;
         private Label labelPlane;
+        private Button buttonTrackPriceChanges;
     }
 }

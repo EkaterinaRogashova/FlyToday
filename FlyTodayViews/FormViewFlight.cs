@@ -28,7 +28,7 @@ namespace FlyTodayViews
             _directionLogic = directionLogic;
             _planeLogic = planeLogic;
         }
-        
+
         private void FormFlight_Load(object sender, EventArgs e)
         {
             if (_id.HasValue)
@@ -63,6 +63,11 @@ namespace FlyTodayViews
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void buttonTrackPriceChanges_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

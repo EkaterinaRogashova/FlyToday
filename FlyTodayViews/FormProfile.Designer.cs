@@ -38,6 +38,7 @@
             buttonDel = new Button();
             buttonMyRents = new Button();
             groupBox1 = new GroupBox();
+            checkBoxAllowNotif = new CheckBox();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -144,11 +145,22 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Личные данные";
             // 
+            // checkBoxAllowNotif
+            // 
+            checkBoxAllowNotif.AutoSize = true;
+            checkBoxAllowNotif.Location = new Point(171, 49);
+            checkBoxAllowNotif.Name = "checkBoxAllowNotif";
+            checkBoxAllowNotif.Size = new Size(162, 19);
+            checkBoxAllowNotif.TabIndex = 12;
+            checkBoxAllowNotif.Text = "Разрешить уведомления";
+            checkBoxAllowNotif.UseVisualStyleBackColor = true;
+            // 
             // FormProfile
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(360, 285);
+            Controls.Add(checkBoxAllowNotif);
             Controls.Add(groupBox1);
             Controls.Add(buttonMyRents);
             Controls.Add(buttonDel);
@@ -175,5 +187,6 @@
         private Button buttonDel;
         private Button buttonMyRents;
         private GroupBox groupBox1;
+        private CheckBox checkBoxAllowNotif;
     }
 }

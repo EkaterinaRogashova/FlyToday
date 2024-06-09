@@ -42,7 +42,7 @@ namespace FlyTodayViews
             _logger = logger;
             _logic = logic;
             dateTimePickerDeparture.Format = DateTimePickerFormat.Custom;
-            dateTimePickerDeparture.CustomFormat = "dd/MM/yyyy hh:mm:ss";
+            dateTimePickerDeparture.CustomFormat = "dd.MM.yyyy hh:mm";
         }
 
         public int DirectionId

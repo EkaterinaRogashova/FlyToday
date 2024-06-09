@@ -19,13 +19,17 @@ namespace FlyTodayViews
             InitializeComponent();
             _logger = logger;
             _logic = logic;
-            _planeLogic = planeLogic;
+            _planeLogic = planeLogic;                      
             dataGridView.Columns.Add("FlightDirection", "Направление");
             dataGridView.Columns.Add("PlaneModel", "Самолет");
             dataGridView.Columns["PlaneModel"].Visible = false;
             dataGridView.Columns["FlightDirection"].Visible = false;
             dataGridView.Visible = false;
             _directionLogic = directionLogic;
+            dateTimePickerDateFrom.Format = DateTimePickerFormat.Custom;
+            dateTimePickerDateFrom.CustomFormat = "dd.MM.yyyy hh:mm";
+            dateTimePickerDateTo.Format = DateTimePickerFormat.Custom;
+            dateTimePickerDateTo.CustomFormat = "dd.MM.yyyy hh:mm";
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
@@ -35,6 +39,7 @@ namespace FlyTodayViews
 
         private void LoadData()
         {
+            dataGridView.DataSource = null;
             try
             {
                 if (!textBoxDirectionCountryFrom.Text.IsNullOrEmpty() || !textBoxDirectionCityFrom.Text.IsNullOrEmpty() || !textBoxDirectionCountryTo.Text.IsNullOrEmpty() || !textBoxDirectionCityTo.Text.IsNullOrEmpty())
@@ -52,16 +57,11 @@ namespace FlyTodayViews
                     {
                         foreach (var dir in directions)
                         {
-                            var flights = _logic.ReadList(new FlightSearchModel
-                            {
-                                DirectionId = dir.Id
-                            });
+                            var flights = _logic.ReadList(new FlightSearchModel { DirectionId = dir.Id });
                             if (flights != null)
                             {
-                                foreach (var flight in flights)
-                                {
-                                    foundFlights.Add(flight);
-                                }
+                                var filteredFlights = flights.Where(f => f.DepartureDate >= dateTimePickerDateFrom.Value.ToUniversalTime() && f.DepartureDate <= dateTimePickerDateTo.Value.ToUniversalTime()).ToList();
+                                foundFlights.AddRange(filteredFlights);
                             }
                         }
                     }
@@ -69,7 +69,7 @@ namespace FlyTodayViews
                     {
                         MessageBox.Show("По запросу ничего не найдено", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-
+                    
                     dataGridView.Visible = true;
                     dataGridView.DataSource = foundFlights;
                     dataGridView.Columns["Id"].Visible = false;
@@ -133,7 +133,7 @@ namespace FlyTodayViews
 
         private void dataGridView_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (dataGridView.SelectedRows.Count == 1)
+            /*if (dataGridView.SelectedRows.Count == 1)
             {
                 var service = Program.ServiceProvider?.GetService(typeof(FormViewFlight));
                 if (service is FormViewFlight form)
@@ -143,7 +143,14 @@ namespace FlyTodayViews
                     form.PlaneId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["PlaneId"].Value);
                     form.ShowDialog();
                 }
-            }
+            }*/
+        }
+
+        private void FormSearchFlights_Load(object sender, EventArgs e)
+        {
+            comboBoxChooseFilter.SelectedItem = "По цене (руб.)";
+            textBoxDirectionCountryFrom.Text = "Россия";
+            textBoxDirectionCountryTo.Text = "Россия";
         }
     }
 }
