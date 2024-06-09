@@ -1,7 +1,9 @@
+using FlyTodayBusinessLogics.MailWorker;
 using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic.Logging;
+using System;
 using System.Windows.Forms;
 
 namespace FlyTodayViews
@@ -10,13 +12,22 @@ namespace FlyTodayViews
     {
         private readonly ILogger _logger;
         private readonly IUserLogic _logic;
-        public FormEnter(ILogger<FormEnter> logger, IUserLogic logic)
+        private readonly AbstractMailWorker _mailWorker;
+        Random rnd = new Random();
+        private static readonly Random _random = new Random();
+        public FormEnter(ILogger<FormEnter> logger, IUserLogic logic, AbstractMailWorker mailWorker)
         {
             InitializeComponent();
             _logger = logger;
             _logic = logic;
+            _mailWorker = mailWorker;
         }
-
+        public static string GenerateRandomString()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, 6)
+                .Select(s => s[_random.Next(s.Length)]).ToArray());
+        }
         private void buttonEnter_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(textBoxEmail.Text) || string.IsNullOrEmpty(textBoxPassword.Text))
@@ -51,6 +62,43 @@ namespace FlyTodayViews
             {
                 _logger.LogError(ex, "Ошибка входа в систему");
                 throw;
+            }
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBoxEmail.Text))
+            {
+                string confirmationCode = GenerateRandomString();
+                _mailWorker.MailSendAsync(new()
+                {
+                    MailAddress = textBoxEmail.Text,
+                    Subject = "Код для подтвержения смены пароля:",
+                    Text = $"Ваш код подтверждения: {confirmationCode}"
+                });
+                var CurrentUser = _logic.ReadElement(new UserSearchModel
+                {
+                    Email = textBoxEmail.Text
+                });
+                if (CurrentUser != null)
+                {
+                    var form = new ConfirmationDialogPassword(confirmationCode, _logic);
+                    form.CurrentUserId = CurrentUser.Id;
+                    form.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Неверный код подтверждения", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Введите почту, на которую нужно отправить письмо с подтверждением", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
