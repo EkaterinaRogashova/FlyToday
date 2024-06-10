@@ -40,7 +40,15 @@ namespace FlyTodayDatabaseImplements.Implements
 
         public List<RentViewModel> GetFilteredList(RentSearchModel model)
         {
-            throw new NotImplementedException();
+            if (model.UserId == null)
+            {
+                return new();
+            }
+            using var context = new FlyTodayDatabase();
+            return context.Rents    
+            .Where(x => x.UserId.Equals(model.UserId))
+           .Select(x => x.GetViewModel)
+           .ToList();
         }
 
         public List<RentViewModel> GetFullList()

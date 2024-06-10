@@ -37,30 +37,32 @@
             label4 = new Label();
             labelFlight = new Label();
             label1 = new Label();
-            groupBox2 = new GroupBox();
+            groupBoxTicket = new GroupBox();
+            checkedListBoxTypeDoc = new CheckedListBox();
+            label13 = new Label();
+            label10 = new Label();
+            dateTimePickerBirth = new DateTimePicker();
+            checkedListBoxGender = new CheckedListBox();
             textBoxCost = new TextBox();
+            label14 = new Label();
             label16 = new Label();
             label15 = new Label();
-            label14 = new Label();
             comboBoxSale = new ComboBox();
             checkBoxBags = new CheckBox();
-            comboBoxGender = new ComboBox();
-            label13 = new Label();
-            dateTimePickerBirth = new DateTimePicker();
             label12 = new Label();
             textBoxNumber = new TextBox();
             label11 = new Label();
             textBoxSeria = new TextBox();
-            label10 = new Label();
-            comboBoxTypeDocument = new ComboBox();
             label9 = new Label();
             textBoxLastname = new TextBox();
             label8 = new Label();
             textBoxName = new TextBox();
             label7 = new Label();
             textBoxSurname = new TextBox();
+            pnlTickets = new Panel();
             groupBox1.SuspendLayout();
-            groupBox2.SuspendLayout();
+            groupBoxTicket.SuspendLayout();
+            pnlTickets.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
@@ -163,50 +165,107 @@
             label1.TabIndex = 0;
             label1.Text = "Рейс:";
             // 
-            // groupBox2
+            // groupBoxTicket
             // 
-            groupBox2.BackColor = SystemColors.InactiveBorder;
-            groupBox2.Controls.Add(textBoxCost);
-            groupBox2.Controls.Add(label16);
-            groupBox2.Controls.Add(label15);
-            groupBox2.Controls.Add(label14);
-            groupBox2.Controls.Add(comboBoxSale);
-            groupBox2.Controls.Add(checkBoxBags);
-            groupBox2.Controls.Add(comboBoxGender);
-            groupBox2.Controls.Add(label13);
-            groupBox2.Controls.Add(dateTimePickerBirth);
-            groupBox2.Controls.Add(label12);
-            groupBox2.Controls.Add(textBoxNumber);
-            groupBox2.Controls.Add(label11);
-            groupBox2.Controls.Add(textBoxSeria);
-            groupBox2.Controls.Add(label10);
-            groupBox2.Controls.Add(comboBoxTypeDocument);
-            groupBox2.Controls.Add(label9);
-            groupBox2.Controls.Add(textBoxLastname);
-            groupBox2.Controls.Add(label8);
-            groupBox2.Controls.Add(textBoxName);
-            groupBox2.Controls.Add(label7);
-            groupBox2.Controls.Add(textBoxSurname);
-            groupBox2.Location = new Point(228, 12);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(560, 256);
-            groupBox2.TabIndex = 1;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Билет №1";
+            groupBoxTicket.BackColor = SystemColors.InactiveBorder;
+            groupBoxTicket.Controls.Add(checkedListBoxTypeDoc);
+            groupBoxTicket.Controls.Add(label13);
+            groupBoxTicket.Controls.Add(label10);
+            groupBoxTicket.Controls.Add(dateTimePickerBirth);
+            groupBoxTicket.Controls.Add(checkedListBoxGender);
+            groupBoxTicket.Controls.Add(textBoxCost);
+            groupBoxTicket.Controls.Add(label14);
+            groupBoxTicket.Controls.Add(label16);
+            groupBoxTicket.Controls.Add(label15);
+            groupBoxTicket.Controls.Add(comboBoxSale);
+            groupBoxTicket.Controls.Add(checkBoxBags);
+            groupBoxTicket.Controls.Add(label12);
+            groupBoxTicket.Controls.Add(textBoxNumber);
+            groupBoxTicket.Controls.Add(label11);
+            groupBoxTicket.Controls.Add(textBoxSeria);
+            groupBoxTicket.Controls.Add(label9);
+            groupBoxTicket.Controls.Add(textBoxLastname);
+            groupBoxTicket.Controls.Add(label8);
+            groupBoxTicket.Controls.Add(textBoxName);
+            groupBoxTicket.Controls.Add(label7);
+            groupBoxTicket.Controls.Add(textBoxSurname);
+            groupBoxTicket.Enabled = false;
+            groupBoxTicket.Location = new Point(3, 3);
+            groupBoxTicket.Name = "groupBoxTicket";
+            groupBoxTicket.Size = new Size(560, 288);
+            groupBoxTicket.TabIndex = 1;
+            groupBoxTicket.TabStop = false;
+            groupBoxTicket.Text = "Билет №1";
+            groupBoxTicket.Visible = false;
+            // 
+            // checkedListBoxTypeDoc
+            // 
+            checkedListBoxTypeDoc.FormattingEnabled = true;
+            checkedListBoxTypeDoc.Items.AddRange(new object[] { "Паспорт", "Св. о рождении" });
+            checkedListBoxTypeDoc.Location = new Point(343, 116);
+            checkedListBoxTypeDoc.Name = "checkedListBoxTypeDoc";
+            checkedListBoxTypeDoc.Size = new Size(146, 48);
+            checkedListBoxTypeDoc.TabIndex = 29;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("Segoe UI", 10F);
+            label13.Location = new Point(21, 90);
+            label13.Name = "label13";
+            label13.Size = new Size(136, 23);
+            label13.TabIndex = 20;
+            label13.Text = "Дата рождения:";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 10F);
+            label10.Location = new Point(343, 88);
+            label10.Name = "label10";
+            label10.Size = new Size(130, 23);
+            label10.TabIndex = 14;
+            label10.Text = "Вид документа:";
+            // 
+            // dateTimePickerBirth
+            // 
+            dateTimePickerBirth.Location = new Point(21, 116);
+            dateTimePickerBirth.Name = "dateTimePickerBirth";
+            dateTimePickerBirth.Size = new Size(146, 27);
+            dateTimePickerBirth.TabIndex = 19;
+            // 
+            // checkedListBoxGender
+            // 
+            checkedListBoxGender.FormattingEnabled = true;
+            checkedListBoxGender.Items.AddRange(new object[] { "М", "Ж" });
+            checkedListBoxGender.Location = new Point(185, 116);
+            checkedListBoxGender.Name = "checkedListBoxGender";
+            checkedListBoxGender.Size = new Size(146, 48);
+            checkedListBoxGender.TabIndex = 28;
             // 
             // textBoxCost
             // 
             textBoxCost.BackColor = Color.LightSteelBlue;
-            textBoxCost.Location = new Point(343, 211);
+            textBoxCost.Location = new Point(343, 244);
             textBoxCost.Name = "textBoxCost";
             textBoxCost.Size = new Size(146, 27);
             textBoxCost.TabIndex = 27;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Segoe UI", 10F);
+            label14.Location = new Point(185, 90);
+            label14.Name = "label14";
+            label14.Size = new Size(45, 23);
+            label14.TabIndex = 24;
+            label14.Text = "Пол:";
             // 
             // label16
             // 
             label16.AutoSize = true;
             label16.Font = new Font("Segoe UI", 10F);
-            label16.Location = new Point(163, 215);
+            label16.Location = new Point(163, 244);
             label16.Name = "label16";
             label16.Size = new Size(174, 23);
             label16.TabIndex = 26;
@@ -216,26 +275,16 @@
             // 
             label15.AutoSize = true;
             label15.Font = new Font("Segoe UI", 10F);
-            label15.Location = new Point(343, 148);
+            label15.Location = new Point(343, 169);
             label15.Name = "label15";
             label15.Size = new Size(67, 23);
             label15.TabIndex = 25;
             label15.Text = "Льгота:";
             // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Font = new Font("Segoe UI", 10F);
-            label14.Location = new Point(185, 148);
-            label14.Name = "label14";
-            label14.Size = new Size(45, 23);
-            label14.TabIndex = 24;
-            label14.Text = "Пол:";
-            // 
             // comboBoxSale
             // 
             comboBoxSale.FormattingEnabled = true;
-            comboBoxSale.Location = new Point(343, 173);
+            comboBoxSale.Location = new Point(343, 194);
             comboBoxSale.Name = "comboBoxSale";
             comboBoxSale.Size = new Size(146, 28);
             comboBoxSale.TabIndex = 23;
@@ -243,43 +292,18 @@
             // checkBoxBags
             // 
             checkBoxBags.AutoSize = true;
-            checkBoxBags.Location = new Point(21, 216);
+            checkBoxBags.Location = new Point(27, 247);
             checkBoxBags.Name = "checkBoxBags";
             checkBoxBags.Size = new Size(108, 24);
             checkBoxBags.TabIndex = 22;
             checkBoxBags.Text = "Доп. багаж";
             checkBoxBags.UseVisualStyleBackColor = true;
             // 
-            // comboBoxGender
-            // 
-            comboBoxGender.FormattingEnabled = true;
-            comboBoxGender.Location = new Point(185, 173);
-            comboBoxGender.Name = "comboBoxGender";
-            comboBoxGender.Size = new Size(146, 28);
-            comboBoxGender.TabIndex = 21;
-            // 
-            // label13
-            // 
-            label13.AutoSize = true;
-            label13.Font = new Font("Segoe UI", 10F);
-            label13.Location = new Point(21, 148);
-            label13.Name = "label13";
-            label13.Size = new Size(136, 23);
-            label13.TabIndex = 20;
-            label13.Text = "Дата рождения:";
-            // 
-            // dateTimePickerBirth
-            // 
-            dateTimePickerBirth.Location = new Point(21, 174);
-            dateTimePickerBirth.Name = "dateTimePickerBirth";
-            dateTimePickerBirth.Size = new Size(143, 27);
-            dateTimePickerBirth.TabIndex = 19;
-            // 
             // label12
             // 
             label12.AutoSize = true;
             label12.Font = new Font("Segoe UI", 10F);
-            label12.Location = new Point(343, 90);
+            label12.Location = new Point(185, 170);
             label12.Name = "label12";
             label12.Size = new Size(67, 23);
             label12.TabIndex = 18;
@@ -287,7 +311,7 @@
             // 
             // textBoxNumber
             // 
-            textBoxNumber.Location = new Point(343, 114);
+            textBoxNumber.Location = new Point(185, 194);
             textBoxNumber.Name = "textBoxNumber";
             textBoxNumber.Size = new Size(146, 27);
             textBoxNumber.TabIndex = 17;
@@ -296,7 +320,7 @@
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI", 10F);
-            label11.Location = new Point(185, 91);
+            label11.Location = new Point(27, 171);
             label11.Name = "label11";
             label11.Size = new Size(63, 23);
             label11.TabIndex = 16;
@@ -304,28 +328,10 @@
             // 
             // textBoxSeria
             // 
-            textBoxSeria.Location = new Point(185, 115);
+            textBoxSeria.Location = new Point(27, 195);
             textBoxSeria.Name = "textBoxSeria";
             textBoxSeria.Size = new Size(146, 27);
             textBoxSeria.TabIndex = 15;
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Segoe UI", 10F);
-            label10.Location = new Point(21, 90);
-            label10.Name = "label10";
-            label10.Size = new Size(130, 23);
-            label10.TabIndex = 14;
-            label10.Text = "Вид документа:";
-            // 
-            // comboBoxTypeDocument
-            // 
-            comboBoxTypeDocument.FormattingEnabled = true;
-            comboBoxTypeDocument.Location = new Point(21, 115);
-            comboBoxTypeDocument.Name = "comboBoxTypeDocument";
-            comboBoxTypeDocument.Size = new Size(144, 28);
-            comboBoxTypeDocument.TabIndex = 13;
             // 
             // label9
             // 
@@ -378,20 +384,30 @@
             textBoxSurname.Size = new Size(146, 27);
             textBoxSurname.TabIndex = 0;
             // 
+            // pnlTickets
+            // 
+            pnlTickets.AutoScroll = true;
+            pnlTickets.Controls.Add(groupBoxTicket);
+            pnlTickets.Location = new Point(228, 12);
+            pnlTickets.Name = "pnlTickets";
+            pnlTickets.Size = new Size(569, 503);
+            pnlTickets.TabIndex = 2;
+            // 
             // FormTickets
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 527);
-            Controls.Add(groupBox2);
+            Controls.Add(pnlTickets);
             Controls.Add(groupBox1);
             Name = "FormTickets";
             Text = "Билеты";
             Load += FormTicket_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
+            groupBoxTicket.ResumeLayout(false);
+            groupBoxTicket.PerformLayout();
+            pnlTickets.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -404,7 +420,7 @@
         private Label label4;
         private Label labelFlight;
         private Label label1;
-        private GroupBox groupBox2;
+        private GroupBox groupBoxTicket;
         private Button button2;
         private Button button1;
         private Label label13;
@@ -414,7 +430,6 @@
         private Label label11;
         private TextBox textBoxSeria;
         private Label label10;
-        private ComboBox comboBoxTypeDocument;
         private Label label9;
         private TextBox textBoxLastname;
         private Label label8;
@@ -427,6 +442,8 @@
         private Label label14;
         private ComboBox comboBoxSale;
         private CheckBox checkBoxBags;
-        private ComboBox comboBoxGender;
+        private Panel pnlTickets;
+        private CheckedListBox checkedListBoxTypeDoc;
+        private CheckedListBox checkedListBoxGender;
     }
 }

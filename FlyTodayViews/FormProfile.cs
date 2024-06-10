@@ -70,7 +70,35 @@ namespace FlyTodayViews
 
         private void buttonMyRents_Click(object sender, EventArgs e)
         {
-
+            if (_id.HasValue || _id > 0)
+            {
+                try
+                {
+                    var currentUser = _logic.ReadElement(new UserSearchModel { Id = _id.Value });
+                    if (currentUser != null)
+                    {
+                        var service = Program.ServiceProvider?.GetService(typeof(FormMyRents));
+                        if (service is FormMyRents form)
+                        {
+                            form.CurrentUserId = _id.Value;
+                            form.ShowDialog();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Пользователь не найден", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Ошибка получения пользователя");
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пользователь не найден", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void FormProfile_Load(object sender, EventArgs e)

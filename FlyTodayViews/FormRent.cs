@@ -99,28 +99,17 @@ namespace FlyTodayViews
                         {
                             throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
                         }
-                        MessageBox.Show("Сохранение прошло успешно", "Сообщение",
-                       MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        DialogResult = DialogResult.OK;
-                        int rentId = model.Id;
-                        var currentRent = _rentlogic.ReadElement(new RentSearchModel
+                        Close();
+                        if (MessageBox.Show("Бронирование в личном кабинете. Перейти в личный кабинет?", "Сообщение",
+        MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
                         {
-                            Id = rentId
-                        });
-                        if (currentRent != null)
-                        {
-                            var service = Program.ServiceProvider?.GetService(typeof(FormTickets));
-                            if (service is FormTickets form)
+                            var service = Program.ServiceProvider?.GetService(typeof(FormProfile));
+                            if (service is FormProfile form)
                             {
+                                form.Id = _currentUserId.Value;
                                 form.ShowDialog();
-                                form.CurrentRentId = currentRent.Id;
                             }
                         }
-                        else
-                        {
-                            throw new Exception("Бронирование не найдено.");
-                        }
-                        Close();
                     }
                     catch (Exception ex)
                     {
@@ -128,6 +117,7 @@ namespace FlyTodayViews
                         MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
                        MessageBoxIcon.Error);
                     }
+
                 }
             }
             else
