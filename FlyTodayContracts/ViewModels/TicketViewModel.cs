@@ -28,7 +28,7 @@ namespace FlyTodayContracts.ViewModels
         [DisplayName("Дополнительный багаж")]
         public bool Bags { get; set; }
         [DisplayName("Льгота")]
-        public int SaleId { get; set; }
+        public int? SaleId { get; set; }
         [DisplayName("Стоимость билета")]
         public double TicketCost { get; set; }
 

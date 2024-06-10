@@ -236,7 +236,7 @@ namespace FlyTodayDatabaseImplements.Migrations
                     DateOfBirthday = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Gender = table.Column<string>(type: "text", nullable: false),
                     Bags = table.Column<bool>(type: "boolean", nullable: false),
-                    SaleId = table.Column<int>(type: "integer", nullable: false),
+                    SaleId = table.Column<int>(type: "integer", nullable: true),
                     TicketCost = table.Column<double>(type: "double precision", nullable: false)
                 },
                 constraints: table =>
@@ -252,8 +252,7 @@ namespace FlyTodayDatabaseImplements.Migrations
                         name: "FK_Tickets_Sales_SaleId",
                         column: x => x.SaleId,
                         principalTable: "Sales",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(

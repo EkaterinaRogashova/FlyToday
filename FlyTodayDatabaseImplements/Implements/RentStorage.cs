@@ -69,5 +69,17 @@ namespace FlyTodayDatabaseImplements.Implements
             context.SaveChanges();
             return newRent.GetViewModel; ;
         }
+        public RentViewModel? Update(RentBindingModel model)
+        {
+            using var context = new FlyTodayDatabase();
+            var rent = context.Rents.FirstOrDefault(x => x.Id == model.Id);
+            if (rent == null)
+            {
+                return null;
+            }
+            rent.Update(model);
+            context.SaveChanges();
+            return rent.GetViewModel;
+        }
     }
 }

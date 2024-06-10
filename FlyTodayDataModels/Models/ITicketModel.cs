@@ -17,7 +17,7 @@ namespace FlyTodayDataModels.Models
         DateTime DateOfBirthday { get; }
         string Gender { get; }
         bool Bags { get; }
-        int SaleId { get; }
+        int? SaleId { get; }
         double TicketCost { get; }
     }
 }

@@ -22,18 +22,20 @@ namespace FlyTodayViews
         private readonly IFlightLogic _logic;
         private readonly IDirectionLogic _directionlogic;
         private readonly IRentLogic _rentlogic;
+        private readonly IPlaneLogic _planelogic;
         private int? _currentUserId;
         public int CurrentUserId { set { _currentUserId = value; } }
         private int? _currentFlightId;
         public int CurrentFlightId { set { _currentFlightId = value; } }
         private int? _directionId;
         public int DirectionId { set { _directionId = value; } }
-        public FormRent(ILogger<FormRent> logger, IFlightLogic logic, IRentLogic rentlogic, IDirectionLogic directionLogic)
+        public FormRent(ILogger<FormRent> logger, IFlightLogic logic, IRentLogic rentlogic, IDirectionLogic directionLogic, IPlaneLogic planeLogic)
         {
             InitializeComponent();
             _logger = logger;
             _logic = logic;
             _rentlogic = rentlogic;
+            _planelogic = planeLogic;
             _directionlogic = directionLogic;
         }
         private void FormRent_Load(object sender, EventArgs e)
@@ -52,7 +54,7 @@ namespace FlyTodayViews
                         });
                         if (direction != null) labelFlight.Text = direction.CountryFrom + " " + direction.CityFrom + " - " + direction.CountryTo + " " + direction.CityTo;
                         labelDate.Text = view.DepartureDate.ToShortDateString() + " " + view.DepartureDate.ToShortTimeString() + " МСК";
-                        labelFreePlaces.Text = view.FreePlacesCount.ToString();
+                        labelFreePlacesBusiness.Text = view.FreePlacesCount.ToString();
                     }
                 }
                 catch (Exception ex)
@@ -73,8 +75,20 @@ namespace FlyTodayViews
                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                int sumPlaces = Convert.ToInt32(textBoxEconomy.Text) + Convert.ToInt32(textBoxBusiness.Text);
-                if (sumPlaces > Convert.ToInt32(labelFreePlaces.Text))
+                //var view = _logic.ReadElement(new FlightSearchModel { Id = _currentFlightId.Value });
+                //if (view != null)
+                //{
+                //    var plane = _planelogic.ReadElement(new PlaneSearchModel
+                //    {
+                //        Id = view.PlaneId
+                //    });
+                //    if (plane != null) 
+                //    {
+                //        labelFreePlacesBusiness.Text = plane.BusinessPlacesCount.ToString();
+                //        labelFreePlacesEconom.Text = plane.EconomPlacesCount.ToString();
+                //    }
+                //}
+                if (Convert.ToInt32(textBoxEconomy.Text) < 0 )
                 {
                     MessageBox.Show("Количество бронируемых мест превышает количество свободных!", "Ошибка",
                    MessageBoxButtons.OK, MessageBoxIcon.Error);

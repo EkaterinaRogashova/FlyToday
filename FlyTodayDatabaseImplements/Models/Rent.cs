@@ -65,10 +65,7 @@ namespace FlyTodayDatabaseImplements.Models
             {
                 return;
             }
-            FlightId = model.FlightId;
             Cost = model.Cost;
-            NumberOfBusiness = model.NumberOfBusiness;
-            NumberOfEconomy = model.NumberOfEconomy;
             Status = model.Status;
         }
         public RentViewModel GetViewModel => new()

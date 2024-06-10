@@ -31,6 +31,7 @@
             label1 = new Label();
             dataGridView1 = new DataGridView();
             button1 = new Button();
+            buttonRefresh = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -66,11 +67,24 @@
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
+            // buttonRefresh
+            // 
+            buttonRefresh.BackColor = SystemColors.ActiveCaption;
+            buttonRefresh.Font = new Font("Segoe UI", 12F);
+            buttonRefresh.Location = new Point(724, 379);
+            buttonRefresh.Name = "buttonRefresh";
+            buttonRefresh.Size = new Size(224, 45);
+            buttonRefresh.TabIndex = 3;
+            buttonRefresh.Text = "Обновить";
+            buttonRefresh.UseVisualStyleBackColor = false;
+            buttonRefresh.Click += buttonRefresh_Click;
+            // 
             // FormMyRents
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(981, 447);
+            Controls.Add(buttonRefresh);
             Controls.Add(button1);
             Controls.Add(dataGridView1);
             Controls.Add(label1);
@@ -87,5 +101,6 @@
         private Label label1;
         private DataGridView dataGridView1;
         private Button button1;
+        private Button buttonRefresh;
     }
 }

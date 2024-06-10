@@ -108,10 +108,6 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             {
                 throw new ArgumentNullException("Неверный идентификатор бронирования", nameof(model.RentId));
             }
-            if (model.SaleId < 0)
-            {
-                throw new ArgumentNullException("Неверный идентификатор льготы", nameof(model.SaleId));
-            }
             if (model.TicketCost < 0)
             {
                 throw new ArgumentNullException("Неверная стоимость", nameof(model.TicketCost));
@@ -125,8 +121,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             {
                 RentId = model.RentId,
                 SeriesOfDocument = model.SeriesOfDocument,
-                NumberOfDocument = model.NumberOfDocument,
-                Bags = model.Bags
+                NumberOfDocument = model.NumberOfDocument
             });
             if (element != null && element.Id != model.Id)
             {

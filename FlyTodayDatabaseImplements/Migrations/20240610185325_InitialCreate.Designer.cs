@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FlyTodayDatabaseImplements.Migrations
 {
     [DbContext(typeof(FlyTodayDatabase))]
-    [Migration("20240607143140_InitialCreate")]
+    [Migration("20240610185325_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -349,7 +349,7 @@ namespace FlyTodayDatabaseImplements.Migrations
                     b.Property<int>("RentId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("SaleId")
+                    b.Property<int?>("SaleId")
                         .HasColumnType("integer");
 
                     b.Property<string>("SeriesOfDocument")
@@ -504,9 +504,7 @@ namespace FlyTodayDatabaseImplements.Migrations
 
                     b.HasOne("FlyTodayDatabaseImplements.Models.Sale", "Sale")
                         .WithMany()
-                        .HasForeignKey("SaleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SaleId");
 
                     b.Navigation("Rent");
 

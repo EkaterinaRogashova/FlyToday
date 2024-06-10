@@ -33,7 +33,7 @@ namespace FlyTodayDatabaseImplements.Models
         [Required]
         public bool Bags { get; private set; }
 
-        public int SaleId { get; private set; }
+        public int? SaleId { get; private set; }
         [Required]
         public double TicketCost { get; private set; }
 
@@ -57,7 +57,8 @@ namespace FlyTodayDatabaseImplements.Models
                 Gender = model.Gender,
                 Bags = model.Bags,
                 SaleId = model.SaleId,
-                TicketCost = model.TicketCost
+                TicketCost = model.TicketCost,
+                RentId = model.RentId
             };
         }
         public static Ticket Create(TicketViewModel model)
@@ -74,7 +75,8 @@ namespace FlyTodayDatabaseImplements.Models
                 Gender = model.Gender,
                 Bags = model.Bags,
                 SaleId = model.SaleId,
-                TicketCost = model.TicketCost
+                TicketCost = model.TicketCost,
+                RentId = model.RentId
             };
         }
         public void Update(TicketBindingModel model)
@@ -93,6 +95,7 @@ namespace FlyTodayDatabaseImplements.Models
             Bags = model.Bags;
             SaleId = model.SaleId;
             TicketCost = model.TicketCost;
+            RentId = model.RentId;
         }
         public TicketViewModel GetViewModel => new()
         {
@@ -106,7 +109,8 @@ namespace FlyTodayDatabaseImplements.Models
             Gender = Gender,
             Bags = Bags,
             SaleId = SaleId,
-            TicketCost = TicketCost
+            TicketCost = TicketCost,
+            RentId = RentId
         };
     }
 }

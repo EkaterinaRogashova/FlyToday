@@ -4,6 +4,7 @@ using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.ViewModels;
 using FlyTodayDatabaseImplements.Models;
+using FlyTodayDataModels.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
 using System;
@@ -69,12 +70,18 @@ namespace FlyTodayViews
             clone.Anchor = original.Anchor;
             clone.ForeColor = original.ForeColor;
             clone.BackColor = original.BackColor;
+            if (original is TextBox)
+            {
+                ((TextBox)clone).ReadOnly = ((TextBox)original).ReadOnly;
+                ((TextBox)clone).TextChanged += textBoxCost_Changed;
+            }
             if (original is ComboBox)
             {
                 ((ComboBox)clone).DataSource = new BindingSource((ComboBox)original, "DataSource");
                 ((ComboBox)clone).DisplayMember = ((ComboBox)original).DisplayMember;
                 ((ComboBox)clone).ValueMember = ((ComboBox)original).ValueMember;
                 ((ComboBox)clone).SelectedIndexChanged += comboBoxSale_SelectedIndexChanged;
+                ((ComboBox)clone).DropDownStyle = ((ComboBox)original).DropDownStyle;
             }
             if (original is CheckedListBox)
             {
@@ -125,7 +132,7 @@ namespace FlyTodayViews
                             if (direction != null) labelFlight.Text = direction.CityFrom + " - " + direction.CityTo;
                             labelDate.Text = flight.DepartureDate.ToShortDateString() + " " + flight.DepartureDate.ToShortTimeString() + " МСК";
                         }
-                        labelCost.Text = view.Cost.ToString();
+
                         int economyCount = view.NumberOfEconomy;
                         int businessCount = view.NumberOfBusiness;
                         int totalCount = economyCount + businessCount;
@@ -172,10 +179,12 @@ namespace FlyTodayViews
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+
         }
         private void FormTicket_Load(object sender, EventArgs e)
         {
             LoadData();
+            CalculateTotalCost();
             // Инициализируем словарь _comboBoxToGroupBoxes
             _comboBoxToGroupBoxes = new Dictionary<ComboBox, List<GroupBox>>();
             foreach (Control control in pnlTickets.Controls)
@@ -195,6 +204,10 @@ namespace FlyTodayViews
             }
 
             comboBoxSale.SelectedIndexChanged += comboBoxSale_SelectedIndexChanged;
+        }
+        private void textBoxCost_Changed(object sender, EventArgs e)
+        {
+            CalculateTotalCost();
         }
         private void comboBoxSale_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -249,8 +262,119 @@ namespace FlyTodayViews
                     }
                 }
             }
-            
+
+        }
+        private void CalculateTotalCost()
+        {
+            double totalCost = 0;
+
+            // Перебираем все textBoxCostBusiness и суммируем их
+            foreach (Control control in pnlTickets.Controls)
+            {
+                if (control is GroupBox groupBox)
+                {
+                    var textBoxCostBusiness = groupBox.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "textBoxCostBusiness");
+                    if (textBoxCostBusiness != null)
+                    {
+                        if (double.TryParse(textBoxCostBusiness.Text, out double cost))
+                        {
+                            totalCost += cost;
+                        }
+                    }
+                }
+            }
+
+            // Перебираем все textBoxCostEconomy и суммируем их
+            foreach (Control control in pnlTickets.Controls)
+            {
+                if (control is GroupBox groupBox)
+                {
+                    var textBoxCostEconom = groupBox.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "textBoxCostEconom");
+                    if (textBoxCostEconom != null)
+                    {
+                        if (double.TryParse(textBoxCostEconom.Text, out double cost))
+                        {
+                            totalCost += cost;
+                        }
+                    }
+                }
+            }
+
+            // Устанавливаем значение labelCost.Text
+            labelCost.Text = totalCost.ToString();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var view = _rentlogic.ReadElement(new RentSearchModel { Id = _currentRentId.Value });
+                var flight = _flightlogic.ReadElement(new FlightSearchModel { Id = view.FlightId });
+
+                foreach (Control control in pnlTickets.Controls)
+                {
+                    if (control is GroupBox groupBox)
+                    {
+
+                        var textBoxCostEconom = groupBox.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "textBoxCostEconom");
+                        var textBoxCostBusiness = groupBox.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "textBoxCostBusiness");
+                        var comboBoxSale = groupBox.Controls.OfType<ComboBox>().FirstOrDefault(cb => cb.Name == "comboBoxSale");
+                        var Surname = groupBox.Controls.OfType<TextBox>().FirstOrDefault(cb => cb.Name == "textBoxSurname");
+                        var Name = groupBox.Controls.OfType<TextBox>().FirstOrDefault(cb => cb.Name == "textBoxName");
+                        var Lastname = groupBox.Controls.OfType<TextBox>().FirstOrDefault(cb => cb.Name == "textBoxLastname");
+                        var Series = groupBox.Controls.OfType<TextBox>().FirstOrDefault(cb => cb.Name == "textBoxSeria");
+                        var Number = groupBox.Controls.OfType<TextBox>().FirstOrDefault(cb => cb.Name == "textBoxNumber");
+                        var Date = groupBox.Controls.OfType<DateTimePicker>().FirstOrDefault(dtp => dtp.Name == "dateTimePickerBirth");
+                        var Gender = groupBox.Controls.OfType<CheckedListBox>().FirstOrDefault(clb => clb.Name == "checkedListBoxGender");
+                        var Bags = groupBox.Controls.OfType<CheckBox>().FirstOrDefault(cb => cb.Name == "checkBoxBags");
+                        if (textBoxCostBusiness != null || textBoxCostEconom != null)
+                        {
+                            var ticket = new TicketBindingModel
+                            {
+                                RentId = view.Id,
+                                Surname = Surname.Text,
+                                Name = Name.Text,
+                                LastName = Lastname.Text,
+                                SeriesOfDocument = Series.Text,
+                                NumberOfDocument = Number.Text,
+                                DateOfBirthday = Date.Value.ToUniversalTime(),
+                                Gender = Gender.SelectedItem?.ToString(),
+                                TicketCost = double.Parse(groupBox.Text.Contains("эконом") ? textBoxCostEconom.Text : textBoxCostBusiness.Text),
+                                Bags = Bags?.Checked ?? false
+                            };
+                            if (comboBoxSale?.SelectedValue != null && int.TryParse(comboBoxSale.SelectedValue.ToString(), out int saleId) && saleId > 0)
+                            {
+                                ticket.SaleId = saleId;
+                            }
+                            else
+                            {
+                                ticket.SaleId = null;
+                            }
+                            _logic.Create(ticket);
+                        }
+
+                    }
+                }
+                MessageBox.Show("Билеты успешно сохранены.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var newView = new RentBindingModel
+                {
+                    Id = view.Id,
+                    Cost = double.Parse(labelCost.Text),
+                    Status = "Оплачено"
+                };
+                _rentlogic.Update(newView);
+                Close();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Ошибка сохранения билетов");
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

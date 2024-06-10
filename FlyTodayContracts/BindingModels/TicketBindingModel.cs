@@ -27,7 +27,7 @@ namespace FlyTodayContracts.BindingModels
 
         public bool Bags { get; set; }
 
-        public int SaleId { get; set; }
+        public int? SaleId { get; set; }
 
         public double TicketCost { get; set; }
 

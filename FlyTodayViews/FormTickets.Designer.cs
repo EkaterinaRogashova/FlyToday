@@ -93,6 +93,7 @@
             button2.TabIndex = 7;
             button2.Text = "Отмена";
             button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
             // 
             // button1
             // 
@@ -104,6 +105,7 @@
             button1.TabIndex = 6;
             button1.Text = "Оплатить";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // labelCost
             // 
@@ -248,8 +250,10 @@
             textBoxCost.BackColor = Color.LightSteelBlue;
             textBoxCost.Location = new Point(343, 244);
             textBoxCost.Name = "textBoxCost";
+            textBoxCost.ReadOnly = true;
             textBoxCost.Size = new Size(146, 27);
             textBoxCost.TabIndex = 27;
+            textBoxCost.TextChanged += textBoxCost_Changed;
             // 
             // label14
             // 
@@ -283,6 +287,7 @@
             // 
             // comboBoxSale
             // 
+            comboBoxSale.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxSale.FormattingEnabled = true;
             comboBoxSale.Location = new Point(343, 194);
             comboBoxSale.Name = "comboBoxSale";
