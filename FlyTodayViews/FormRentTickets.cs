@@ -1,6 +1,7 @@
 ﻿using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.ViewModels;
+using FlyTodayDatabaseImplements.Models;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -20,23 +21,26 @@ namespace FlyTodayViews
         private readonly ILogger _logger;
         private readonly ITicketLogic _logic;
         private readonly IRentLogic _rentlogic;
-        private readonly IFlightLogic _flightlogic;
+        private readonly IBoardingPassLogic _boardingpasslogic;
         private readonly IDirectionLogic _directionlogic;
         private readonly ISaleLogic _salelogic;
+        private readonly IPlaceLogic _placelogic;
         private int? _currentRentId;
         public int CurrentRentId { set { _currentRentId = value; } }
-        public FormRentTickets(ILogger<FormRent> logger, ITicketLogic logic, IRentLogic rentlogic, IFlightLogic flightlogic, IDirectionLogic directionlogic, ISaleLogic salelogic)
+        private Dictionary<Button, int> buttonTicketIdMap = new Dictionary<Button, int>();
+        public FormRentTickets(ILogger<FormRent> logger, ITicketLogic logic, IRentLogic rentlogic, IBoardingPassLogic boardingpasslogic, IDirectionLogic directionlogic, ISaleLogic salelogic, IPlaceLogic placelogic)
         {
             InitializeComponent();
             _logger = logger;
             _logic = logic;
             _rentlogic = rentlogic;
-            _flightlogic = flightlogic;
             _directionlogic = directionlogic;
             _salelogic = salelogic;
+            _boardingpasslogic = boardingpasslogic;
+            _placelogic = placelogic;
         }
 
-        private GroupBox CloneGroupBox(GroupBox original)
+        private GroupBox CloneGroupBox(GroupBox original, int ticketId)
         {
             var clone = new GroupBox();
             clone.Name = original.Name;
@@ -48,12 +52,12 @@ namespace FlyTodayViews
             clone.BackColor = original.BackColor;
             foreach (Control control in original.Controls)
             {
-                Control clonedControl = CloneControl(control, control.Name);
+                Control clonedControl = CloneControl(control, control.Name, ticketId);
                 clone.Controls.Add(clonedControl);
             }
             return clone;
         }
-        private Control CloneControl(Control original, string uniqueName)
+        private Control CloneControl(Control original, string uniqueName, int ticketId)
         {
             Type type = original.GetType();
             Control clone = (Control)Activator.CreateInstance(type);
@@ -64,16 +68,14 @@ namespace FlyTodayViews
             clone.Anchor = original.Anchor;
             clone.ForeColor = original.ForeColor;
             clone.BackColor = original.BackColor;
-            if (original is ComboBox)
-            {
-                ((ComboBox)clone).DataSource = new BindingSource((ComboBox)original, "DataSource");
-                ((ComboBox)clone).DisplayMember = ((ComboBox)original).DisplayMember;
-                ((ComboBox)clone).ValueMember = ((ComboBox)original).ValueMember;
-                ((ComboBox)clone).DropDownStyle = ((ComboBox)original).DropDownStyle;
-            }
             if (original is Label)
             {
                 ((Label)clone).Text = ((Label)original).Text;
+            }
+            if (original is Button)
+            {
+                ((Button)clone).Click += buttonCreateBoardingPass_Click;
+                buttonTicketIdMap[clone as Button] = ticketId;
             }
             return clone;
         }
@@ -88,17 +90,38 @@ namespace FlyTodayViews
                     var view = _rentlogic.ReadElement(new RentSearchModel { Id = _currentRentId.Value });
                     if (view != null)
                     {
-                        int economyCount = view.NumberOfEconomy;
-                        int businessCount = view.NumberOfBusiness;
-                        int totalCount = economyCount + businessCount;
+                        var tickets = _logic.ReadList(new TicketSearchModel { RentId = _currentRentId.Value });
+
+                        int totalCount = tickets.Count;
 
                         for (int i = 0; i < totalCount; i++)
                         {
-                            var groupBox = CloneGroupBox(groupBoxTicket);
+                            var ticket = tickets[i];
+                            var groupBox = CloneGroupBox(groupBoxTicket, ticket.Id);
+                            var bordingpasses = _boardingpasslogic.ReadElement(new BoardingPassSearchModel { TicketId = ticket.Id });
+                            var labelPlace = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelPlace");
+                            var buttonBoardingPass = groupBox.Controls.OfType<Button>().FirstOrDefault(b => b.Name == "buttonCreateBoardingPass");
+                            if (bordingpasses != null)
+                            {
+                                var place = _placelogic.ReadElement(new PlaceSearchModel { Id = bordingpasses.PlaceId });
+                                if (place != null) labelPlace.Text = place.PlaceName;
+                                buttonBoardingPass.Enabled = false;
+                            }
+                            else
+                            {
+                                labelPlace.Text = "Билет не зарегестрирован.";
+                            }
+                            var labelF = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelFIO");
+                            var labelDoc = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelDocument");
+                            var labelType = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelType");
+                            var labelCost = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelCost");
                             groupBox.Name = $"groupBoxTicket{i + 1}";
-
                             groupBox.Text = $"Билет {i + 1}";
                             groupBox.Dock = DockStyle.Top;
+                            labelF.Text = ticket.Surname + " " + ticket.Name + " " + ticket.LastName;
+                            labelDoc.Text = ticket.SeriesOfDocument + " " + ticket.NumberOfDocument;
+                            labelType.Text = ticket.TypeTicket;
+                            labelCost.Text = ticket.TicketCost.ToString("C");
                             pnlTickets.Controls.Add(groupBox);
                         }
                     }
@@ -110,6 +133,79 @@ namespace FlyTodayViews
                 }
             }
 
+        }
+
+        private void FormRentTickets_Load(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+
+        private void buttonCreateBoardingPass_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormBordingPass));
+            if (service is FormBordingPass form)
+            {
+                if (buttonTicketIdMap.TryGetValue(sender as Button, out int ticketId))
+                {
+                    form.CurrentTicketId = ticketId;
+                    form.CurrentRentId = _currentRentId.Value;
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        LoadData();
+                    }
+                }
+            }
+        }
+
+        public void LoadDataRefresh()
+        {
+            if (_currentRentId.HasValue)
+            {
+                try
+                {
+                    _logger.LogInformation("Получение билетов в бронировании");
+                    var view = _rentlogic.ReadElement(new RentSearchModel { Id = _currentRentId.Value });
+                    if (view != null)
+                    {
+                        var tickets = _logic.ReadList(new TicketSearchModel { RentId = _currentRentId.Value });
+
+                        int totalCount = tickets.Count;
+
+                        for (int i = 0; i < totalCount; i++)
+                        {
+                            var ticket = tickets[i];
+                            var groupBox = pnlTickets.Controls.OfType<GroupBox>().FirstOrDefault(g => g.Name == $"groupBoxTicket{i + 1}");
+                            if (groupBox != null)
+                            {
+                                var bordingpasses = _boardingpasslogic.ReadElement(new BoardingPassSearchModel { TicketId = ticket.Id });
+                                var labelPlace = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelPlace");
+                                var buttonBoardingPass = groupBox.Controls.OfType<Button>().FirstOrDefault(b => b.Name == "buttonCreateBoardingPass");
+                                if (bordingpasses != null)
+                                {
+                                    var place = _placelogic.ReadElement(new PlaceSearchModel { Id = bordingpasses.PlaceId });
+                                    if (place != null) labelPlace.Text = place.PlaceName;
+                                    buttonBoardingPass.Enabled = false;
+                                }
+                                else
+                                {
+                                    labelPlace.Text = "Билет не зарегестрирован.";
+                                    buttonBoardingPass.Enabled = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Ошибка получения бронирования");
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LoadDataRefresh();
         }
     }
 }

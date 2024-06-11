@@ -10,7 +10,7 @@ namespace FlyTodayContracts.BindingModels
     public class BoardingPassBindingModel: IBoardingPassModel
     {
         public int Id { get; set; }
-        public int TicketId { get; }
-        public int PlaceId { get; }
+        public int TicketId { get; set; }
+        public int PlaceId { get; set; }
     }
 }

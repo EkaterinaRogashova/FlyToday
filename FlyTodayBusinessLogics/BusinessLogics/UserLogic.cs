@@ -52,23 +52,25 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             }
 
             var element = _userStorage.GetElement(model);
-            string hashedPassword = element.Password;
-            _logger.LogInformation("ReadElement. Email: {Email}. Id: {Id}.", model.Email, model.Id);
-            if (element != null && model.Password != element.Password && model.Password != null)
-            {
-                hashedPassword = EncryptPassword(model.Password);
-            }
-            if (element == null)
-            {
-                _logger.LogWarning("ReadElement element not found");
-                return null;
-            }
-            else
-            {
-                if (element.Password == hashedPassword)
+            if (element != null) {
+                string hashedPassword = element.Password;
+                _logger.LogInformation("ReadElement. Email: {Email}. Id: {Id}.", model.Email, model.Id);
+                if (element != null && model.Password != element.Password && model.Password != null)
                 {
-                    _logger.LogInformation("ReadElement find. Id: {Id}", element.Id);
-                    return element;
+                    hashedPassword = EncryptPassword(model.Password);
+                }
+                if (element == null)
+                {
+                    _logger.LogWarning("ReadElement element not found");
+                    return null;
+                }
+                else
+                {
+                    if (element.Password == hashedPassword)
+                    {
+                        _logger.LogInformation("ReadElement find. Id: {Id}", element.Id);
+                        return element;
+                    }
                 }
             }
             return null;

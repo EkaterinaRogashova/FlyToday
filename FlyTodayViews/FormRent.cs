@@ -54,6 +54,8 @@ namespace FlyTodayViews
                         });
                         if (direction != null) labelFlight.Text = direction.CountryFrom + " " + direction.CityFrom + " - " + direction.CountryTo + " " + direction.CityTo;
                         labelDate.Text = view.DepartureDate.ToShortDateString() + " " + view.DepartureDate.ToShortTimeString() + " МСК";
+                        labelFreePlacesBusiness.Text = view.FreePlacesCountBusiness.ToString();
+                        labelFreePlacesEconom.Text = view.FreePlacesCountEconom.ToString();
                     }
                 }
                 catch (Exception ex)
@@ -74,63 +76,59 @@ namespace FlyTodayViews
                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                //var view = _logic.ReadElement(new FlightSearchModel { Id = _currentFlightId.Value });
-                //if (view != null)
-                //{
-                //    var plane = _planelogic.ReadElement(new PlaneSearchModel
-                //    {
-                //        Id = view.PlaneId
-                //    });
-                //    if (plane != null) 
-                //    {
-                //        labelFreePlacesBusiness.Text = plane.BusinessPlacesCount.ToString();
-                //        labelFreePlacesEconom.Text = plane.EconomPlacesCount.ToString();
-                //    }
-                //}
-                if (Convert.ToInt32(textBoxEconomy.Text) < 0 )
+                var view = _logic.ReadElement(new FlightSearchModel { Id = _currentFlightId.Value });
+                if (view != null)
                 {
-                    MessageBox.Show("Количество бронируемых мест превышает количество свободных!", "Ошибка",
-                   MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                else
-                {
-                    _logger.LogInformation("Сохранение бронирования");
-                    try
+                    if (Convert.ToInt32(textBoxEconomy.Text) > view.FreePlacesCountEconom)
                     {
-                        var model = new RentBindingModel
+                        MessageBox.Show("Количество бронируемых мест эконом-класса превышает количество свободных!", "Ошибка",
+                       MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    if (Convert.ToInt32(textBoxBusiness.Text) > view.FreePlacesCountBusiness)
+                    {
+                        MessageBox.Show("Количество бронируемых мест бизнес-класса превышает количество свободных!", "Ошибка",
+                       MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    else
+                    {
+                        _logger.LogInformation("Сохранение бронирования");
+                        try
                         {
-                            UserId = _currentUserId.Value,
-                            FlightId = _currentFlightId.Value,
-                            Cost = 0,
-                            NumberOfBusiness = Convert.ToInt32(textBoxBusiness.Text),
-                            NumberOfEconomy = Convert.ToInt32(textBoxEconomy.Text),
-                            Status = "Не оплачено"
-                        };
-                        var operationResult = _rentlogic.Create(model);
-                        if (!operationResult)
-                        {
-                            throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
-                        }
-                        Close();
-                        if (MessageBox.Show("Бронирование в личном кабинете. Перейти в личный кабинет?", "Сообщение",
-        MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                        {
-                            var service = Program.ServiceProvider?.GetService(typeof(FormProfile));
-                            if (service is FormProfile form)
+                            var model = new RentBindingModel
                             {
-                                form.Id = _currentUserId.Value;
-                                form.ShowDialog();
+                                UserId = _currentUserId.Value,
+                                FlightId = _currentFlightId.Value,
+                                Cost = 0,
+                                NumberOfBusiness = Convert.ToInt32(textBoxBusiness.Text),
+                                NumberOfEconomy = Convert.ToInt32(textBoxEconomy.Text),
+                                Status = "Не оплачено"
+                            };
+                            var operationResult = _rentlogic.Create(model);
+                            if (!operationResult)
+                            {
+                                throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
+                            }
+                            Close();
+                            if (MessageBox.Show("Бронирование в личном кабинете. Перейти в личный кабинет?", "Сообщение",
+            MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                            {
+                                var service = Program.ServiceProvider?.GetService(typeof(FormProfile));
+                                if (service is FormProfile form)
+                                {
+                                    form.Id = _currentUserId.Value;
+                                    form.ShowDialog();
+                                }
                             }
                         }
+                        catch (Exception ex)
+                        {
+                            _logger.LogError(ex, "Ошибка сохранения бронирования");
+                            MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+                           MessageBoxIcon.Error);
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError(ex, "Ошибка сохранения бронирования");
-                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                       MessageBoxIcon.Error);
-                    }
-
                 }
             }
             else

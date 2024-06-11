@@ -43,7 +43,6 @@ namespace FlyTodayDatabaseImplements.Models
                 PlaceId = model.PlaceId
             };
         }
-
         public BoardingPassViewModel GetViewModel => new()
         {
             Id = Id,

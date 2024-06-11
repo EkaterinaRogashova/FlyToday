@@ -44,6 +44,7 @@ namespace FlyTodayDatabaseImplements.Models
         }
         public PlaceViewModel GetViewModel => new()
         {
+            Id = Id,
             FlightId = FlightId,
             IsFree = IsFree,
             PlaceName = PlaceName
