@@ -50,7 +50,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             {
                 throw new ArgumentNullException(nameof(model));
             }
-            _logger.LogInformation("ReadElement. RentId:{RentId}. SeriesOfDocument:{SeriesOfDocument}. NumberOfDocument:{NumberOfDocument}. Bags:{Bags}. Id:{ Id}", model.RentId, model.SeriesOfDocument, model.NumberOfDocument, model.Bags, model.Id);
+            _logger.LogInformation("ReadElement. RentId:{RentId}. SeriesOfDocument:{SeriesOfDocument}. NumberOfDocument:{NumberOfDocument}. Bags:{Bags}. Id:{ Id}", model.RentId, model.SeriesOfDocument, model.NumberOfDocument, model.TypeTicket, model.Bags, model.Id);
             var element = _ticketStorage.GetElement(model);
             if (element == null)
             {
@@ -63,7 +63,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
 
         public List<TicketViewModel>? ReadList(TicketSearchModel? model)
         {
-            _logger.LogInformation("ReadList. RentId:{RentId}. SeriesOfDocument:{SeriesOfDocument}. NumberOfDocument:{NumberOfDocument}. Bags:{Bags}. Id:{ Id}", model?.RentId, model?.SeriesOfDocument, model?.NumberOfDocument, model?.Bags, model?.Id);
+            _logger.LogInformation("ReadList. RentId:{RentId}. SeriesOfDocument:{SeriesOfDocument}. NumberOfDocument:{NumberOfDocument}. Bags:{Bags}. Id:{ Id}", model?.RentId, model?.SeriesOfDocument, model?.NumberOfDocument, model?.TypeTicket, model?.Bags, model?.Id);
             var list = model == null ? _ticketStorage.GetFullList() : _ticketStorage.GetFilteredList(model);
             if (list == null)
             {
@@ -116,7 +116,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             {
                 throw new ArgumentNullException("Неверная дата рождения пассажира", nameof(model.DateOfBirthday));
             }
-            _logger.LogInformation("Ticket. RentId:{RentId}. Surname:{ Surname}. Name:{Name}. LastName:{LastName}. SeriesOfDocument:{SeriesOfDocument}. NumberOfDocument:{NumberOfDocument}. DateOfBirthday:{DateOfBirthday}. Gender:{Gender}. Bags:{Bags}. SaleId:{SaleId}. TicketCost:{TicketCost}. Id: { Id} ", model.RentId, model.Surname, model.SaleId, model.LastName, model.Name, model.SeriesOfDocument, model.NumberOfDocument, model.DateOfBirthday, model.Gender, model.Bags, model.TicketCost, model.Id);
+            _logger.LogInformation("Ticket. RentId:{RentId}. Surname:{ Surname}. Name:{Name}. LastName:{LastName}. SeriesOfDocument:{SeriesOfDocument}. NumberOfDocument:{NumberOfDocument}. DateOfBirthday:{DateOfBirthday}. Gender:{Gender}. Bags:{Bags}. SaleId:{SaleId}. TicketCost:{TicketCost}. Id: { Id} ", model.RentId, model.Surname, model.SaleId, model.LastName, model.Name, model.SeriesOfDocument, model.NumberOfDocument, model.DateOfBirthday, model.Gender, model.Bags, model.TicketCost, model.TypeTicket, model.Id);
             var element = _ticketStorage.GetElement(new TicketSearchModel
             {
                 RentId = model.RentId,

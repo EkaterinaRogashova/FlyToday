@@ -60,6 +60,7 @@
             label7 = new Label();
             textBoxSurname = new TextBox();
             pnlTickets = new Panel();
+            labelTypeTicket = new Label();
             groupBox1.SuspendLayout();
             groupBoxTicket.SuspendLayout();
             pnlTickets.SuspendLayout();
@@ -170,6 +171,7 @@
             // groupBoxTicket
             // 
             groupBoxTicket.BackColor = SystemColors.InactiveBorder;
+            groupBoxTicket.Controls.Add(labelTypeTicket);
             groupBoxTicket.Controls.Add(checkedListBoxTypeDoc);
             groupBoxTicket.Controls.Add(label13);
             groupBoxTicket.Controls.Add(label10);
@@ -398,6 +400,15 @@
             pnlTickets.Size = new Size(569, 503);
             pnlTickets.TabIndex = 2;
             // 
+            // labelTypeTicket
+            // 
+            labelTypeTicket.AutoSize = true;
+            labelTypeTicket.Location = new Point(485, 0);
+            labelTypeTicket.Name = "labelTypeTicket";
+            labelTypeTicket.Size = new Size(63, 20);
+            labelTypeTicket.TabIndex = 30;
+            labelTypeTicket.Text = "Эконом";
+            // 
             // FormTickets
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -450,5 +461,6 @@
         private Panel pnlTickets;
         private CheckedListBox checkedListBoxTypeDoc;
         private CheckedListBox checkedListBoxGender;
+        private Label labelTypeTicket;
     }
 }

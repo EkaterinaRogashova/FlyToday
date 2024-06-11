@@ -10,7 +10,7 @@ namespace FlyTodayContracts.BindingModels
     public class TicketBindingModel : ITicketModel
     {
         public int RentId { get; set; }
-
+        public string TypeTicket { get; set; } = string.Empty;
         public string Surname { get; set; } = string.Empty;
 
         public string Name { get; set; } = string.Empty;

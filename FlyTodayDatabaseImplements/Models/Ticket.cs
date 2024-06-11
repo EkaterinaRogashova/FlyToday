@@ -17,10 +17,11 @@ namespace FlyTodayDatabaseImplements.Models
         [Required]
         public int RentId { get; private set; }
         [Required]
+        public string TypeTicket { get; private set; } = string.Empty;
+        [Required]
         public string Surname { get; private set; } = string.Empty;
         [Required]
         public string Name { get; private set; } = string.Empty;
-
         public string LastName { get; private set; } = string.Empty;
         [Required]
         public string SeriesOfDocument { get; private set; } = string.Empty;
@@ -48,6 +49,7 @@ namespace FlyTodayDatabaseImplements.Models
             return new Ticket()
             {
                 Id = model.Id,
+                TypeTicket = model.TypeTicket,
                 Surname = model.Surname,
                 Name = model.Name,
                 LastName = model.LastName,
@@ -66,6 +68,7 @@ namespace FlyTodayDatabaseImplements.Models
             return new Ticket
             {
                 Id = model.Id,
+                TypeTicket = model.TypeTicket,
                 Surname = model.Surname,
                 Name = model.Name,
                 LastName = model.LastName,
@@ -85,6 +88,7 @@ namespace FlyTodayDatabaseImplements.Models
             {
                 return;
             }
+            TypeTicket = model.TypeTicket; 
             Surname = model.Surname;
             Name = model.Name;
             LastName = model.LastName;
@@ -100,6 +104,7 @@ namespace FlyTodayDatabaseImplements.Models
         public TicketViewModel GetViewModel => new()
         {
             Id = Id,
+            TypeTicket = TypeTicket,
             Surname = Surname,
             Name = Name,
             LastName = LastName,

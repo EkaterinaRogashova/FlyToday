@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace FlyTodayViews
@@ -96,16 +97,34 @@ namespace FlyTodayViews
 
         private void button1_Click(object sender, EventArgs e)
         {
+
             if (dataGridView1.SelectedRows.Count == 1)
             {
-                var service = Program.ServiceProvider?.GetService(typeof(FormTickets));
-                if (service is FormTickets form)
+                var rent = _rentlogic.ReadElement(new RentSearchModel { Id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value) });
+                if (rent != null)
                 {
-                    form.CurrentRentId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
-                    if (form.ShowDialog() == DialogResult.OK)
+                    if (rent.Status == "Оплачено")
                     {
-                        LoadData();
+                        button1.Enabled = false;
+                        MessageBox.Show("Билеты уже оформлены. Вы можете их только посмотреть и зарегистрировать на рейс", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
+                    else
+                    {
+                        var service = Program.ServiceProvider?.GetService(typeof(FormTickets));
+                        if (service is FormTickets form)
+                        {
+                            form.CurrentRentId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
+                            if (form.ShowDialog() == DialogResult.OK)
+                            {
+                                LoadData();
+                            }
+                        }
+                        buttonLookTickets.Enabled = false;
+                    }
+                }
+                else
+                {
+                    
                 }
             }
         }
@@ -113,6 +132,34 @@ namespace FlyTodayViews
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
             LoadData();
+        }
+
+        private void buttonLookTickets_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count == 1)
+            {
+                var rent = _rentlogic.ReadElement(new RentSearchModel { Id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value) });
+                if (rent != null)
+                {
+                    if (rent.Status == "Оплачено")
+                    {
+                        button1.Enabled = false;
+                        var service = Program.ServiceProvider?.GetService(typeof(FormRentTickets));
+                        if (service is FormRentTickets form)
+                        {
+                            form.CurrentRentId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
+                            if (form.ShowDialog() == DialogResult.OK)
+                            {
+                                LoadData();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        buttonLookTickets.Enabled = false;
+                    }
+                }
+            }
         }
     }
 }

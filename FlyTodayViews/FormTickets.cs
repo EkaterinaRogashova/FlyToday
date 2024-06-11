@@ -142,24 +142,26 @@ namespace FlyTodayViews
                             var groupBox = CloneGroupBox(groupBoxTicket);
                             groupBox.Name = $"groupBoxTicket{i + 1}";
                             var textBoxCost = groupBox.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "textBoxCost");
+                            var labelTT = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelTypeTicket");
                             var selectedSale = (SaleViewModel)comboBoxSale.SelectedItem;
+
+                            groupBox.Text = $"Билет {i + 1}";
                             if (i < economyCount)
                             {
-                                groupBox.Text = $"Билет {i + 1} эконом";
-
                                 if (textBoxCost != null)
                                 {
                                     textBoxCost.Name = "textBoxCostEconom";
                                     textBoxCost.Text = flight.EconomPrice.ToString();
+                                    labelTT.Text = "Эконом";
                                 }
                             }
                             else
                             {
-                                groupBox.Text = $"Билет {i - economyCount + 1} бизнес";
                                 if (textBoxCost != null)
                                 {
                                     textBoxCost.Text = flight.BusinessPrice.ToString();
                                     textBoxCost.Name = "textBoxCostBusiness";
+                                    labelTT.Text = "Бизнес";
                                 }
                             }
                             if (!_comboBoxToGroupBoxes.ContainsKey(comboBoxSale))
@@ -327,11 +329,14 @@ namespace FlyTodayViews
                         var Date = groupBox.Controls.OfType<DateTimePicker>().FirstOrDefault(dtp => dtp.Name == "dateTimePickerBirth");
                         var Gender = groupBox.Controls.OfType<CheckedListBox>().FirstOrDefault(clb => clb.Name == "checkedListBoxGender");
                         var Bags = groupBox.Controls.OfType<CheckBox>().FirstOrDefault(cb => cb.Name == "checkBoxBags");
+                        var TypeTicket = groupBox.Controls.OfType<Label>().FirstOrDefault(cb => cb.Name == "labelTypeTicket");
+                        string typeTicket = TypeTicket?.Text?.ToLower() ?? "";
                         if (textBoxCostBusiness != null || textBoxCostEconom != null)
                         {
                             var ticket = new TicketBindingModel
                             {
                                 RentId = view.Id,
+                                TypeTicket = TypeTicket.Text,
                                 Surname = Surname.Text,
                                 Name = Name.Text,
                                 LastName = Lastname.Text,
@@ -339,7 +344,7 @@ namespace FlyTodayViews
                                 NumberOfDocument = Number.Text,
                                 DateOfBirthday = Date.Value.ToUniversalTime(),
                                 Gender = Gender.SelectedItem?.ToString(),
-                                TicketCost = double.Parse(groupBox.Text.Contains("эконом") ? textBoxCostEconom.Text : textBoxCostBusiness.Text),
+                                TicketCost = double.Parse(typeTicket.Contains("эконом") ? textBoxCostEconom.Text : textBoxCostBusiness.Text),
                                 Bags = Bags?.Checked ?? false
                             };
                             if (comboBoxSale?.SelectedValue != null && int.TryParse(comboBoxSale.SelectedValue.ToString(), out int saleId) && saleId > 0)

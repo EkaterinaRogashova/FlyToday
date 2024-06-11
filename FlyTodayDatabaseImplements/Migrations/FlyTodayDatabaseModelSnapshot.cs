@@ -360,6 +360,10 @@ namespace FlyTodayDatabaseImplements.Migrations
                     b.Property<double>("TicketCost")
                         .HasColumnType("double precision");
 
+                    b.Property<string>("TypeTicket")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RentId");

@@ -11,6 +11,8 @@ namespace FlyTodayContracts.ViewModels
     public class TicketViewModel : ITicketModel
     {
         public int RentId { get; set; }
+        [DisplayName("Тип билета")]
+        public string TypeTicket { get; set; } = string.Empty;
         [DisplayName("Фамилия")]
         public string Surname { get; set; } = string.Empty;
         [DisplayName("Имя")]

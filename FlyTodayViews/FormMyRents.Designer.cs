@@ -32,6 +32,7 @@
             dataGridView1 = new DataGridView();
             button1 = new Button();
             buttonRefresh = new Button();
+            buttonLookTickets = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -79,11 +80,24 @@
             buttonRefresh.UseVisualStyleBackColor = false;
             buttonRefresh.Click += buttonRefresh_Click;
             // 
+            // buttonLookTickets
+            // 
+            buttonLookTickets.BackColor = SystemColors.ActiveCaption;
+            buttonLookTickets.Font = new Font("Segoe UI", 12F);
+            buttonLookTickets.Location = new Point(724, 146);
+            buttonLookTickets.Name = "buttonLookTickets";
+            buttonLookTickets.Size = new Size(224, 45);
+            buttonLookTickets.TabIndex = 4;
+            buttonLookTickets.Text = "Посмотреть билеты";
+            buttonLookTickets.UseVisualStyleBackColor = false;
+            buttonLookTickets.Click += buttonLookTickets_Click;
+            // 
             // FormMyRents
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(981, 447);
+            Controls.Add(buttonLookTickets);
             Controls.Add(buttonRefresh);
             Controls.Add(button1);
             Controls.Add(dataGridView1);
@@ -102,5 +116,6 @@
         private DataGridView dataGridView1;
         private Button button1;
         private Button buttonRefresh;
+        private Button buttonLookTickets;
     }
 }
