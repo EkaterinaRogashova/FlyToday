@@ -54,7 +54,6 @@ namespace FlyTodayViews
                         });
                         if (direction != null) labelFlight.Text = direction.CountryFrom + " " + direction.CityFrom + " - " + direction.CountryTo + " " + direction.CityTo;
                         labelDate.Text = view.DepartureDate.ToShortDateString() + " " + view.DepartureDate.ToShortTimeString() + " МСК";
-                        labelFreePlacesBusiness.Text = view.FreePlacesCount.ToString();
                     }
                 }
                 catch (Exception ex)
