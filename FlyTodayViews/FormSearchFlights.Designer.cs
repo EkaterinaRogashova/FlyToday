@@ -94,6 +94,7 @@
             textBoxDirectionCountryFrom.Location = new Point(135, 16);
             textBoxDirectionCountryFrom.Name = "textBoxDirectionCountryFrom";
             textBoxDirectionCountryFrom.PlaceholderText = "Страна";
+            textBoxDirectionCountryFrom.ReadOnly = true;
             textBoxDirectionCountryFrom.Size = new Size(171, 23);
             textBoxDirectionCountryFrom.TabIndex = 6;
             // 
@@ -113,6 +114,7 @@
             textBoxDirectionCountryTo.Location = new Point(569, 15);
             textBoxDirectionCountryTo.Name = "textBoxDirectionCountryTo";
             textBoxDirectionCountryTo.PlaceholderText = "Страна";
+            textBoxDirectionCountryTo.ReadOnly = true;
             textBoxDirectionCountryTo.Size = new Size(171, 23);
             textBoxDirectionCountryTo.TabIndex = 8;
             // 

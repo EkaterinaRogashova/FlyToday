@@ -10,6 +10,7 @@ using NLog.Extensions.Logging;
 using System.Configuration;
 using Microsoft.Extensions.Configuration.Json;
 using FlyTodayContracts.BindingModels;
+using FlyTodayDatabaseImplements.Models;
 
 namespace FlyTodayViews
 {
@@ -68,7 +69,8 @@ namespace FlyTodayViews
             services.AddTransient<ISaleStorage, SaleStorage>();
             services.AddTransient<IScheduleStorage, ScheduleStorage>();
             services.AddTransient<ITicketStorage, TicketStorage>();
- 
+            services.AddTransient<IFlightSubscriberStorage, FlightSubscriberStorage>();
+
             services.AddTransient<IBoardingPassLogic, BoardingPassLogic>();
             services.AddTransient<IDirectionLogic, DirectionLogic>();
             services.AddTransient<IEmployeeLogic, EmployeeLogic>();
@@ -80,6 +82,7 @@ namespace FlyTodayViews
             services.AddTransient<ISaleLogic, SaleLogic>();
             services.AddTransient<IScheduleLogic, ScheduleLogic>();
             services.AddTransient<ITicketLogic, TicketLogic>();
+            services.AddTransient<IFlightSubscriberLogic, FlightSubscriberLogic>();
 
             services.AddTransient<FormMainMenu>();
             services.AddTransient<FormDirection>();

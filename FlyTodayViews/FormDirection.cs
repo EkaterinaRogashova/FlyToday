@@ -16,6 +16,8 @@ namespace FlyTodayViews
             InitializeComponent();
             _logger = logger;
             _logic = logic;
+            textBoxCountryFrom.Text = "Россия";
+            textBoxCountryTo.Text = "Россия";
         }
 
         private void ButtonSave_Click(object sender, EventArgs e)

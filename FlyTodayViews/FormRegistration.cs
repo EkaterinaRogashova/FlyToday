@@ -62,7 +62,7 @@ namespace FlyTodayViews
                     DateOfBirthday = dateTimePickerBirth.Value.ToUniversalTime(),
                     Email = textBoxEmail.Text,
                     Password = textBoxPassword.Text,
-                    AccessRule = AccessEnum.Администратор
+                    AccessRule = AccessEnum.Неизвестен
                 };
                 string confirmationCode = GenerateRandomString();
                 _mailWorker.MailSendAsync(new()
@@ -74,6 +74,27 @@ namespace FlyTodayViews
                 ConfirmationDialog confirmationDialog = new ConfirmationDialog(confirmationCode);
                 if (confirmationDialog.ShowDialog() == DialogResult.OK)
                 {
+                    var today = DateTime.Today;
+                    var age = today.Year - model.DateOfBirthday.Year;
+                    if (model.Email == "tania.art03@gmail.com" || model.Email == "rogashovae@mail.ru")
+                    {
+                        model.AccessRule = AccessEnum.Администратор;
+                    }
+                    else
+                    {
+                        if (model.DateOfBirthday > today.AddYears(-age))
+                        {
+                            age--;
+                        }
+                        if (age >= 18)
+                        {
+                            model.AccessRule = AccessEnum.Взрослый;
+                        }
+                        else
+                        {
+                            model.AccessRule = AccessEnum.Ребенок;
+                        }
+                    }
                     var operationResult = _logic.Create(model);
                     if (!operationResult)
                     {

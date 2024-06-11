@@ -24,7 +24,7 @@ namespace FlyTodayContracts.ViewModels
         [DisplayName("Дата рождения")]
         public DateTime DateOfBirthday { get; set; }
         public AccessEnum AccessRule { get; set; } = AccessEnum.Неизвестен;
-
+        public bool AllowNotifications { get; set; }
         public int Id { get; set; }
     }
 }

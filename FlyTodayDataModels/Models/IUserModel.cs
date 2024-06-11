@@ -16,5 +16,6 @@ namespace FlyTodayDataModels.Models
         string Password { get; }
         DateTime DateOfBirthday { get; }
         AccessEnum AccessRule { get; }
+        bool AllowNotifications { get; }
     }
 }

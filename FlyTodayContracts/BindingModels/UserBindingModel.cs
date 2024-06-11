@@ -23,6 +23,7 @@ namespace FlyTodayContracts.BindingModels
         public DateTime DateOfBirthday { get; set; }
 
         public AccessEnum AccessRule { get; set; }
+        public bool AllowNotifications { get; set; }
 
         public int Id { get; set; }
     }

@@ -29,6 +29,8 @@ namespace FlyTodayDatabaseImplements.Models
         public DateTime DateOfBirthday { get; private set; }
         [Required]
         public AccessEnum AccessRule { get; private set; }
+        [Required]
+        public bool AllowNotifications { get; private set; }
 
         public static User? Create(UserBindingModel model)
         {
@@ -45,7 +47,8 @@ namespace FlyTodayDatabaseImplements.Models
                 Email = model.Email,
                 Password = model.Password,
                 DateOfBirthday = model.DateOfBirthday,
-                AccessRule = model.AccessRule
+                AccessRule = model.AccessRule,
+                AllowNotifications = false
             };
         }
         public static User Create(UserViewModel model)
@@ -59,7 +62,8 @@ namespace FlyTodayDatabaseImplements.Models
                 Email = model.Email,
                 Password = model.Password,
                 DateOfBirthday = model.DateOfBirthday,
-                AccessRule = model.AccessRule
+                AccessRule = model.AccessRule,
+                AllowNotifications = false
             };
         }
         public void Update(UserBindingModel model)
@@ -75,6 +79,7 @@ namespace FlyTodayDatabaseImplements.Models
             Password = model.Password;
             DateOfBirthday = model.DateOfBirthday;
             AccessRule = model.AccessRule;
+            AllowNotifications = model.AllowNotifications;
         }
         public UserViewModel GetViewModel => new()
         {
@@ -85,7 +90,8 @@ namespace FlyTodayDatabaseImplements.Models
             Email = Email,
             Password = Password,
             DateOfBirthday = DateOfBirthday,
-            AccessRule = AccessRule
+            AccessRule = AccessRule,
+            AllowNotifications = AllowNotifications
         };
     }
 }

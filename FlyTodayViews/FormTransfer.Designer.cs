@@ -52,6 +52,8 @@
             label8 = new Label();
             labelSecondDir = new Label();
             labelFirstDir = new Label();
+            buttonTrackPriceChanges = new Button();
+            buttonRent = new Button();
             groupBox2.SuspendLayout();
             SuspendLayout();
             // 
@@ -80,10 +82,9 @@
             groupBox2.Controls.Add(label8);
             groupBox2.Controls.Add(labelSecondDir);
             groupBox2.Controls.Add(labelFirstDir);
-            groupBox2.Dock = DockStyle.Fill;
-            groupBox2.Location = new Point(0, 0);
+            groupBox2.Location = new Point(9, 12);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(571, 160);
+            groupBox2.Size = new Size(530, 160);
             groupBox2.TabIndex = 18;
             groupBox2.TabStop = false;
             groupBox2.Text = "Пересадка";
@@ -312,11 +313,31 @@
             labelFirstDir.TabIndex = 19;
             labelFirstDir.Text = "Ульяновск - Казань";
             // 
+            // buttonTrackPriceChanges
+            // 
+            buttonTrackPriceChanges.Location = new Point(9, 207);
+            buttonTrackPriceChanges.Name = "buttonTrackPriceChanges";
+            buttonTrackPriceChanges.Size = new Size(530, 23);
+            buttonTrackPriceChanges.TabIndex = 20;
+            buttonTrackPriceChanges.Text = "Отслеживать изменение цены";
+            buttonTrackPriceChanges.UseVisualStyleBackColor = true;
+            // 
+            // buttonRent
+            // 
+            buttonRent.Location = new Point(9, 178);
+            buttonRent.Name = "buttonRent";
+            buttonRent.Size = new Size(530, 23);
+            buttonRent.TabIndex = 19;
+            buttonRent.Text = "Забронировать";
+            buttonRent.UseVisualStyleBackColor = true;
+            // 
             // FormTransfer
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(571, 160);
+            ClientSize = new Size(549, 237);
+            Controls.Add(buttonTrackPriceChanges);
+            Controls.Add(buttonRent);
             Controls.Add(groupBox2);
             Name = "FormTransfer";
             Text = "Информация о пересадке";
@@ -351,5 +372,7 @@
         private Label label8;
         private Label labelSecondDir;
         private Label labelFirstDir;
+        private Button buttonTrackPriceChanges;
+        private Button buttonRent;
     }
 }

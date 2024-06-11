@@ -16,5 +16,6 @@ namespace FlyTodayContracts.BusinessLogicContracts
         bool Create(FlightBindingModel model);
         bool Update(FlightBindingModel model);
         bool Delete(FlightBindingModel model);
+        bool UpdatePrices(FlightBindingModel model);
     }
 }

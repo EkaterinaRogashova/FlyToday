@@ -45,12 +45,14 @@ namespace FlyTodayViews
                 if (CurrentUser != null)
                 {
                     MessageBox.Show("Вы вошли", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    DialogResult = DialogResult.OK;
+                    Close();
                     var service = Program.ServiceProvider?.GetService(typeof(FormMainMenu));
-                    if (service is FormMainMenu form)
+                    if (service is FormMainMenu newForm)
                     {
-                        form.CurrentUserId = CurrentUser.Id;
-                        form.ShowDialog();
+                        newForm.CurrentUserId = CurrentUser.Id;
+                        newForm.Show();
+                        newForm.LoadData();
+                        newForm.Refresh();
                     }
                 }
                 else

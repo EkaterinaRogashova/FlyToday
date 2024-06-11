@@ -154,6 +154,7 @@
             checkBoxAllowNotif.TabIndex = 12;
             checkBoxAllowNotif.Text = "Разрешить уведомления";
             checkBoxAllowNotif.UseVisualStyleBackColor = true;
+            checkBoxAllowNotif.CheckedChanged += checkBoxAllowNotif_CheckedChanged;
             // 
             // FormProfile
             // 

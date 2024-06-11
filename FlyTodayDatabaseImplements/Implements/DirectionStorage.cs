@@ -55,15 +55,37 @@ namespace FlyTodayDatabaseImplements.Implements
             if (string.IsNullOrEmpty(model.CountryFrom) && string.IsNullOrEmpty(model.CountryTo)
                 && string.IsNullOrEmpty(model.CityFrom) && string.IsNullOrEmpty(model.CityTo))
             {
-                return new();
+                return new List<DirectionViewModel>();
             }
+
             using var context = new FlyTodayDatabase();
-            return context.Directions
-            .Where(x => (x.CountryFrom.Equals(model.CountryFrom) && x.CityFrom.Equals(model.CityFrom)) || (x.CountryTo.Equals(model.CountryTo) && x.CityTo.Equals(model.CityTo)))
-            .ToList()
-            .Select(x => x.GetViewModel)
-            .ToList();
+            var directions = context.Directions.AsQueryable();
+
+            if (!string.IsNullOrEmpty(model.CountryFrom))
+            {
+                directions = directions.Where(x => x.CountryFrom.ToLower().Equals(model.CountryFrom.ToLower()));
+            }
+
+            if (!string.IsNullOrEmpty(model.CityFrom))
+            {
+                directions = directions.Where(x => x.CityFrom.ToLower().Equals(model.CityFrom.ToLower()));
+            }
+
+            if (!string.IsNullOrEmpty(model.CountryTo))
+            {
+                directions = directions.Where(x => x.CountryTo.ToLower().Equals(model.CountryTo.ToLower()));
+            }
+
+            if (!string.IsNullOrEmpty(model.CityTo))
+            {
+                directions = directions.Where(x => x.CityTo.ToLower().Equals(model.CityTo.ToLower()));
+            }
+
+            return directions.ToList()
+                .Select(x => x.GetViewModel)
+                .ToList();
         }
+
 
         public List<DirectionViewModel> GetDirectionsTo(DirectionSearchModel model)
         {

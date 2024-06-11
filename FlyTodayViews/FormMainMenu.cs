@@ -1,6 +1,7 @@
 ﻿using FlyTodayContracts.BindingModels;
 using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
+using FlyTodayDataModels.Enums;
 using Microsoft.Extensions.Logging;
 using System.Windows.Forms;
 
@@ -21,17 +22,15 @@ namespace FlyTodayViews
             InitializeComponent();
             _logger = logger;
             _logic = logic;
+            LoadData();                    
         }
         private void buttonMainEnter_Click(object sender, EventArgs e)
         {
             var service = Program.ServiceProvider?.GetService(typeof(FormEnter));
             if (service is FormEnter form)
             {
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    //LoadData();
-                }
-            }
+                form.Show();
+            }            
         }
 
         private void buttonMainRegistration_Click(object sender, EventArgs e)
@@ -167,7 +166,35 @@ namespace FlyTodayViews
             }
         }
         public void LoadData()
-        {            
+        {
+            if (_currentUserId != null)
+            {
+                var user = _logic.ReadElement(new UserSearchModel { Id = _currentUserId.Value });
+                if (user != null)
+                {
+                    buttonDirections.Visible = user.AccessRule == AccessEnum.Администратор;
+                    buttonEmployees.Visible = user.AccessRule == AccessEnum.Администратор;
+                    buttonFlights.Visible = user.AccessRule == AccessEnum.Администратор;
+                    buttonPlanes.Visible = user.AccessRule == AccessEnum.Администратор;
+                    buttonSales.Visible = user.AccessRule == AccessEnum.Администратор;
+                }
+                else
+                {
+                    buttonDirections.Visible = false;
+                    buttonEmployees.Visible = false;
+                    buttonFlights.Visible = false;
+                    buttonPlanes.Visible = false;
+                    buttonSales.Visible = false;
+                }
+            }
+            else
+            {
+                buttonDirections.Visible = false;
+                buttonEmployees.Visible = false;
+                buttonFlights.Visible = false;
+                buttonPlanes.Visible = false;
+                buttonSales.Visible = false;
+            }
             if (_currentUserId == null || _currentUserId <= 0)
             {
                 labelIsAuthorized.Text = "Вы не авторизованы";
@@ -182,7 +209,7 @@ namespace FlyTodayViews
         }
 
         private void FormMainMenu_Load(object sender, EventArgs e)
-        {
+        {            
             LoadData();
         }
     }

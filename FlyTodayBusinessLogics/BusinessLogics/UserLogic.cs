@@ -114,13 +114,23 @@ namespace FlyTodayBusinessLogics.BusinessLogics
                     return false;
                     throw new ArgumentException("Неправильно введенный пароль", nameof(model.Password));
                 }
-                model.Password = EncryptPassword(model.Password);
+                model.Password = EncryptPassword(model.Password);                
             }
             if (_userStorage.Update(model) == null)
             {
                 _logger.LogWarning("Update operation failed");
                 return false;
             }    
+            return true;
+        }
+
+        public bool UpdateNotifications(UserBindingModel model)
+        {          
+            if (_userStorage.Update(model) == null)
+            {
+                _logger.LogWarning("Update operation failed");
+                return false;
+            }
             return true;
         }
 

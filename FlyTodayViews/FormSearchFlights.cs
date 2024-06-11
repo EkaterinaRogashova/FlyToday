@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Numerics;
+using System.Security.Cryptography.Xml;
 using System.Windows.Forms;
 namespace FlyTodayViews
 {
@@ -21,6 +22,7 @@ namespace FlyTodayViews
         private int? _currentUserId;
         public int CurrentUserId { set { _currentUserId = value; } }
         private bool isAscending = true;
+        private bool flightWithTransfer = false;
         public FormSearchFlights(ILogger<FormFlights> logger, IFlightLogic logic, IPlaneLogic planeLogic, IDirectionLogic directionLogic)
         {
             InitializeComponent();
@@ -100,45 +102,8 @@ namespace FlyTodayViews
                     }
 
                     if (transfers != null)
-                    {                        
-                        foreach (var item in transfers)
-                        {
-                            var firstFlightsWithTransfer = _logic.ReadList(new FlightSearchModel { DirectionId = item.Item1.Id });
-                            var secondFlightsWithTransfer = _logic.ReadList(new FlightSearchModel { DirectionId = item.Item2.Id });
-                            if (firstFlightsWithTransfer != null && secondFlightsWithTransfer != null)
-                            {
-                                var firstFlights = firstFlightsWithTransfer.Where(f => f.DepartureDate >= dateTimePickerDateFrom.Value.ToUniversalTime() && f.DepartureDate <= dateTimePickerDateTo.Value.ToUniversalTime()).ToList();
-                                var secondFlights = secondFlightsWithTransfer.Where(f => f.DepartureDate >= dateTimePickerDateFrom.Value.ToUniversalTime() && f.DepartureDate <= dateTimePickerDateTo.Value.ToUniversalTime()).ToList();
-                                foreach (var firFlight in firstFlights)
-                                {
-                                    foreach (var secFlight in secondFlights)
-                                    {
-                                        foundFlights.Add(new FlightViewModel
-                                        {
-                                            Id = firFlight.Id,
-                                            PlaneId = firFlight.PlaneId,
-                                            DirectionId = -1,
-                                            DepartureDate = firFlight.DepartureDate.ToUniversalTime(),
-                                            FreePlacesCountEconom = firFlight.FreePlacesCountEconom <= secFlight.FreePlacesCountEconom ? firFlight.FreePlacesCountEconom : secFlight.FreePlacesCountEconom,
-                                            FreePlacesCountBusiness = firFlight.FreePlacesCountBusiness <= secFlight.FreePlacesCountBusiness ? firFlight.FreePlacesCountBusiness : secFlight.FreePlacesCountBusiness,
-                                            EconomPrice = firFlight.EconomPrice + secFlight.EconomPrice,
-                                            BusinessPrice = firFlight.BusinessPrice + secFlight.BusinessPrice,
-                                            HasTransit = "Есть",
-                                            TimeInFlight = Math.Round((secFlight.DepartureDate - firFlight.DepartureDate.AddHours(firFlight.TimeInFlight)).TotalHours, 2)
-                                        });
-
-                                        var directionFirst = _directionLogic.ReadElement(new DirectionSearchModel { Id = firFlight.DirectionId });
-                                        var directionSecond = _directionLogic.ReadElement(new DirectionSearchModel { Id = secFlight.DirectionId });
-
-                                        if (directionFirst != null && directionSecond != null)
-                                        {
-                                            dataGridView.Rows[dataGridView.Rows.Count - 1].Cells["FlightDirection"].Value = directionFirst.CountryFrom + " " + directionFirst.CityFrom + " - " + directionSecond.CountryTo + " " + directionSecond.CityTo;
-                                            dataGridView.Update();
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                    {
+                        foundFlights.AddRange(AddFlightsWithTransfers(transfers));
                     }
 
                     if (checkBoxFilterEconomPrice.Checked)
@@ -176,7 +141,7 @@ namespace FlyTodayViews
                     dataGridView.Columns["FlightDirection"].Visible = true;
                     dataGridView.Columns["PlaneModel"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView.Columns["HasTransit"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-                    dataGridView.Columns["FlightDirection"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+                    dataGridView.Columns["FlightDirection"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;                    
                     var sortedList = SortList(foundFlights, dataGridView.Columns["EconomPrice"].DataPropertyName, isAscending);
                     dataGridView.DataSource = sortedList;
                     ShowPlanesAndDirections();
@@ -190,6 +155,51 @@ namespace FlyTodayViews
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private List<FlightViewModel> AddFlightsWithTransfers(List<(DirectionViewModel, DirectionViewModel)> transfers)
+        {
+            var list = new List<FlightViewModel>();
+            foreach (var item in transfers)
+            {
+                var firstFlightsWithTransfer = _logic.ReadList(new FlightSearchModel { DirectionId = item.Item1.Id });
+                var secondFlightsWithTransfer = _logic.ReadList(new FlightSearchModel { DirectionId = item.Item2.Id });
+                if (firstFlightsWithTransfer != null && secondFlightsWithTransfer != null)
+                {
+                    var firstFlights = firstFlightsWithTransfer.Where(f => f.DepartureDate >= dateTimePickerDateFrom.Value.ToUniversalTime() && f.DepartureDate <= dateTimePickerDateTo.Value.ToUniversalTime()).ToList();
+                    var secondFlights = secondFlightsWithTransfer.Where(f => f.DepartureDate >= dateTimePickerDateFrom.Value.ToUniversalTime() && f.DepartureDate <= dateTimePickerDateTo.Value.ToUniversalTime()).ToList();
+                    foreach (var firFlight in firstFlights)
+                    {
+                        foreach (var secFlight in secondFlights)
+                        {
+                            var directionFirst = _directionLogic.ReadElement(new DirectionSearchModel { Id = firFlight.DirectionId });
+                            var directionSecond = _directionLogic.ReadElement(new DirectionSearchModel { Id = secFlight.DirectionId });
+
+                            if (directionFirst != null && directionSecond != null)
+                            {
+                                var newFlight = new FlightViewModel
+                                {
+                                    Id = firFlight.Id,
+                                    PlaneId = firFlight.PlaneId,
+                                    DirectionId = -1,
+                                    DepartureDate = firFlight.DepartureDate.ToUniversalTime(),
+                                    FreePlacesCountEconom = firFlight.FreePlacesCountEconom <= secFlight.FreePlacesCountEconom ? firFlight.FreePlacesCountEconom : secFlight.FreePlacesCountEconom,
+                                    FreePlacesCountBusiness = firFlight.FreePlacesCountBusiness <= secFlight.FreePlacesCountBusiness ? firFlight.FreePlacesCountBusiness : secFlight.FreePlacesCountBusiness,
+                                    EconomPrice = firFlight.EconomPrice + secFlight.EconomPrice,
+                                    BusinessPrice = firFlight.BusinessPrice + secFlight.BusinessPrice,
+                                    HasTransit = "Есть",
+                                    TimeInFlight = Math.Round((secFlight.DepartureDate - firFlight.DepartureDate.AddHours(firFlight.TimeInFlight)).TotalHours, 2)
+                                };
+
+                                list.Add(newFlight);
+                                dataGridView.Rows.Add(newFlight);
+                            }
+                        }
+                    }
+                }
+            }
+            return list;
+        }
+
 
         private void ShowPlanesAndDirections()
         {
@@ -239,11 +249,11 @@ namespace FlyTodayViews
                         form.DirectionId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["DirectionId"].Value);
                         form.PlaneId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["PlaneId"].Value);
                         form.ShowDialog();
-                    }
+                    }                                     
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Ошибка получения пользователя");
+                    _logger.LogError(ex, "Ошибка получения рейса");
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }

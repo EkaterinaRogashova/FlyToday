@@ -29,6 +29,7 @@ namespace FlyTodayDatabaseImplements.Models
         public virtual List<Employee> Employees { get; set; } = new();
         public Plane Plane { get; set; }
         public Direction Direction { get; set; }
+        public FlightSubscriber FlightSubscriber { get; set; }
 
         public static Flight? Create(FlightBindingModel model)
         {

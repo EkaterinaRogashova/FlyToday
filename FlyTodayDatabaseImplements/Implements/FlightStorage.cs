@@ -15,6 +15,7 @@ namespace FlyTodayDatabaseImplements.Implements
             var element = context.Flights
                 .Include(x => x.Plane)
                 .Include(x => x.Direction)
+                .Include(x => x.FlightSubscriber)
                 .FirstOrDefault(rec => rec.Id == model.Id);
             if (element != null)
             {

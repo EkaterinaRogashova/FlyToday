@@ -48,7 +48,6 @@
             label4 = new Label();
             label1 = new Label();
             buttonTrackPriceChanges = new Button();
-            buttonTrasferInfo = new Button();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -261,23 +260,11 @@
             buttonTrackPriceChanges.UseVisualStyleBackColor = true;
             buttonTrackPriceChanges.Click += buttonTrackPriceChanges_Click;
             // 
-            // buttonTrasferInfo
-            // 
-            buttonTrasferInfo.Location = new Point(286, 47);
-            buttonTrasferInfo.Margin = new Padding(3, 2, 3, 2);
-            buttonTrasferInfo.Name = "buttonTrasferInfo";
-            buttonTrasferInfo.Size = new Size(242, 24);
-            buttonTrasferInfo.TabIndex = 13;
-            buttonTrasferInfo.Text = "Посмотреть информацию о пересадке";
-            buttonTrasferInfo.UseVisualStyleBackColor = true;
-            buttonTrasferInfo.Click += buttonTrasferInfo_Click;
-            // 
             // FormViewFlight
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(540, 329);
-            Controls.Add(buttonTrasferInfo);
             Controls.Add(buttonTrackPriceChanges);
             Controls.Add(groupBox1);
             Controls.Add(buttonRent);
@@ -311,7 +298,6 @@
         private Label labelFreePlacesCountEconom;
         private Label labelPlane;
         private Button buttonTrackPriceChanges;
-        private Button buttonTrasferInfo;
         private Label labelFreePlacesCountBusiness;
         private Label label7;
     }

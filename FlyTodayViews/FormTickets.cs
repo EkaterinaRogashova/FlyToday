@@ -1,4 +1,5 @@
 ﻿using FlyTodayBusinessLogics.BusinessLogics;
+using FlyTodayBusinessLogics.MailWorker;
 using FlyTodayContracts.BindingModels;
 using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
@@ -28,11 +29,13 @@ namespace FlyTodayViews
         private readonly IFlightLogic _flightlogic;
         private readonly IDirectionLogic _directionlogic;
         private readonly ISaleLogic _salelogic;
+        private readonly IUserLogic _userlogic;
+        private readonly AbstractMailWorker _mailWorker;
         private int? _currentRentId;
 
         public int CurrentRentId { set { _currentRentId = value; } }
         private Dictionary<ComboBox, List<GroupBox>> _comboBoxToGroupBoxes = new Dictionary<ComboBox, List<GroupBox>>();
-        public FormTickets(ILogger<FormRent> logger, ITicketLogic logic, IRentLogic rentlogic, IFlightLogic flightlogic, IDirectionLogic directionlogic, ISaleLogic salelogic)
+        public FormTickets(ILogger<FormRent> logger, ITicketLogic logic, IRentLogic rentlogic, IFlightLogic flightlogic, IDirectionLogic directionlogic, ISaleLogic salelogic, IUserLogic userlogic)
         {
             InitializeComponent();
             _logger = logger;
@@ -41,6 +44,7 @@ namespace FlyTodayViews
             _flightlogic = flightlogic;
             _directionlogic = directionlogic;
             _salelogic = salelogic;
+            _userlogic = userlogic;
         }
         private GroupBox CloneGroupBox(GroupBox original)
         {
@@ -368,6 +372,17 @@ namespace FlyTodayViews
                     Status = "Оплачено"
                 };
                 _rentlogic.Update(newView);
+                var user = _userlogic.ReadElement(new UserSearchModel { Id = newView.UserId });
+                var dir = _directionlogic.ReadElement(new DirectionSearchModel { Id = flight.DirectionId });
+                if (user.AllowNotifications)
+                {
+                    _mailWorker.MailSendAsync(new()
+                    {
+                        MailAddress = user.Email,
+                        Subject = "Оплата бронирования",
+                        Text = $"Ваше бронирование на рейс {dir.CountryFrom} {dir.CityFrom} - {dir.CountryTo} {dir.CityTo} на сумму {newView.Cost} успешно оплачено."
+                    });
+                }                
                 Close();
             }
             catch (Exception ex)

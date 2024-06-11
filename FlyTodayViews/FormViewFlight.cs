@@ -2,9 +2,9 @@
 using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.ViewModels;
-using FlyTodayDataModels.Models;
+using FlyTodayDatabaseImplements.Models;
+using FlyTodayDataModels.Enums;
 using Microsoft.Extensions.Logging;
-using System.Windows.Forms;
 
 namespace FlyTodayViews
 {
@@ -14,6 +14,8 @@ namespace FlyTodayViews
         private readonly IFlightLogic _logic;
         private readonly IDirectionLogic _directionLogic;
         private readonly IPlaneLogic _planeLogic;
+        private readonly IUserLogic _userLogic;
+        private readonly IFlightSubscriberLogic _flightSubscriberLogic;
         private int? _id;
         private int? _directionId;
         private int? _planeId;
@@ -23,13 +25,15 @@ namespace FlyTodayViews
         private int? _currentUserId;
         public int CurrentUserId { set { _currentUserId = value; } }
 
-        public FormViewFlight(ILogger<FormViewFlight> logger, IFlightLogic logic, IDirectionLogic directionLogic, IPlaneLogic planeLogic)
+        public FormViewFlight(ILogger<FormViewFlight> logger, IFlightLogic logic, IDirectionLogic directionLogic, IPlaneLogic planeLogic, IUserLogic userLogic, IFlightSubscriberLogic flightSubscriberLogic)
         {
             InitializeComponent();
             _logger = logger;
             _logic = logic;
             _directionLogic = directionLogic;
             _planeLogic = planeLogic;
+            _userLogic = userLogic;
+            _flightSubscriberLogic = flightSubscriberLogic;
         }
 
         private void FormFlight_Load(object sender, EventArgs e)
@@ -71,7 +75,47 @@ namespace FlyTodayViews
 
         private void buttonTrackPriceChanges_Click(object sender, EventArgs e)
         {
-
+            if (_currentUserId != null && _id != null)
+            {
+                var flight = _logic.ReadElement(new FlightSearchModel { Id = _id.Value });
+                var user = _userLogic.ReadElement(new UserSearchModel { Id = _currentUserId.Value });
+                if (user != null)
+                {
+                    if (flight != null)
+                    {
+                        if (!user.AllowNotifications)
+                        {
+                            MessageBox.Show("Сначала разрешите уведомления! Это можно сделать в личном кабинете.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            try
+                            {
+                                var model = new FlightSubscriberBindingModel
+                                {
+                                    Id = 0,
+                                    UserId = user.Id,
+                                    FlightId = flight.Id
+                                };
+                                var operationResult = _flightSubscriberLogic.Create(model);
+                                if (!operationResult)
+                                {
+                                    throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
+                                }
+                                MessageBox.Show("Вы успешно подписались на изменение цены.", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                _logger.LogError(ex, "Ошибка сохранения подписки на рейс");
+                                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }                            
+                        }
+                    }
+                    else MessageBox.Show("Рейс не найден", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else MessageBox.Show("Пользователь не найден", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }            
         }
 
         private void buttonRent_Click(object sender, EventArgs e)
@@ -80,13 +124,18 @@ namespace FlyTodayViews
             {
                 try
                 {
-                    var service = Program.ServiceProvider?.GetService(typeof(FormRent));
-                    if (service is FormRent form)
+                    var currentUser = _userLogic.ReadElement(new UserSearchModel { Id = _currentUserId.Value });
+                    if (currentUser.AccessRule == AccessEnum.Взрослый || currentUser.AccessRule == AccessEnum.Администратор)
                     {
-                        form.CurrentFlightId = _id.Value;
-                        form.CurrentUserId = _currentUserId.Value;
-                        form.ShowDialog();
+                        var service = Program.ServiceProvider?.GetService(typeof(FormRent));
+                        if (service is FormRent form)
+                        {
+                            form.CurrentFlightId = _id.Value;
+                            form.CurrentUserId = _currentUserId.Value;
+                            form.ShowDialog();
+                        }
                     }
+                    else MessageBox.Show("Недостаточно прав доступа", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception ex)
                 {
@@ -97,15 +146,6 @@ namespace FlyTodayViews
             else
             {
                 MessageBox.Show("Сначала авторизуйтесь в системе!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void buttonTrasferInfo_Click(object sender, EventArgs e)
-        {
-            var service = Program.ServiceProvider?.GetService(typeof(FormTransfer));
-            if (service is FormTransfer form)
-            {
-                form.ShowDialog();
             }
         }
     }

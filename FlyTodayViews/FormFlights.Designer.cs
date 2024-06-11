@@ -34,6 +34,7 @@
             buttonDel = new Button();
             buttonRef = new Button();
             buttonCreatePlace = new Button();
+            buttonReducePrices = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
@@ -48,9 +49,9 @@
             // 
             // buttonAdd
             // 
-            buttonAdd.Location = new Point(1076, 94);
+            buttonAdd.Location = new Point(1064, 60);
             buttonAdd.Name = "buttonAdd";
-            buttonAdd.Size = new Size(75, 23);
+            buttonAdd.Size = new Size(99, 23);
             buttonAdd.TabIndex = 1;
             buttonAdd.Text = "Добавить";
             buttonAdd.UseVisualStyleBackColor = true;
@@ -58,9 +59,9 @@
             // 
             // buttonUpd
             // 
-            buttonUpd.Location = new Point(1076, 142);
+            buttonUpd.Location = new Point(1064, 108);
             buttonUpd.Name = "buttonUpd";
-            buttonUpd.Size = new Size(75, 23);
+            buttonUpd.Size = new Size(99, 23);
             buttonUpd.TabIndex = 2;
             buttonUpd.Text = "Изменить";
             buttonUpd.UseVisualStyleBackColor = true;
@@ -68,9 +69,9 @@
             // 
             // buttonDel
             // 
-            buttonDel.Location = new Point(1076, 194);
+            buttonDel.Location = new Point(1064, 160);
             buttonDel.Name = "buttonDel";
-            buttonDel.Size = new Size(75, 23);
+            buttonDel.Size = new Size(99, 23);
             buttonDel.TabIndex = 3;
             buttonDel.Text = "Удалить";
             buttonDel.UseVisualStyleBackColor = true;
@@ -78,9 +79,9 @@
             // 
             // buttonRef
             // 
-            buttonRef.Location = new Point(1076, 250);
+            buttonRef.Location = new Point(1064, 216);
             buttonRef.Name = "buttonRef";
-            buttonRef.Size = new Size(75, 23);
+            buttonRef.Size = new Size(99, 23);
             buttonRef.TabIndex = 4;
             buttonRef.Text = "Обновить";
             buttonRef.UseVisualStyleBackColor = true;
@@ -88,19 +89,30 @@
             // 
             // buttonCreatePlace
             // 
-            buttonCreatePlace.Location = new Point(1076, 298);
+            buttonCreatePlace.Location = new Point(1064, 264);
             buttonCreatePlace.Name = "buttonCreatePlace";
-            buttonCreatePlace.Size = new Size(75, 41);
+            buttonCreatePlace.Size = new Size(99, 41);
             buttonCreatePlace.TabIndex = 5;
             buttonCreatePlace.Text = "Добавить места";
             buttonCreatePlace.UseVisualStyleBackColor = true;
             buttonCreatePlace.Click += buttonCreatePlace_Click;
+            // 
+            // buttonReducePrices
+            // 
+            buttonReducePrices.Location = new Point(1064, 330);
+            buttonReducePrices.Name = "buttonReducePrices";
+            buttonReducePrices.Size = new Size(99, 70);
+            buttonReducePrices.TabIndex = 6;
+            buttonReducePrices.Text = "Снизить цены на оставшиеся билеты";
+            buttonReducePrices.UseVisualStyleBackColor = true;
+            buttonReducePrices.Click += buttonReducePrices_Click;
             // 
             // FormFlights
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1187, 450);
+            Controls.Add(buttonReducePrices);
             Controls.Add(buttonCreatePlace);
             Controls.Add(buttonRef);
             Controls.Add(buttonDel);
@@ -122,5 +134,6 @@
         private Button buttonDel;
         private Button buttonRef;
         private Button buttonCreatePlace;
+        private Button buttonReducePrices;
     }
 }

@@ -83,6 +83,16 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             return true;
         }
 
+        public bool UpdatePrices(FlightBindingModel model)
+        {
+            if (_flightStorage.Update(model) == null)
+            {
+                _logger.LogWarning("Update operation failed");
+                return false;
+            }
+            return true;
+        }
+
         private void CheckModel(FlightBindingModel model, bool withParams = true)
         {
             if (model == null)

@@ -1,7 +1,11 @@
-﻿using FlyTodayContracts.BindingModels;
+﻿using FlyTodayBusinessLogics.MailWorker;
+using FlyTodayContracts.BindingModels;
 using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
+using FlyTodayDatabaseImplements.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic.ApplicationServices;
+using System.Numerics;
 
 namespace FlyTodayViews
 {
@@ -11,7 +15,10 @@ namespace FlyTodayViews
         private readonly IFlightLogic _logic;
         private readonly IPlaneLogic _planeLogic;
         private readonly IDirectionLogic _directionLogic;
-        public FormFlights(ILogger<FormFlights> logger, IFlightLogic logic, IPlaneLogic planeLogic, IDirectionLogic directionLogic)
+        private readonly IUserLogic _userLogic;
+        private readonly AbstractMailWorker _mailWorker;
+        private readonly IFlightSubscriberLogic _flightSubscriberLogic;
+        public FormFlights(ILogger<FormFlights> logger, IFlightLogic logic, IPlaneLogic planeLogic, IDirectionLogic directionLogic, IUserLogic userLogic, IFlightSubscriberLogic flightSubscriberLogic, AbstractMailWorker mailWorker)
         {
             InitializeComponent();
             _logger = logger;
@@ -20,6 +27,9 @@ namespace FlyTodayViews
             dataGridView.Columns.Add("FlightDirection", "Направление");
             dataGridView.Columns.Add("PlaneModel", "Самолет");
             _directionLogic = directionLogic;
+            _userLogic = userLogic;
+            _flightSubscriberLogic = flightSubscriberLogic;
+            _mailWorker = mailWorker;
         }
 
         private void FormFlights_Load(object sender, EventArgs e)
@@ -159,5 +169,235 @@ namespace FlyTodayViews
                 }
             }
         }
+
+        private class PriceReductionNotification
+        {
+            public int FlightId { get; set; }
+            public int UserId { get; set; }
+            public double OldPrice { get; set; }
+            public double NewPrice { get; set; }
+            public bool IsBusiness { get; set; }
+            public DateTime SentAt { get; set; }
+        }
+
+        private List<PriceReductionNotification> _sentNotifications = new List<PriceReductionNotification>();
+
+        private void SendPriceReductionNotifications(double? newEconomPrice, double? oldEconomPrice, double? newBusinessPrice, double? oldBusinessPrice)
+        {
+            ClearOldNotifications();
+
+            var flightSubscribers = _flightSubscriberLogic.ReadList(null);
+            foreach (var subscriber in flightSubscribers)
+            {
+                if (subscriber != null)
+                {
+                    var flightIds = _flightSubscriberLogic.ReadList(new FlightSubscriberSearchModel { UserId = subscriber.UserId });
+                    var user = _userLogic.ReadElement(new UserSearchModel { Id = subscriber.UserId });
+
+                    if (user.AllowNotifications)
+                    {
+                        foreach (var flightId in flightIds)
+                        {
+                            var flight = _logic.ReadElement(new FlightSearchModel { Id = flightId.FlightId });
+                            var direction = _directionLogic.ReadElement(new DirectionSearchModel { Id = flight.DirectionId });
+
+                            if (oldEconomPrice.HasValue && newEconomPrice.HasValue && flight.EconomPrice != oldEconomPrice)
+                            {
+                                if(!HasSentNotification(flightId.FlightId, subscriber.UserId, oldEconomPrice.Value, newEconomPrice.Value, false))
+                                {
+                                    var economSubject = $"Снижение цены билетов эконом-класса на рейс {direction.CountryFrom} {direction.CityFrom} - {direction.CountryTo} {direction.CityTo}";
+                                    var economText = $"Стоимость билета эконом-класса теперь составляет {newEconomPrice} (была {oldEconomPrice}). \nУспейте приобрести билеты по выгодной цене! \n \n Ваша FlyToday.";
+                                    _mailWorker.MailSendAsync(new()
+                                    {
+                                        MailAddress = user.Email,
+                                        Subject = economSubject,
+                                        Text = economText
+                                    });
+                                    _sentNotifications.Add(new PriceReductionNotification
+                                    {
+                                        FlightId = flightId.FlightId,
+                                        UserId = subscriber.UserId,
+                                        OldPrice = oldEconomPrice.Value,
+                                        NewPrice = newEconomPrice.Value,
+                                        IsBusiness = false,
+                                        SentAt = DateTime.Now
+                                    });
+                                }
+                            }
+
+                            if (oldBusinessPrice.HasValue && newBusinessPrice.HasValue && flight.BusinessPrice != oldBusinessPrice)
+                            {
+                                if (!HasSentNotification(flightId.FlightId, subscriber.UserId, oldBusinessPrice.Value, newBusinessPrice.Value, true))
+                                {
+                                    var businessSubject = $"Снижение цены билетов бизнес-класса на рейс {direction.CountryFrom} {direction.CityFrom} - {direction.CountryTo} {direction.CityTo}";
+                                    var businessText = $"Стоимость билета бизнес-класса теперь составляет {newBusinessPrice} (была {oldBusinessPrice}). \nУспейте приобрести билеты по выгодной цене! \n \n Ваша FlyToday.";
+                                    _mailWorker.MailSendAsync(new()
+                                    {
+                                        MailAddress = user.Email,
+                                        Subject = businessSubject,
+                                        Text = businessText
+                                    });
+                                    _sentNotifications.Add(new PriceReductionNotification
+                                    {
+                                        FlightId = flightId.FlightId,
+                                        UserId = subscriber.UserId,
+                                        OldPrice = oldBusinessPrice.Value,
+                                        NewPrice = newBusinessPrice.Value,
+                                        IsBusiness = true,
+                                        SentAt = DateTime.Now
+                                    });
+                                }                                    
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private bool HasSentNotification(int flightId, int userId, double oldPrice, double newPrice, bool isBusiness)
+        {
+            return _sentNotifications.Any(n => n.FlightId == flightId && n.UserId == userId && n.OldPrice == oldPrice && n.NewPrice == newPrice && n.IsBusiness == isBusiness);
+        }
+
+        private void ClearOldNotifications()
+        {
+            var expirationTime = TimeSpan.FromDays(10); 
+            _sentNotifications.RemoveAll(n => n.SentAt < DateTime.Now - expirationTime);
+        }
+
+        /*private void SendPriceReductionNotifications(double? newEconomPrice, double? oldEconomPrice, double? newBusinessPrice, double? oldBusinessPrice)
+        {
+            var flightSubscribers = _flightSubscriberLogic.ReadList(null);
+            foreach (var subscriber in flightSubscribers)
+            {
+                if (subscriber != null)
+                {
+                    var flightIds = _flightSubscriberLogic.ReadList(new FlightSubscriberSearchModel { UserId = subscriber.UserId });
+                    var user = _userLogic.ReadElement(new UserSearchModel { Id = subscriber.UserId });
+
+                    if (user.AllowNotifications)
+                    {
+                        foreach (var flightId in flightIds)
+                        {
+                            var flight = _logic.ReadElement(new FlightSearchModel { Id = flightId.FlightId });
+                            var direction = _directionLogic.ReadElement(new DirectionSearchModel { Id = flight.DirectionId });
+
+                            if (oldEconomPrice.HasValue && newEconomPrice.HasValue && flight.EconomPrice != oldEconomPrice)
+                            {
+                                var economSubject = $"Снижение цены билетов эконом-класса на рейс {direction.CountryFrom} {direction.CityFrom} - {direction.CountryTo} {direction.CityTo}";
+                                var economText = $"Стоимость билета эконом-класса теперь составляет {newEconomPrice} (была {oldEconomPrice}). \n Успейте приобрести билеты по выгодной цене! \n \n Ваша FlyToday.";
+                                _mailWorker.MailSendAsync(new()
+                                {
+                                    MailAddress = user.Email,
+                                    Subject = economSubject,
+                                    Text = economText
+                                });
+                            }
+
+                            if (oldBusinessPrice.HasValue && newBusinessPrice.HasValue && flight.BusinessPrice != oldBusinessPrice)
+                            {
+                                var businessSubject = $"Снижение цены билетов бизнес-класса на рейс {direction.CountryFrom} {direction.CityFrom} - {direction.CountryTo} {direction.CityTo}";
+                                var businessText = $"Стоимость билета бизнес-класса теперь составляет {newBusinessPrice} (была {oldBusinessPrice}). \n Успейте приобрести билеты по выгодной цене! \n \n Ваша FlyToday.";
+                                _mailWorker.MailSendAsync(new()
+                                {
+                                    MailAddress = user.Email,
+                                    Subject = businessSubject,
+                                    Text = businessText
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+        }*/
+
+        private void buttonReducePrices_Click(object sender, EventArgs e)
+        {
+            var list = _logic.ReadList(null);
+            bool businessChanged = false;
+            bool economChanged = false;
+            foreach (var flight in list)
+            {
+                if ((flight.FreePlacesCountBusiness <= 10 && flight.BusinessPrice > 10000) &&
+                    (flight.FreePlacesCountEconom <= 10 && flight.EconomPrice > 1500))
+                {
+                    economChanged = true;
+                    businessChanged = true;
+                    var oldEcPrice = flight.EconomPrice;
+                    var oldBusPrice = flight.BusinessPrice;
+                    var model = new FlightBindingModel
+                    {
+                        Id = flight.Id,
+                        PlaneId = flight.PlaneId,
+                        DirectionId = flight.DirectionId,
+
+                        DepartureDate = flight.DepartureDate,
+                        FreePlacesCountEconom = flight.FreePlacesCountEconom,
+                        FreePlacesCountBusiness = flight.FreePlacesCountBusiness,
+                        EconomPrice = flight.EconomPrice * 0.5,
+                        BusinessPrice = flight.BusinessPrice * 0.5,
+                        TimeInFlight = flight.TimeInFlight
+                    };
+                    var operationResult = _logic.UpdatePrices(model);
+                    if (!operationResult)
+                    {
+                        throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
+                    }
+                    SendPriceReductionNotifications(model.EconomPrice, oldEcPrice, model.BusinessPrice, oldBusPrice);
+                }
+                else if (flight.FreePlacesCountEconom <= 10 && flight.EconomPrice > 1500)
+                {
+                    economChanged = true;
+                    var oldPrice = flight.EconomPrice;
+                    var model = new FlightBindingModel
+                    {
+                        Id = flight.Id,
+                        PlaneId = flight.PlaneId,
+                        DirectionId = flight.DirectionId,
+                        DepartureDate = flight.DepartureDate,
+                        FreePlacesCountEconom = flight.FreePlacesCountEconom,
+                        FreePlacesCountBusiness = flight.FreePlacesCountBusiness,
+                        EconomPrice = flight.EconomPrice * 0.5,
+                        BusinessPrice = flight.BusinessPrice,
+                        TimeInFlight = flight.TimeInFlight
+                    };
+                    var operationResult = _logic.UpdatePrices(model);
+                    if (!operationResult)
+                    {
+                        throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
+                    }
+                    SendPriceReductionNotifications(model.EconomPrice, oldPrice, null, null);
+                }
+                else if (flight.FreePlacesCountBusiness <= 10 && flight.BusinessPrice > 10000)
+                {
+                    businessChanged = true;
+                    var oldPrice = flight.BusinessPrice;
+                    var model = new FlightBindingModel
+                    {
+                        Id = flight.Id,
+                        PlaneId = flight.PlaneId,
+                        DirectionId = flight.DirectionId,
+                        DepartureDate = flight.DepartureDate,
+                        FreePlacesCountEconom = flight.FreePlacesCountEconom,
+                        FreePlacesCountBusiness = flight.FreePlacesCountBusiness,
+                        EconomPrice = flight.EconomPrice,
+                        BusinessPrice = flight.BusinessPrice * 0.5,
+                        TimeInFlight = flight.TimeInFlight
+                    };
+                    var operationResult = _logic.UpdatePrices(model);
+                    if (!operationResult)
+                    {
+                        throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
+                    }
+                    SendPriceReductionNotifications(null, null, model.BusinessPrice, oldPrice);
+                }
+            }
+            if (economChanged || businessChanged)
+            {
+                MessageBox.Show("Цены на билеты успешно изменены", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadData();
+            }
+            else MessageBox.Show("Нет билетов, у которых можно снизить цену.", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }     
     }
 }
