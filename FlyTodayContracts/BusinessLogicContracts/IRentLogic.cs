@@ -15,5 +15,6 @@ namespace FlyTodayContracts.BusinessLogicContracts
         RentViewModel? ReadElement(RentSearchModel model);
         bool Create(RentBindingModel model);
         bool Delete(RentBindingModel model);
+        bool Update(RentBindingModel model);
     }
 }

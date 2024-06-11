@@ -73,6 +73,16 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             _logger.LogInformation("ReadList. Count:{Count}", list.Count);
             return list;
         }
+        public bool Update(RentBindingModel model)
+        {
+            CheckModel(model);
+            if (_rentStorage.Update(model) == null)
+            {
+                _logger.LogWarning("Update operation failed");
+                return false;
+            }
+            return true;
+        }
 
         private void CheckModel(RentBindingModel model, bool withParams = true)
         {

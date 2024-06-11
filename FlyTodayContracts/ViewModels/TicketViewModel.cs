@@ -11,6 +11,8 @@ namespace FlyTodayContracts.ViewModels
     public class TicketViewModel : ITicketModel
     {
         public int RentId { get; set; }
+        [DisplayName("Тип билета")]
+        public string TypeTicket { get; set; } = string.Empty;
         [DisplayName("Фамилия")]
         public string Surname { get; set; } = string.Empty;
         [DisplayName("Имя")]
@@ -28,7 +30,7 @@ namespace FlyTodayContracts.ViewModels
         [DisplayName("Дополнительный багаж")]
         public bool Bags { get; set; }
         [DisplayName("Льгота")]
-        public int SaleId { get; set; }
+        public int? SaleId { get; set; }
         [DisplayName("Стоимость билета")]
         public double TicketCost { get; set; }
 

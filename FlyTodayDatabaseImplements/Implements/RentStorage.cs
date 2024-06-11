@@ -28,9 +28,9 @@ namespace FlyTodayDatabaseImplements.Implements
 
         public RentViewModel? GetElement(RentSearchModel model)
         {
-            //using var context = new FlyTodayDatabase();
-            //if (model.Id.HasValue)
-            //    return context.Rents.FirstOrDefault(x => x.Id == model.Id)?.GetViewModel;
+            using var context = new FlyTodayDatabase();
+            if (model.Id.HasValue)
+                return context.Rents.FirstOrDefault(x => x.Id == model.Id)?.GetViewModel;
             //if (!string.IsNullOrEmpty(model.Email) && !string.IsNullOrEmpty(model.Password))
             //    return context.Rents.FirstOrDefault(x => x.Email.Equals(model.Email) && x.Password.Equals(model.Password))?.GetViewModel;
             //if (!string.IsNullOrEmpty(model.Email))
@@ -40,7 +40,15 @@ namespace FlyTodayDatabaseImplements.Implements
 
         public List<RentViewModel> GetFilteredList(RentSearchModel model)
         {
-            throw new NotImplementedException();
+            if (model.UserId == null)
+            {
+                return new();
+            }
+            using var context = new FlyTodayDatabase();
+            return context.Rents    
+            .Where(x => x.UserId.Equals(model.UserId))
+           .Select(x => x.GetViewModel)
+           .ToList();
         }
 
         public List<RentViewModel> GetFullList()
@@ -60,6 +68,18 @@ namespace FlyTodayDatabaseImplements.Implements
             context.Rents.Add(newRent);
             context.SaveChanges();
             return newRent.GetViewModel; ;
+        }
+        public RentViewModel? Update(RentBindingModel model)
+        {
+            using var context = new FlyTodayDatabase();
+            var rent = context.Rents.FirstOrDefault(x => x.Id == model.Id);
+            if (rent == null)
+            {
+                return null;
+            }
+            rent.Update(model);
+            context.SaveChanges();
+            return rent.GetViewModel;
         }
     }
 }

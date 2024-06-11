@@ -10,6 +10,7 @@ namespace FlyTodayDataModels.Models
     {
         int RentId { get; }
         string Surname { get; }
+        string TypeTicket { get; }
         string Name { get; }
         string LastName { get; }
         string SeriesOfDocument { get; }
@@ -17,7 +18,7 @@ namespace FlyTodayDataModels.Models
         DateTime DateOfBirthday { get; }
         string Gender { get; }
         bool Bags { get; }
-        int SaleId { get; }
+        int? SaleId { get; }
         double TicketCost { get; }
     }
 }

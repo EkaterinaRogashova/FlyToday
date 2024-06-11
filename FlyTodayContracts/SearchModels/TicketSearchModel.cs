@@ -10,6 +10,7 @@ namespace FlyTodayContracts.SearchModels
     {
         public int? Id { get; set; }
         public int? RentId { get; set; }
+        public string? TypeTicket { get; set; } = string.Empty;
         public string? SeriesOfDocument { get; set; } = string.Empty;
         public string? NumberOfDocument { get; set; } = string.Empty;
         public bool? Bags { get; set; }

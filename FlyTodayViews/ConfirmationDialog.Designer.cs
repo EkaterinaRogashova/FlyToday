@@ -44,12 +44,14 @@
             // 
             // button1
             // 
+            button1.BackColor = SystemColors.ActiveCaption;
+            button1.Font = new Font("Segoe UI", 12F);
             button1.Location = new Point(118, 164);
             button1.Name = "button1";
             button1.Size = new Size(140, 42);
             button1.TabIndex = 1;
             button1.Text = "Подтвердить";
-            button1.UseVisualStyleBackColor = true;
+            button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
             // label1

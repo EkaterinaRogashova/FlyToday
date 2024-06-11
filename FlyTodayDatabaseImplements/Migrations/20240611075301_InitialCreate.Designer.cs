@@ -12,7 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FlyTodayDatabaseImplements.Migrations
 {
     [DbContext(typeof(FlyTodayDatabase))]
+<<<<<<<< HEAD:FlyTodayDatabaseImplements/Migrations/20240611075301_InitialCreate.Designer.cs
     [Migration("20240611075301_InitialCreate")]
+========
+    [Migration("20240611075810_InitialCreate")]
+>>>>>>>> 6d0920f8f66ab08eefcbd75df7d8ea6a1fd0cb33:FlyTodayDatabaseImplements/Migrations/20240611075810_InitialCreate.Designer.cs
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -352,7 +356,7 @@ namespace FlyTodayDatabaseImplements.Migrations
                     b.Property<int>("RentId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("SaleId")
+                    b.Property<int?>("SaleId")
                         .HasColumnType("integer");
 
                     b.Property<string>("SeriesOfDocument")
@@ -365,6 +369,10 @@ namespace FlyTodayDatabaseImplements.Migrations
 
                     b.Property<double>("TicketCost")
                         .HasColumnType("double precision");
+
+                    b.Property<string>("TypeTicket")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -507,9 +515,7 @@ namespace FlyTodayDatabaseImplements.Migrations
 
                     b.HasOne("FlyTodayDatabaseImplements.Models.Sale", "Sale")
                         .WithMany()
-                        .HasForeignKey("SaleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SaleId");
 
                     b.Navigation("Rent");
 
