@@ -264,23 +264,12 @@
             buttonTrackPriceChanges.UseVisualStyleBackColor = true;
             buttonTrackPriceChanges.Click += buttonTrackPriceChanges_Click;
             // 
-            // buttonTrasferInfo
-            // 
-            buttonTrasferInfo.Location = new Point(327, 63);
-            buttonTrasferInfo.Name = "buttonTrasferInfo";
-            buttonTrasferInfo.Size = new Size(277, 32);
-            buttonTrasferInfo.TabIndex = 13;
-            buttonTrasferInfo.Text = "Посмотреть информацию о пересадке";
-            buttonTrasferInfo.UseVisualStyleBackColor = true;
-            buttonTrasferInfo.Click += buttonTrasferInfo_Click;
-            // 
             // FormViewFlight
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(540, 329);
             ClientSize = new Size(617, 439);
-            Controls.Add(buttonTrasferInfo);
             Controls.Add(buttonTrackPriceChanges);
             Controls.Add(groupBox1);
             Controls.Add(buttonRent);
