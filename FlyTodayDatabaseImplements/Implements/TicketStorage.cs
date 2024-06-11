@@ -3,6 +3,7 @@ using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.StoragesContracts;
 using FlyTodayContracts.ViewModels;
 using FlyTodayDatabaseImplements.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,17 @@ namespace FlyTodayDatabaseImplements.Implements
 
         public List<TicketViewModel> GetFilteredList(TicketSearchModel model)
         {
-            throw new NotImplementedException();
+            if (model.RentId == null)
+            {
+                return new();
+            }
+            using var context = new FlyTodayDatabase();
+            return context.Tickets
+                .Include(x => x.Rent)
+            .Where(x => x.RentId.Equals(model.RentId))
+            .ToList()
+            .Select(x => x.GetViewModel)
+            .ToList();
         }
 
         public List<TicketViewModel> GetFullList()

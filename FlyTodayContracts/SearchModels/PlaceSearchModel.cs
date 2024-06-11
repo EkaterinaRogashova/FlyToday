@@ -11,5 +11,6 @@ namespace FlyTodayContracts.SearchModels
         public int? Id {  get; set; }
         public string? PlaceName {  get; set; }
         public bool? IsFree {  get; set; }
+        public int? FlightId { get; set; }
     }
 }

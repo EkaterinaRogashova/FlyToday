@@ -57,9 +57,11 @@ namespace FlyTodayViews
                         dataGridView1.Columns["Id"].Visible = false;
                         dataGridView1.Columns["UserId"].Visible = false;
                         dataGridView1.Columns["FlightId"].Visible = false;
+                        dataGridView1.Columns["Flight"].MinimumWidth = 250;
                         dataGridView1.Columns["Cost"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                         dataGridView1.Columns["NumberOfBusiness"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                         dataGridView1.Columns["NumberOfEconomy"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        dataGridView1.Columns["Status"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                         foreach (DataGridViewRow row in dataGridView1.Rows)
                         {
                             int flightId = Convert.ToInt32(row.Cells["FlightId"].Value);
@@ -75,7 +77,7 @@ namespace FlyTodayViews
                                 });
                                 if (dir != null)
                                 {
-                                    row.Cells["Flight"].Value = dir.CityFrom + " - " + dir.CityTo;
+                                    row.Cells["Flight"].Value = dir.CityFrom + " - " + dir.CityTo + " " + flight.DepartureDate;
                                 }
                                 else
                                 {
@@ -127,6 +129,7 @@ namespace FlyTodayViews
                     
                 }
             }
+            button1.Enabled = true;
         }
 
         private void buttonRefresh_Click(object sender, EventArgs e)
@@ -144,6 +147,7 @@ namespace FlyTodayViews
                     if (rent.Status == "Оплачено")
                     {
                         button1.Enabled = false;
+                        buttonLookTickets.Enabled = true;
                         var service = Program.ServiceProvider?.GetService(typeof(FormRentTickets));
                         if (service is FormRentTickets form)
                         {
@@ -160,6 +164,7 @@ namespace FlyTodayViews
                     }
                 }
             }
+            buttonLookTickets.Enabled = true;
         }
     }
 }

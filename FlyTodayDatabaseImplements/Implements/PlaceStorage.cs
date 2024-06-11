@@ -23,28 +23,35 @@ namespace FlyTodayDatabaseImplements.Implements
 
         public PlaceViewModel? GetElement(PlaceSearchModel model)
         {
-            if (string.IsNullOrEmpty(model.PlaceName) && !model.Id.HasValue)
+            using var context = new FlyTodayDatabase();
+            if (string.IsNullOrEmpty(model.PlaceName) && !model.Id.HasValue && !model.FlightId.HasValue)
             {
                 return null;
             }
-            using var context = new FlyTodayDatabase();
+            if (model.Id.HasValue)
+            {
+                return context.Places
+                .Where(x => x.Id == model.Id)
+                .Select(x => x.GetViewModel)
+                .FirstOrDefault();
+            }
             return context.Places
             .FirstOrDefault(x =>
            (!string.IsNullOrEmpty(model.PlaceName) && x.PlaceName ==
-           model.PlaceName) ||
-            (model.Id.HasValue && x.Id == model.Id))
+           model.PlaceName) &&
+            (model.Id.HasValue && x.Id == model.Id) && (model.FlightId.HasValue && x.FlightId == model.FlightId))
             ?.GetViewModel;
         }
 
         public List<PlaceViewModel> GetFilteredList(PlaceSearchModel model)
         {
-            if (string.IsNullOrEmpty(model.PlaceName))
+            if (!model.FlightId.HasValue)
             {
                 return new();
             }
             using var context = new FlyTodayDatabase();
             return context.Places
-            .Where(x => x.PlaceName.Contains(model.PlaceName))
+            .Where(x => x.FlightId.Equals(model.FlightId))
            .Select(x => x.GetViewModel)
            .ToList();
         }

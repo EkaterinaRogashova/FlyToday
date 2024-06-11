@@ -53,14 +53,14 @@
             dataGridView1.Location = new Point(12, 63);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(676, 372);
+            dataGridView1.Size = new Size(727, 372);
             dataGridView1.TabIndex = 1;
             // 
             // button1
             // 
             button1.BackColor = SystemColors.ActiveCaption;
             button1.Font = new Font("Segoe UI", 12F);
-            button1.Location = new Point(724, 65);
+            button1.Location = new Point(745, 63);
             button1.Name = "button1";
             button1.Size = new Size(224, 45);
             button1.TabIndex = 2;
@@ -72,7 +72,7 @@
             // 
             buttonRefresh.BackColor = SystemColors.ActiveCaption;
             buttonRefresh.Font = new Font("Segoe UI", 12F);
-            buttonRefresh.Location = new Point(724, 379);
+            buttonRefresh.Location = new Point(745, 378);
             buttonRefresh.Name = "buttonRefresh";
             buttonRefresh.Size = new Size(224, 45);
             buttonRefresh.TabIndex = 3;
@@ -84,7 +84,7 @@
             // 
             buttonLookTickets.BackColor = SystemColors.ActiveCaption;
             buttonLookTickets.Font = new Font("Segoe UI", 12F);
-            buttonLookTickets.Location = new Point(724, 146);
+            buttonLookTickets.Location = new Point(745, 146);
             buttonLookTickets.Name = "buttonLookTickets";
             buttonLookTickets.Size = new Size(224, 45);
             buttonLookTickets.TabIndex = 4;

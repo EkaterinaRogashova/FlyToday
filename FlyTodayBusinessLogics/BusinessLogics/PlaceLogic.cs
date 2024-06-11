@@ -45,8 +45,8 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             {
                 throw new ArgumentNullException(nameof(model));
             }
-            _logger.LogInformation("ReadElement. PlaceName:{PlaceName}, IsFree:{IsFree}, Id:{Id}",
-                model.PlaceName, model.IsFree, model.Id);
+            _logger.LogInformation("ReadElement. PlaceName:{PlaceName}, FlightId: {FlightId},IsFree:{IsFree}, Id:{Id}",
+                model.PlaceName, model.IsFree, model.FlightId, model.Id);
             var element = _placeStorage.GetElement(model);
             if (element == null)
             {
@@ -59,8 +59,8 @@ namespace FlyTodayBusinessLogics.BusinessLogics
 
         public List<PlaceViewModel>? ReadList(PlaceSearchModel? model)
         {
-            _logger.LogInformation("ReadList. PlaceName:{PlaceName}, IsFree:{IsFree}, Id:{Id}",
-                model?.PlaceName, model?.IsFree, model?.Id);
+            _logger.LogInformation("ReadList. PlaceName:{PlaceName}, FlightId: {FlightId}, IsFree:{IsFree}, Id:{Id}",
+                model?.PlaceName, model?.IsFree, model?.FlightId, model?.Id);
             var list = model == null ? _placeStorage.GetFullList() : _placeStorage.GetFilteredList(model);
             if (list == null)
             {
@@ -110,6 +110,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
 
             var element = _placeStorage.GetElement(new PlaceSearchModel
             {
+                FlightId = model.FlightId,
                 PlaceName = model.PlaceName,
                 IsFree = model.IsFree
             });

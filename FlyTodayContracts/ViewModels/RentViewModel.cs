@@ -16,9 +16,9 @@ namespace FlyTodayContracts.ViewModels
         public int UserId { get; set; }
         [DisplayName("Стоимость")]
         public double Cost { get; set; }
-        [DisplayName("Количество билетов бизнес-класса:")]
+        [DisplayName("Количество билетов бизнес:")]
         public int NumberOfBusiness { get; set; }
-        [DisplayName("Количество билетов эконом-класса")]
+        [DisplayName("Количество билетов эконом:")]
         public int NumberOfEconomy { get; set; }
         [DisplayName("Статус")]
         public string Status { get; set; } = string.Empty;

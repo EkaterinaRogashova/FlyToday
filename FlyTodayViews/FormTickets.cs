@@ -316,12 +316,13 @@ namespace FlyTodayViews
             {
                 var view = _rentlogic.ReadElement(new RentSearchModel { Id = _currentRentId.Value });
                 var flight = _flightlogic.ReadElement(new FlightSearchModel { Id = view.FlightId });
-
+                int CEFree = flight.FreePlacesCountEconom;
+                int CBFree = flight.FreePlacesCountBusiness;
                 foreach (Control control in pnlTickets.Controls)
                 {
                     if (control is GroupBox groupBox)
                     {
-
+                        
                         var textBoxCostEconom = groupBox.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "textBoxCostEconom");
                         var textBoxCostBusiness = groupBox.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "textBoxCostBusiness");
                         var comboBoxSale = groupBox.Controls.OfType<ComboBox>().FirstOrDefault(cb => cb.Name == "comboBoxSale");
@@ -359,6 +360,14 @@ namespace FlyTodayViews
                             {
                                 ticket.SaleId = null;
                             }
+                            if (ticket.TypeTicket == "Бизнес")
+                            {
+                                CBFree--;
+                            }
+                            else
+                            {
+                                CEFree--;
+                            }
                             _logic.Create(ticket);
                         }
 
@@ -383,6 +392,19 @@ namespace FlyTodayViews
                         Text = $"Ваше бронирование на рейс {dir.CountryFrom} {dir.CityFrom} - {dir.CountryTo} {dir.CityTo} на сумму {newView.Cost} успешно оплачено."
                     });
                 }                
+                var curFlight = new FlightBindingModel
+                {
+                    Id = view.FlightId,
+                    PlaneId = flight.PlaneId,
+                    DirectionId = flight.DirectionId,
+                    DepartureDate = flight.DepartureDate,
+                    TimeInFlight = flight.TimeInFlight,
+                    BusinessPrice = flight.BusinessPrice,
+                    EconomPrice = flight.EconomPrice,
+                    FreePlacesCountBusiness = CBFree,
+                    FreePlacesCountEconom = CEFree
+                };
+                _flightlogic.Update(curFlight);
                 Close();
             }
             catch (Exception ex)

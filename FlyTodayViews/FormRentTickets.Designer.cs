@@ -31,6 +31,8 @@
             label1 = new Label();
             pnlTickets = new Panel();
             groupBoxTicket = new GroupBox();
+            labelPlace = new Label();
+            label7 = new Label();
             buttonCreateBoardingPass = new Button();
             labelCost = new Label();
             labelType = new Label();
@@ -40,6 +42,7 @@
             label4 = new Label();
             label3 = new Label();
             label2 = new Label();
+            button1 = new Button();
             pnlTickets.SuspendLayout();
             groupBoxTicket.SuspendLayout();
             SuspendLayout();
@@ -56,14 +59,17 @@
             // 
             // pnlTickets
             // 
+            pnlTickets.AutoScroll = true;
             pnlTickets.Controls.Add(groupBoxTicket);
             pnlTickets.Location = new Point(12, 49);
             pnlTickets.Name = "pnlTickets";
-            pnlTickets.Size = new Size(776, 389);
+            pnlTickets.Size = new Size(776, 311);
             pnlTickets.TabIndex = 1;
             // 
             // groupBoxTicket
             // 
+            groupBoxTicket.Controls.Add(labelPlace);
+            groupBoxTicket.Controls.Add(label7);
             groupBoxTicket.Controls.Add(buttonCreateBoardingPass);
             groupBoxTicket.Controls.Add(labelCost);
             groupBoxTicket.Controls.Add(labelType);
@@ -73,6 +79,7 @@
             groupBoxTicket.Controls.Add(label4);
             groupBoxTicket.Controls.Add(label3);
             groupBoxTicket.Controls.Add(label2);
+            groupBoxTicket.Enabled = false;
             groupBoxTicket.Location = new Point(12, 15);
             groupBoxTicket.Name = "groupBoxTicket";
             groupBoxTicket.Size = new Size(747, 129);
@@ -81,22 +88,43 @@
             groupBoxTicket.Text = "Билет №1";
             groupBoxTicket.Visible = false;
             // 
+            // labelPlace
+            // 
+            labelPlace.AutoSize = true;
+            labelPlace.Location = new Point(378, 23);
+            labelPlace.MinimumSize = new Size(250, 0);
+            labelPlace.Name = "labelPlace";
+            labelPlace.Size = new Size(250, 20);
+            labelPlace.TabIndex = 10;
+            labelPlace.Text = "Стоимость:";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(317, 23);
+            label7.Name = "label7";
+            label7.Size = new Size(55, 20);
+            label7.TabIndex = 9;
+            label7.Text = "Место:";
+            // 
             // buttonCreateBoardingPass
             // 
             buttonCreateBoardingPass.BackColor = SystemColors.ActiveCaption;
-            buttonCreateBoardingPass.Location = new Point(587, 23);
+            buttonCreateBoardingPass.Location = new Point(588, 46);
             buttonCreateBoardingPass.Name = "buttonCreateBoardingPass";
-            buttonCreateBoardingPass.Size = new Size(141, 88);
+            buttonCreateBoardingPass.Size = new Size(141, 68);
             buttonCreateBoardingPass.TabIndex = 8;
             buttonCreateBoardingPass.Text = "Зарегистировать\r\nпосадочный\r\nталон";
             buttonCreateBoardingPass.UseVisualStyleBackColor = false;
+            buttonCreateBoardingPass.Click += buttonCreateBoardingPass_Click;
             // 
             // labelCost
             // 
             labelCost.AutoSize = true;
-            labelCost.Location = new Point(418, 91);
+            labelCost.Location = new Point(409, 91);
+            labelCost.MinimumSize = new Size(150, 0);
             labelCost.Name = "labelCost";
-            labelCost.Size = new Size(86, 20);
+            labelCost.Size = new Size(150, 20);
             labelCost.TabIndex = 7;
             labelCost.Text = "Стоимость:";
             // 
@@ -104,8 +132,9 @@
             // 
             labelType.AutoSize = true;
             labelType.Location = new Point(111, 91);
+            labelType.MinimumSize = new Size(200, 0);
             labelType.Name = "labelType";
-            labelType.Size = new Size(86, 20);
+            labelType.Size = new Size(200, 20);
             labelType.TabIndex = 6;
             labelType.Text = "Стоимость:";
             // 
@@ -113,8 +142,9 @@
             // 
             labelDocument.AutoSize = true;
             labelDocument.Location = new Point(111, 55);
+            labelDocument.MinimumSize = new Size(200, 0);
             labelDocument.Name = "labelDocument";
-            labelDocument.Size = new Size(86, 20);
+            labelDocument.Size = new Size(200, 20);
             labelDocument.TabIndex = 5;
             labelDocument.Text = "Стоимость:";
             // 
@@ -122,15 +152,16 @@
             // 
             labelFIO.AutoSize = true;
             labelFIO.Location = new Point(111, 23);
+            labelFIO.MinimumSize = new Size(200, 0);
             labelFIO.Name = "labelFIO";
-            labelFIO.Size = new Size(86, 20);
+            labelFIO.Size = new Size(200, 20);
             labelFIO.TabIndex = 4;
             labelFIO.Text = "Стоимость:";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(326, 91);
+            label5.Location = new Point(317, 91);
             label5.Name = "label5";
             label5.Size = new Size(86, 20);
             label5.TabIndex = 3;
@@ -163,15 +194,29 @@
             label2.TabIndex = 0;
             label2.Text = "ФИО:";
             // 
+            // button1
+            // 
+            button1.BackColor = SystemColors.ActiveCaption;
+            button1.Font = new Font("Segoe UI", 12F);
+            button1.Location = new Point(291, 382);
+            button1.Name = "button1";
+            button1.Size = new Size(202, 41);
+            button1.TabIndex = 2;
+            button1.Text = "Обновить данные";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
             // FormRentTickets
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(button1);
             Controls.Add(pnlTickets);
             Controls.Add(label1);
             Name = "FormRentTickets";
-            Text = "FormRentTickets";
+            Text = "Билеты";
+            Load += FormRentTickets_Load;
             pnlTickets.ResumeLayout(false);
             groupBoxTicket.ResumeLayout(false);
             groupBoxTicket.PerformLayout();
@@ -193,5 +238,8 @@
         private Label labelDocument;
         private Label labelFIO;
         private Label label5;
+        private Label labelPlace;
+        private Label label7;
+        private Button button1;
     }
 }
