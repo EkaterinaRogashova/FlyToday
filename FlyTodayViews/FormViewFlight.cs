@@ -51,7 +51,8 @@ namespace FlyTodayViews
                             Id = view.PlaneId
                         });
                         if (plane != null) labelPlane.Text = plane.ModelName;
-                        labelFreePlacesCount.Text = view.FreePlacesCount.ToString();
+                        labelFreePlacesCountEconom.Text = view.FreePlacesCountEconom.ToString();
+                        labelFreePlacesCountBusiness.Text = view.FreePlacesCountBusiness.ToString();
                         labelEconomPrice.Text = view.EconomPrice.ToString();
                         labelBusinessPrice.Text = view.BusinessPrice.ToString();
                         labelTimeInFlight.Text = TimeSpan.FromHours(view.TimeInFlight).TotalHours + " час(ов/а)";
@@ -68,6 +69,15 @@ namespace FlyTodayViews
         private void buttonTrackPriceChanges_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonTrasferInfo_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormTransfer));
+            if (service is FormTransfer form)
+            {
+                form.ShowDialog();
+            }
         }
     }
 }

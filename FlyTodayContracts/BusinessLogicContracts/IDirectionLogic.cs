@@ -16,5 +16,6 @@ namespace FlyTodayContracts.BusinessLogicContracts
         bool Create(DirectionBindingModel model);
         bool Update(DirectionBindingModel model);
         bool Delete(DirectionBindingModel model);
+        public List<(DirectionViewModel, DirectionViewModel)> GetTwoDirectionsWithTransfer(DirectionSearchModel? model);
     }
 }

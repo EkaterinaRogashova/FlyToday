@@ -145,7 +145,10 @@ namespace FlyTodayDatabaseImplements.Migrations
                     b.Property<double>("EconomPrice")
                         .HasColumnType("double precision");
 
-                    b.Property<int>("FreePlacesCount")
+                    b.Property<int>("FreePlacesCountBusiness")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("FreePlacesCountEconom")
                         .HasColumnType("integer");
 
                     b.Property<int>("PlaneId")

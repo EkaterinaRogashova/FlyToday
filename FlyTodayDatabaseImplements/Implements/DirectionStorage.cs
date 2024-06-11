@@ -8,16 +8,6 @@ namespace FlyTodayDatabaseImplements.Implements
 {
     public class DirectionStorage : IDirectionStorage
     {
-        public List<DirectionViewModel> Search(DirectionSearchModel model)
-        {
-            using var context = new FlyTodayDatabase();
-            return context.Directions
-                .Where(x => x.CountryFrom.Contains(model.CountryFrom) || x.CityFrom.Contains(model.CityFrom) || x.CountryTo.Contains(model.CountryTo) || x.CityTo.Contains(model.CityTo))
-                .ToList()
-                .Select(x => x.GetViewModel)
-                .ToList();
-        }
-
         public DirectionViewModel? Delete(DirectionBindingModel model)
         {
             using var context = new FlyTodayDatabase();
@@ -46,6 +36,19 @@ namespace FlyTodayDatabaseImplements.Implements
                 .FirstOrDefault()?.GetViewModel;
         }
 
+        public DirectionViewModel? GetCountryCityFrom(DirectionSearchModel model)
+        {
+            if (string.IsNullOrEmpty(model.CountryFrom)
+                && string.IsNullOrEmpty(model.CityFrom) && !model.Id.HasValue)
+            {
+                return null;
+            }
+            using var context = new FlyTodayDatabase();
+            return context.Directions
+                .Where(x => (model.CountryFrom == x.CountryFrom
+                    && model.CityFrom == x.CityFrom) || (model.Id.HasValue && x.Id == model.Id))
+                .FirstOrDefault()?.GetViewModel;
+        }
 
         public List<DirectionViewModel> GetFilteredList(DirectionSearchModel model)
         {
@@ -56,7 +59,52 @@ namespace FlyTodayDatabaseImplements.Implements
             }
             using var context = new FlyTodayDatabase();
             return context.Directions
-            .Where(x => x.CountryFrom.Equals(model.CountryFrom) || x.CityFrom.Equals(model.CityFrom) || x.CountryTo.Equals(model.CountryTo) || x.CityTo.Equals(model.CityTo))
+            .Where(x => (x.CountryFrom.Equals(model.CountryFrom) && x.CityFrom.Equals(model.CityFrom)) || (x.CountryTo.Equals(model.CountryTo) && x.CityTo.Equals(model.CityTo)))
+            .ToList()
+            .Select(x => x.GetViewModel)
+            .ToList();
+        }
+
+        public List<DirectionViewModel> GetDirectionsTo(DirectionSearchModel model)
+        {
+            if (string.IsNullOrEmpty(model.CountryFrom) && string.IsNullOrEmpty(model.CountryTo)
+                && string.IsNullOrEmpty(model.CityFrom) && string.IsNullOrEmpty(model.CityTo))
+            {
+                return new();
+            }
+            using var context = new FlyTodayDatabase();
+            return context.Directions
+            .Where(x => x.CountryTo.Equals(model.CountryTo) && x.CityTo.Equals(model.CityTo))
+            .ToList()
+            .Select(x => x.GetViewModel)
+            .ToList();
+        }
+
+        public List<DirectionViewModel> GetDirectionsFrom(DirectionSearchModel model)
+        {
+            if (string.IsNullOrEmpty(model.CountryFrom) && string.IsNullOrEmpty(model.CountryTo)
+                && string.IsNullOrEmpty(model.CityFrom) && string.IsNullOrEmpty(model.CityTo))
+            {
+                return new();
+            }
+            using var context = new FlyTodayDatabase();
+            return context.Directions
+            .Where(x => x.CountryFrom.Equals(model.CountryFrom) && x.CityFrom.Equals(model.CityFrom))
+            .ToList()
+            .Select(x => x.GetViewModel)
+            .ToList();
+        }
+
+        public List<DirectionViewModel> GetDirectionsWithTransit(DirectionSearchModel model)
+        {
+            if (string.IsNullOrEmpty(model.CountryFrom) && string.IsNullOrEmpty(model.CountryTo)
+                && string.IsNullOrEmpty(model.CityFrom) && string.IsNullOrEmpty(model.CityTo))
+            {
+                return new();
+            }
+            using var context = new FlyTodayDatabase();
+            return context.Directions
+            .Where(x => x.CountryFrom.Equals(model.CountryFrom) && x.CityFrom.Equals(model.CityFrom))
             .ToList()
             .Select(x => x.GetViewModel)
             .ToList();

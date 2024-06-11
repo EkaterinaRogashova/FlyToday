@@ -43,10 +43,6 @@
             groupBox1 = new GroupBox();
             groupBox2 = new GroupBox();
             label15 = new Label();
-            label13 = new Label();
-            label14 = new Label();
-            textBoxFilterFreePlacesCountTo = new TextBox();
-            textBoxFilterFreePlacesCountFrom = new TextBox();
             label11 = new Label();
             label12 = new Label();
             textBoxFilterTimeInFlightTo = new TextBox();
@@ -56,7 +52,6 @@
             textBoxFilterBusinessPriceTo = new TextBox();
             textBoxFilterBusinessPriceFrom = new TextBox();
             checkBoxFilterTimeInFlight = new CheckBox();
-            checkBoxFilterFreePlacesCount = new CheckBox();
             checkBoxFilterBusinessPrice = new CheckBox();
             checkBoxFilterEconomPrice = new CheckBox();
             checkBoxNoFilters = new CheckBox();
@@ -206,10 +201,6 @@
             // groupBox2
             // 
             groupBox2.Controls.Add(label15);
-            groupBox2.Controls.Add(label13);
-            groupBox2.Controls.Add(label14);
-            groupBox2.Controls.Add(textBoxFilterFreePlacesCountTo);
-            groupBox2.Controls.Add(textBoxFilterFreePlacesCountFrom);
             groupBox2.Controls.Add(label11);
             groupBox2.Controls.Add(label12);
             groupBox2.Controls.Add(textBoxFilterTimeInFlightTo);
@@ -219,7 +210,6 @@
             groupBox2.Controls.Add(textBoxFilterBusinessPriceTo);
             groupBox2.Controls.Add(textBoxFilterBusinessPriceFrom);
             groupBox2.Controls.Add(checkBoxFilterTimeInFlight);
-            groupBox2.Controls.Add(checkBoxFilterFreePlacesCount);
             groupBox2.Controls.Add(checkBoxFilterBusinessPrice);
             groupBox2.Controls.Add(checkBoxFilterEconomPrice);
             groupBox2.Controls.Add(checkBoxNoFilters);
@@ -240,45 +230,11 @@
             // 
             label15.AutoSize = true;
             label15.ForeColor = Color.Teal;
-            label15.Location = new Point(6, 336);
+            label15.Location = new Point(6, 282);
             label15.Name = "label15";
             label15.Size = new Size(162, 30);
             label15.TabIndex = 20;
             label15.Text = "Для применения фильтров\r\nнажмите на кнопку \"Поиск\"";
-            // 
-            // label13
-            // 
-            label13.AutoSize = true;
-            label13.Location = new Point(101, 313);
-            label13.Name = "label13";
-            label13.Size = new Size(20, 15);
-            label13.TabIndex = 36;
-            label13.Text = "до";
-            // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Location = new Point(6, 313);
-            label14.Name = "label14";
-            label14.Size = new Size(21, 15);
-            label14.TabIndex = 35;
-            label14.Text = "От";
-            // 
-            // textBoxFilterFreePlacesCountTo
-            // 
-            textBoxFilterFreePlacesCountTo.Location = new Point(127, 310);
-            textBoxFilterFreePlacesCountTo.Name = "textBoxFilterFreePlacesCountTo";
-            textBoxFilterFreePlacesCountTo.ReadOnly = true;
-            textBoxFilterFreePlacesCountTo.Size = new Size(62, 23);
-            textBoxFilterFreePlacesCountTo.TabIndex = 34;
-            // 
-            // textBoxFilterFreePlacesCountFrom
-            // 
-            textBoxFilterFreePlacesCountFrom.Location = new Point(33, 310);
-            textBoxFilterFreePlacesCountFrom.Name = "textBoxFilterFreePlacesCountFrom";
-            textBoxFilterFreePlacesCountFrom.ReadOnly = true;
-            textBoxFilterFreePlacesCountFrom.Size = new Size(62, 23);
-            textBoxFilterFreePlacesCountFrom.TabIndex = 33;
             // 
             // label11
             // 
@@ -359,18 +315,6 @@
             checkBoxFilterTimeInFlight.Text = "По времени в пути (ч.)";
             checkBoxFilterTimeInFlight.UseVisualStyleBackColor = true;
             checkBoxFilterTimeInFlight.CheckedChanged += checkBoxFilterTimeInFlight_CheckedChanged;
-            // 
-            // checkBoxFilterFreePlacesCount
-            // 
-            checkBoxFilterFreePlacesCount.AutoSize = true;
-            checkBoxFilterFreePlacesCount.Cursor = Cursors.Hand;
-            checkBoxFilterFreePlacesCount.Location = new Point(6, 285);
-            checkBoxFilterFreePlacesCount.Name = "checkBoxFilterFreePlacesCount";
-            checkBoxFilterFreePlacesCount.Size = new Size(175, 19);
-            checkBoxFilterFreePlacesCount.TabIndex = 23;
-            checkBoxFilterFreePlacesCount.Text = "По кол-ву свободных мест";
-            checkBoxFilterFreePlacesCount.UseVisualStyleBackColor = true;
-            checkBoxFilterFreePlacesCount.CheckedChanged += checkBoxFilterFreePlacesCount_CheckedChanged;
             // 
             // checkBoxFilterBusinessPrice
             // 
@@ -516,15 +460,10 @@
         private Label label7;
         private TextBox textBoxFilterEconomPriceTo;
         private TextBox textBoxFilterEconomPriceFrom;
-        private CheckBox checkBoxFilterFreePlacesCount;
         private CheckBox checkBoxFilterBusinessPrice;
         private CheckBox checkBoxFilterEconomPrice;
         private CheckBox checkBoxNoFilters;
         private CheckBox checkBoxFilterTimeInFlight;
-        private Label label13;
-        private Label label14;
-        private TextBox textBoxFilterFreePlacesCountTo;
-        private TextBox textBoxFilterFreePlacesCountFrom;
         private Label label11;
         private Label label12;
         private TextBox textBoxFilterTimeInFlightTo;

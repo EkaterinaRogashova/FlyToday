@@ -13,7 +13,8 @@ namespace FlyTodayContracts.BindingModels
 
         public DateTime DepartureDate { get; set; }
 
-        public int FreePlacesCount { get; set; }
+        public int FreePlacesCountEconom { get; set; }
+        public int FreePlacesCountBusiness { get; set; }
 
         public int DirectionId { get; set; }
 
@@ -23,6 +24,6 @@ namespace FlyTodayContracts.BindingModels
 
         public double TimeInFlight { get; set; }
 
-        public int Id { get; set; }
+        public int Id { get; set; }        
     }
 }

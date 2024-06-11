@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FlyTodayDatabaseImplements.Migrations
 {
     [DbContext(typeof(FlyTodayDatabase))]
-    [Migration("20240607143140_InitialCreate")]
+    [Migration("20240611075301_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -148,7 +148,10 @@ namespace FlyTodayDatabaseImplements.Migrations
                     b.Property<double>("EconomPrice")
                         .HasColumnType("double precision");
 
-                    b.Property<int>("FreePlacesCount")
+                    b.Property<int>("FreePlacesCountBusiness")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("FreePlacesCountEconom")
                         .HasColumnType("integer");
 
                     b.Property<int>("PlaneId")

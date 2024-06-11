@@ -12,6 +12,7 @@ namespace FlyTodayViews
     {
         private readonly ILogger _logger;
         private readonly IFlightLogic _logic;
+        private readonly IPlaneLogic _planeLogic;
         private int? _id;
         public int Id { set { _id = value; } }
         private readonly List<DirectionViewModel>? _listDirection;
@@ -41,8 +42,9 @@ namespace FlyTodayViews
 
             _logger = logger;
             _logic = logic;
+            _planeLogic = planeLogic;
             dateTimePickerDeparture.Format = DateTimePickerFormat.Custom;
-            dateTimePickerDeparture.CustomFormat = "dd.MM.yyyy hh:mm";
+            dateTimePickerDeparture.CustomFormat = "dd.MM.yyyy HH:mm";
         }
 
         public int DirectionId
@@ -108,12 +110,14 @@ namespace FlyTodayViews
 
         private void ButtonSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(comboBoxSelectDirection.Text) || string.IsNullOrEmpty(dateTimePickerDeparture.Text) || string.IsNullOrEmpty(comboBoxSelectPlane.Text) || string.IsNullOrEmpty(textBoxFreePlacesCount.Text) || string.IsNullOrEmpty(textBoxEconomCost.Text) || string.IsNullOrEmpty(textBoxBusinessCost.Text) || string.IsNullOrEmpty(textBoxTimeInFlight.Text))
+            if (string.IsNullOrEmpty(comboBoxSelectDirection.Text) || string.IsNullOrEmpty(dateTimePickerDeparture.Text) || string.IsNullOrEmpty(comboBoxSelectPlane.Text) || string.IsNullOrEmpty(textBoxEconomCost.Text) || string.IsNullOrEmpty(textBoxBusinessCost.Text) || string.IsNullOrEmpty(textBoxTimeInFlight.Text))
             {
                 MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             _logger.LogInformation("Сохранение рейса");
+            var placesCountEconom = _planeLogic.ReadElement(new PlaneSearchModel { Id = PlaneId }).EconomPlacesCount;
+            var placesCountBusiness = _planeLogic.ReadElement(new PlaneSearchModel { Id = PlaneId }).BusinessPlacesCount;
             try
             {
                 var model = new FlightBindingModel
@@ -121,8 +125,9 @@ namespace FlyTodayViews
                     Id = _id ?? 0,
                     PlaneId = PlaneId,
                     DirectionId = DirectionId,
-                    DepartureDate = dateTimePickerDeparture.Value.ToUniversalTime(),
-                    FreePlacesCount = Convert.ToInt32(textBoxFreePlacesCount.Text),
+                    DepartureDate = dateTimePickerDeparture.Value.ToUniversalTime() + TimeSpan.FromHours(4),
+                    FreePlacesCountEconom = placesCountEconom,
+                    FreePlacesCountBusiness = placesCountBusiness,
                     EconomPrice = Convert.ToInt32(textBoxEconomCost.Text),
                     BusinessPrice = Convert.ToInt32(textBoxBusinessCost.Text),
                     TimeInFlight = Convert.ToDouble(textBoxTimeInFlight.Text)
@@ -160,9 +165,8 @@ namespace FlyTodayViews
                     if (view != null)
                     {
                         comboBoxSelectDirection.SelectedValue = view.DirectionId;
-                        dateTimePickerDeparture.Value = view.DepartureDate;
+                        dateTimePickerDeparture.Value = view.DepartureDate.ToUniversalTime();
                         comboBoxSelectPlane.SelectedValue = view.PlaneId;
-                        textBoxFreePlacesCount.Text = view.FreePlacesCount.ToString();
                         textBoxEconomCost.Text = view.EconomPrice.ToString();
                         textBoxBusinessCost.Text = view.BusinessPrice.ToString();
                         textBoxTimeInFlight.Text = view.TimeInFlight.ToString();

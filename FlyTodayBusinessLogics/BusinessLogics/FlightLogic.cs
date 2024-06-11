@@ -46,7 +46,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
                 throw new ArgumentNullException(nameof(model));
             }
             _logger.LogInformation("ReadElement. DepartureDate:{DepartureDate}, FreePlacesCount:{FreePlacesCount}, EconomPrice:{EconomPrice}, BusinessPrice:{BusinessPrice}, Id:{Id}",
-                model.DepartureDate, model.FreePlacesCount, model.EconomPrice, model.BusinessPrice, model.Id);
+                model.DepartureDate, model.FreePlacesCountEconom, model.FreePlacesCountBusiness, model.EconomPrice, model.BusinessPrice, model.Id);
             var element = _flightStorage.GetElement(model);
             if (element == null)
             {
@@ -60,7 +60,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
         public List<FlightViewModel>? ReadList(FlightSearchModel? model)
         {
             _logger.LogInformation("ReadList. DepartureDate:{DepartureDate}, FreePlacesCount:{FreePlacesCount}, EconomPrice:{EconomPrice}, BusinessPrice:{BusinessPrice}, Id:{Id}",
-                model?.DepartureDate, model?.FreePlacesCount, model?.EconomPrice, model?.BusinessPrice, model?.Id);
+                model?.DepartureDate, model?.FreePlacesCountEconom, model?.FreePlacesCountBusiness, model?.EconomPrice, model?.BusinessPrice, model?.Id);
             var list = model == null ? _flightStorage.GetFullList() : _flightStorage.GetFilteredList(model);
             if (list == null)
             {
@@ -105,9 +105,14 @@ namespace FlyTodayBusinessLogics.BusinessLogics
                 throw new ArgumentException("Не указана дата вылета", nameof(model.DepartureDate));
             }
 
-            if (model.FreePlacesCount < 0)
+            if (model.FreePlacesCountEconom < 0)
             {
-                throw new ArgumentException("Количество свободных мест должно быть больше или равно 0", nameof(model.FreePlacesCount));
+                throw new ArgumentException("Количество свободных мест эконом должно быть больше или равно 0", nameof(model.FreePlacesCountEconom));
+            }
+
+            if (model.FreePlacesCountBusiness < 0)
+            {
+                throw new ArgumentException("Количество свободных мест бизнес должно быть больше или равно 0", nameof(model.FreePlacesCountBusiness));
             }
 
             if (model.DirectionId == 0)
@@ -131,12 +136,13 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             }
 
             _logger.LogInformation("Flight. PlaneId:{PlaneId}, DepartureDate:{DepartureDate}, FreePlacesCount:{FreePlacesCount}, DirectionId:{DirectionId}, EconomPrice:{EconomPrice}, BusinessPrice:{BusinessPrice}, TimeInFlight:{TimeInFlight}, Id:{Id}",
-                model.PlaneId, model.DepartureDate, model.FreePlacesCount, model.DirectionId, model.EconomPrice, model.BusinessPrice, model.TimeInFlight, model.Id);
+                model.PlaneId, model.DepartureDate, model.FreePlacesCountEconom, model.FreePlacesCountBusiness, model.DirectionId, model.EconomPrice, model.BusinessPrice, model.TimeInFlight, model.Id);
 
             var element = _flightStorage.GetElement(new FlightSearchModel
             {
                 DepartureDate = model.DepartureDate,
-                FreePlacesCount = model.FreePlacesCount,
+                FreePlacesCountEconom = model.FreePlacesCountEconom,
+                FreePlacesCountBusiness = model.FreePlacesCountBusiness,
                 EconomPrice = model.EconomPrice,
                 BusinessPrice = model.BusinessPrice
             });

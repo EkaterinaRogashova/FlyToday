@@ -37,12 +37,14 @@ namespace FlyTodayViews
                     dataGridView.DataSource = list;
                     dataGridView.Columns["Id"].Visible = false;
                     dataGridView.Columns["DepartureDate"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns["FreePlacesCount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dataGridView.Columns["FreePlacesCountEconom"].Visible = false;
+                    dataGridView.Columns["FreePlacesCountBusiness"].Visible = false;
                     dataGridView.Columns["EconomPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                     dataGridView.Columns["BusinessPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                     dataGridView.Columns["TimeInFlight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                     dataGridView.Columns["PlaneId"].Visible = false;
                     dataGridView.Columns["DirectionId"].Visible = false;
+                    dataGridView.Columns["HasTransit"].Visible = false;
                     dataGridView.Columns["PlaneModel"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                     dataGridView.Columns["FlightDirection"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
@@ -143,6 +145,19 @@ namespace FlyTodayViews
         private void ButtonRef_Click(object sender, EventArgs e)
         {
             LoadData();
+        }
+
+        private void buttonCreatePlace_Click(object sender, EventArgs e)
+        {
+            if (dataGridView.SelectedRows.Count == 1)
+            {
+                var service = Program.ServiceProvider?.GetService(typeof(FormCreatePlaces));
+                if (service is FormCreatePlaces form)
+                {
+                    form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
+                    form.ShowDialog();
+                }
+            }
         }
     }
 }

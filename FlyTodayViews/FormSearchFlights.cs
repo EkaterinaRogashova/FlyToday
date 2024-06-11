@@ -1,11 +1,14 @@
-﻿using FlyTodayContracts.BusinessLogicContracts;
+﻿using FlyTodayContracts.BindingModels;
+using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.ViewModels;
+using FlyTodayDatabaseImplements.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Numerics;
 using System.Windows.Forms;
 namespace FlyTodayViews
 {
@@ -15,6 +18,7 @@ namespace FlyTodayViews
         private readonly IFlightLogic _logic;
         private readonly IPlaneLogic _planeLogic;
         private readonly IDirectionLogic _directionLogic;
+        private bool isAscending = true;
         public FormSearchFlights(ILogger<FormFlights> logger, IFlightLogic logic, IPlaneLogic planeLogic, IDirectionLogic directionLogic)
         {
             InitializeComponent();
@@ -25,20 +29,20 @@ namespace FlyTodayViews
             dataGridView.Columns.Add("PlaneModel", "Самолет");
             dataGridView.Columns["PlaneModel"].Visible = false;
             dataGridView.Columns["FlightDirection"].Visible = false;
+            dataGridView.Columns.Add("HasTransfer", "Пересадка");
+            dataGridView.Columns["HasTransfer"].Visible = false;
             dataGridView.Visible = false;
             _directionLogic = directionLogic;
             dateTimePickerDateFrom.Format = DateTimePickerFormat.Custom;
-            dateTimePickerDateFrom.CustomFormat = "dd.MM.yyyy hh:mm";
+            dateTimePickerDateFrom.CustomFormat = "dd.MM.yyyy HH:mm";
             dateTimePickerDateTo.Format = DateTimePickerFormat.Custom;
-            dateTimePickerDateTo.CustomFormat = "dd.MM.yyyy hh:mm";
+            dateTimePickerDateTo.CustomFormat = "dd.MM.yyyy HH:mm";
             textBoxFilterEconomPriceFrom.Text = "0";
             textBoxFilterEconomPriceTo.Text = "10000";
             textBoxFilterBusinessPriceFrom.Text = "0";
             textBoxFilterBusinessPriceTo.Text = "10000";
             textBoxFilterTimeInFlightFrom.Text = "0";
-            textBoxFilterTimeInFlightTo.Text = "10";
-            textBoxFilterFreePlacesCountFrom.Text = "0";
-            textBoxFilterFreePlacesCountTo.Text = "100";
+            textBoxFilterTimeInFlightTo.Text = "10";           
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
@@ -53,8 +57,16 @@ namespace FlyTodayViews
             {
                 if (!textBoxDirectionCountryFrom.Text.IsNullOrEmpty() || !textBoxDirectionCityFrom.Text.IsNullOrEmpty() || !textBoxDirectionCountryTo.Text.IsNullOrEmpty() || !textBoxDirectionCityTo.Text.IsNullOrEmpty())
                 {
-                    List<FlightViewModel> foundFlights = [];
+                    List<FlightViewModel> foundFlights = [];    
                     var directions = _directionLogic.ReadList(new DirectionSearchModel
+                    {
+                        CountryFrom = textBoxDirectionCountryFrom.Text,
+                        CityFrom = textBoxDirectionCityFrom.Text,
+                        CountryTo = textBoxDirectionCountryTo.Text,
+                        CityTo = textBoxDirectionCityTo.Text
+                    });
+
+                    var transfers = _directionLogic.GetTwoDirectionsWithTransfer(new DirectionSearchModel
                     {
                         CountryFrom = textBoxDirectionCountryFrom.Text,
                         CityFrom = textBoxDirectionCityFrom.Text,
@@ -64,7 +76,7 @@ namespace FlyTodayViews
 
                     if (dateTimePickerDateFrom.Value > dateTimePickerDateTo.Value)
                     {
-                        MessageBox.Show("Начало периода не может быть позже конца", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Некорректный ввод периода", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }                        
 
@@ -78,11 +90,53 @@ namespace FlyTodayViews
                                 var filteredFlights = flights.Where(f => f.DepartureDate >= dateTimePickerDateFrom.Value.ToUniversalTime() && f.DepartureDate <= dateTimePickerDateTo.Value.ToUniversalTime()).ToList();
                                 foundFlights.AddRange(filteredFlights);
                             }
-                        }
+                        }                        
                     }
                     else
                     {
                         MessageBox.Show("По запросу ничего не найдено", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                    if (transfers != null)
+                    {                        
+                        foreach (var item in transfers)
+                        {
+                            var firstFlightsWithTransfer = _logic.ReadList(new FlightSearchModel { DirectionId = item.Item1.Id });
+                            var secondFlightsWithTransfer = _logic.ReadList(new FlightSearchModel { DirectionId = item.Item2.Id });
+                            if (firstFlightsWithTransfer != null && secondFlightsWithTransfer != null)
+                            {
+                                var firstFlights = firstFlightsWithTransfer.Where(f => f.DepartureDate >= dateTimePickerDateFrom.Value.ToUniversalTime() && f.DepartureDate <= dateTimePickerDateTo.Value.ToUniversalTime()).ToList();
+                                var secondFlights = secondFlightsWithTransfer.Where(f => f.DepartureDate >= dateTimePickerDateFrom.Value.ToUniversalTime() && f.DepartureDate <= dateTimePickerDateTo.Value.ToUniversalTime()).ToList();
+                                foreach (var firFlight in firstFlights)
+                                {
+                                    foreach (var secFlight in secondFlights)
+                                    {
+                                        foundFlights.Add(new FlightViewModel
+                                        {
+                                            Id = firFlight.Id,
+                                            PlaneId = firFlight.PlaneId,
+                                            DirectionId = -1,
+                                            DepartureDate = firFlight.DepartureDate.ToUniversalTime(),
+                                            FreePlacesCountEconom = firFlight.FreePlacesCountEconom <= secFlight.FreePlacesCountEconom ? firFlight.FreePlacesCountEconom : secFlight.FreePlacesCountEconom,
+                                            FreePlacesCountBusiness = firFlight.FreePlacesCountBusiness <= secFlight.FreePlacesCountBusiness ? firFlight.FreePlacesCountBusiness : secFlight.FreePlacesCountBusiness,
+                                            EconomPrice = firFlight.EconomPrice + secFlight.EconomPrice,
+                                            BusinessPrice = firFlight.BusinessPrice + secFlight.BusinessPrice,
+                                            HasTransit = "Есть",
+                                            TimeInFlight = Math.Round((secFlight.DepartureDate - firFlight.DepartureDate.AddHours(firFlight.TimeInFlight)).TotalHours, 2)
+                                        });
+
+                                        var directionFirst = _directionLogic.ReadElement(new DirectionSearchModel { Id = firFlight.DirectionId });
+                                        var directionSecond = _directionLogic.ReadElement(new DirectionSearchModel { Id = secFlight.DirectionId });
+
+                                        if (directionFirst != null && directionSecond != null)
+                                        {
+                                            dataGridView.Rows[dataGridView.Rows.Count - 1].Cells["FlightDirection"].Value = directionFirst.CountryFrom + " " + directionFirst.CityFrom + " - " + directionSecond.CountryTo + " " + directionSecond.CityTo;
+                                            dataGridView.Update();
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     if (checkBoxFilterEconomPrice.Checked)
@@ -99,27 +153,30 @@ namespace FlyTodayViews
                     {
                         foundFlights = FilterByTimeInFlight(foundFlights);
                     }
-
-                    if (checkBoxFilterFreePlacesCount.Checked)
+                    foreach (var item in foundFlights)
                     {
-                        foundFlights = FilterByFreePlacesCount(foundFlights);
+                        item.HasTransit ??= "Нет";
                     }
-
+                    
                     dataGridView.Visible = true;
                     dataGridView.DataSource = foundFlights;
                     dataGridView.Columns["Id"].Visible = false;
-                    dataGridView.Columns["DepartureDate"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns["FreePlacesCount"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns["DepartureDate"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+                    dataGridView.Columns["FreePlacesCountEconom"].Visible = false;
+                    dataGridView.Columns["FreePlacesCountBusiness"].Visible = false;
                     dataGridView.Columns["EconomPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView.Columns["BusinessPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView.Columns["TimeInFlight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView.Columns["PlaneId"].Visible = false;
                     dataGridView.Columns["DirectionId"].Visible = false;
                     dataGridView.Columns["PlaneModel"].Visible = true;
+                    dataGridView.Columns["HasTransit"].Visible = true;
                     dataGridView.Columns["FlightDirection"].Visible = true;
                     dataGridView.Columns["PlaneModel"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns["HasTransit"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
                     dataGridView.Columns["FlightDirection"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-
+                    var sortedList = SortList(foundFlights, dataGridView.Columns["EconomPrice"].DataPropertyName, isAscending);
+                    dataGridView.DataSource = sortedList;
                     ShowPlanesAndDirections();
                 }
                 MessageBox.Show("Поиск завершен", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -161,8 +218,8 @@ namespace FlyTodayViews
                 }
                 else
                 {
-                    row.Cells["FlightDirection"].Value = "Направление не найдено";
-                }
+                    row.Cells["FlightDirection"].Value = "Рейс с пересадкой";
+                }                
             }
         }
 
@@ -229,19 +286,6 @@ namespace FlyTodayViews
                 return list;
             }
         }
-        private List<FlightViewModel> FilterByFreePlacesCount(List<FlightViewModel> list)
-        {
-            if (int.TryParse(textBoxFilterFreePlacesCountFrom.Text, out int from) && int.TryParse(textBoxFilterFreePlacesCountTo.Text, out int to))
-            {
-                var filteredFlights = list.Where(f => f.FreePlacesCount >= from && f.FreePlacesCount <= to).ToList();
-                return filteredFlights;
-            }
-            else
-            {
-                MessageBox.Show("Параметры фильтра заполнены в недопустимом формате.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return list;
-            }
-        }
         private void checkBoxFilterEconomPrice_CheckedChanged(object sender, EventArgs e)
         {
             checkBoxNoFilters.Checked = false;
@@ -263,13 +307,6 @@ namespace FlyTodayViews
             textBoxFilterTimeInFlightTo.ReadOnly = !checkBoxFilterTimeInFlight.Checked;
         }
 
-        private void checkBoxFilterFreePlacesCount_CheckedChanged(object sender, EventArgs e)
-        {
-            checkBoxNoFilters.Checked = false;
-            textBoxFilterFreePlacesCountFrom.ReadOnly = !checkBoxFilterFreePlacesCount.Checked;
-            textBoxFilterFreePlacesCountTo.ReadOnly = !checkBoxFilterFreePlacesCount.Checked;
-        }
-
         private void checkBoxNoFilters_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxNoFilters.Checked)
@@ -277,11 +314,9 @@ namespace FlyTodayViews
                 checkBoxFilterEconomPrice.Checked = false;
                 checkBoxFilterBusinessPrice.Checked = false;
                 checkBoxFilterTimeInFlight.Checked = false;
-                checkBoxFilterFreePlacesCount.Checked = false;
             }
         }
 
-        private bool isAscending = true;
         private void dataGridView_ColumnHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.ColumnIndex >= 0)
@@ -291,7 +326,6 @@ namespace FlyTodayViews
                 dataGridView.DataSource = sortedList;
                 ShowPlanesAndDirections();
                 dataGridView.Refresh();
-
                 isAscending = !isAscending;
             }
         }
@@ -299,7 +333,6 @@ namespace FlyTodayViews
         private List<T> SortList<T>(List<T> list, string propertyName, bool isAscending)
         {
             var property = typeof(T).GetProperty(propertyName);
-
             if (property != null)
             {
                 if (isAscending)
@@ -311,7 +344,6 @@ namespace FlyTodayViews
                     return list.OrderByDescending(x => GetPropertyValue(x, propertyName)).ToList();
                 }
             }
-
             return list;
         }
 
@@ -320,6 +352,5 @@ namespace FlyTodayViews
             var property = typeof(T).GetProperty(propertyName);
             return property?.GetValue(obj, null);
         }
-
     }
 }

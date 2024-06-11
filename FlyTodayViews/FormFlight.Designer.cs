@@ -32,9 +32,7 @@
             label1 = new Label();
             label2 = new Label();
             buttonCancel = new Button();
-            label3 = new Label();
             label4 = new Label();
-            textBoxFreePlacesCount = new TextBox();
             comboBoxSelectDirection = new ComboBox();
             comboBoxSelectPlane = new ComboBox();
             label5 = new Label();
@@ -49,7 +47,7 @@
             // 
             // buttonSave
             // 
-            buttonSave.Location = new Point(276, 237);
+            buttonSave.Location = new Point(277, 212);
             buttonSave.Name = "buttonSave";
             buttonSave.Size = new Size(75, 23);
             buttonSave.TabIndex = 0;
@@ -77,7 +75,7 @@
             // 
             // buttonCancel
             // 
-            buttonCancel.Location = new Point(360, 237);
+            buttonCancel.Location = new Point(361, 212);
             buttonCancel.Name = "buttonCancel";
             buttonCancel.Size = new Size(75, 23);
             buttonCancel.TabIndex = 5;
@@ -85,30 +83,14 @@
             buttonCancel.UseVisualStyleBackColor = true;
             buttonCancel.Click += ButtonCancel_Click;
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(12, 114);
-            label3.Name = "label3";
-            label3.Size = new Size(168, 15);
-            label3.TabIndex = 6;
-            label3.Text = "Количество свободных мест:";
-            // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(12, 85);
+            label4.Location = new Point(12, 90);
             label4.Name = "label4";
             label4.Size = new Size(58, 15);
             label4.TabIndex = 7;
             label4.Text = "Самолет:";
-            // 
-            // textBoxFreePlacesCount
-            // 
-            textBoxFreePlacesCount.Location = new Point(276, 111);
-            textBoxFreePlacesCount.Name = "textBoxFreePlacesCount";
-            textBoxFreePlacesCount.Size = new Size(160, 23);
-            textBoxFreePlacesCount.TabIndex = 8;
             // 
             // comboBoxSelectDirection
             // 
@@ -133,7 +115,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(12, 143);
+            label5.Location = new Point(12, 118);
             label5.Name = "label5";
             label5.Size = new Size(240, 15);
             label5.TabIndex = 11;
@@ -142,7 +124,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(12, 172);
+            label6.Location = new Point(12, 147);
             label6.Name = "label6";
             label6.Size = new Size(236, 15);
             label6.TabIndex = 12;
@@ -151,7 +133,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(12, 201);
+            label7.Location = new Point(12, 176);
             label7.Name = "label7";
             label7.Size = new Size(82, 15);
             label7.TabIndex = 13;
@@ -166,21 +148,21 @@
             // 
             // textBoxEconomCost
             // 
-            textBoxEconomCost.Location = new Point(276, 140);
+            textBoxEconomCost.Location = new Point(276, 115);
             textBoxEconomCost.Name = "textBoxEconomCost";
             textBoxEconomCost.Size = new Size(160, 23);
             textBoxEconomCost.TabIndex = 15;
             // 
             // textBoxBusinessCost
             // 
-            textBoxBusinessCost.Location = new Point(276, 169);
+            textBoxBusinessCost.Location = new Point(276, 144);
             textBoxBusinessCost.Name = "textBoxBusinessCost";
             textBoxBusinessCost.Size = new Size(160, 23);
             textBoxBusinessCost.TabIndex = 16;
             // 
             // textBoxTimeInFlight
             // 
-            textBoxTimeInFlight.Location = new Point(229, 198);
+            textBoxTimeInFlight.Location = new Point(229, 173);
             textBoxTimeInFlight.Name = "textBoxTimeInFlight";
             textBoxTimeInFlight.Size = new Size(163, 23);
             textBoxTimeInFlight.TabIndex = 17;
@@ -188,7 +170,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(397, 206);
+            label8.Location = new Point(397, 181);
             label8.Name = "label8";
             label8.Size = new Size(39, 15);
             label8.TabIndex = 18;
@@ -198,7 +180,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(448, 265);
+            ClientSize = new Size(448, 241);
             Controls.Add(label8);
             Controls.Add(textBoxTimeInFlight);
             Controls.Add(textBoxBusinessCost);
@@ -209,9 +191,7 @@
             Controls.Add(label5);
             Controls.Add(comboBoxSelectPlane);
             Controls.Add(comboBoxSelectDirection);
-            Controls.Add(textBoxFreePlacesCount);
             Controls.Add(label4);
-            Controls.Add(label3);
             Controls.Add(buttonCancel);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -229,9 +209,7 @@
         private Label label1;
         private Label label2;
         private Button buttonCancel;
-        private Label label3;
         private Label label4;
-        private TextBox textBoxFreePlacesCount;
         private ComboBox comboBoxSelectDirection;
         private ComboBox comboBoxSelectPlane;
         private Label label5;

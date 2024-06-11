@@ -16,19 +16,6 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             _logger = logger;
             _directionStorage = directionStorage;
         }
-
-        public List<DirectionViewModel>? Search(DirectionSearchModel? model)
-        {
-            _logger.LogInformation("Search. CountryFrom:{CountryFrom}. CountryTo:{CountryTo}. CityFrom:{CityFrom}. CityTo:{CityTo}. Id:{ Id}", model?.CountryFrom, model?.CountryTo, model?.CityFrom, model?.CityTo, model?.Id);
-            var list = model == null ? _directionStorage.GetFullList() : _directionStorage.Search(model);
-            if (list == null)
-            {
-                _logger.LogWarning("Search return null list");
-                return null;
-            }
-            _logger.LogInformation("Search. Count:{Count}", list.Count);
-            return list;
-        }
         public bool Create(DirectionBindingModel model)
         {
             CheckModel(model);
@@ -79,6 +66,38 @@ namespace FlyTodayBusinessLogics.BusinessLogics
                 return null;
             }
             _logger.LogInformation("ReadList. Count:{Count}", list.Count);
+            return list;
+        }
+
+        public List<(DirectionViewModel, DirectionViewModel)> GetTwoDirectionsWithTransfer(DirectionSearchModel? model)
+        {
+            _logger.LogInformation("GetTwoDirectionsWithTransfer. CountryFrom:{CountryFrom}. CountryTo:{CountryTo}. CityFrom:{CityFrom}. CityTo:{CityTo}. Id:{ Id}", model?.CountryFrom, model?.CountryTo, model?.CityFrom, model?.CityTo, model?.Id);
+
+            var list = new List<(DirectionViewModel, DirectionViewModel)>();
+            if (model != null)
+            {
+                var listDirFrom = _directionStorage.GetFilteredList(new DirectionSearchModel
+                {
+                    CountryFrom = model.CountryFrom,
+                    CityFrom = model.CityFrom
+                });
+                if (listDirFrom != null)
+                {
+                    foreach (var dirFrom in listDirFrom)
+                    {
+                        var directionTo = _directionStorage.GetCountryCityFrom(new DirectionSearchModel
+                        {
+                            CityFrom = dirFrom.CityTo,
+                            CountryFrom = dirFrom.CountryTo
+                        });
+                        if (directionTo != null && (directionTo.CityTo.Equals(model.CityTo) || directionTo.CountryTo.Equals(model.CountryTo)))
+                        {
+                            list.Add((dirFrom, directionTo));
+                        }
+                    }
+                }
+            }
+            _logger.LogInformation("GetTwoDirectionsWithTransfer. Count:{Count}", list.Count);
             return list;
         }
 

@@ -14,7 +14,9 @@ namespace FlyTodayDatabaseImplements.Models
         [Required]
         public DateTime DepartureDate { get; private set; } = DateTime.Now;
         [Required]
-        public int FreePlacesCount { get; private set; }
+        public int FreePlacesCountEconom { get; private set; }
+        [Required]
+        public int FreePlacesCountBusiness { get; private set; }
         [Required]
         public int DirectionId { get; private set; }
         [Required]
@@ -39,7 +41,8 @@ namespace FlyTodayDatabaseImplements.Models
                 Id = model.Id,
                 PlaneId = model.PlaneId,
                 DepartureDate = model.DepartureDate,
-                FreePlacesCount = model.FreePlacesCount,
+                FreePlacesCountEconom = model.FreePlacesCountEconom,
+                FreePlacesCountBusiness = model.FreePlacesCountBusiness,
                 DirectionId = model.DirectionId,
                 EconomPrice = model.EconomPrice,
                 BusinessPrice = model.BusinessPrice,
@@ -82,7 +85,8 @@ namespace FlyTodayDatabaseImplements.Models
                 return;
             }
             DepartureDate = model.DepartureDate;
-            FreePlacesCount = model.FreePlacesCount;
+            FreePlacesCountEconom = model.FreePlacesCountEconom;
+            FreePlacesCountBusiness = model.FreePlacesCountBusiness;
             EconomPrice = model.EconomPrice;
             BusinessPrice = model.BusinessPrice;
             TimeInFlight = model.TimeInFlight;
@@ -93,7 +97,8 @@ namespace FlyTodayDatabaseImplements.Models
             Id = Id,
             PlaneId = PlaneId,
             DepartureDate = DepartureDate,
-            FreePlacesCount = FreePlacesCount,
+            FreePlacesCountEconom = FreePlacesCountEconom,
+            FreePlacesCountBusiness = FreePlacesCountBusiness,
             DirectionId = DirectionId,
             EconomPrice = EconomPrice,
             BusinessPrice = BusinessPrice,

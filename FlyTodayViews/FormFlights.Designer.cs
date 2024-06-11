@@ -33,6 +33,7 @@
             buttonUpd = new Button();
             buttonDel = new Button();
             buttonRef = new Button();
+            buttonCreatePlace = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
@@ -47,7 +48,7 @@
             // 
             // buttonAdd
             // 
-            buttonAdd.Location = new Point(1076, 136);
+            buttonAdd.Location = new Point(1076, 94);
             buttonAdd.Name = "buttonAdd";
             buttonAdd.Size = new Size(75, 23);
             buttonAdd.TabIndex = 1;
@@ -57,7 +58,7 @@
             // 
             // buttonUpd
             // 
-            buttonUpd.Location = new Point(1076, 184);
+            buttonUpd.Location = new Point(1076, 142);
             buttonUpd.Name = "buttonUpd";
             buttonUpd.Size = new Size(75, 23);
             buttonUpd.TabIndex = 2;
@@ -67,7 +68,7 @@
             // 
             // buttonDel
             // 
-            buttonDel.Location = new Point(1076, 236);
+            buttonDel.Location = new Point(1076, 194);
             buttonDel.Name = "buttonDel";
             buttonDel.Size = new Size(75, 23);
             buttonDel.TabIndex = 3;
@@ -77,7 +78,7 @@
             // 
             // buttonRef
             // 
-            buttonRef.Location = new Point(1076, 292);
+            buttonRef.Location = new Point(1076, 250);
             buttonRef.Name = "buttonRef";
             buttonRef.Size = new Size(75, 23);
             buttonRef.TabIndex = 4;
@@ -85,11 +86,22 @@
             buttonRef.UseVisualStyleBackColor = true;
             buttonRef.Click += ButtonRef_Click;
             // 
+            // buttonCreatePlace
+            // 
+            buttonCreatePlace.Location = new Point(1076, 298);
+            buttonCreatePlace.Name = "buttonCreatePlace";
+            buttonCreatePlace.Size = new Size(75, 41);
+            buttonCreatePlace.TabIndex = 5;
+            buttonCreatePlace.Text = "Добавить места";
+            buttonCreatePlace.UseVisualStyleBackColor = true;
+            buttonCreatePlace.Click += buttonCreatePlace_Click;
+            // 
             // FormFlights
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1187, 450);
+            Controls.Add(buttonCreatePlace);
             Controls.Add(buttonRef);
             Controls.Add(buttonDel);
             Controls.Add(buttonUpd);
@@ -109,5 +121,6 @@
         private Button buttonUpd;
         private Button buttonDel;
         private Button buttonRef;
+        private Button buttonCreatePlace;
     }
 }
