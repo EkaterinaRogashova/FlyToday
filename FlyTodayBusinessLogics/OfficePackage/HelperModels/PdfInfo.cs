@@ -1,9 +1,4 @@
 ﻿using FlyTodayContracts.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FlyTodayBusinessLogics.OfficePackage.HelperModels
 {
@@ -11,9 +6,12 @@ namespace FlyTodayBusinessLogics.OfficePackage.HelperModels
     {
         public string FileName { get; set; } = string.Empty;
         public string Title { get; set; } = string.Empty;
-        public DateTime DateFrom { get; set; }
-        public DateTime DateTo { get; set; }
+        public DateTime? DateFrom { get; set; }
+        public DateTime? DateTo { get; set; }
+        public string? DepartureDate { get; set; }
+        public string? Direction { get; set; }
         public List<ReportScheduleViewModel> Schedule { get; set; } = new();
         public List<ReportScheduleForEmployeeViewModel> ScheduleForEmployee { get; set; } = new();
+        public List<ReportBoardingPassesViewModel> BoardingPasses { get; set; } = new();
     }
 }

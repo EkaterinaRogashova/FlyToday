@@ -6,6 +6,7 @@ using FlyTodayDatabaseImplements.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualBasic.ApplicationServices;
 using System.Numerics;
+using System.Windows.Forms;
 
 namespace FlyTodayViews
 {
@@ -16,9 +17,10 @@ namespace FlyTodayViews
         private readonly IPlaneLogic _planeLogic;
         private readonly IDirectionLogic _directionLogic;
         private readonly IUserLogic _userLogic;
+        private readonly IReportLogic _reportLogic;
         private readonly AbstractMailWorker _mailWorker;
         private readonly IFlightSubscriberLogic _flightSubscriberLogic;
-        public FormFlights(ILogger<FormFlights> logger, IFlightLogic logic, IPlaneLogic planeLogic, IDirectionLogic directionLogic, IUserLogic userLogic, IFlightSubscriberLogic flightSubscriberLogic, AbstractMailWorker mailWorker)
+        public FormFlights(ILogger<FormFlights> logger, IFlightLogic logic, IPlaneLogic planeLogic, IDirectionLogic directionLogic, IUserLogic userLogic, IFlightSubscriberLogic flightSubscriberLogic, AbstractMailWorker mailWorker, IReportLogic reportLogic)
         {
             InitializeComponent();
             _logger = logger;
@@ -30,6 +32,7 @@ namespace FlyTodayViews
             _userLogic = userLogic;
             _flightSubscriberLogic = flightSubscriberLogic;
             _mailWorker = mailWorker;
+            _reportLogic = reportLogic;
         }
 
         private void FormFlights_Load(object sender, EventArgs e)
@@ -203,7 +206,7 @@ namespace FlyTodayViews
 
                             if (oldEconomPrice.HasValue && newEconomPrice.HasValue && flight.EconomPrice != oldEconomPrice)
                             {
-                                if(!HasSentNotification(flightId.FlightId, subscriber.UserId, oldEconomPrice.Value, newEconomPrice.Value, false))
+                                if (!HasSentNotification(flightId.FlightId, subscriber.UserId, oldEconomPrice.Value, newEconomPrice.Value, false))
                                 {
                                     var economSubject = $"Снижение цены билетов эконом-класса на рейс {direction.CountryFrom} {direction.CityFrom} - {direction.CountryTo} {direction.CityTo}";
                                     var economText = $"Стоимость билета эконом-класса теперь составляет {newEconomPrice} (была {oldEconomPrice}). \nУспейте приобрести билеты по выгодной цене! \n \n Ваша FlyToday.";
@@ -246,7 +249,7 @@ namespace FlyTodayViews
                                         IsBusiness = true,
                                         SentAt = DateTime.Now
                                     });
-                                }                                    
+                                }
                             }
                         }
                     }
@@ -261,7 +264,7 @@ namespace FlyTodayViews
 
         private void ClearOldNotifications()
         {
-            var expirationTime = TimeSpan.FromDays(10); 
+            var expirationTime = TimeSpan.FromDays(10);
             _sentNotifications.RemoveAll(n => n.SentAt < DateTime.Now - expirationTime);
         }
 
@@ -352,6 +355,43 @@ namespace FlyTodayViews
                 LoadData();
             }
             else MessageBox.Show("Нет билетов, у которых можно снизить цену.", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }     
+        }
+
+        private void buttonSaveReport_Click(object sender, EventArgs e)
+        {
+            if (dataGridView.SelectedRows.Count == 1)
+            {
+                var flight = _logic.ReadElement(new FlightSearchModel
+                {
+                    Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value)
+                });
+                if (flight != null)
+                {
+                    using var dialog = new SaveFileDialog { Filter = "pdf|*.pdf" };
+                    if (dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            _reportLogic.SaveBoardingPassesToPdf(new ReportBindingModel
+                            {
+                                FileName = dialog.FileName,
+                                FlightId = flight.Id
+                            });
+                            _logger.LogInformation("Сохранение списка посадочных талонов на рейс {FlightId}", flight.Id);
+                            MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogError(ex, "Ошибка сохранения списка посадочных талонов для рейса");
+                            MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }                
+            }
+            else
+            {
+                MessageBox.Show("Сначала выберите рейс", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
     }
 }

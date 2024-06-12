@@ -3,6 +3,7 @@ using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.StoragesContracts;
 using FlyTodayContracts.ViewModels;
 using FlyTodayDatabaseImplements.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,24 +32,30 @@ namespace FlyTodayDatabaseImplements.Implements
             using var context = new FlyTodayDatabase();
             if (model.Id.HasValue)
                 return context.Rents.FirstOrDefault(x => x.Id == model.Id)?.GetViewModel;
-            //if (!string.IsNullOrEmpty(model.Email) && !string.IsNullOrEmpty(model.Password))
-            //    return context.Rents.FirstOrDefault(x => x.Email.Equals(model.Email) && x.Password.Equals(model.Password))?.GetViewModel;
-            //if (!string.IsNullOrEmpty(model.Email))
-            //    return context.Rents.FirstOrDefault(x => x.Email.Equals(model.Email))?.GetViewModel;
             return null;
         }
 
         public List<RentViewModel> GetFilteredList(RentSearchModel model)
         {
-            if (model.UserId == null)
-            {
-                return new();
-            }
             using var context = new FlyTodayDatabase();
-            return context.Rents    
-            .Where(x => x.UserId.Equals(model.UserId))
-           .Select(x => x.GetViewModel)
-           .ToList();
+            var query = context.Rents.Include(x => x.Flight).Include(x => x.User);
+
+            if (model.Id.HasValue)
+            {
+                return query.Where(x => x.Id == model.Id).Select(x => x.GetViewModel).ToList();
+            }
+
+            else if (model.UserId.HasValue)
+            {
+                return query.Where(x => x.UserId == model.UserId).Select(x => x.GetViewModel).ToList();
+            }
+
+            else if (model.FlightId.HasValue)
+            {
+                return query.Where(x => x.FlightId == model.FlightId).Select(x => x.GetViewModel).ToList();
+            }
+
+            return null;            
         }
 
         public List<RentViewModel> GetFullList()

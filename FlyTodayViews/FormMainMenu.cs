@@ -180,6 +180,7 @@ namespace FlyTodayViews
                     buttonFlights.Visible = user.AccessRule == AccessEnum.Администратор;
                     buttonPlanes.Visible = user.AccessRule == AccessEnum.Администратор;
                     buttonSales.Visible = user.AccessRule == AccessEnum.Администратор;
+                    buttonDirStatistics.Visible = user.AccessRule == AccessEnum.Администратор;
                 }
                 else
                 {
@@ -188,6 +189,7 @@ namespace FlyTodayViews
                     buttonFlights.Visible = false;
                     buttonPlanes.Visible = false;
                     buttonSales.Visible = false;
+                    buttonDirStatistics.Visible = false;
                 }
             }
             else
@@ -197,6 +199,7 @@ namespace FlyTodayViews
                 buttonFlights.Visible = false;
                 buttonPlanes.Visible = false;
                 buttonSales.Visible = false;
+                buttonDirStatistics.Visible = false;
             }
             if (_currentUserId == null || _currentUserId <= 0)
             {
@@ -239,6 +242,15 @@ namespace FlyTodayViews
         {
             var service = Program.ServiceProvider?.GetService(typeof(FormFlightsSchedule));
             if (service is FormFlightsSchedule form)
+            {
+                form.ShowDialog();
+            }
+        }
+
+        private void buttonDirStatistics_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormDirectionStatistics));
+            if (service is FormDirectionStatistics form)
             {
                 form.ShowDialog();
             }

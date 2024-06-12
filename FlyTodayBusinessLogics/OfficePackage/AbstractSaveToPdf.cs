@@ -1,16 +1,11 @@
 ﻿using FlyTodayBusinessLogics.OfficePackage.HelperEnums;
 using FlyTodayBusinessLogics.OfficePackage.HelperModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FlyTodayBusinessLogics.OfficePackage
 {
     public abstract class AbstractSaveToPdf
     {
-        public void CreateDoc(PdfInfo info)
+        public void CreateDocReportBoardingPasses(PdfInfo info)
         {
             CreatePdf(info);
             CreateParagraph(new PdfParagraph
@@ -21,29 +16,35 @@ namespace FlyTodayBusinessLogics.OfficePackage
             });
             CreateParagraph(new PdfParagraph
             {
-                Text = $"с {info.DateFrom.ToShortDateString()} по {info.DateTo.ToShortDateString()}",
+                Text = $"на рейс {info.Direction} {info.DepartureDate}",
                 Style = "Normal",
                 ParagraphAlignment = PdfParagraphAlignmentType.Center
             });
-            //CreateTable(new List<string> { "6cm", "3cm", "6cm" });
-            //CreateRow(new PdfRowParameters
-            //{
-            //    Texts = new List<string> { "Дата создания рецепта", "Доза", "Способ применения" },
-            //    Style = "NormalTitle",
-            //    ParagraphAlignment = PdfParagraphAlignmentType.Center
-            //});
-            //foreach (var recipe in info.Recipes)
-            //{
-            //    CreateRow(new PdfRowParameters
-            //    {
-            //        Texts = new List<string> {
-            //        recipe.Date.ToShortDateString(), recipe.Dose, recipe.ModeofApplication },
-            //        Style = "Normal",
-            //        ParagraphAlignment = PdfParagraphAlignmentType.Left
-            //    });
-            //}
+            CreateTable(new List<string> { "6cm", "3cm", "5cm", "3cm" });
+            CreateRow(new PdfRowParameters
+            {
+                Texts = new List<string> { "ФИО", "Серия документа", "Номер документа", "Место"},
+                Style = "NormalTitle",
+                ParagraphAlignment = PdfParagraphAlignmentType.Center
+            });
+            foreach (var boardingPass in info.BoardingPasses)
+            {
+                CreateRow(new PdfRowParameters
+                {
+                    Texts = new List<string> { boardingPass.FIO,
+                    boardingPass.Seria, boardingPass.Number, boardingPass.Place },
+                    Style = "Normal",
+                    ParagraphAlignment = PdfParagraphAlignmentType.Left
+                });
+            }
+            CreateParagraph(new PdfParagraph
+            {
+                Text = $"\nИтого: {info.BoardingPasses.Count()}\t",
+                Style = "Normal",
+                ParagraphAlignment = PdfParagraphAlignmentType.Right
+            });
             SavePdf(info);
-        }
+        }        
         /// <summary>
         /// Создание doc-файла
         /// </summary>

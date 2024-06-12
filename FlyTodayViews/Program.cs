@@ -11,6 +11,8 @@ using System.Configuration;
 using Microsoft.Extensions.Configuration.Json;
 using FlyTodayContracts.BindingModels;
 using FlyTodayDatabaseImplements.Models;
+using FlyTodayBusinessLogics.OfficePackage;
+using FlyTodayBusinessLogics.OfficePackage.Implements;
 
 namespace FlyTodayViews
 {
@@ -83,6 +85,8 @@ namespace FlyTodayViews
             services.AddTransient<IScheduleLogic, ScheduleLogic>();
             services.AddTransient<ITicketLogic, TicketLogic>();
             services.AddTransient<IFlightSubscriberLogic, FlightSubscriberLogic>();
+            services.AddTransient<IReportLogic, ReportLogic>();
+            services.AddTransient<AbstractSaveToPdf, SaveToPdf>();
 
             services.AddTransient<FormMainMenu>();
             services.AddTransient<FormDirection>();
@@ -115,6 +119,7 @@ namespace FlyTodayViews
             services.AddTransient<FormBordingPass>();
             services.AddTransient<FormTransfer>();
             services.AddTransient<FormFlightsSchedule>();
+            services.AddTransient<FormDirectionStatistics>();
         }
     }
 }

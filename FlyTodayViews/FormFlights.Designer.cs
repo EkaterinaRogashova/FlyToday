@@ -35,6 +35,7 @@
             buttonRef = new Button();
             buttonCreatePlace = new Button();
             buttonReducePrices = new Button();
+            buttonSaveReport = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
@@ -49,7 +50,7 @@
             // 
             // buttonAdd
             // 
-            buttonAdd.Location = new Point(1064, 60);
+            buttonAdd.Location = new Point(1064, 12);
             buttonAdd.Name = "buttonAdd";
             buttonAdd.Size = new Size(99, 23);
             buttonAdd.TabIndex = 1;
@@ -59,7 +60,7 @@
             // 
             // buttonUpd
             // 
-            buttonUpd.Location = new Point(1064, 108);
+            buttonUpd.Location = new Point(1064, 41);
             buttonUpd.Name = "buttonUpd";
             buttonUpd.Size = new Size(99, 23);
             buttonUpd.TabIndex = 2;
@@ -69,7 +70,7 @@
             // 
             // buttonDel
             // 
-            buttonDel.Location = new Point(1064, 160);
+            buttonDel.Location = new Point(1064, 70);
             buttonDel.Name = "buttonDel";
             buttonDel.Size = new Size(99, 23);
             buttonDel.TabIndex = 3;
@@ -79,7 +80,7 @@
             // 
             // buttonRef
             // 
-            buttonRef.Location = new Point(1064, 216);
+            buttonRef.Location = new Point(1064, 99);
             buttonRef.Name = "buttonRef";
             buttonRef.Size = new Size(99, 23);
             buttonRef.TabIndex = 4;
@@ -89,7 +90,7 @@
             // 
             // buttonCreatePlace
             // 
-            buttonCreatePlace.Location = new Point(1064, 264);
+            buttonCreatePlace.Location = new Point(1064, 128);
             buttonCreatePlace.Name = "buttonCreatePlace";
             buttonCreatePlace.Size = new Size(99, 41);
             buttonCreatePlace.TabIndex = 5;
@@ -99,7 +100,7 @@
             // 
             // buttonReducePrices
             // 
-            buttonReducePrices.Location = new Point(1064, 330);
+            buttonReducePrices.Location = new Point(1064, 175);
             buttonReducePrices.Name = "buttonReducePrices";
             buttonReducePrices.Size = new Size(99, 70);
             buttonReducePrices.TabIndex = 6;
@@ -107,11 +108,22 @@
             buttonReducePrices.UseVisualStyleBackColor = true;
             buttonReducePrices.Click += buttonReducePrices_Click;
             // 
+            // buttonSaveReport
+            // 
+            buttonSaveReport.Location = new Point(1064, 251);
+            buttonSaveReport.Name = "buttonSaveReport";
+            buttonSaveReport.Size = new Size(99, 57);
+            buttonSaveReport.TabIndex = 7;
+            buttonSaveReport.Text = "Печать списка посадочных талонов";
+            buttonSaveReport.UseVisualStyleBackColor = true;
+            buttonSaveReport.Click += buttonSaveReport_Click;
+            // 
             // FormFlights
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1187, 450);
+            Controls.Add(buttonSaveReport);
             Controls.Add(buttonReducePrices);
             Controls.Add(buttonCreatePlace);
             Controls.Add(buttonRef);
@@ -135,5 +147,6 @@
         private Button buttonRef;
         private Button buttonCreatePlace;
         private Button buttonReducePrices;
+        private Button buttonSaveReport;
     }
 }

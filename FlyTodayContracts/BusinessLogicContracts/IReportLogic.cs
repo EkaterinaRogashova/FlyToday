@@ -13,5 +13,6 @@ namespace FlyTodayContracts.BusinessLogicContracts
         List<ReportScheduleViewModel> GetSchedule(List<int> Ids);
         List<ReportScheduleViewModel> GetScheduleForEmployee(List<int> Ids);
         void SaveRecipesToPdfFile(ReportBindingModel model);
+        void SaveBoardingPassesToPdf(ReportBindingModel model);
     }
 }

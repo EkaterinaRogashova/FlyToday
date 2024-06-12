@@ -108,153 +108,154 @@ namespace FlyTodayViews
 
         private void buttonCreateRent_Click(object sender, EventArgs e)
         {
-            if ((_currentUserId.HasValue || _currentUserId > 0) && (_currentFlightId.HasValue || _currentFlightId > 0))
-            {
-                if (string.IsNullOrEmpty(textBoxEconomy.Text) || string.IsNullOrEmpty(textBoxBusiness.Text))
-                {
-                    MessageBox.Show("Заполните поля", "Ошибка",
-                   MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                var view = _logic.ReadElement(new FlightSearchModel { Id = _currentFlightId.Value });
-                if (view != null)
-                {
-                    if (Convert.ToInt32(textBoxEconomy.Text) > view.FreePlacesCountEconom)
-                    {
-                        MessageBox.Show("Количество бронируемых мест эконом-класса превышает количество свободных!", "Ошибка",
-                       MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    if (Convert.ToInt32(textBoxBusiness.Text) > view.FreePlacesCountBusiness)
-                    {
-                        MessageBox.Show("Количество бронируемых мест бизнес-класса превышает количество свободных!", "Ошибка",
-                       MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    else
-                    {
-                        _logger.LogInformation("Сохранение бронирования");
-                        try
-                        {
-                            var model = new RentBindingModel
-                            {
-                                UserId = _currentUserId.Value,
-                                FlightId = _currentFlightId.Value,
-                                Cost = 0,
-                                NumberOfBusiness = Convert.ToInt32(textBoxBusiness.Text),
-                                NumberOfEconomy = Convert.ToInt32(textBoxEconomy.Text),
-                                Status = "Не оплачено"
-                            };
-                            var operationResult = _rentlogic.Create(model);
-                            if (!operationResult)
-                            {
-                                throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
-                            }
-                            Close();
-                            if (MessageBox.Show("Бронирование в личном кабинете. Перейти в личный кабинет?", "Сообщение",
-            MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                            {
-                                var service = Program.ServiceProvider?.GetService(typeof(FormProfile));
-                                if (service is FormProfile form)
-                                {
-                                    form.Id = _currentUserId.Value;
-                                    form.ShowDialog();
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            _logger.LogError(ex, "Ошибка сохранения бронирования");
-                            MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                           MessageBoxIcon.Error);
-                        }
-                    }
-                }
-            }
-            if ((_currentUserId.HasValue || _currentUserId > 0) && (_firflId.HasValue && _secflId.HasValue))
-            {
-                if (string.IsNullOrEmpty(textBoxEconomy.Text) || string.IsNullOrEmpty(textBoxBusiness.Text))
-                {
-                    MessageBox.Show("Заполните поля", "Ошибка",
-                   MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                var firfl = _logic.ReadElement(new FlightSearchModel { Id = _firflId.Value });
-                var secfl = _logic.ReadElement(new FlightSearchModel { Id = _secflId.Value });
-                int FreePlacesCountEconom = firfl.FreePlacesCountEconom <= secfl.FreePlacesCountEconom ? firfl.FreePlacesCountEconom : secfl.FreePlacesCountEconom;
-                int FreePlacesCountBusiness = firfl.FreePlacesCountBusiness <= secfl.FreePlacesCountBusiness ? firfl.FreePlacesCountBusiness : secfl.FreePlacesCountBusiness;
-                if (firfl != null && secfl != null)
-                {
-                    if (Convert.ToInt32(textBoxEconomy.Text) > FreePlacesCountEconom)
-                    {
-                        MessageBox.Show("Количество бронируемых мест эконом-класса превышает количество свободных!", "Ошибка",
-                       MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    if (Convert.ToInt32(textBoxBusiness.Text) > FreePlacesCountBusiness)
-                    {
-                        MessageBox.Show("Количество бронируемых мест бизнес-класса превышает количество свободных!", "Ошибка",
-                       MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    else
-                    {
-                        _logger.LogInformation("Сохранение бронирования");
-                        try
-                        {
-                            var model1 = new RentBindingModel
-                            {
-                                UserId = _currentUserId.Value,
-                                FlightId = _firflId.Value,
-                                Cost = 0,
-                                NumberOfBusiness = Convert.ToInt32(textBoxBusiness.Text),
-                                NumberOfEconomy = Convert.ToInt32(textBoxEconomy.Text),
-                                Status = "Не оплачено"
-                            };
-                            var operationResult = _rentlogic.Create(model1);
-                            var model2 = new RentBindingModel
-                            {
-                                UserId = _currentUserId.Value,
-                                FlightId = _secflId.Value,
-                                Cost = 0,
-                                NumberOfBusiness = Convert.ToInt32(textBoxBusiness.Text),
-                                NumberOfEconomy = Convert.ToInt32(textBoxEconomy.Text),
-                                Status = "Не оплачено"
-                            };
-                            var operationResult1 = _rentlogic.Create(model2);
-                            if (!operationResult)
-                            {
-                                throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
-                            }
-                            if (!operationResult1)
-                            {
-                                throw new Exception("Ошибка при сохранении второго бронирования. Дополнительная информация в логах.");
-                            }
-                            Close();
-                            if (MessageBox.Show("Бронирования в личном кабинете. Перейти в личный кабинет?", "Сообщение",
-            MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                            {
-                                var service = Program.ServiceProvider?.GetService(typeof(FormProfile));
-                                if (service is FormProfile form)
-                                {
-                                    form.Id = _currentUserId.Value;
-                                    form.ShowDialog();
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            _logger.LogError(ex, "Ошибка сохранения бронирований");
-                            MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
-                           MessageBoxIcon.Error);
-                        }
-                    }
-                }
-            }
+            if (!_currentUserId.HasValue || _currentUserId <= 0) MessageBox.Show("Сначала авторизуйтесь в системе!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
-                MessageBox.Show("Сначала авторизуйтесь в системе!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (_currentFlightId.HasValue || _currentFlightId > 0)
+                {
+                    if (string.IsNullOrEmpty(textBoxEconomy.Text) || string.IsNullOrEmpty(textBoxBusiness.Text))
+                    {
+                        MessageBox.Show("Заполните поля", "Ошибка",
+                       MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    var view = _logic.ReadElement(new FlightSearchModel { Id = _currentFlightId.Value });
+                    if (view != null)
+                    {
+                        if (Convert.ToInt32(textBoxEconomy.Text) > view.FreePlacesCountEconom)
+                        {
+                            MessageBox.Show("Количество бронируемых мест эконом-класса превышает количество свободных!", "Ошибка",
+                           MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        if (Convert.ToInt32(textBoxBusiness.Text) > view.FreePlacesCountBusiness)
+                        {
+                            MessageBox.Show("Количество бронируемых мест бизнес-класса превышает количество свободных!", "Ошибка",
+                           MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        else
+                        {
+                            _logger.LogInformation("Сохранение бронирования");
+                            try
+                            {
+                                var model = new RentBindingModel
+                                {
+                                    UserId = _currentUserId.Value,
+                                    FlightId = _currentFlightId.Value,
+                                    Cost = 0,
+                                    NumberOfBusiness = Convert.ToInt32(textBoxBusiness.Text),
+                                    NumberOfEconomy = Convert.ToInt32(textBoxEconomy.Text),
+                                    Status = "Не оплачено"
+                                };
+                                var operationResult = _rentlogic.Create(model);
+                                if (!operationResult)
+                                {
+                                    throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
+                                }
+                                Close();
+                                if (MessageBox.Show("Бронирование в личном кабинете. Перейти в личный кабинет?", "Сообщение",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                                {
+                                    var service = Program.ServiceProvider?.GetService(typeof(FormProfile));
+                                    if (service is FormProfile form)
+                                    {
+                                        form.Id = _currentUserId.Value;
+                                        form.ShowDialog();
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                _logger.LogError(ex, "Ошибка сохранения бронирования");
+                                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+                               MessageBoxIcon.Error);
+                            }
+                        }
+                    }
+                }
+                if (_firflId.HasValue && _secflId.HasValue)
+                {
+                    if (string.IsNullOrEmpty(textBoxEconomy.Text) || string.IsNullOrEmpty(textBoxBusiness.Text))
+                    {
+                        MessageBox.Show("Заполните поля", "Ошибка",
+                       MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    var firfl = _logic.ReadElement(new FlightSearchModel { Id = _firflId.Value });
+                    var secfl = _logic.ReadElement(new FlightSearchModel { Id = _secflId.Value });
+                    int FreePlacesCountEconom = firfl.FreePlacesCountEconom <= secfl.FreePlacesCountEconom ? firfl.FreePlacesCountEconom : secfl.FreePlacesCountEconom;
+                    int FreePlacesCountBusiness = firfl.FreePlacesCountBusiness <= secfl.FreePlacesCountBusiness ? firfl.FreePlacesCountBusiness : secfl.FreePlacesCountBusiness;
+                    if (firfl != null && secfl != null)
+                    {
+                        if (Convert.ToInt32(textBoxEconomy.Text) > FreePlacesCountEconom)
+                        {
+                            MessageBox.Show("Количество бронируемых мест эконом-класса превышает количество свободных!", "Ошибка",
+                           MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        if (Convert.ToInt32(textBoxBusiness.Text) > FreePlacesCountBusiness)
+                        {
+                            MessageBox.Show("Количество бронируемых мест бизнес-класса превышает количество свободных!", "Ошибка",
+                           MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        else
+                        {
+                            _logger.LogInformation("Сохранение бронирования");
+                            try
+                            {
+                                var model1 = new RentBindingModel
+                                {
+                                    UserId = _currentUserId.Value,
+                                    FlightId = _firflId.Value,
+                                    Cost = 0,
+                                    NumberOfBusiness = Convert.ToInt32(textBoxBusiness.Text),
+                                    NumberOfEconomy = Convert.ToInt32(textBoxEconomy.Text),
+                                    Status = "Не оплачено"
+                                };
+                                var operationResult = _rentlogic.Create(model1);
+                                var model2 = new RentBindingModel
+                                {
+                                    UserId = _currentUserId.Value,
+                                    FlightId = _secflId.Value,
+                                    Cost = 0,
+                                    NumberOfBusiness = Convert.ToInt32(textBoxBusiness.Text),
+                                    NumberOfEconomy = Convert.ToInt32(textBoxEconomy.Text),
+                                    Status = "Не оплачено"
+                                };
+                                var operationResult1 = _rentlogic.Create(model2);
+                                if (!operationResult)
+                                {
+                                    throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
+                                }
+                                if (!operationResult1)
+                                {
+                                    throw new Exception("Ошибка при сохранении второго бронирования. Дополнительная информация в логах.");
+                                }
+                                Close();
+                                if (MessageBox.Show("Бронирования в личном кабинете. Перейти в личный кабинет?", "Сообщение",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                                {
+                                    var service = Program.ServiceProvider?.GetService(typeof(FormProfile));
+                                    if (service is FormProfile form)
+                                    {
+                                        form.Id = _currentUserId.Value;
+                                        form.ShowDialog();
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                _logger.LogError(ex, "Ошибка сохранения бронирований");
+                                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+                               MessageBoxIcon.Error);
+                            }
+                        }
+                    }
+                }
             }
+            
         }
     }
 }
