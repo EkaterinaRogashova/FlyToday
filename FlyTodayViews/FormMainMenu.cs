@@ -22,7 +22,7 @@ namespace FlyTodayViews
             InitializeComponent();
             _logger = logger;
             _logic = logic;
-            LoadData();                    
+            LoadData();
         }
         private void buttonMainEnter_Click(object sender, EventArgs e)
         {
@@ -30,7 +30,8 @@ namespace FlyTodayViews
             if (service is FormEnter form)
             {
                 form.Show();
-            }            
+                Hide();
+            }
         }
 
         private void buttonMainRegistration_Click(object sender, EventArgs e)
@@ -150,7 +151,7 @@ namespace FlyTodayViews
                         }
                     }
                     else
-                    {                        
+                    {
                         MessageBox.Show("Пользователь не найден", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
@@ -209,8 +210,13 @@ namespace FlyTodayViews
         }
 
         private void FormMainMenu_Load(object sender, EventArgs e)
-        {            
+        {
             LoadData();
+        }
+
+        private void FormMainMenu_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

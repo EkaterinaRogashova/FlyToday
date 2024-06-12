@@ -41,8 +41,8 @@ namespace FlyTodayViews
                 {
                     Id = _id ?? 0,
                     ModelName = textBoxModelName.Text,
-                    EconomPlacesCount = Convert.ToInt32(textBoxBusinessPlacesCount.Text),
-                    BusinessPlacesCount = Convert.ToInt32(textBoxEconomPlacesCount.Text)
+                    EconomPlacesCount = Convert.ToInt32(textBoxEconomPlacesCount.Text),
+                    BusinessPlacesCount = Convert.ToInt32(textBoxBusinessPlacesCount.Text)
                 };
                 var operationResult = _id.HasValue ? _logic.Update(model) : _logic.Create(model);
                 if (!operationResult)

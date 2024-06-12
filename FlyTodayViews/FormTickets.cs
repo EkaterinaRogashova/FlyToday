@@ -35,7 +35,7 @@ namespace FlyTodayViews
 
         public int CurrentRentId { set { _currentRentId = value; } }
         private Dictionary<ComboBox, List<GroupBox>> _comboBoxToGroupBoxes = new Dictionary<ComboBox, List<GroupBox>>();
-        public FormTickets(ILogger<FormRent> logger, ITicketLogic logic, IRentLogic rentlogic, IFlightLogic flightlogic, IDirectionLogic directionlogic, ISaleLogic salelogic, IUserLogic userlogic)
+        public FormTickets(ILogger<FormRent> logger, ITicketLogic logic, IRentLogic rentlogic, IFlightLogic flightlogic, IDirectionLogic directionlogic, ISaleLogic salelogic, IUserLogic userlogic, AbstractMailWorker mailWorker)
         {
             InitializeComponent();
             _logger = logger;
@@ -45,6 +45,7 @@ namespace FlyTodayViews
             _directionlogic = directionlogic;
             _salelogic = salelogic;
             _userlogic = userlogic;
+            _mailWorker = mailWorker;
         }
         private GroupBox CloneGroupBox(GroupBox original)
         {
@@ -383,7 +384,7 @@ namespace FlyTodayViews
                 _rentlogic.Update(newView);
                 var user = _userlogic.ReadElement(new UserSearchModel { Id = newView.UserId });
                 var dir = _directionlogic.ReadElement(new DirectionSearchModel { Id = flight.DirectionId });
-                if (user.AllowNotifications)
+                if (user != null && user.AllowNotifications)
                 {
                     _mailWorker.MailSendAsync(new()
                     {

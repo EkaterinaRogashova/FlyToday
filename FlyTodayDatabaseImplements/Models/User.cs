@@ -31,6 +31,7 @@ namespace FlyTodayDatabaseImplements.Models
         public AccessEnum AccessRule { get; private set; }
         [Required]
         public bool AllowNotifications { get; private set; }
+        public FlightSubscriber FlightSubscriber { get; set; }
 
         public static User? Create(UserBindingModel model)
         {

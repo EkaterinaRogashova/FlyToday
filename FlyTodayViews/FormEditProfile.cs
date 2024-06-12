@@ -24,7 +24,7 @@ namespace FlyTodayViews
         }
 
         private void ButtonSave_Click(object sender, EventArgs e)
-        {
+         {
             if (string.IsNullOrEmpty(textBoxSurname.Text) || string.IsNullOrEmpty(textBoxName.Text) || string.IsNullOrEmpty(textBoxLastname.Text) || string.IsNullOrEmpty(dateTimePickerDateOfBirth.Text))
             {
                 MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -42,7 +42,7 @@ namespace FlyTodayViews
                 {
                     var model = new UserBindingModel
                     {
-                        Id = _id ?? -1,
+                        Id = _id.Value,
                         Surname = textBoxSurname.Text,
                         Name = textBoxName.Text,
                         LastName = textBoxLastname.Text,
@@ -56,7 +56,29 @@ namespace FlyTodayViews
                         throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
                     }
                     MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    DialogResult = DialogResult.OK;
+
+                    try
+                    {
+                        var currentUser = _logic.ReadElement(new UserSearchModel { Id = _id.Value });
+                        if (currentUser != null)
+                        {
+                            var service = Program.ServiceProvider?.GetService(typeof(FormProfile));
+                            if (service is FormProfile form)
+                            {
+                                form.Id = _id.Value;
+                                form.Show();
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Пользователь не найден", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Ошибка получения пользователя");
+                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                     Close();
                 }
             }

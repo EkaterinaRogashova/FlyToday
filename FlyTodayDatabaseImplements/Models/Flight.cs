@@ -79,6 +79,20 @@ namespace FlyTodayDatabaseImplements.Models
             }
         }
 
+        public void UpdateSubscriber(FlyTodayDatabase context, FlightBindingModel model)
+        {
+            FlightSubscriber subscriber = context.FlightSubscribers.First(x => x.FlightId == model.Id);
+            if (subscriber == null)
+            {
+                return;
+            }
+            else
+            {
+                model.Id = subscriber.FlightId;
+                FlightSubscriber = subscriber;
+            }
+        }
+
         public void Update(FlightBindingModel model)
         {
             if (model == null)

@@ -3,6 +3,7 @@ using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.StoragesContracts;
 using FlyTodayContracts.ViewModels;
 using FlyTodayDatabaseImplements.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlyTodayDatabaseImplements.Implements
 {
@@ -11,7 +12,7 @@ namespace FlyTodayDatabaseImplements.Implements
         public UserViewModel? Delete(UserBindingModel model)
         {
             using var context = new FlyTodayDatabase();
-            var element = context.Users.FirstOrDefault(rec => rec.Id == model.Id);
+            var element = context.Users.Include(x => x.FlightSubscriber).FirstOrDefault(rec => rec.Id == model.Id);
             if (element != null)
             {
                 context.Users.Remove(element);
@@ -25,9 +26,7 @@ namespace FlyTodayDatabaseImplements.Implements
         {
             using var context = new FlyTodayDatabase();
             if (model.Id.HasValue)
-                return context.Users.FirstOrDefault(x => x.Id == model.Id)?.GetViewModel;
-            //if (!string.IsNullOrEmpty(model.Email) && !string.IsNullOrEmpty(model.Password))
-                //return context.Users.FirstOrDefault(x => x.Email.Equals(model.Email) && x.Password.Equals(model.Password))?.GetViewModel;
+                return context.Users.Where(x => x.Id == model.Id).Select(x => x.GetViewModel).FirstOrDefault();
             if (!string.IsNullOrEmpty(model.Email))
                 return context.Users.FirstOrDefault(x => x.Email.Equals(model.Email))?.GetViewModel;
             return null;

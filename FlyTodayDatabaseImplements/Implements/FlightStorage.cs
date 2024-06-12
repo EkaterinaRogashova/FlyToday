@@ -65,6 +65,7 @@ namespace FlyTodayDatabaseImplements.Implements
             return context.Flights
              .Include(x => x.Direction)
             .Include(x => x.Plane)
+            .Include(x => x.FlightSubscriber)
             .ToList()
             .Select(x => x.GetViewModel)
             .ToList();
@@ -96,6 +97,7 @@ namespace FlyTodayDatabaseImplements.Implements
                 }
                 flight.UpdateDirection(context, model);
                 flight.UpdatePlane(context, model);
+                flight.UpdateSubscriber(context, model);
                 flight.Update(model);
                 context.SaveChanges();
                 transaction.Commit();

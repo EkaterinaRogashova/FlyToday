@@ -189,6 +189,12 @@ namespace FlyTodayDatabaseImplements.Migrations
                         principalTable: "Flights",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FlightSubscribers_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -338,6 +344,12 @@ namespace FlyTodayDatabaseImplements.Migrations
                 name: "IX_FlightSubscribers_FlightId",
                 table: "FlightSubscribers",
                 column: "FlightId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FlightSubscribers_UserId",
+                table: "FlightSubscribers",
+                column: "UserId",
                 unique: true);
 
             migrationBuilder.CreateIndex(

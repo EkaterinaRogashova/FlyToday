@@ -47,9 +47,10 @@
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(327, 12);
+            pictureBox1.Location = new Point(286, 9);
+            pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(205, 183);
+            pictureBox1.Size = new Size(179, 137);
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
@@ -57,9 +58,10 @@
             // 
             buttonMainSearch.BackColor = SystemColors.ActiveCaption;
             buttonMainSearch.Font = new Font("Segoe UI", 16F);
-            buttonMainSearch.Location = new Point(293, 212);
+            buttonMainSearch.Location = new Point(256, 159);
+            buttonMainSearch.Margin = new Padding(3, 2, 3, 2);
             buttonMainSearch.Name = "buttonMainSearch";
-            buttonMainSearch.Size = new Size(269, 52);
+            buttonMainSearch.Size = new Size(235, 39);
             buttonMainSearch.TabIndex = 1;
             buttonMainSearch.Text = "Поиск авиабилетов";
             buttonMainSearch.UseVisualStyleBackColor = false;
@@ -68,9 +70,10 @@
             // buttonMainEnter
             // 
             buttonMainEnter.Font = new Font("Segoe UI", 16F);
-            buttonMainEnter.Location = new Point(294, 269);
+            buttonMainEnter.Location = new Point(257, 202);
+            buttonMainEnter.Margin = new Padding(3, 2, 3, 2);
             buttonMainEnter.Name = "buttonMainEnter";
-            buttonMainEnter.Size = new Size(267, 47);
+            buttonMainEnter.Size = new Size(234, 35);
             buttonMainEnter.TabIndex = 2;
             buttonMainEnter.Text = "Вход";
             buttonMainEnter.UseVisualStyleBackColor = true;
@@ -80,9 +83,10 @@
             // 
             buttonMainRegistration.BackColor = SystemColors.ActiveCaption;
             buttonMainRegistration.Font = new Font("Segoe UI", 16F);
-            buttonMainRegistration.Location = new Point(293, 323);
+            buttonMainRegistration.Location = new Point(256, 242);
+            buttonMainRegistration.Margin = new Padding(3, 2, 3, 2);
             buttonMainRegistration.Name = "buttonMainRegistration";
-            buttonMainRegistration.Size = new Size(270, 53);
+            buttonMainRegistration.Size = new Size(236, 40);
             buttonMainRegistration.TabIndex = 3;
             buttonMainRegistration.Text = "Регистрация";
             buttonMainRegistration.UseVisualStyleBackColor = false;
@@ -91,9 +95,10 @@
             // buttonMainLK
             // 
             buttonMainLK.Font = new Font("Segoe UI", 16F);
-            buttonMainLK.Location = new Point(296, 382);
+            buttonMainLK.Location = new Point(259, 286);
+            buttonMainLK.Margin = new Padding(3, 2, 3, 2);
             buttonMainLK.Name = "buttonMainLK";
-            buttonMainLK.Size = new Size(265, 53);
+            buttonMainLK.Size = new Size(232, 40);
             buttonMainLK.TabIndex = 4;
             buttonMainLK.Text = "Личный кабинет";
             buttonMainLK.UseVisualStyleBackColor = true;
@@ -102,9 +107,10 @@
             // buttonEmployees
             // 
             buttonEmployees.Font = new Font("Segoe UI", 12F);
-            buttonEmployees.Location = new Point(575, 12);
+            buttonEmployees.Location = new Point(503, 9);
+            buttonEmployees.Margin = new Padding(3, 2, 3, 2);
             buttonEmployees.Name = "buttonEmployees";
-            buttonEmployees.Size = new Size(213, 67);
+            buttonEmployees.Size = new Size(186, 50);
             buttonEmployees.TabIndex = 5;
             buttonEmployees.Text = "К подбору персонала";
             buttonEmployees.UseVisualStyleBackColor = true;
@@ -113,9 +119,10 @@
             // buttonSales
             // 
             buttonSales.Font = new Font("Segoe UI", 12F);
-            buttonSales.Location = new Point(575, 93);
+            buttonSales.Location = new Point(503, 70);
+            buttonSales.Margin = new Padding(3, 2, 3, 2);
             buttonSales.Name = "buttonSales";
-            buttonSales.Size = new Size(213, 67);
+            buttonSales.Size = new Size(186, 50);
             buttonSales.TabIndex = 6;
             buttonSales.Text = "Льготы";
             buttonSales.UseVisualStyleBackColor = true;
@@ -123,10 +130,9 @@
             // 
             // buttonDirections
             // 
-            buttonDirections.Location = new Point(575, 167);
-            buttonDirections.Margin = new Padding(3, 4, 3, 4);
+            buttonDirections.Location = new Point(503, 125);
             buttonDirections.Name = "buttonDirections";
-            buttonDirections.Size = new Size(213, 31);
+            buttonDirections.Size = new Size(186, 23);
             buttonDirections.TabIndex = 7;
             buttonDirections.Text = "Направления";
             buttonDirections.UseVisualStyleBackColor = true;
@@ -134,10 +140,9 @@
             // 
             // buttonPlanes
             // 
-            buttonPlanes.Location = new Point(575, 212);
-            buttonPlanes.Margin = new Padding(3, 4, 3, 4);
+            buttonPlanes.Location = new Point(503, 159);
             buttonPlanes.Name = "buttonPlanes";
-            buttonPlanes.Size = new Size(213, 31);
+            buttonPlanes.Size = new Size(186, 23);
             buttonPlanes.TabIndex = 8;
             buttonPlanes.Text = "Самолеты";
             buttonPlanes.UseVisualStyleBackColor = true;
@@ -145,10 +150,9 @@
             // 
             // buttonFlights
             // 
-            buttonFlights.Location = new Point(575, 251);
-            buttonFlights.Margin = new Padding(3, 4, 3, 4);
+            buttonFlights.Location = new Point(503, 188);
             buttonFlights.Name = "buttonFlights";
-            buttonFlights.Size = new Size(211, 31);
+            buttonFlights.Size = new Size(185, 23);
             buttonFlights.TabIndex = 9;
             buttonFlights.Text = "Рейсы";
             buttonFlights.UseVisualStyleBackColor = true;
@@ -157,9 +161,9 @@
             // labelIsAuthorized
             // 
             labelIsAuthorized.AutoSize = true;
-            labelIsAuthorized.Location = new Point(14, 12);
+            labelIsAuthorized.Location = new Point(12, 9);
             labelIsAuthorized.Name = "labelIsAuthorized";
-            labelIsAuthorized.Size = new Size(50, 20);
+            labelIsAuthorized.Size = new Size(38, 15);
             labelIsAuthorized.TabIndex = 10;
             labelIsAuthorized.Text = "label1";
             // 
@@ -167,19 +171,20 @@
             // 
             button1.BackColor = SystemColors.ActiveCaption;
             button1.Font = new Font("Segoe UI", 16F);
-            button1.Location = new Point(293, 446);
+            button1.Location = new Point(256, 334);
+            button1.Margin = new Padding(3, 2, 3, 2);
             button1.Name = "button1";
-            button1.Size = new Size(270, 53);
+            button1.Size = new Size(236, 40);
             button1.TabIndex = 11;
             button1.Text = "Выйти";
             button1.UseVisualStyleBackColor = false;
             // 
             // FormMainMenu
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ButtonHighlight;
-            ClientSize = new Size(800, 511);
+            ClientSize = new Size(700, 383);
             Controls.Add(button1);
             Controls.Add(labelIsAuthorized);
             Controls.Add(buttonFlights);
@@ -192,8 +197,10 @@
             Controls.Add(buttonMainEnter);
             Controls.Add(buttonMainSearch);
             Controls.Add(pictureBox1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "FormMainMenu";
             Text = "Главная";
+            FormClosed += FormMainMenu_FormClosed;
             Load += FormMainMenu_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

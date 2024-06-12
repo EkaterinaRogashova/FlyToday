@@ -22,13 +22,17 @@ namespace FlyTodayViews
 
         private void buttonUpd_Click(object sender, EventArgs e)
         {
+            var user = _logic.ReadElement(new UserSearchModel { Id = _id.Value });
             var service = Program.ServiceProvider?.GetService(typeof(FormEditProfile));
             if (service is FormEditProfile form)
             {
                 if (_id != null)
                 {
+                    Hide();
                     form.Id = _id.Value;
-                    form.ShowDialog();
+                    form.Email = user.Email;
+                    form.Password = user.Password;
+                    form.Show();
                 }
             }
         }

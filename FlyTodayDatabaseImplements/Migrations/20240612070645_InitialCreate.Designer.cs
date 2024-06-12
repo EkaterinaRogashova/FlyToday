@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FlyTodayDatabaseImplements.Migrations
 {
     [DbContext(typeof(FlyTodayDatabase))]
-    [Migration("20240611230840_InitialCreate")]
+    [Migration("20240612070645_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -186,6 +186,9 @@ namespace FlyTodayDatabaseImplements.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("FlightId")
+                        .IsUnique();
+
+                    b.HasIndex("UserId")
                         .IsUnique();
 
                     b.ToTable("FlightSubscribers");
@@ -503,6 +506,12 @@ namespace FlyTodayDatabaseImplements.Migrations
                         .HasForeignKey("FlyTodayDatabaseImplements.Models.FlightSubscriber", "FlightId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("FlyTodayDatabaseImplements.Models.User", null)
+                        .WithOne("FlightSubscriber")
+                        .HasForeignKey("FlyTodayDatabaseImplements.Models.FlightSubscriber", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FlyTodayDatabaseImplements.Models.Rent", b =>
@@ -573,6 +582,12 @@ namespace FlyTodayDatabaseImplements.Migrations
             modelBuilder.Entity("FlyTodayDatabaseImplements.Models.Plane", b =>
                 {
                     b.Navigation("Flights");
+                });
+
+            modelBuilder.Entity("FlyTodayDatabaseImplements.Models.User", b =>
+                {
+                    b.Navigation("FlightSubscriber")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
