@@ -265,52 +265,6 @@ namespace FlyTodayViews
             _sentNotifications.RemoveAll(n => n.SentAt < DateTime.Now - expirationTime);
         }
 
-        /*private void SendPriceReductionNotifications(double? newEconomPrice, double? oldEconomPrice, double? newBusinessPrice, double? oldBusinessPrice)
-        {
-            var flightSubscribers = _flightSubscriberLogic.ReadList(null);
-            foreach (var subscriber in flightSubscribers)
-            {
-                if (subscriber != null)
-                {
-                    var flightIds = _flightSubscriberLogic.ReadList(new FlightSubscriberSearchModel { UserId = subscriber.UserId });
-                    var user = _userLogic.ReadElement(new UserSearchModel { Id = subscriber.UserId });
-
-                    if (user.AllowNotifications)
-                    {
-                        foreach (var flightId in flightIds)
-                        {
-                            var flight = _logic.ReadElement(new FlightSearchModel { Id = flightId.FlightId });
-                            var direction = _directionLogic.ReadElement(new DirectionSearchModel { Id = flight.DirectionId });
-
-                            if (oldEconomPrice.HasValue && newEconomPrice.HasValue && flight.EconomPrice != oldEconomPrice)
-                            {
-                                var economSubject = $"Снижение цены билетов эконом-класса на рейс {direction.CountryFrom} {direction.CityFrom} - {direction.CountryTo} {direction.CityTo}";
-                                var economText = $"Стоимость билета эконом-класса теперь составляет {newEconomPrice} (была {oldEconomPrice}). \n Успейте приобрести билеты по выгодной цене! \n \n Ваша FlyToday.";
-                                _mailWorker.MailSendAsync(new()
-                                {
-                                    MailAddress = user.Email,
-                                    Subject = economSubject,
-                                    Text = economText
-                                });
-                            }
-
-                            if (oldBusinessPrice.HasValue && newBusinessPrice.HasValue && flight.BusinessPrice != oldBusinessPrice)
-                            {
-                                var businessSubject = $"Снижение цены билетов бизнес-класса на рейс {direction.CountryFrom} {direction.CityFrom} - {direction.CountryTo} {direction.CityTo}";
-                                var businessText = $"Стоимость билета бизнес-класса теперь составляет {newBusinessPrice} (была {oldBusinessPrice}). \n Успейте приобрести билеты по выгодной цене! \n \n Ваша FlyToday.";
-                                _mailWorker.MailSendAsync(new()
-                                {
-                                    MailAddress = user.Email,
-                                    Subject = businessSubject,
-                                    Text = businessText
-                                });
-                            }
-                        }
-                    }
-                }
-            }
-        }*/
-
         private void buttonReducePrices_Click(object sender, EventArgs e)
         {
             var list = _logic.ReadList(null);

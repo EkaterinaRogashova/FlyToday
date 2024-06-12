@@ -218,5 +218,14 @@ namespace FlyTodayViews
         {
             Application.Exit();
         }
+
+        private void buttonSchedule_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormFlightsSchedule));
+            if (service is FormFlightsSchedule form)
+            {
+                form.ShowDialog();
+            }
+        }
     }
 }

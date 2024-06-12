@@ -390,7 +390,7 @@ namespace FlyTodayViews
                     {
                         MailAddress = user.Email,
                         Subject = "Оплата бронирования",
-                        Text = $"Ваше бронирование на рейс {dir.CountryFrom} {dir.CityFrom} - {dir.CountryTo} {dir.CityTo} на сумму {newView.Cost} успешно оплачено."
+                        Text = $"Ваше бронирование на рейс {dir.CountryFrom} {dir.CityFrom} - {dir.CountryTo} {dir.CityTo} на сумму {Math.Round(newView.Cost,2)} руб. успешно оплачено."
                     });
                 }                
                 var curFlight = new FlightBindingModel
