@@ -41,7 +41,6 @@
             buttonFlights = new Button();
             labelIsAuthorized = new Label();
             buttonExit = new Button();
-            button1 = new Button();
             buttonSchedule = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -49,9 +48,9 @@
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(327, 12);
+            pictureBox1.Location = new Point(291, 22);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(205, 183);
+            pictureBox1.Size = new Size(205, 149);
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
@@ -59,12 +58,10 @@
             // 
             buttonMainSearch.BackColor = SystemColors.ActiveCaption;
             buttonMainSearch.Font = new Font("Segoe UI", 16F);
-            buttonMainSearch.Location = new Point(293, 212);
-            buttonMainSearch.Location = new Point(184, 191);
+            buttonMainSearch.Location = new Point(246, 191);
             buttonMainSearch.Margin = new Padding(3, 2, 3, 2);
             buttonMainSearch.Name = "buttonMainSearch";
-            buttonMainSearch.Size = new Size(269, 52);
-            buttonMainSearch.Size = new Size(291, 39);
+            buttonMainSearch.Size = new Size(300, 50);
             buttonMainSearch.TabIndex = 1;
             buttonMainSearch.Text = "Поиск авиабилетов";
             buttonMainSearch.UseVisualStyleBackColor = false;
@@ -72,28 +69,25 @@
             // 
             // buttonMainEnter
             // 
+            buttonMainEnter.BackColor = SystemColors.ActiveCaption;
             buttonMainEnter.Font = new Font("Segoe UI", 16F);
-            buttonMainEnter.Location = new Point(294, 269);
-            buttonMainEnter.Location = new Point(181, 273);
+            buttonMainEnter.Location = new Point(246, 297);
             buttonMainEnter.Margin = new Padding(3, 2, 3, 2);
             buttonMainEnter.Name = "buttonMainEnter";
-            buttonMainEnter.Size = new Size(267, 47);
-            buttonMainEnter.Size = new Size(293, 35);
+            buttonMainEnter.Size = new Size(300, 50);
             buttonMainEnter.TabIndex = 2;
             buttonMainEnter.Text = "Вход";
-            buttonMainEnter.UseVisualStyleBackColor = true;
+            buttonMainEnter.UseVisualStyleBackColor = false;
             buttonMainEnter.Click += buttonMainEnter_Click;
             // 
             // buttonMainRegistration
             // 
-            buttonMainRegistration.BackColor = SystemColors.ActiveCaption;
+            buttonMainRegistration.BackColor = SystemColors.ControlLightLight;
             buttonMainRegistration.Font = new Font("Segoe UI", 16F);
-            buttonMainRegistration.Location = new Point(293, 323);
-            buttonMainRegistration.Location = new Point(180, 313);
+            buttonMainRegistration.Location = new Point(246, 351);
             buttonMainRegistration.Margin = new Padding(3, 2, 3, 2);
             buttonMainRegistration.Name = "buttonMainRegistration";
-            buttonMainRegistration.Size = new Size(270, 53);
-            buttonMainRegistration.Size = new Size(295, 40);
+            buttonMainRegistration.Size = new Size(300, 50);
             buttonMainRegistration.TabIndex = 3;
             buttonMainRegistration.Text = "Регистрация";
             buttonMainRegistration.UseVisualStyleBackColor = false;
@@ -101,73 +95,75 @@
             // 
             // buttonMainLK
             // 
+            buttonMainLK.BackColor = SystemColors.ActiveCaption;
             buttonMainLK.Font = new Font("Segoe UI", 16F);
-            buttonMainLK.Location = new Point(296, 381);
-            buttonMainLK.Location = new Point(183, 357);
+            buttonMainLK.Location = new Point(246, 405);
             buttonMainLK.Margin = new Padding(3, 2, 3, 2);
             buttonMainLK.Name = "buttonMainLK";
-            buttonMainLK.Size = new Size(265, 53);
-            buttonMainLK.Size = new Size(291, 40);
+            buttonMainLK.Size = new Size(300, 50);
             buttonMainLK.TabIndex = 4;
             buttonMainLK.Text = "Личный кабинет";
-            buttonMainLK.UseVisualStyleBackColor = true;
+            buttonMainLK.UseVisualStyleBackColor = false;
             buttonMainLK.Click += buttonMainLK_Click;
             // 
             // buttonEmployees
             // 
+            buttonEmployees.BackColor = SystemColors.ControlLightLight;
             buttonEmployees.Font = new Font("Segoe UI", 12F);
             buttonEmployees.Location = new Point(14, 47);
             buttonEmployees.Name = "buttonEmployees";
             buttonEmployees.Size = new Size(213, 67);
             buttonEmployees.TabIndex = 5;
             buttonEmployees.Text = "К подбору персонала";
-            buttonEmployees.UseVisualStyleBackColor = true;
+            buttonEmployees.UseVisualStyleBackColor = false;
             buttonEmployees.Click += buttonEmployees_Click;
             // 
             // buttonSales
             // 
+            buttonSales.BackColor = SystemColors.ControlLightLight;
             buttonSales.Font = new Font("Segoe UI", 12F);
             buttonSales.Location = new Point(14, 122);
             buttonSales.Name = "buttonSales";
             buttonSales.Size = new Size(213, 67);
             buttonSales.TabIndex = 6;
             buttonSales.Text = "Льготы";
-            buttonSales.UseVisualStyleBackColor = true;
+            buttonSales.UseVisualStyleBackColor = false;
             buttonSales.Click += buttonSales_Click;
             // 
             // buttonDirections
             // 
-            buttonDirections.Location = new Point(575, 50);
+            buttonDirections.BackColor = SystemColors.ControlLightLight;
+            buttonDirections.Location = new Point(548, 22);
             buttonDirections.Margin = new Padding(3, 4, 3, 4);
             buttonDirections.Name = "buttonDirections";
             buttonDirections.Size = new Size(213, 67);
             buttonDirections.TabIndex = 7;
             buttonDirections.Text = "Направления";
-            buttonDirections.UseVisualStyleBackColor = true;
+            buttonDirections.UseVisualStyleBackColor = false;
             buttonDirections.Click += buttonDirections_Click;
             // 
             // buttonPlanes
             // 
-            buttonPlanes.Location = new Point(575, 125);
+            buttonPlanes.BackColor = SystemColors.ControlLightLight;
+            buttonPlanes.Location = new Point(548, 97);
             buttonPlanes.Margin = new Padding(3, 4, 3, 4);
-            buttonPlanes.Location = new Point(502, 156);
             buttonPlanes.Name = "buttonPlanes";
             buttonPlanes.Size = new Size(213, 64);
             buttonPlanes.TabIndex = 8;
             buttonPlanes.Text = "Самолеты";
-            buttonPlanes.UseVisualStyleBackColor = true;
+            buttonPlanes.UseVisualStyleBackColor = false;
             buttonPlanes.Click += buttonPlanes_Click;
             // 
             // buttonFlights
             // 
-            buttonFlights.Location = new Point(575, 201);
+            buttonFlights.BackColor = SystemColors.ControlLightLight;
+            buttonFlights.Location = new Point(550, 169);
             buttonFlights.Margin = new Padding(3, 4, 3, 4);
-            buttonFlights.Location = new Point(502, 185);
             buttonFlights.Name = "buttonFlights";
             buttonFlights.Size = new Size(211, 63);
             buttonFlights.TabIndex = 9;
             buttonFlights.Text = "Рейсы";
-            buttonFlights.UseVisualStyleBackColor = true;
+            buttonFlights.UseVisualStyleBackColor = false;
             buttonFlights.Click += buttonFlights_Click;
             // 
             // labelIsAuthorized
@@ -181,33 +177,24 @@
             // 
             // buttonExit
             // 
-            buttonExit.BackColor = SystemColors.ActiveCaption;
+            buttonExit.BackColor = SystemColors.ControlLightLight;
             buttonExit.Font = new Font("Segoe UI", 16F);
-            buttonExit.Location = new Point(293, 445);
+            buttonExit.Location = new Point(248, 460);
             buttonExit.Name = "buttonExit";
-            buttonExit.Size = new Size(270, 53);
+            buttonExit.Size = new Size(300, 50);
             buttonExit.TabIndex = 11;
             buttonExit.Text = "Выйти";
             buttonExit.UseVisualStyleBackColor = false;
             buttonExit.Click += buttonExit_Click;
-            button1.BackColor = SystemColors.ActiveCaption;
-            button1.Font = new Font("Segoe UI", 16F);
-            button1.Location = new Point(180, 405);
-            button1.Margin = new Padding(3, 2, 3, 2);
-            button1.Name = "button1";
-            button1.Size = new Size(295, 40);
-            button1.TabIndex = 11;
-            button1.Text = "Выйти";
-            button1.UseVisualStyleBackColor = false;
             // 
             // buttonSchedule
             // 
-            buttonSchedule.BackColor = SystemColors.Control;
-            buttonSchedule.Font = new Font("Segoe UI", 16F);
-            buttonSchedule.Location = new Point(183, 234);
+            buttonSchedule.BackColor = SystemColors.ControlLightLight;
+            buttonSchedule.Font = new Font("Segoe UI", 14F);
+            buttonSchedule.Location = new Point(246, 243);
             buttonSchedule.Margin = new Padding(3, 2, 3, 2);
             buttonSchedule.Name = "buttonSchedule";
-            buttonSchedule.Size = new Size(291, 35);
+            buttonSchedule.Size = new Size(300, 50);
             buttonSchedule.TabIndex = 12;
             buttonSchedule.Text = "Расписание на сегодня";
             buttonSchedule.UseVisualStyleBackColor = false;
@@ -218,11 +205,9 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ButtonHighlight;
-            ClientSize = new Size(800, 511);
+            ClientSize = new Size(773, 522);
             Controls.Add(buttonExit);
-            ClientSize = new Size(700, 454);
             Controls.Add(buttonSchedule);
-            Controls.Add(button1);
             Controls.Add(labelIsAuthorized);
             Controls.Add(buttonFlights);
             Controls.Add(buttonPlanes);
@@ -257,7 +242,6 @@
         private Button buttonFlights;
         private Label labelIsAuthorized;
         private Button buttonExit;
-        private Button button1;
         private Button buttonSchedule;
     }
 }

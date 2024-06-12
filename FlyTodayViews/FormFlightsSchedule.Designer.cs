@@ -46,9 +46,10 @@
             // 
             panel1.AutoScroll = true;
             panel1.Controls.Add(groupBoxFlight);
-            panel1.Location = new Point(0, 38);
+            panel1.Location = new Point(12, 50);
+            panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(660, 412);
+            panel1.Size = new Size(750, 549);
             panel1.TabIndex = 0;
             // 
             // groupBoxFlight
@@ -58,38 +59,40 @@
             groupBoxFlight.Controls.Add(labelPlane);
             groupBoxFlight.Controls.Add(labelDepartureDate);
             groupBoxFlight.Controls.Add(labelDirection);
-            groupBoxFlight.Location = new Point(12, 3);
+            groupBoxFlight.FlatStyle = FlatStyle.Flat;
+            groupBoxFlight.Location = new Point(3, 4);
+            groupBoxFlight.Margin = new Padding(3, 4, 3, 4);
             groupBoxFlight.Name = "groupBoxFlight";
-            groupBoxFlight.Size = new Size(636, 41);
+            groupBoxFlight.Padding = new Padding(3, 2, 3, 4);
+            groupBoxFlight.Size = new Size(744, 55);
             groupBoxFlight.TabIndex = 0;
             groupBoxFlight.TabStop = false;
-            groupBoxFlight.Text = "groupBox1";
             groupBoxFlight.Visible = false;
             // 
             // labelRegistration
             // 
             labelRegistration.AutoSize = true;
-            labelRegistration.Location = new Point(471, 19);
+            labelRegistration.Location = new Point(550, 22);
             labelRegistration.Name = "labelRegistration";
-            labelRegistration.Size = new Size(149, 15);
+            labelRegistration.Size = new Size(188, 20);
             labelRegistration.TabIndex = 3;
             labelRegistration.Text = "Регистрация закончилась";
             // 
             // labelPlane
             // 
             labelPlane.AutoSize = true;
-            labelPlane.Location = new Point(390, 19);
+            labelPlane.Location = new Point(480, 22);
             labelPlane.Name = "labelPlane";
-            labelPlane.Size = new Size(41, 15);
+            labelPlane.Size = new Size(52, 20);
             labelPlane.TabIndex = 2;
             labelPlane.Text = "боинк";
             // 
             // labelDepartureDate
             // 
             labelDepartureDate.AutoSize = true;
-            labelDepartureDate.Location = new Point(257, 19);
+            labelDepartureDate.Location = new Point(317, 22);
             labelDepartureDate.Name = "labelDepartureDate";
-            labelDepartureDate.Size = new Size(91, 15);
+            labelDepartureDate.Size = new Size(118, 20);
             labelDepartureDate.TabIndex = 1;
             labelDepartureDate.Text = "12.06.2024 16:41";
             // 
@@ -97,62 +100,64 @@
             // 
             labelDirection.AutoSize = true;
             labelDirection.Font = new Font("Segoe UI", 9F, FontStyle.Bold | FontStyle.Italic);
-            labelDirection.Location = new Point(10, 19);
+            labelDirection.Location = new Point(11, 23);
+            labelDirection.MinimumSize = new Size(300, 0);
             labelDirection.Name = "labelDirection";
-            labelDirection.Size = new Size(178, 15);
+            labelDirection.Size = new Size(300, 20);
             labelDirection.TabIndex = 0;
             labelDirection.Text = "Россия Азов - Россия Москва";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label4.Location = new Point(473, 17);
+            label4.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label4.Location = new Point(612, 27);
             label4.Name = "label4";
-            label4.Size = new Size(93, 21);
+            label4.Size = new Size(97, 23);
             label4.TabIndex = 4;
             label4.Text = "Состояние";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label3.Location = new Point(390, 17);
+            label3.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label3.Location = new Point(483, 27);
             label3.Name = "label3";
-            label3.Size = new Size(77, 21);
+            label3.Size = new Size(80, 23);
             label3.TabIndex = 3;
             label3.Text = "Самолет";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label2.Location = new Point(223, 17);
+            label2.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label2.Location = new Point(305, 27);
             label2.Name = "label2";
-            label2.Size = new Size(161, 21);
+            label2.Size = new Size(172, 23);
             label2.TabIndex = 2;
             label2.Text = "Дата время вылета";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label1.Location = new Point(3, 17);
+            label1.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label1.Location = new Point(102, 27);
             label1.Name = "label1";
-            label1.Size = new Size(117, 21);
+            label1.Size = new Size(121, 23);
             label1.TabIndex = 1;
             label1.Text = "Направление";
             // 
             // FormFlightsSchedule
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(660, 450);
+            ClientSize = new Size(774, 600);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(panel1);
             Controls.Add(label2);
             Controls.Add(label1);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "FormFlightsSchedule";
             Text = "Расписание рейсов";
             Load += FormFlightsSchedule_Load;

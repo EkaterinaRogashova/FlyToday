@@ -1,8 +1,10 @@
 ﻿using FlyTodayBusinessLogics.BusinessLogics;
+using FlyTodayContracts.BindingModels;
 using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
+using MigraDoc.DocumentObjectModel.Tables;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,8 +34,10 @@ namespace FlyTodayViews
             _logger = logger;
             _rentlogic = rentLogic;
             dataGridView1.Columns.Add("Flight", "Рейс");
+            dataGridView1.Columns.Add("StatusFlight", "Состояние");
             _flightlogic = flightlogic;
             _directionlogic = directionlogic;
+            buttonDeleteRent.Enabled = false;
         }
 
         private void FormMyRents_Load(object sender, EventArgs e)
@@ -57,11 +61,12 @@ namespace FlyTodayViews
                         dataGridView1.Columns["Id"].Visible = false;
                         dataGridView1.Columns["UserId"].Visible = false;
                         dataGridView1.Columns["FlightId"].Visible = false;
-                        dataGridView1.Columns["Flight"].MinimumWidth = 250;
+                        dataGridView1.Columns["Flight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
                         dataGridView1.Columns["Cost"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                        dataGridView1.Columns["NumberOfBusiness"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                        dataGridView1.Columns["NumberOfEconomy"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        dataGridView1.Columns["NumberOfBusiness"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                        dataGridView1.Columns["NumberOfEconomy"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
                         dataGridView1.Columns["Status"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        dataGridView1.Columns["StatusFlight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                         foreach (DataGridViewRow row in dataGridView1.Rows)
                         {
                             int flightId = Convert.ToInt32(row.Cells["FlightId"].Value);
@@ -83,6 +88,24 @@ namespace FlyTodayViews
                                 {
                                     row.Cells["Flight"].Value = "Рейс не найден";
                                 }
+                            }
+                            if (DateTime.Now >= flight.DepartureDate)
+                            {
+                                row.Cells["StatusFlight"].Value = "Вылетел";
+                                buttonDeleteRent.Enabled = true;
+                            }
+                            if (DateTime.Now >= flight.DepartureDate - TimeSpan.FromMinutes(40) && DateTime.Now < flight.DepartureDate)
+                            {
+                                row.Cells["StatusFlight"].Value = "Регистрация закончилась";
+                            }
+                            
+                            if (DateTime.Now > flight.DepartureDate - TimeSpan.FromHours(2) && DateTime.Now < flight.DepartureDate - TimeSpan.FromMinutes(40))
+                            {
+                                row.Cells["StatusFlight"].Value = "Регистрация идет";
+                            }
+                            if (DateTime.Now < flight.DepartureDate - TimeSpan.FromHours(2))
+                            {
+                                row.Cells["StatusFlight"].Value = "Регистрация еще не началась";
                             }
                         }
 
@@ -126,7 +149,7 @@ namespace FlyTodayViews
                 }
                 else
                 {
-                    
+
                 }
             }
             button1.Enabled = true;
@@ -165,6 +188,39 @@ namespace FlyTodayViews
                 }
             }
             buttonLookTickets.Enabled = true;
+        }
+
+        private void buttonDeleteRent_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count == 1)
+            {
+                string statusFlight = dataGridView1.SelectedRows[0].Cells["StatusFlight"].Value.ToString();
+                if (statusFlight == "Вылетел")
+                {
+                    if (MessageBox.Show("Удалить запись?", "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        int id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
+                        _logger.LogInformation("Удаление брони");
+                        try
+                        {
+                            if (!_rentlogic.Delete(new RentBindingModel { Id = id }))
+                            {
+                                throw new Exception("Ошибка при удалении. Дополнительная информация в логах.");
+                            }
+                            LoadData();
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogError(ex, "Ошибка удаления брони");
+                            MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Вы не можете удалить запись, так как самолет еще не вылетел.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

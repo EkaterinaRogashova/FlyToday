@@ -3,6 +3,8 @@ using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.ViewModels;
 using FlyTodayDatabaseImplements.Models;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.Collections.Generic;
@@ -192,8 +194,8 @@ namespace FlyTodayViews
                                     EconomPrice = firFlight.EconomPrice + secFlight.EconomPrice,
                                     BusinessPrice = firFlight.BusinessPrice + secFlight.BusinessPrice,
                                     HasTransit = "Есть",
-                                    TimeInFlight = Math.Round((secFlight.DepartureDate - firFlight.DepartureDate.AddHours(firFlight.TimeInFlight)).TotalHours, 2)
-                                };
+                                    TimeInFlight = Math.Round(firFlight.TimeInFlight + secFlight.TimeInFlight + (secFlight.DepartureDate - firFlight.DepartureDate.AddHours(firFlight.TimeInFlight)).TotalHours, 2)
+                            };
 
                                 list.Add(newFlight);
                                 dataGridView.Rows.Add(newFlight);

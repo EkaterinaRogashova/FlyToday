@@ -103,6 +103,7 @@ namespace FlyTodayViews
                     _logic.ReadElement(new FlightSearchModel { DirectionId = _dir })
                 };                
                 var user = _userLogic.ReadElement(new UserSearchModel { Id = _currentUserId.Value });
+                bool operationResult = false;
                 if (user != null)
                 {
                     foreach (var flight in flights)
@@ -121,12 +122,11 @@ namespace FlyTodayViews
                                     UserId = user.Id,
                                     FlightId = flight.Id
                                 };
-                                var operationResult = _flightSubscriberLogic.Create(model);
+                                operationResult = _flightSubscriberLogic.Create(model);
                                 if (!operationResult)
                                 {
                                     throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
                                 }
-                                MessageBox.Show("Вы успешно подписались на изменение цены.", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 Close();
                             }
                             catch (Exception ex)
@@ -135,6 +135,10 @@ namespace FlyTodayViews
                                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
+                    }
+                    if (operationResult)
+                    {
+                        MessageBox.Show("Вы успешно подписались на изменение цены.", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 else MessageBox.Show("Пользователь не найден", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);

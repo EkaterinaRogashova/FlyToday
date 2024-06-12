@@ -5,6 +5,7 @@ using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.ViewModels;
 using Microsoft.Extensions.Logging;
+using MigraDoc.DocumentObjectModel.Tables;
 
 namespace FlyTodayViews
 {
@@ -37,6 +38,7 @@ namespace FlyTodayViews
             clone.Anchor = original.Anchor;
             clone.ForeColor = original.ForeColor;
             clone.BackColor = original.BackColor;
+            clone.FlatStyle = original.FlatStyle;
             foreach (Control control in original.Controls)
             {
                 Control clonedControl = CloneControl(control, control.Name);
@@ -90,32 +92,32 @@ namespace FlyTodayViews
                         var labelRegist = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelRegistration");
 
                         groupBox.Name = $"groupBoxTicket{flight.Id}";
-                        groupBox.Text = "";
                         groupBox.Dock = DockStyle.Top;
                         labelDir.Text = direction.CountryFrom + " " + direction.CityFrom + " - " + direction.CountryTo + " " + direction.CityTo;
                         labelDate.Text = flight.DepartureDate.ToShortDateString() + " " + flight.DepartureDate.ToShortTimeString();
                         labelPlane.Text = plane.ModelName;
-                        TimeSpan timeUntilDeparture = flight.DepartureDate - DateTime.Now;
-                        if (timeUntilDeparture <= TimeSpan.FromMinutes(40))
+                        labelRegist.TextAlign = ContentAlignment.MiddleCenter;
+                        labelDir.Font = new Font(labelDir.Font.FontFamily, labelDir.Font.Size, FontStyle.Bold | FontStyle.Italic);
+                        if (DateTime.Now >= flight.DepartureDate)
+                        {
+                            labelRegist.Text = "Вылетел";
+                            labelRegist.ForeColor = Color.Blue;
+                        }
+                        if (DateTime.Now >= flight.DepartureDate - TimeSpan.FromMinutes(40) && DateTime.Now < flight.DepartureDate)
                         {
                             labelRegist.Text = "Регистрация закончилась";
                             labelRegist.ForeColor = Color.Red;
-                        }                            
-                        else if (timeUntilDeparture < TimeSpan.FromMinutes(0))
-                        {
-                            labelRegist.Text = "Вылетел";
-                            labelRegist.ForeColor = Color.Green;
-                        }                            
-                        else if (TimeSpan.FromHours(2) <= timeUntilDeparture && timeUntilDeparture < TimeSpan.FromMinutes(40))
+                        }
+
+                        if (DateTime.Now > flight.DepartureDate - TimeSpan.FromHours(2) && DateTime.Now < flight.DepartureDate - TimeSpan.FromMinutes(40))
                         {
                             labelRegist.Text = "Регистрация идет";
-                            labelRegist.ForeColor = Color.Blue;
-                        }                            
-                        else
+                            labelRegist.ForeColor = Color.Green;
+                        }
+                        if (DateTime.Now < flight.DepartureDate - TimeSpan.FromHours(2))
                         {
                             labelRegist.Text = "Регистрация еще не началась";
-                            labelRegist.ForeColor = Color.Black;
-                        }                            
+                        }
                         panel1.Controls.Add(groupBox);
                     }
                 }
@@ -125,19 +127,6 @@ namespace FlyTodayViews
                 _logger.LogError(ex, "Ошибка получения рейса");
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void UpdateRegistrationLabel(DateTime departureDate, Label labelRegist)
-        {
-            TimeSpan timeUntilDeparture = departureDate - DateTime.Now;
-            if (timeUntilDeparture <= TimeSpan.FromMinutes(40))
-                labelRegist.Text = "Регистрация закончилась";
-            else if (timeUntilDeparture < TimeSpan.FromMinutes(0))
-                labelRegist.Text = "Вылетел";
-            else if (TimeSpan.FromHours(2) <= timeUntilDeparture && timeUntilDeparture < TimeSpan.FromMinutes(40))
-                labelRegist.Text = "Регистрация идет";
-            else
-                labelRegist.Text = "Регистрация еще не началась";
         }
     }
 }

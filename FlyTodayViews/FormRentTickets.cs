@@ -100,10 +100,6 @@ namespace FlyTodayViews
                         for (int i = 0; i < totalCount; i++)
                         {
                             var ticket = tickets[i];
-                            if (DateTime.Now >= flight.DepartureDate - TimeSpan.FromHours(2) && DateTime.Now <= flight.DepartureDate - TimeSpan.FromMinutes(40)) 
-                            {
-                                
-                            }
                             var groupBox = CloneGroupBox(groupBoxTicket, ticket.Id);
                             var bordingpasses = _boardingpasslogic.ReadElement(new BoardingPassSearchModel { TicketId = ticket.Id });
                             var labelPlace = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelPlace");
