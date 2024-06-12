@@ -79,14 +79,20 @@ namespace FlyTodayViews
 
             if (place != null)
             {
-                int rowCount = 6; // количество рядов
-                int buttonWidth = 35;
-                int buttonHeight = 35;
-                int buttonSpacing = 4; // промежуток между кнопками
-                int rowIndex = 0;
+                int buttonWidth = 45;
+                int buttonHeight = 45;
+                int buttonSpacing = 5; // промежуток между кнопками
+                int rowIndexEconom = 0;
+                int rowIndexBusiness = 0;
                 int colIndexEconom = 0;
                 int colIndexBusiness = 0;
-                var sortedPlaces = place.OrderBy(p => p.PlaceName);
+                var sortedPlaces = place.OrderBy(p => p.Id);
+                int totalButtons = sortedPlaces.Count();
+                int maxButtonsPerRowEconom = (panelEconom.Width - buttonSpacing) / (buttonWidth + buttonSpacing);
+                int maxButtonsPerRowBusiness = (panelBusiness.Width - buttonSpacing) / (buttonWidth + buttonSpacing);
+                int rowCountEconom = (totalButtons + maxButtonsPerRowEconom - 1) / maxButtonsPerRowEconom;
+                int rowCountBusiness = (totalButtons + maxButtonsPerRowBusiness - 1) / maxButtonsPerRowBusiness;
+
                 foreach (var pl in sortedPlaces)
                 {
                     Button btn = new Button();
@@ -106,31 +112,31 @@ namespace FlyTodayViews
                         ToggleButtonsState(btn);
                     };
                     allButtons.Add(btn);
-                    // Рассчитываем позицию кнопки
+
                     int x = 0;
                     int y = 0;
                     if (pl.PlaceName.Contains("econom"))
                     {
                         x = colIndexEconom * (buttonWidth + buttonSpacing);
-                        y = rowIndex * (buttonHeight + buttonSpacing);
+                        y = rowIndexEconom * (buttonHeight + buttonSpacing);
                         panelEconom.Controls.Add(btn);
                         colIndexEconom++;
-                        if (colIndexEconom >= rowCount)
+                        if (colIndexEconom >= maxButtonsPerRowEconom)
                         {
                             colIndexEconom = 0;
-                            rowIndex++;
+                            rowIndexEconom++;
                         }
                     }
                     else if (pl.PlaceName.Contains("business"))
                     {
                         x = colIndexBusiness * (buttonWidth + buttonSpacing);
-                        y = rowIndex * (buttonHeight + buttonSpacing);
+                        y = rowIndexBusiness * (buttonHeight + buttonSpacing);
                         panelBusiness.Controls.Add(btn);
                         colIndexBusiness++;
-                        if (colIndexBusiness >= rowCount)
+                        if (colIndexBusiness >= maxButtonsPerRowBusiness)
                         {
                             colIndexBusiness = 0;
-                            rowIndex++;
+                            rowIndexBusiness++;
                         }
                     }
                     btn.Location = new Point(x, y);

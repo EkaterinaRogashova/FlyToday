@@ -66,7 +66,6 @@ namespace FlyTodayViews
                 throw;
             }
         }
-
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (!string.IsNullOrEmpty(textBoxEmail.Text))

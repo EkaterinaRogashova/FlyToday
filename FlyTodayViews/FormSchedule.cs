@@ -117,13 +117,12 @@ namespace FlyTodayViews
             {
                 PositionAtWorkId = selectedJobId
             });
-            //расписание по смене
+            //сотрудники по смене
             var scheduleList = _schedulelogic.ReadList(new ScheduleSearchModel
             {
-                Shift = comboBox1.SelectedItem?.ToString(),
-                DateFrom = startDate,
-                DateTo = endDate
+                Shift = comboBox1.SelectedItem?.ToString()
             });
+            
             //объединение списков сотрудников и расписания (оба фильтрованны)
             var filteredList = from employee in employeesList
                                join schedule in scheduleList

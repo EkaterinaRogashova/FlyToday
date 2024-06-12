@@ -382,7 +382,7 @@ namespace FlyTodayViews
                     Status = "Оплачено"
                 };
                 _rentlogic.Update(newView);
-                var user = _userlogic.ReadElement(new UserSearchModel { Id = newView.UserId });
+                var user = _userlogic.ReadElement(new UserSearchModel { Id = view.UserId });
                 var dir = _directionlogic.ReadElement(new DirectionSearchModel { Id = flight.DirectionId });
                 if (user != null && user.AllowNotifications)
                 {
