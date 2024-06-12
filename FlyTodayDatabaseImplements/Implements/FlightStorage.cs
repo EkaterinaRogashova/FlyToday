@@ -28,7 +28,7 @@ namespace FlyTodayDatabaseImplements.Implements
 
         public FlightViewModel? GetElement(FlightSearchModel model)
         {
-            if (model.DepartureDate == null && !model.Id.HasValue)
+            if (model.FreePlacesCountBusiness == null && model.BusinessPrice == null && model.FreePlacesCountEconom == null && model.EconomPrice == null && model.DirectionId == null && model.DepartureDate == null && !model.Id.HasValue)
             {
                 return null;
             }
@@ -36,8 +36,9 @@ namespace FlyTodayDatabaseImplements.Implements
             return context.Flights
              .Include(x => x.Plane)
              .Include(x => x.Direction)
+             .Include(x => x.FlightSubscriber)
              .FirstOrDefault(x => (model.DepartureDate != null &&
-            x.DepartureDate == model.DepartureDate) ||
+            x.DepartureDate == model.DepartureDate) || (x.DirectionId == model.DirectionId) ||
             (model.Id.HasValue && x.Id == model.Id))
             ?.GetViewModel;
         }

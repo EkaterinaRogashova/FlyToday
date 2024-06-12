@@ -34,7 +34,6 @@
             labelDepartureDate2 = new Label();
             labelBusinessPrice2 = new Label();
             labelEconomPrice2 = new Label();
-            labelFreePlacesCount2 = new Label();
             labelPlane2 = new Label();
             labelTimeInFlight1 = new Label();
             label21 = new Label();
@@ -42,11 +41,9 @@
             labelDepartureDate1 = new Label();
             labelBusinessPrice1 = new Label();
             labelEconomPrice1 = new Label();
-            labelFreePlacesCount1 = new Label();
             labelPlane1 = new Label();
             label15 = new Label();
             label16 = new Label();
-            label17 = new Label();
             label18 = new Label();
             label9 = new Label();
             label8 = new Label();
@@ -54,6 +51,10 @@
             labelFirstDir = new Label();
             buttonTrackPriceChanges = new Button();
             buttonRent = new Button();
+            label1 = new Label();
+            labelGeneralTimeInFlight = new Label();
+            label2 = new Label();
+            labelTransferDur = new Label();
             groupBox2.SuspendLayout();
             SuspendLayout();
             // 
@@ -64,7 +65,6 @@
             groupBox2.Controls.Add(labelDepartureDate2);
             groupBox2.Controls.Add(labelBusinessPrice2);
             groupBox2.Controls.Add(labelEconomPrice2);
-            groupBox2.Controls.Add(labelFreePlacesCount2);
             groupBox2.Controls.Add(labelPlane2);
             groupBox2.Controls.Add(labelTimeInFlight1);
             groupBox2.Controls.Add(label21);
@@ -72,11 +72,9 @@
             groupBox2.Controls.Add(labelDepartureDate1);
             groupBox2.Controls.Add(labelBusinessPrice1);
             groupBox2.Controls.Add(labelEconomPrice1);
-            groupBox2.Controls.Add(labelFreePlacesCount1);
             groupBox2.Controls.Add(labelPlane1);
             groupBox2.Controls.Add(label15);
             groupBox2.Controls.Add(label16);
-            groupBox2.Controls.Add(label17);
             groupBox2.Controls.Add(label18);
             groupBox2.Controls.Add(label9);
             groupBox2.Controls.Add(label8);
@@ -84,7 +82,7 @@
             groupBox2.Controls.Add(labelFirstDir);
             groupBox2.Location = new Point(9, 12);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(530, 160);
+            groupBox2.Size = new Size(530, 150);
             groupBox2.TabIndex = 18;
             groupBox2.TabStop = false;
             groupBox2.Text = "Пересадка";
@@ -93,7 +91,7 @@
             // 
             labelTimeInFlight2.AutoSize = true;
             labelTimeInFlight2.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelTimeInFlight2.Location = new Point(394, 73);
+            labelTimeInFlight2.Location = new Point(397, 73);
             labelTimeInFlight2.Name = "labelTimeInFlight2";
             labelTimeInFlight2.Size = new Size(90, 15);
             labelTimeInFlight2.TabIndex = 41;
@@ -123,7 +121,7 @@
             // 
             labelBusinessPrice2.AutoSize = true;
             labelBusinessPrice2.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelBusinessPrice2.Location = new Point(394, 133);
+            labelBusinessPrice2.Location = new Point(394, 118);
             labelBusinessPrice2.Name = "labelBusinessPrice2";
             labelBusinessPrice2.Size = new Size(25, 15);
             labelBusinessPrice2.TabIndex = 38;
@@ -133,21 +131,11 @@
             // 
             labelEconomPrice2.AutoSize = true;
             labelEconomPrice2.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelEconomPrice2.Location = new Point(394, 118);
+            labelEconomPrice2.Location = new Point(394, 103);
             labelEconomPrice2.Name = "labelEconomPrice2";
             labelEconomPrice2.Size = new Size(25, 15);
             labelEconomPrice2.TabIndex = 37;
             labelEconomPrice2.Text = "100";
-            // 
-            // labelFreePlacesCount2
-            // 
-            labelFreePlacesCount2.AutoSize = true;
-            labelFreePlacesCount2.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelFreePlacesCount2.Location = new Point(394, 103);
-            labelFreePlacesCount2.Name = "labelFreePlacesCount2";
-            labelFreePlacesCount2.Size = new Size(25, 15);
-            labelFreePlacesCount2.TabIndex = 36;
-            labelFreePlacesCount2.Text = "100";
             // 
             // labelPlane2
             // 
@@ -202,7 +190,7 @@
             // 
             labelBusinessPrice1.AutoSize = true;
             labelBusinessPrice1.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelBusinessPrice1.Location = new Point(218, 133);
+            labelBusinessPrice1.Location = new Point(218, 118);
             labelBusinessPrice1.Name = "labelBusinessPrice1";
             labelBusinessPrice1.Size = new Size(25, 15);
             labelBusinessPrice1.TabIndex = 30;
@@ -212,21 +200,11 @@
             // 
             labelEconomPrice1.AutoSize = true;
             labelEconomPrice1.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelEconomPrice1.Location = new Point(218, 118);
+            labelEconomPrice1.Location = new Point(218, 103);
             labelEconomPrice1.Name = "labelEconomPrice1";
             labelEconomPrice1.Size = new Size(25, 15);
             labelEconomPrice1.TabIndex = 29;
             labelEconomPrice1.Text = "100";
-            // 
-            // labelFreePlacesCount1
-            // 
-            labelFreePlacesCount1.AutoSize = true;
-            labelFreePlacesCount1.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelFreePlacesCount1.Location = new Point(218, 103);
-            labelFreePlacesCount1.Name = "labelFreePlacesCount1";
-            labelFreePlacesCount1.Size = new Size(25, 15);
-            labelFreePlacesCount1.TabIndex = 28;
-            labelFreePlacesCount1.Text = "100";
             // 
             // labelPlane1
             // 
@@ -241,7 +219,7 @@
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(6, 133);
+            label15.Location = new Point(6, 118);
             label15.Name = "label15";
             label15.Size = new Size(194, 15);
             label15.TabIndex = 26;
@@ -250,20 +228,11 @@
             // label16
             // 
             label16.AutoSize = true;
-            label16.Location = new Point(6, 118);
+            label16.Location = new Point(6, 103);
             label16.Name = "label16";
             label16.Size = new Size(198, 15);
             label16.TabIndex = 25;
             label16.Text = "Стоимость билета эконом-класса:";
-            // 
-            // label17
-            // 
-            label17.AutoSize = true;
-            label17.Location = new Point(6, 103);
-            label17.Name = "label17";
-            label17.Size = new Size(168, 15);
-            label17.TabIndex = 24;
-            label17.Text = "Количество свободных мест:";
             // 
             // label18
             // 
@@ -315,35 +284,81 @@
             // 
             // buttonTrackPriceChanges
             // 
-            buttonTrackPriceChanges.Location = new Point(9, 207);
+            buttonTrackPriceChanges.Location = new Point(7, 260);
             buttonTrackPriceChanges.Name = "buttonTrackPriceChanges";
             buttonTrackPriceChanges.Size = new Size(530, 23);
             buttonTrackPriceChanges.TabIndex = 20;
             buttonTrackPriceChanges.Text = "Отслеживать изменение цены";
             buttonTrackPriceChanges.UseVisualStyleBackColor = true;
+            buttonTrackPriceChanges.Click += buttonTrackPriceChanges_Click;
             // 
             // buttonRent
             // 
-            buttonRent.Location = new Point(9, 178);
+            buttonRent.Location = new Point(7, 231);
             buttonRent.Name = "buttonRent";
             buttonRent.Size = new Size(530, 23);
             buttonRent.TabIndex = 19;
             buttonRent.Text = "Забронировать";
             buttonRent.UseVisualStyleBackColor = true;
+            buttonRent.Click += buttonRent_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(15, 175);
+            label1.Name = "label1";
+            label1.Size = new Size(123, 15);
+            label1.TabIndex = 42;
+            label1.Text = "Общее время в пути:";
+            // 
+            // labelGeneralTimeInFlight
+            // 
+            labelGeneralTimeInFlight.AutoSize = true;
+            labelGeneralTimeInFlight.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
+            labelGeneralTimeInFlight.Location = new Point(144, 175);
+            labelGeneralTimeInFlight.Name = "labelGeneralTimeInFlight";
+            labelGeneralTimeInFlight.Size = new Size(90, 15);
+            labelGeneralTimeInFlight.TabIndex = 42;
+            labelGeneralTimeInFlight.Text = "1 час 30 минут";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(15, 200);
+            label2.Name = "label2";
+            label2.Size = new Size(105, 15);
+            label2.TabIndex = 43;
+            label2.Text = "Длина пересадки:";
+            // 
+            // labelTransferDur
+            // 
+            labelTransferDur.AutoSize = true;
+            labelTransferDur.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
+            labelTransferDur.Location = new Point(144, 200);
+            labelTransferDur.Name = "labelTransferDur";
+            labelTransferDur.Size = new Size(90, 15);
+            labelTransferDur.TabIndex = 44;
+            labelTransferDur.Text = "1 час 30 минут";
             // 
             // FormTransfer
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(549, 237);
+            ClientSize = new Size(549, 290);
+            Controls.Add(labelTransferDur);
+            Controls.Add(label2);
+            Controls.Add(labelGeneralTimeInFlight);
+            Controls.Add(label1);
             Controls.Add(buttonTrackPriceChanges);
             Controls.Add(buttonRent);
             Controls.Add(groupBox2);
             Name = "FormTransfer";
             Text = "Информация о пересадке";
+            Load += FormTransfer_Load;
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -354,7 +369,6 @@
         private Label labelDepartureDate2;
         private Label labelBusinessPrice2;
         private Label labelEconomPrice2;
-        private Label labelFreePlacesCount2;
         private Label labelPlane2;
         private Label labelTimeInFlight1;
         private Label label21;
@@ -362,11 +376,9 @@
         private Label labelDepartureDate1;
         private Label labelBusinessPrice1;
         private Label labelEconomPrice1;
-        private Label labelFreePlacesCount1;
         private Label labelPlane1;
         private Label label15;
         private Label label16;
-        private Label label17;
         private Label label18;
         private Label label9;
         private Label label8;
@@ -374,5 +386,9 @@
         private Label labelFirstDir;
         private Button buttonTrackPriceChanges;
         private Button buttonRent;
+        private Label label1;
+        private Label labelGeneralTimeInFlight;
+        private Label label2;
+        private Label labelTransferDur;
     }
 }

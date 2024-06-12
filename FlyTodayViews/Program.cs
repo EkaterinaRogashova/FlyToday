@@ -113,6 +113,7 @@ namespace FlyTodayViews
             services.AddTransient<FormRentTickets>();
             services.AddTransient<FormCreatePlaces>();
             services.AddTransient<FormBordingPass>();
+            services.AddTransient<FormTransfer>();
         }
     }
 }
