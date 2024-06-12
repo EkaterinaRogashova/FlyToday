@@ -25,10 +25,11 @@ namespace FlyTodayViews
         private readonly IDirectionLogic _directionlogic;
         private readonly ISaleLogic _salelogic;
         private readonly IPlaceLogic _placelogic;
+        private readonly IFlightLogic _flightlogic;
         private int? _currentRentId;
         public int CurrentRentId { set { _currentRentId = value; } }
         private Dictionary<Button, int> buttonTicketIdMap = new Dictionary<Button, int>();
-        public FormRentTickets(ILogger<FormRent> logger, ITicketLogic logic, IRentLogic rentlogic, IBoardingPassLogic boardingpasslogic, IDirectionLogic directionlogic, ISaleLogic salelogic, IPlaceLogic placelogic)
+        public FormRentTickets(ILogger<FormRent> logger, ITicketLogic logic, IRentLogic rentlogic, IBoardingPassLogic boardingpasslogic, IDirectionLogic directionlogic, ISaleLogic salelogic, IPlaceLogic placelogic, IFlightLogic flightlogic)
         {
             InitializeComponent();
             _logger = logger;
@@ -38,6 +39,7 @@ namespace FlyTodayViews
             _salelogic = salelogic;
             _boardingpasslogic = boardingpasslogic;
             _placelogic = placelogic;
+            _flightlogic = flightlogic;
         }
 
         private GroupBox CloneGroupBox(GroupBox original, int ticketId)
@@ -88,6 +90,7 @@ namespace FlyTodayViews
                 {
                     _logger.LogInformation("Получение билетов в бронировании");
                     var view = _rentlogic.ReadElement(new RentSearchModel { Id = _currentRentId.Value });
+                    var flight = _flightlogic.ReadElement(new FlightSearchModel { Id = view.FlightId });
                     if (view != null)
                     {
                         var tickets = _logic.ReadList(new TicketSearchModel { RentId = _currentRentId.Value });
@@ -97,19 +100,43 @@ namespace FlyTodayViews
                         for (int i = 0; i < totalCount; i++)
                         {
                             var ticket = tickets[i];
+                            if (DateTime.Now >= flight.DepartureDate - TimeSpan.FromHours(2) && DateTime.Now <= flight.DepartureDate - TimeSpan.FromMinutes(40)) 
+                            {
+                                
+                            }
                             var groupBox = CloneGroupBox(groupBoxTicket, ticket.Id);
                             var bordingpasses = _boardingpasslogic.ReadElement(new BoardingPassSearchModel { TicketId = ticket.Id });
                             var labelPlace = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelPlace");
                             var buttonBoardingPass = groupBox.Controls.OfType<Button>().FirstOrDefault(b => b.Name == "buttonCreateBoardingPass");
-                            if (bordingpasses != null)
+                            if (DateTime.Now >= flight.DepartureDate - TimeSpan.FromHours(2) && DateTime.Now <= flight.DepartureDate - TimeSpan.FromMinutes(40))
                             {
-                                var place = _placelogic.ReadElement(new PlaceSearchModel { Id = bordingpasses.PlaceId });
-                                if (place != null) labelPlace.Text = place.PlaceName;
-                                buttonBoardingPass.Enabled = false;
+                                buttonBoardingPass.BackColor = Color.AliceBlue;
+                                if (bordingpasses != null)
+                                {
+                                    var place = _placelogic.ReadElement(new PlaceSearchModel { Id = bordingpasses.PlaceId });
+                                    if (place != null) labelPlace.Text = place.PlaceName;
+                                    buttonBoardingPass.Enabled = false;
+                                }
+                                else
+                                {
+                                    buttonBoardingPass.Enabled = true;
+                                    labelPlace.Text = "Билет не зарегестрирован.";
+                                }
                             }
                             else
                             {
-                                labelPlace.Text = "Билет не зарегестрирован.";
+                                buttonBoardingPass.BackColor = Color.Red;
+                                buttonBoardingPass.Enabled = false;
+                                if (bordingpasses != null)
+                                {
+                                    var place = _placelogic.ReadElement(new PlaceSearchModel { Id = bordingpasses.PlaceId });
+                                    if (place != null) labelPlace.Text = place.PlaceName;
+                                    buttonBoardingPass.Enabled = false;
+                                }
+                                else
+                                {
+                                    labelPlace.Text = "Билет не зарегестрирован.";
+                                }
                             }
                             var labelF = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelFIO");
                             var labelDoc = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelDocument");

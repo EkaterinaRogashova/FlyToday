@@ -97,7 +97,6 @@ namespace FlyTodayDatabaseImplements.Implements
                 }
                 flight.UpdateDirection(context, model);
                 flight.UpdatePlane(context, model);
-                flight.UpdateSubscriber(context, model);
                 flight.Update(model);
                 context.SaveChanges();
                 transaction.Commit();
