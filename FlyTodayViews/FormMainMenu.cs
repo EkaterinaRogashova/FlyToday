@@ -168,8 +168,10 @@ namespace FlyTodayViews
         }
         public void LoadData()
         {
+            buttonExit.Enabled = false;
             if (_currentUserId != null)
             {
+                buttonExit.Enabled = true;
                 var user = _logic.ReadElement(new UserSearchModel { Id = _currentUserId.Value });
                 if (user != null)
                 {
@@ -217,6 +219,20 @@ namespace FlyTodayViews
         private void FormMainMenu_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void buttonExit_Click(object sender, EventArgs e)
+        {
+            _currentUserId = null;
+            buttonDirections.Visible = false;
+            buttonEmployees.Visible = false;
+            buttonFlights.Visible = false;
+            buttonPlanes.Visible = false;
+            buttonSales.Visible = false;
+            buttonExit.Enabled = false;
+
+            MessageBox.Show("Вы вышли из системы.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            LoadData();
         }
     }
 }
