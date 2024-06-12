@@ -5,7 +5,7 @@ namespace FlyTodayBusinessLogics.OfficePackage
 {
     public abstract class AbstractSaveToPdf
     {
-        public void CreateDocReportBoardingPasses(PdfInfo info)
+        public void CreateDoc(PdfInfo info)
         {
             CreatePdf(info);
             CreateParagraph(new PdfParagraph
@@ -68,7 +68,9 @@ namespace FlyTodayBusinessLogics.OfficePackage
                     });
                 }
             }
-
+            SavePdf(info);
+        }
+        public void CreateDocReportBoardingPasses(PdfInfo info) { 
             CreateTable(new List<string> { "6cm", "3cm", "5cm", "3cm" });
             CreateRow(new PdfRowParameters
             {
@@ -93,7 +95,34 @@ namespace FlyTodayBusinessLogics.OfficePackage
                 ParagraphAlignment = PdfParagraphAlignmentType.Right
             });
             SavePdf(info);
-        }        
+        }
+        public void CreateDocReportBoardingPass(PdfInfo info)
+        {
+            CreateTable(new List<string> { "6cm", "3cm", "5cm", "3cm" });
+            CreateRow(new PdfRowParameters
+            {
+                Texts = new List<string> { "ФИО", "Серия документа", "Номер документа", "Место" },
+                Style = "NormalTitle",
+                ParagraphAlignment = PdfParagraphAlignmentType.Center
+            });
+            foreach (var boardingPass in info.BoardingPasses)
+            {
+                CreateRow(new PdfRowParameters
+                {
+                    Texts = new List<string> { boardingPass.FIO,
+                    boardingPass.Seria, boardingPass.Number, boardingPass.Place },
+                    Style = "Normal",
+                    ParagraphAlignment = PdfParagraphAlignmentType.Left
+                });
+            }
+            CreateParagraph(new PdfParagraph
+            {
+                Text = $"\nИтого: {info.BoardingPasses.Count()}\t",
+                Style = "Normal",
+                ParagraphAlignment = PdfParagraphAlignmentType.Right
+            });
+            SavePdf(info);
+        }
         /// <summary>
         /// Создание doc-файла
         /// </summary>

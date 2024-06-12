@@ -277,7 +277,7 @@ namespace FlyTodayViews
                 {
                     try
                     {
-                        _reportlogic.SaveReportScheduleForEmployeeToPdfFile(new ReportScheduleBindingModel
+                        _reportlogic.SaveReportScheduleForEmployeeToPdfFile(new ReportBindingModel
                         {
                             FileName = dialog.FileName,
                             EmployeeId = Id

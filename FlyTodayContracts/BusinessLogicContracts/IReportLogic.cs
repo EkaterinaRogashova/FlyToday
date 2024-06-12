@@ -10,13 +10,10 @@ namespace FlyTodayContracts.BusinessLogicContracts
 {
     public interface IReportLogic
     {
-        List<ReportScheduleViewModel> GetSchedule(ReportScheduleBindingModel model);
+        List<ReportScheduleViewModel> GetSchedule(ReportBindingModel model);
         List<ReportScheduleForEmployeeViewModel> GetScheduleForEmployee(List<int> Ids);
-        void SaveReportScheduleToPdfFile(ReportScheduleBindingModel model);
-        void SaveReportScheduleForEmployeeToPdfFile(ReportScheduleBindingModel model);
-        List<ReportScheduleViewModel> GetSchedule(List<int> Ids);
-        List<ReportScheduleViewModel> GetScheduleForEmployee(List<int> Ids);
-        void SaveRecipesToPdfFile(ReportBindingModel model);
+        void SaveReportScheduleToPdfFile(ReportBindingModel model);
+        void SaveReportScheduleForEmployeeToPdfFile(ReportBindingModel model);
         void SaveBoardingPassesToPdf(ReportBindingModel model);
     }
 }

@@ -229,7 +229,7 @@ namespace FlyTodayViews
             {
                 try
                 {
-                    _logic.SaveReportScheduleToPdfFile(new ReportScheduleBindingModel
+                    _logic.SaveReportScheduleToPdfFile(new ReportBindingModel
                     {
                         FileName = dialog.FileName,
                         DateFrom = dateTimePickerFrom.Value.ToUniversalTime(),

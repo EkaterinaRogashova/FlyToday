@@ -31,18 +31,15 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             _directionStorage = directionStorage;
             _placeStorage = placeStorage;
         }
-        public List<ReportScheduleViewModel> GetSchedule(ReportScheduleBindingModel model)
+        public List<ReportScheduleViewModel> GetSchedule(ReportBindingModel model)
         {
             var listAll = new List<ReportScheduleViewModel>();
 
-            var listSchedule = _scheduleStorage.GetFilteredList(new ScheduleSearchModel
-/*
-            var listRecipes = _scheduleStorage.GetFilteredList(new RecipesSearchModel
-            {
+            var listSchedule = _scheduleStorage.GetFilteredList(new ScheduleSearchModel { 
                 DateFrom = model.DateFrom,
                 DateTo = model.DateTo
             });
-            
+
             foreach (var schedule in listSchedule)
             {
                 var employee = _employeeStorage.GetElement(new EmployeeSearchModel
@@ -55,7 +52,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
                     Shift = schedule.Shift,
                     EmployeeFIO = employee.Surname + " " + employee.Name + " " + employee.LastName
                 });
-            }*/
+            }
             return listAll;
         }
 
@@ -88,7 +85,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             return result;
         }
 
-        public void SaveReportScheduleToPdfFile(ReportScheduleBindingModel model)
+        public void SaveReportScheduleToPdfFile(ReportBindingModel model)
         {
             if (model.DateFrom == null)
             {
@@ -109,7 +106,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             });
         }
 
-        public void SaveReportScheduleForEmployeeToPdfFile(ReportScheduleBindingModel model)
+        public void SaveReportScheduleForEmployeeToPdfFile(ReportBindingModel model)
         {
             if (model.EmployeeId == 0 && (model.Ids == null || model.Ids.Count == 0))
             {
@@ -131,6 +128,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
                 EmployeeFIO = scheduleForEmployees.First().EmployeeFIO,
                 ScheduleForEmployee = scheduleForEmployees
             });
+        }
         public List<ReportBoardingPassesViewModel> GetBoardingPasses(ReportBindingModel model)
         {
             List<ReportBoardingPassesViewModel> list = new();
@@ -193,6 +191,54 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             }
             return list;
         }
+        public List<ReportBoardingPassesViewModel> GetBoardingPass(ReportBindingModel model)
+        {
+            List<ReportBoardingPassesViewModel> list = new();
+            
+            var boardingPass = _boardingPassStorage.GetElement(new BoardingPassSearchModel
+            {
+                  TicketId = model.TicketId
+            });
+            if (boardingPass != null)
+            {
+                var ticket = _ticketStorage.GetElement(new TicketSearchModel
+                {
+                    Id = boardingPass.TicketId
+                });
+                var rent = _rentStorage.GetElement(new RentSearchModel
+                {
+                    Id = ticket.RentId
+                });
+                var flight = _flightStorage.GetElement(new FlightSearchModel
+                {
+                    Id = rent.FlightId
+                });
+                if (flight != null)
+                {
+                    var direction = _directionStorage.GetElement(new DirectionSearchModel
+                    {
+                        Id = flight.DirectionId
+                    });
+                    var place = _placeStorage.GetElement(new PlaceSearchModel
+                    {
+                        Id = boardingPass.PlaceId
+                    });
+                    if (place != null)
+                    {
+                        list.Add(new ReportBoardingPassesViewModel
+                        {
+                            FIO = ticket.Surname + " " + ticket.Name + " " + ticket.LastName,
+                            Seria = ticket.SeriesOfDocument,
+                            Number = ticket.NumberOfDocument,
+                            Place = place.PlaceName,
+                            FlightDirection = direction.CityFrom + " - " + direction.CityTo,
+                            DepartureDate = flight.DepartureDate
+                        });
+                    }
+                }
+            }
+            return list;
+        }
 
         public void SaveBoardingPassesToPdf(ReportBindingModel model)
         {
@@ -212,9 +258,24 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             });
         }
 
-        public void SaveRecipesToPdfFile(ReportBindingModel model)
+        public void SaveBoardingPassToPdfFile(ReportBindingModel model)
         {
-            throw new NotImplementedException();
+            if (model.TicketId == null)
+            {
+                throw new ArgumentException("билет не выбран");
+            }
+            var ticket = _ticketStorage.GetElement(new TicketSearchModel { Id = model.TicketId });
+            var rent = _rentStorage.GetElement(new RentSearchModel { Id = ticket.RentId });
+            var flight = _flightStorage.GetElement(new FlightSearchModel { Id = rent.FlightId });
+            var direction = _directionStorage.GetElement(new DirectionSearchModel { Id = flight.DirectionId });
+            _saveToPdf.CreateDocReportBoardingPasses(new PdfInfo
+            {
+                FileName = model.FileName,
+                Title = "Посадочный талон",
+                BoardingPass = GetBoardingPass(model),
+                Direction = direction.CityFrom + " - " + direction.CityTo,
+                DepartureDate = flight.DepartureDate.ToShortDateString() + " " + flight.DepartureDate.ToShortTimeString()
+            });
         }
     }
 }
