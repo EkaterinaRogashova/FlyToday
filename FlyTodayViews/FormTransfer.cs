@@ -145,6 +145,11 @@ namespace FlyTodayViews
         {
             if (_currentUserId.HasValue || _currentUserId > 0)
             {
+                var flights = new List<FlightViewModel>
+                {
+                    _logic.ReadElement(new FlightSearchModel { Id = _id.Value }),
+                    _logic.ReadElement(new FlightSearchModel { DirectionId = _dir })
+                };
                 try
                 {
                     var currentUser = _userLogic.ReadElement(new UserSearchModel { Id = _currentUserId.Value });
@@ -153,7 +158,8 @@ namespace FlyTodayViews
                         var service = Program.ServiceProvider?.GetService(typeof(FormRent));
                         if (service is FormRent form)
                         {
-                            form.CurrentFlightId = _id.Value;
+                            form.FirFl = flights[0].Id;
+                            form.SecFl = flights[1].Id;
                             form.CurrentUserId = _currentUserId.Value;
                             form.ShowDialog();
                         }

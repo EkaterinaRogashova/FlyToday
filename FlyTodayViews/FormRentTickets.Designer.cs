@@ -200,7 +200,7 @@
             button1.Font = new Font("Segoe UI", 12F);
             button1.Location = new Point(291, 382);
             button1.Name = "button1";
-            button1.Size = new Size(202, 41);
+            button1.Size = new Size(202, 56);
             button1.TabIndex = 2;
             button1.Text = "Обновить данные";
             button1.UseVisualStyleBackColor = false;
