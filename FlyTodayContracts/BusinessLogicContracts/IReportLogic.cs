@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FlyTodayContracts.BindingModels;
+using FlyTodayContracts.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,8 @@ namespace FlyTodayContracts.BusinessLogicContracts
 {
     public interface IReportLogic
     {
+        List<ReportScheduleViewModel> GetSchedule(List<int> Ids);
+        List<ReportScheduleViewModel> GetScheduleForEmployee(List<int> Ids);
+        void SaveRecipesToPdfFile(ReportBindingModel model);
     }
 }
