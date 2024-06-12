@@ -6,6 +6,9 @@ namespace FlyTodayBusinessLogics.OfficePackage.HelperModels
     {
         public string FileName { get; set; } = string.Empty;
         public string Title { get; set; } = string.Empty;
+        public string EmployeeFIO { get; set; } = string.Empty;
+        public DateTime DateFrom { get; set; }
+        public DateTime DateTo { get; set; }
         public DateTime? DateFrom { get; set; }
         public DateTime? DateTo { get; set; }
         public string? DepartureDate { get; set; }

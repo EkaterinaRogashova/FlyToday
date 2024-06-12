@@ -59,6 +59,7 @@ namespace FlyTodayViews
             services.AddTransient<IUserLogic, UserLogic>();
             services.AddTransient<IUserStorage, UserStorage>();
             services.AddSingleton<AbstractMailWorker, MailKitWorker>();
+            services.AddTransient<AbstractSaveToPdf, SaveToPdf>();
 
             services.AddTransient<IBoardingPassStorage, BoardingPassStorage>();
             services.AddTransient<IDirectionStorage, DirectionStorage>();
@@ -75,6 +76,7 @@ namespace FlyTodayViews
 
             services.AddTransient<IBoardingPassLogic, BoardingPassLogic>();
             services.AddTransient<IDirectionLogic, DirectionLogic>();
+            services.AddTransient<IReportLogic, ReportLogic>();
             services.AddTransient<IEmployeeLogic, EmployeeLogic>();
             services.AddTransient<IFlightLogic, FlightLogic>();
             services.AddTransient<IPlaceLogic, PlaceLogic>();
@@ -119,6 +121,7 @@ namespace FlyTodayViews
             services.AddTransient<FormBordingPass>();
             services.AddTransient<FormTransfer>();
             services.AddTransient<FormFlightsSchedule>();
+            services.AddTransient<FormStatisticTickets>();
             services.AddTransient<FormDirectionStatistics>();
         }
     }

@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
+            checkBox = new CheckBox();
+            buttonToPdf = new Button();
             buttonFilterCancel = new Button();
             buttonSaveFilter = new Button();
             label2 = new Label();
-            comboBox2 = new ComboBox();
-            label1 = new Label();
-            comboBox1 = new ComboBox();
-            buttonReport = new Button();
             label5 = new Label();
+            comboBox2 = new ComboBox();
             label4 = new Label();
+            label1 = new Label();
             dateTimePickerTo = new DateTimePicker();
             dateTimePickerFrom = new DateTimePicker();
+            comboBox1 = new ComboBox();
             dataGridView1 = new DataGridView();
-            checkBox = new CheckBox();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
@@ -50,7 +50,7 @@
             // 
             groupBox1.BackColor = SystemColors.GradientActiveCaption;
             groupBox1.Controls.Add(checkBox);
-            groupBox1.Controls.Add(buttonReport);
+            groupBox1.Controls.Add(buttonToPdf);
             groupBox1.Controls.Add(buttonFilterCancel);
             groupBox1.Controls.Add(buttonSaveFilter);
             groupBox1.Controls.Add(label2);
@@ -67,6 +67,26 @@
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Фильтр";
+            // 
+            // checkBox
+            // 
+            checkBox.AutoSize = true;
+            checkBox.Location = new Point(339, 29);
+            checkBox.Name = "checkBox";
+            checkBox.Size = new Size(177, 24);
+            checkBox.TabIndex = 11;
+            checkBox.Text = "Фильтровать по дате";
+            checkBox.UseVisualStyleBackColor = true;
+            // 
+            // buttonToPdf
+            // 
+            buttonToPdf.Location = new Point(586, 23);
+            buttonToPdf.Name = "buttonToPdf";
+            buttonToPdf.Size = new Size(108, 96);
+            buttonToPdf.TabIndex = 10;
+            buttonToPdf.Text = "Отчет";
+            buttonToPdf.UseVisualStyleBackColor = true;
+            buttonToPdf.Click += ButtonToPdf_Click;
             // 
             // buttonFilterCancel
             // 
@@ -97,43 +117,6 @@
             label2.TabIndex = 3;
             label2.Text = "Должность:";
             // 
-            // comboBox2
-            // 
-            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(169, 58);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(155, 28);
-            comboBox2.TabIndex = 2;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(7, 34);
-            label1.Name = "label1";
-            label1.Size = new Size(57, 20);
-            label1.TabIndex = 1;
-            label1.Text = "Смена:";
-            // 
-            // comboBox1
-            // 
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "", "День", "Ночь", "Отсыпной", "Выходной" });
-            comboBox1.Location = new Point(6, 58);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(148, 28);
-            comboBox1.TabIndex = 0;
-            // 
-            // buttonReport
-            // 
-            buttonReport.Location = new Point(586, 23);
-            buttonReport.Name = "buttonReport";
-            buttonReport.Size = new Size(108, 96);
-            buttonReport.TabIndex = 10;
-            buttonReport.Text = "Отчет";
-            buttonReport.UseVisualStyleBackColor = true;
-            // 
             // label5
             // 
             label5.AutoSize = true;
@@ -143,6 +126,15 @@
             label5.TabIndex = 8;
             label5.Text = "По:";
             // 
+            // comboBox2
+            // 
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Location = new Point(169, 58);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(155, 28);
+            comboBox2.TabIndex = 2;
+            // 
             // label4
             // 
             label4.AutoSize = true;
@@ -151,6 +143,15 @@
             label4.Size = new Size(21, 20);
             label4.TabIndex = 6;
             label4.Text = "С:";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(7, 34);
+            label1.Name = "label1";
+            label1.Size = new Size(57, 20);
+            label1.TabIndex = 1;
+            label1.Text = "Смена:";
             // 
             // dateTimePickerTo
             // 
@@ -166,6 +167,16 @@
             dateTimePickerFrom.Size = new Size(189, 27);
             dateTimePickerFrom.TabIndex = 6;
             // 
+            // comboBox1
+            // 
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "", "День", "Ночь", "Отсыпной", "Выходной" });
+            comboBox1.Location = new Point(6, 58);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(148, 28);
+            comboBox1.TabIndex = 0;
+            // 
             // dataGridView1
             // 
             dataGridView1.BackgroundColor = SystemColors.Control;
@@ -175,16 +186,6 @@
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(712, 398);
             dataGridView1.TabIndex = 2;
-            // 
-            // checkBox
-            // 
-            checkBox.AutoSize = true;
-            checkBox.Location = new Point(339, 29);
-            checkBox.Name = "checkBox";
-            checkBox.Size = new Size(177, 24);
-            checkBox.TabIndex = 11;
-            checkBox.Text = "Фильтровать по дате";
-            checkBox.UseVisualStyleBackColor = true;
             // 
             // FormSchedule
             // 
@@ -216,7 +217,7 @@
         private DataGridView dataGridView1;
         private Button buttonFilterCancel;
         private Button buttonSaveFilter;
-        private Button buttonReport;
+        private Button buttonToPdf;
         private CheckBox checkBox;
     }
 }

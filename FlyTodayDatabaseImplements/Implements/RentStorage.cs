@@ -54,8 +54,12 @@ namespace FlyTodayDatabaseImplements.Implements
             {
                 return query.Where(x => x.FlightId == model.FlightId).Select(x => x.GetViewModel).ToList();
             }
+            else if (!string.IsNullOrEmpty(model.Status))
+            {
+                return query.Where(x => x.Status.Equals(model.Status)).Select(x => x.GetViewModel).ToList();
+            }
 
-            return null;            
+            return null;
         }
 
         public List<RentViewModel> GetFullList()

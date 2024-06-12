@@ -180,6 +180,7 @@ namespace FlyTodayViews
                     buttonFlights.Visible = user.AccessRule == AccessEnum.Администратор;
                     buttonPlanes.Visible = user.AccessRule == AccessEnum.Администратор;
                     buttonSales.Visible = user.AccessRule == AccessEnum.Администратор;
+                    buttonStatisticTickets.Visible = user.AccessRule == AccessEnum.Администратор;
                     buttonDirStatistics.Visible = user.AccessRule == AccessEnum.Администратор;
                 }
                 else
@@ -189,6 +190,7 @@ namespace FlyTodayViews
                     buttonFlights.Visible = false;
                     buttonPlanes.Visible = false;
                     buttonSales.Visible = false;
+                    buttonStatisticTickets.Visible = false;
                     buttonDirStatistics.Visible = false;
                 }
             }
@@ -199,6 +201,7 @@ namespace FlyTodayViews
                 buttonFlights.Visible = false;
                 buttonPlanes.Visible = false;
                 buttonSales.Visible = false;
+                buttonStatisticTickets.Visible = false;
                 buttonDirStatistics.Visible = false;
             }
             if (_currentUserId == null || _currentUserId <= 0)
@@ -232,6 +235,7 @@ namespace FlyTodayViews
             buttonFlights.Visible = false;
             buttonPlanes.Visible = false;
             buttonSales.Visible = false;
+            buttonStatisticTickets.Visible = false;
             buttonExit.Enabled = false;
 
             MessageBox.Show("Вы вышли из системы.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -242,6 +246,15 @@ namespace FlyTodayViews
         {
             var service = Program.ServiceProvider?.GetService(typeof(FormFlightsSchedule));
             if (service is FormFlightsSchedule form)
+            {
+                form.ShowDialog();
+            }
+        }
+
+        private void buttonStatisticTickets_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormStatisticTickets));
+            if (service is FormStatisticTickets form)
             {
                 form.ShowDialog();
             }
