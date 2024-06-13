@@ -18,6 +18,8 @@ namespace FlyTodayDatabaseImplements.Models
         public int FlightId { get; private set; }
         [Required]
         public int UserId { get; private set; }
+        public Flight Flight { get; set; }
+        public User User { get; set; }
         public static FlightSubscriber? Create(FlightSubscriberBindingModel model)
         {
             if (model == null)
@@ -42,6 +44,7 @@ namespace FlyTodayDatabaseImplements.Models
         }
         public FlightSubscriberViewModel GetViewModel => new()
         {
+            Id = Id,
             FlightId = FlightId,
             UserId = UserId
         };

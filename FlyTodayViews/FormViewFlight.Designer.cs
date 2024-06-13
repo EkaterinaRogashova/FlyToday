@@ -55,10 +55,10 @@
             // 
             labelDirection.AutoSize = true;
             labelDirection.FlatStyle = FlatStyle.Flat;
-            labelDirection.Font = new Font("Segoe UI", 20F, FontStyle.Italic);
-            labelDirection.Location = new Point(34, 12);
+            labelDirection.Font = new Font("Segoe UI", 18F, FontStyle.Italic);
+            labelDirection.Location = new Point(48, 23);
             labelDirection.Name = "labelDirection";
-            labelDirection.Size = new Size(322, 46);
+            labelDirection.Size = new Size(285, 41);
             labelDirection.TabIndex = 0;
             labelDirection.Text = "Ульяновск - Москва";
             // 
@@ -268,13 +268,13 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(540, 329);
             ClientSize = new Size(617, 439);
             Controls.Add(buttonTrackPriceChanges);
             Controls.Add(groupBox1);
             Controls.Add(buttonRent);
             Controls.Add(labelDirection);
             Margin = new Padding(3, 4, 3, 4);
+            MinimizeBox = false;
             Name = "FormViewFlight";
             Text = "Информация о рейсе";
             Load += FormFlight_Load;

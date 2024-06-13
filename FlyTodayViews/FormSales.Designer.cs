@@ -87,6 +87,7 @@
             Controls.Add(buttonEdit);
             Controls.Add(buttonAdd);
             Controls.Add(dataGridView1);
+            MaximizeBox = false;
             Name = "FormSales";
             Text = "Льготы";
             Load += FormSales_Load;

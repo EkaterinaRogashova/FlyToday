@@ -22,7 +22,7 @@ namespace FlyTodayViews
             InitializeComponent();
             _logger = logger;
             _logic = logic;
-            LoadData();
+            //LoadData();
         }
         private void buttonMainEnter_Click(object sender, EventArgs e)
         {
@@ -140,6 +140,7 @@ namespace FlyTodayViews
             {
                 try
                 {
+                    Hide();
                     var currentUser = _logic.ReadElement(new UserSearchModel { Id = _currentUserId.Value });
                     if (currentUser != null)
                     {
@@ -147,7 +148,8 @@ namespace FlyTodayViews
                         if (service is FormProfile form)
                         {
                             form.Id = _currentUserId.Value;
-                            form.ShowDialog();
+                            form.Show();
+                            Hide();                            
                         }
                     }
                     else
@@ -182,6 +184,8 @@ namespace FlyTodayViews
                     buttonSales.Visible = user.AccessRule == AccessEnum.Администратор;
                     buttonStatisticTickets.Visible = user.AccessRule == AccessEnum.Администратор;
                     buttonDirStatistics.Visible = user.AccessRule == AccessEnum.Администратор;
+                    buttonMainRegistration.Enabled = false;
+                    buttonMainEnter.Enabled = false;
                 }
                 else
                 {
@@ -191,7 +195,7 @@ namespace FlyTodayViews
                     buttonPlanes.Visible = false;
                     buttonSales.Visible = false;
                     buttonStatisticTickets.Visible = false;
-                    buttonDirStatistics.Visible = false;
+                    buttonDirStatistics.Visible = false;                    
                 }
             }
             else
@@ -240,6 +244,7 @@ namespace FlyTodayViews
 
             MessageBox.Show("Вы вышли из системы.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
             LoadData();
+            buttonMainEnter.Enabled = true;
         }
 
         private void buttonSchedule_Click(object sender, EventArgs e)

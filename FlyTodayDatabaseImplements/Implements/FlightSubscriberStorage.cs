@@ -3,6 +3,7 @@ using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.StoragesContracts;
 using FlyTodayContracts.ViewModels;
 using FlyTodayDatabaseImplements.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlyTodayDatabaseImplements.Implements
 {
@@ -26,6 +27,8 @@ namespace FlyTodayDatabaseImplements.Implements
             using var context = new FlyTodayDatabase();
             if (model.Id.HasValue)
                 return context.FlightSubscribers.FirstOrDefault(x => x.Id == model.Id)?.GetViewModel;
+            if (model.UserId.HasValue && model.FlightId.HasValue)
+                return context.FlightSubscribers.FirstOrDefault(x => x.UserId == model.UserId && x.FlightId == model.FlightId)?.GetViewModel;
             return null;
         }
 
@@ -36,7 +39,7 @@ namespace FlyTodayDatabaseImplements.Implements
                 return new();
             }
             using var context = new FlyTodayDatabase();
-            return context.FlightSubscribers
+            return context.FlightSubscribers.Include(x => x.Flight).Include(x => x.User)
             .Where(x => x.UserId.Equals(model.UserId) || x.FlightId.Equals(model.FlightId))
            .Select(x => x.GetViewModel)
            .ToList();

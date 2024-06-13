@@ -141,6 +141,7 @@
             Controls.Add(buttonAdd);
             Controls.Add(dataGridView);
             Margin = new Padding(3, 4, 3, 4);
+            MaximizeBox = false;
             Name = "FormFlights";
             Text = "Рейсы";
             Load += FormFlights_Load;

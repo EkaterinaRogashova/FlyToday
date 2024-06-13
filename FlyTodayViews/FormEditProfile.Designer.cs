@@ -245,6 +245,7 @@
             Controls.Add(dateTimePickerDateOfBirth);
             Controls.Add(label1);
             Margin = new Padding(3, 4, 3, 4);
+            MaximizeBox = false;
             Name = "FormEditProfile";
             Text = "Редактирование профиля";
             Load += FormEditProfile_Load;

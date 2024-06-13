@@ -246,6 +246,7 @@
             Controls.Add(buttonMainEnter);
             Controls.Add(buttonMainSearch);
             Controls.Add(pictureBox1);
+            MaximizeBox = false;
             Name = "FormMainMenu";
             Text = "Главная";
             FormClosed += FormMainMenu_FormClosed;

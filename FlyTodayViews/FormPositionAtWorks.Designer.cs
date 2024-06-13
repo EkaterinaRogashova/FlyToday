@@ -87,6 +87,7 @@
             Controls.Add(buttonEdit);
             Controls.Add(buttonAdd);
             Controls.Add(dataGridView1);
+            MaximizeBox = false;
             Name = "FormPositionAtWorks";
             Text = "Должности";
             Load += FormPositionAtWorks_Load;

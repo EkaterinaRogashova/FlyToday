@@ -280,6 +280,7 @@
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(buttonSave);
+            MinimizeBox = false;
             Name = "FormEmployee";
             Text = "Сотрудник";
             Load += FormEmployee_Load;

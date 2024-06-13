@@ -16,7 +16,7 @@ namespace FlyTodayBusinessLogics.OfficePackage
             });
             CreateParagraph(new PdfParagraph
             {
-                Text = $"на рейс {info.Direction} {info.DepartureDate}",
+                Text = $"с {info.DateFrom.Date} по {info.DateTo.Date}",
                 Style = "Normal",
                 ParagraphAlignment = PdfParagraphAlignmentType.Center
             });

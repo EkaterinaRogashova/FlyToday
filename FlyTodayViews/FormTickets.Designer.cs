@@ -38,6 +38,7 @@
             labelFlight = new Label();
             label1 = new Label();
             groupBoxTicket = new GroupBox();
+            labelTypeTicket = new Label();
             checkedListBoxTypeDoc = new CheckedListBox();
             label13 = new Label();
             label10 = new Label();
@@ -60,7 +61,6 @@
             label7 = new Label();
             textBoxSurname = new TextBox();
             pnlTickets = new Panel();
-            labelTypeTicket = new Label();
             groupBox1.SuspendLayout();
             groupBoxTicket.SuspendLayout();
             pnlTickets.SuspendLayout();
@@ -79,7 +79,7 @@
             groupBox1.Controls.Add(label1);
             groupBox1.Location = new Point(12, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(210, 503);
+            groupBox1.Size = new Size(419, 503);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Бронирование";
@@ -90,7 +90,7 @@
             button2.Font = new Font("Segoe UI", 12F);
             button2.Location = new Point(8, 393);
             button2.Name = "button2";
-            button2.Size = new Size(191, 43);
+            button2.Size = new Size(405, 43);
             button2.TabIndex = 7;
             button2.Text = "Отмена";
             button2.UseVisualStyleBackColor = false;
@@ -102,7 +102,7 @@
             button1.Font = new Font("Segoe UI", 12F);
             button1.Location = new Point(8, 329);
             button1.Name = "button1";
-            button1.Size = new Size(191, 43);
+            button1.Size = new Size(405, 43);
             button1.TabIndex = 6;
             button1.Text = "Оплатить";
             button1.UseVisualStyleBackColor = false;
@@ -153,8 +153,9 @@
             labelFlight.AutoSize = true;
             labelFlight.Font = new Font("Segoe UI", 12F);
             labelFlight.Location = new Point(6, 62);
+            labelFlight.MinimumSize = new Size(400, 0);
             labelFlight.Name = "labelFlight";
-            labelFlight.Size = new Size(196, 28);
+            labelFlight.Size = new Size(400, 28);
             labelFlight.TabIndex = 1;
             labelFlight.Text = "Москва - Ульяновск";
             // 
@@ -201,6 +202,15 @@
             groupBoxTicket.TabStop = false;
             groupBoxTicket.Text = "Билет №1";
             groupBoxTicket.Visible = false;
+            // 
+            // labelTypeTicket
+            // 
+            labelTypeTicket.AutoSize = true;
+            labelTypeTicket.Location = new Point(485, 0);
+            labelTypeTicket.Name = "labelTypeTicket";
+            labelTypeTicket.Size = new Size(63, 20);
+            labelTypeTicket.TabIndex = 30;
+            labelTypeTicket.Text = "Эконом";
             // 
             // checkedListBoxTypeDoc
             // 
@@ -395,27 +405,19 @@
             // 
             pnlTickets.AutoScroll = true;
             pnlTickets.Controls.Add(groupBoxTicket);
-            pnlTickets.Location = new Point(228, 12);
+            pnlTickets.Location = new Point(437, 12);
             pnlTickets.Name = "pnlTickets";
             pnlTickets.Size = new Size(569, 503);
             pnlTickets.TabIndex = 2;
-            // 
-            // labelTypeTicket
-            // 
-            labelTypeTicket.AutoSize = true;
-            labelTypeTicket.Location = new Point(485, 0);
-            labelTypeTicket.Name = "labelTypeTicket";
-            labelTypeTicket.Size = new Size(63, 20);
-            labelTypeTicket.TabIndex = 30;
-            labelTypeTicket.Text = "Эконом";
             // 
             // FormTickets
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 527);
+            ClientSize = new Size(1012, 527);
             Controls.Add(pnlTickets);
             Controls.Add(groupBox1);
+            MinimizeBox = false;
             Name = "FormTickets";
             Text = "Билеты";
             Load += FormTicket_Load;

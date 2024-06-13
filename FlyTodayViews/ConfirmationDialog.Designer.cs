@@ -94,8 +94,10 @@
             Controls.Add(label1);
             Controls.Add(button1);
             Controls.Add(textBox1);
+            MaximizeBox = false;
             Name = "ConfirmationDialog";
             Text = "Подстверждение почты";
+            WindowState = FormWindowState.Minimized;
             ResumeLayout(false);
             PerformLayout();
         }

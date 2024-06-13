@@ -91,6 +91,7 @@
             Controls.Add(textBoxCategoryName);
             Controls.Add(label1);
             Controls.Add(buttonSave);
+            MaximizeBox = false;
             Name = "FormSale";
             Text = "Льгота";
             Load += FormSale_Load;

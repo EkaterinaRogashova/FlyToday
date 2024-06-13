@@ -31,6 +31,7 @@
             label1 = new Label();
             pnlTickets = new Panel();
             groupBoxTicket = new GroupBox();
+            buttonSaveBoardingPass = new Button();
             labelPlace = new Label();
             label7 = new Label();
             buttonCreateBoardingPass = new Button();
@@ -43,7 +44,6 @@
             label3 = new Label();
             label2 = new Label();
             button1 = new Button();
-            buttonSaveBoardingPass = new Button();
             pnlTickets.SuspendLayout();
             groupBoxTicket.SuspendLayout();
             SuspendLayout();
@@ -89,6 +89,17 @@
             groupBoxTicket.TabStop = false;
             groupBoxTicket.Text = "Билет №1";
             groupBoxTicket.Visible = false;
+            // 
+            // buttonSaveBoardingPass
+            // 
+            buttonSaveBoardingPass.BackColor = SystemColors.ActiveCaption;
+            buttonSaveBoardingPass.Location = new Point(600, 117);
+            buttonSaveBoardingPass.Name = "buttonSaveBoardingPass";
+            buttonSaveBoardingPass.Size = new Size(141, 68);
+            buttonSaveBoardingPass.TabIndex = 11;
+            buttonSaveBoardingPass.Text = "Скачать\r\nпосадочный\r\nталон";
+            buttonSaveBoardingPass.UseVisualStyleBackColor = false;
+            buttonSaveBoardingPass.Click += buttonSaveBoardingPass_Click;
             // 
             // labelPlace
             // 
@@ -208,17 +219,6 @@
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
-            // buttonSaveBoardingPass
-            // 
-            buttonSaveBoardingPass.BackColor = SystemColors.ActiveCaption;
-            buttonSaveBoardingPass.Location = new Point(600, 117);
-            buttonSaveBoardingPass.Name = "buttonSaveBoardingPass";
-            buttonSaveBoardingPass.Size = new Size(141, 68);
-            buttonSaveBoardingPass.TabIndex = 11;
-            buttonSaveBoardingPass.Text = "Скачать\r\nпосадочный\r\nталон";
-            buttonSaveBoardingPass.UseVisualStyleBackColor = false;
-            buttonSaveBoardingPass.Click += buttonSaveBoardingPass_Click;
-            // 
             // FormRentTickets
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -227,6 +227,7 @@
             Controls.Add(button1);
             Controls.Add(pnlTickets);
             Controls.Add(label1);
+            MaximizeBox = false;
             Name = "FormRentTickets";
             Text = "Билеты";
             Load += FormRentTickets_Load;

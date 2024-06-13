@@ -84,7 +84,7 @@
             buttonToPdf.Name = "buttonToPdf";
             buttonToPdf.Size = new Size(108, 96);
             buttonToPdf.TabIndex = 10;
-            buttonToPdf.Text = "Отчет";
+            buttonToPdf.Text = "Отчет\r\nпо периоду";
             buttonToPdf.UseVisualStyleBackColor = true;
             buttonToPdf.Click += ButtonToPdf_Click;
             // 
@@ -194,6 +194,7 @@
             ClientSize = new Size(734, 563);
             Controls.Add(dataGridView1);
             Controls.Add(groupBox1);
+            MaximizeBox = false;
             Name = "FormSchedule";
             Text = "Расписание";
             Load += FormSchedule_Load;

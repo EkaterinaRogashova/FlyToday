@@ -179,7 +179,7 @@ namespace FlyTodayViews
                 }
                 else
                 {
-                    MessageBox.Show("Билеты на текущий рейс уже существуют", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Места на текущий рейс уже существуют", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

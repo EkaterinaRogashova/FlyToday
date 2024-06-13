@@ -49,7 +49,7 @@
             panel1.Location = new Point(12, 50);
             panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(750, 549);
+            panel1.Size = new Size(931, 549);
             panel1.TabIndex = 0;
             // 
             // groupBoxFlight
@@ -64,7 +64,7 @@
             groupBoxFlight.Margin = new Padding(3, 4, 3, 4);
             groupBoxFlight.Name = "groupBoxFlight";
             groupBoxFlight.Padding = new Padding(3, 2, 3, 4);
-            groupBoxFlight.Size = new Size(744, 55);
+            groupBoxFlight.Size = new Size(925, 55);
             groupBoxFlight.TabIndex = 0;
             groupBoxFlight.TabStop = false;
             groupBoxFlight.Visible = false;
@@ -72,18 +72,20 @@
             // labelRegistration
             // 
             labelRegistration.AutoSize = true;
-            labelRegistration.Location = new Point(550, 22);
+            labelRegistration.Location = new Point(678, 23);
+            labelRegistration.MinimumSize = new Size(250, 0);
             labelRegistration.Name = "labelRegistration";
-            labelRegistration.Size = new Size(188, 20);
+            labelRegistration.Size = new Size(250, 20);
             labelRegistration.TabIndex = 3;
             labelRegistration.Text = "Регистрация закончилась";
             // 
             // labelPlane
             // 
             labelPlane.AutoSize = true;
-            labelPlane.Location = new Point(480, 22);
+            labelPlane.Location = new Point(511, 22);
+            labelPlane.MinimumSize = new Size(100, 0);
             labelPlane.Name = "labelPlane";
-            labelPlane.Size = new Size(52, 20);
+            labelPlane.Size = new Size(100, 20);
             labelPlane.TabIndex = 2;
             labelPlane.Text = "боинк";
             // 
@@ -111,7 +113,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label4.Location = new Point(612, 27);
+            label4.Location = new Point(765, 27);
             label4.Name = "label4";
             label4.Size = new Size(97, 23);
             label4.TabIndex = 4;
@@ -121,7 +123,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label3.Location = new Point(483, 27);
+            label3.Location = new Point(535, 27);
             label3.Name = "label3";
             label3.Size = new Size(80, 23);
             label3.TabIndex = 3;
@@ -151,13 +153,14 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(774, 600);
+            ClientSize = new Size(955, 600);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(panel1);
             Controls.Add(label2);
             Controls.Add(label1);
             Margin = new Padding(3, 4, 3, 4);
+            MaximizeBox = false;
             Name = "FormFlightsSchedule";
             Text = "Расписание рейсов";
             Load += FormFlightsSchedule_Load;

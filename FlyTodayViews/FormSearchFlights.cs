@@ -49,6 +49,8 @@ namespace FlyTodayViews
             textBoxFilterBusinessPriceTo.Text = "10000";
             textBoxFilterTimeInFlightFrom.Text = "0";
             textBoxFilterTimeInFlightTo.Text = "10";
+            dateTimePickerDateFrom.Value = DateTime.Now + TimeSpan.FromMinutes(1);
+            dateTimePickerDateTo.Value = DateTime.Now + TimeSpan.FromMinutes(2);
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
@@ -108,11 +110,13 @@ namespace FlyTodayViews
                     {
                         MessageBox.Show("По запросу ничего не найдено", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-
-                    if (transfers != null)
+                    if (!textBoxDirectionCityFrom.Text.IsNullOrEmpty() || !textBoxDirectionCityTo.Text.IsNullOrEmpty())
                     {
-                        foundFlights.AddRange(AddFlightsWithTransfers(transfers));
-                    }
+                        if (transfers != null)
+                        {
+                            foundFlights.AddRange(AddFlightsWithTransfers(transfers));
+                        }
+                    }                    
 
                     if (checkBoxFilterEconomPrice.Checked)
                     {

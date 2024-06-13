@@ -89,7 +89,6 @@
             // 
             textBoxRepeatPassword.Location = new Point(35, 183);
             textBoxRepeatPassword.Name = "textBoxRepeatPassword";
-            textBoxPassword.PasswordChar = '*';
             textBoxRepeatPassword.Size = new Size(314, 27);
             textBoxRepeatPassword.TabIndex = 6;
             // 
@@ -115,6 +114,7 @@
             Controls.Add(textBox1);
             Controls.Add(label1);
             Controls.Add(button1);
+            MaximizeBox = false;
             Name = "ConfirmationDialogPassword";
             Text = "Восстановление пароля";
             ResumeLayout(false);

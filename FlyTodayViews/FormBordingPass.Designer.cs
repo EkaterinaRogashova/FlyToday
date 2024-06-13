@@ -34,6 +34,9 @@
             panelBusiness = new Panel();
             label2 = new Label();
             label3 = new Label();
+            label4 = new Label();
+            label5 = new Label();
+            label6 = new Label();
             SuspendLayout();
             // 
             // label1
@@ -94,17 +97,52 @@
             label3.TabIndex = 5;
             label3.Text = "Бизнесс-класс";
             // 
+            // label4
+            // 
+            label4.Anchor = AnchorStyles.Top;
+            label4.AutoSize = true;
+            label4.Location = new Point(520, 112);
+            label4.Name = "label4";
+            label4.Size = new Size(123, 40);
+            label4.TabIndex = 6;
+            label4.Text = "Зеленые места -\r\nсвободные\r\n";
+            label4.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(519, 164);
+            label5.Name = "label5";
+            label5.Size = new Size(124, 40);
+            label5.TabIndex = 7;
+            label5.Text = "Красные места -\r\nзанятые";
+            label5.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(498, 217);
+            label6.Name = "label6";
+            label6.Size = new Size(161, 120);
+            label6.TabIndex = 8;
+            label6.Text = "Для того, чтобы\r\nпоменять выбранное\r\nместо - нажмите на \r\nэто место еще раз.\r\nА затем - выберите \r\nдругое.\r\n";
+            label6.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // FormBordingPass
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(693, 690);
+            Controls.Add(label6);
+            Controls.Add(label5);
+            Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(panelBusiness);
             Controls.Add(buttonRegistration);
             Controls.Add(panelEconom);
             Controls.Add(label1);
+            MaximizeBox = false;
             Name = "FormBordingPass";
             Text = "Получение посадочного талона";
             Load += FormBordingPass_Load;
@@ -120,5 +158,8 @@
         private Panel panelBusiness;
         private Label label2;
         private Label label3;
+        private Label label4;
+        private Label label5;
+        private Label label6;
     }
 }

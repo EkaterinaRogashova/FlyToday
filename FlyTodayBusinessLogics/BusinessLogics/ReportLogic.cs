@@ -76,7 +76,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
 
                 var reportSchedule = new ReportScheduleForEmployeeViewModel
                 {
-                    EmployeeFIO = employee.Surname + " " + employee.Name + "" + employee.LastName,
+                    EmployeeFIO = employee.Surname + " " + employee.Name + " " + employee.LastName,
                     Schedule = employeeSchedules.Select(s => new Tuple<DateTime, string>(s.Date, s.Shift)).ToList()
                 };
 

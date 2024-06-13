@@ -167,14 +167,14 @@
             // scheduleToolStripMenuItem
             // 
             scheduleToolStripMenuItem.Name = "scheduleToolStripMenuItem";
-            scheduleToolStripMenuItem.Size = new Size(224, 26);
+            scheduleToolStripMenuItem.Size = new Size(174, 26);
             scheduleToolStripMenuItem.Text = "Расписание";
             scheduleToolStripMenuItem.Click += scheduleToolStripMenuItem_Click;
             // 
             // должностиToolStripMenuItem
             // 
             должностиToolStripMenuItem.Name = "должностиToolStripMenuItem";
-            должностиToolStripMenuItem.Size = new Size(224, 26);
+            должностиToolStripMenuItem.Size = new Size(174, 26);
             должностиToolStripMenuItem.Text = "Должности";
             должностиToolStripMenuItem.Click += должностиToolStripMenuItem_Click;
             // 
@@ -214,6 +214,7 @@
             Controls.Add(dataGridView1);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
+            MaximizeBox = false;
             Name = "FormEmployees";
             Text = "Сотрудники";
             Load += FormEmployees_Load;

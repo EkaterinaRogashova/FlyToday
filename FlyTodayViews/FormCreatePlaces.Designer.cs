@@ -176,6 +176,7 @@
             Controls.Add(label1);
             Controls.Add(buttonSave);
             Margin = new Padding(3, 4, 3, 4);
+            MaximizeBox = false;
             Name = "FormCreatePlaces";
             Text = "Создание мест на рейс";
             Load += FormCreatePlaces_Load;

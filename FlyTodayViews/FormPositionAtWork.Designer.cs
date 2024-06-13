@@ -91,6 +91,7 @@
             Controls.Add(textBoxName);
             Controls.Add(label1);
             Controls.Add(buttonSave);
+            MaximizeBox = false;
             Name = "FormPositionAtWork";
             Text = "Должность";
             Load += FormPositionAtWork_Load;

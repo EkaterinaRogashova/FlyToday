@@ -224,6 +224,7 @@
             Controls.Add(textBoxSurname);
             Controls.Add(buttonRegistration);
             Controls.Add(label1);
+            MaximizeBox = false;
             Name = "FormRegistration";
             Text = "Регистрация";
             ResumeLayout(false);

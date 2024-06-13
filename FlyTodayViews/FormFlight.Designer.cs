@@ -205,6 +205,7 @@
             Controls.Add(label1);
             Controls.Add(buttonSave);
             Margin = new Padding(3, 4, 3, 4);
+            MaximizeBox = false;
             Name = "FormFlight";
             Text = "Рейс";
             Load += FormFlight_Load;

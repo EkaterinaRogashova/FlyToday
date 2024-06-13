@@ -35,6 +35,7 @@
             label2 = new Label();
             label3 = new Label();
             linkLabel1 = new LinkLabel();
+            linkLabel2 = new LinkLabel();
             SuspendLayout();
             // 
             // buttonEnter
@@ -107,11 +108,23 @@
             linkLabel1.Text = "Забыли пароль? Нажмите сюда";
             linkLabel1.LinkClicked += linkLabel1_LinkClicked;
             // 
+            // linkLabel2
+            // 
+            linkLabel2.AutoSize = true;
+            linkLabel2.Location = new Point(12, 9);
+            linkLabel2.Name = "linkLabel2";
+            linkLabel2.Size = new Size(167, 20);
+            linkLabel2.TabIndex = 8;
+            linkLabel2.TabStop = true;
+            linkLabel2.Text = "Назад в главное меню";
+            linkLabel2.LinkClicked += linkLabel2_LinkClicked;
+            // 
             // FormEnter
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 451);
+            Controls.Add(linkLabel2);
             Controls.Add(linkLabel1);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -119,9 +132,9 @@
             Controls.Add(textBoxPassword);
             Controls.Add(textBoxEmail);
             Controls.Add(buttonEnter);
+            MaximizeBox = false;
             Name = "FormEnter";
             Text = "Вход";
-            FormClosed += FormEnter_FormClosed;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -135,5 +148,6 @@
         private Label label2;
         private Label label3;
         private LinkLabel linkLabel1;
+        private LinkLabel linkLabel2;
     }
 }

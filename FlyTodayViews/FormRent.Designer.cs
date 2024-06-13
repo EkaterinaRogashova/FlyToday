@@ -187,6 +187,7 @@
             Controls.Add(textBoxEconomy);
             Controls.Add(labelFlight);
             Controls.Add(buttonCreateRent);
+            MaximizeBox = false;
             Name = "FormRent";
             Text = "Бронирование";
             Load += FormRent_Load;
