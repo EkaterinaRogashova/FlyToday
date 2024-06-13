@@ -50,11 +50,11 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 16F);
-            label1.Location = new Point(233, 9);
+            label1.Location = new Point(243, 9);
             label1.Name = "label1";
-            label1.Size = new Size(310, 30);
+            label1.Size = new Size(283, 30);
             label1.TabIndex = 0;
-            label1.Text = "Статистика по направлениям";
+            label1.Text = "Популярные направления";
             // 
             // groupBoxDir
             // 
@@ -73,6 +73,7 @@
             labelPercent.AutoSize = true;
             labelPercent.Font = new Font("Microsoft Sans Serif", 9.75F);
             labelPercent.Location = new Point(627, 19);
+            labelPercent.MinimumSize = new Size(33, 0);
             labelPercent.Name = "labelPercent";
             labelPercent.Size = new Size(33, 16);
             labelPercent.TabIndex = 2;
@@ -83,8 +84,9 @@
             labelTicketsCount.AutoSize = true;
             labelTicketsCount.Font = new Font("Microsoft Sans Serif", 9.75F);
             labelTicketsCount.Location = new Point(380, 19);
+            labelTicketsCount.MinimumSize = new Size(25, 0);
             labelTicketsCount.Name = "labelTicketsCount";
-            labelTicketsCount.Size = new Size(21, 16);
+            labelTicketsCount.Size = new Size(25, 16);
             labelTicketsCount.TabIndex = 1;
             labelTicketsCount.Text = "18";
             // 

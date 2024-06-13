@@ -18,9 +18,10 @@ namespace FlyTodayViews
         private readonly IDirectionLogic _directionLogic;
         private readonly IUserLogic _userLogic;
         private readonly IReportLogic _reportLogic;
+        private readonly IPlaceLogic _placeLogic;
         private readonly AbstractMailWorker _mailWorker;
         private readonly IFlightSubscriberLogic _flightSubscriberLogic;
-        public FormFlights(ILogger<FormFlights> logger, IFlightLogic logic, IPlaneLogic planeLogic, IDirectionLogic directionLogic, IUserLogic userLogic, IFlightSubscriberLogic flightSubscriberLogic, AbstractMailWorker mailWorker, IReportLogic reportLogic)
+        public FormFlights(ILogger<FormFlights> logger, IFlightLogic logic, IPlaneLogic planeLogic, IDirectionLogic directionLogic, IUserLogic userLogic, IFlightSubscriberLogic flightSubscriberLogic, AbstractMailWorker mailWorker, IReportLogic reportLogic, IPlaceLogic placeLogic)
         {
             InitializeComponent();
             _logger = logger;
@@ -33,6 +34,7 @@ namespace FlyTodayViews
             _flightSubscriberLogic = flightSubscriberLogic;
             _mailWorker = mailWorker;
             _reportLogic = reportLogic;
+            _placeLogic = placeLogic;
         }
 
         private void FormFlights_Load(object sender, EventArgs e)
@@ -112,6 +114,7 @@ namespace FlyTodayViews
                     LoadData();
                 }
             }
+
         }
 
         private void ButtonUpd_Click(object sender, EventArgs e)
@@ -124,7 +127,7 @@ namespace FlyTodayViews
                     form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        LoadData();
+                        LoadData();                        
                     }
                 }
             }
@@ -164,11 +167,19 @@ namespace FlyTodayViews
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
-                var service = Program.ServiceProvider?.GetService(typeof(FormCreatePlaces));
-                if (service is FormCreatePlaces form)
+                var places = _placeLogic.ReadList(new PlaceSearchModel { FlightId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value) });
+                if (places.Count == 0)
                 {
-                    form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
-                    form.ShowDialog();
+                    var service = Program.ServiceProvider?.GetService(typeof(FormCreatePlaces));
+                    if (service is FormCreatePlaces form)
+                    {
+                        form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
+                        form.ShowDialog();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Билеты на текущий рейс уже существуют", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

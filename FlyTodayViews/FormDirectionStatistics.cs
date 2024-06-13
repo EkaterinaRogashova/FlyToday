@@ -4,6 +4,7 @@ using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.ViewModels;
 using FlyTodayDatabaseImplements.Models;
 using Microsoft.Extensions.Logging;
+using System.Drawing;
 using System.Numerics;
 
 namespace FlyTodayViews
@@ -66,26 +67,38 @@ namespace FlyTodayViews
                 _logger.LogInformation("Получение статистики по направлениям");
                 int ticketCount = 0;
                 Dictionary<DirectionViewModel, int> directionsTickets = new();
-                var rents = _rentLogic.ReadList(null);
-                if (rents != null)
+                var uniqueDirections = new HashSet<int>();
+                if (dateTimePickerDateFrom.Value <= dateTimePickerDateTo.Value)
                 {
-                    foreach (var rent in rents)
+                    var rents = _rentLogic.ReadList(null);
+                    if (rents != null)
                     {
-                        ticketCount = 0;
-                        var tickets = _ticketLogic.ReadList(new TicketSearchModel { RentId = rent.Id });
-                        if (tickets != null) ticketCount += tickets.Count;
-                        var flight = _flightLogic.ReadElement(new FlightSearchModel { Id = rent.FlightId });
-                        if (dateTimePickerDateFrom.Value <= dateTimePickerDateTo.Value)
+                        foreach (var rent in rents)
                         {
-                            if (flight != null && (flight.DepartureDate >= dateTimePickerDateFrom.Value && flight.DepartureDate <= dateTimePickerDateTo.Value))
+                            ticketCount = 0;
+                            var tickets = _ticketLogic.ReadList(new TicketSearchModel { RentId = rent.Id });
+                            if (tickets != null) ticketCount += tickets.Count;
+                            var flight = _flightLogic.ReadElement(new FlightSearchModel { Id = rent.FlightId });
+                            if (flight != null)
                             {
-                                var direction = _logic.ReadElement(new DirectionSearchModel { Id = flight.DirectionId });
-                                if (direction != null) directionsTickets.Add(direction, ticketCount);
+                                if (flight.DepartureDate >= dateTimePickerDateFrom.Value && flight.DepartureDate <= dateTimePickerDateTo.Value)
+                                {
+                                    var direction = _logic.ReadElement(new DirectionSearchModel { Id = flight.DirectionId });
+                                    if (direction != null && !uniqueDirections.Contains(direction.Id))
+                                    {
+                                        directionsTickets.Add(direction, ticketCount);
+                                        uniqueDirections.Add(direction.Id);
+                                    }
+                                }
                             }
-                        }                        
+                        }
                     }
                 }
-                foreach (var dir in directionsTickets.OrderByDescending(d => d.Value))
+                else
+                {
+                    MessageBox.Show("Не корректные значения периода.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                foreach (var dir in directionsTickets.OrderBy(d => d.Value))
                 {
                     if (dir.Key != null && dir.Value != 0)
                     {
@@ -102,9 +115,9 @@ namespace FlyTodayViews
 
                         int totalTickets = directionsTickets.Sum(d => d.Value);
                         double percent = (double)dir.Value / totalTickets * 100;
-                        labelPercent.Text = $"{percent:F2}%";
+                        labelPercent.Text = $"{Math.Round(percent, 0)} %";
+                        panel1.Controls.Add(groupBox);
                     }
-                    panel1.Controls.Add(groupBoxDir);
                 }
             }
             catch (Exception ex)

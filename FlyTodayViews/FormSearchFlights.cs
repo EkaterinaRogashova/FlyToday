@@ -86,6 +86,12 @@ namespace FlyTodayViews
                         return;
                     }
 
+                    if (dateTimePickerDateFrom.Value < DateTime.Now || (dateTimePickerDateFrom.Value == DateTime.Now && dateTimePickerDateFrom.Value.TimeOfDay < DateTime.Now.TimeOfDay))
+                    {
+                        MessageBox.Show("Нельзя вводить дату и время раньше, чем текущая дата и время", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
                     if (directions != null)
                     {
                         foreach (var dir in directions)
