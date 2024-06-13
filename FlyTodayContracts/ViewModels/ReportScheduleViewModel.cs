@@ -11,6 +11,5 @@ namespace FlyTodayContracts.ViewModels
         public DateTime Date { get; set; }
         public string Shift { get; set; } = string.Empty;
         public string EmployeeFIO { get; set; } = string.Empty;
-        public string Job { get; set; } = string.Empty;
     }
 }

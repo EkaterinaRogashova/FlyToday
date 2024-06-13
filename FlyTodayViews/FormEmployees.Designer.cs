@@ -43,6 +43,7 @@
             tabelToolStripMenuItem = new ToolStripMenuItem();
             должностиToolStripMenuItem = new ToolStripMenuItem();
             buttonScheduleForEmployee = new Button();
+            buttonEmployeePdf = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             groupBox1.SuspendLayout();
             menuStrip1.SuspendLayout();
@@ -55,7 +56,7 @@
             dataGridView1.Location = new Point(12, 43);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(972, 445);
+            dataGridView1.Size = new Size(972, 504);
             dataGridView1.TabIndex = 0;
             // 
             // buttonAdd
@@ -195,11 +196,23 @@
             buttonScheduleForEmployee.UseVisualStyleBackColor = true;
             buttonScheduleForEmployee.Click += buttonScheduleForEmployee_Click;
             // 
+            // buttonEmployeePdf
+            // 
+            buttonEmployeePdf.Font = new Font("Segoe UI", 7F);
+            buttonEmployeePdf.Location = new Point(1009, 494);
+            buttonEmployeePdf.Name = "buttonEmployeePdf";
+            buttonEmployeePdf.Size = new Size(145, 49);
+            buttonEmployeePdf.TabIndex = 7;
+            buttonEmployeePdf.Text = "Получить расписание сотрудника";
+            buttonEmployeePdf.UseVisualStyleBackColor = true;
+            buttonEmployeePdf.Click += buttonEmployeePdf_Click;
+            // 
             // FormEmployees
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1185, 492);
+            ClientSize = new Size(1185, 559);
+            Controls.Add(buttonEmployeePdf);
             Controls.Add(buttonScheduleForEmployee);
             Controls.Add(groupBox1);
             Controls.Add(buttonDelete);
@@ -237,5 +250,6 @@
         private ToolStripMenuItem должностиToolStripMenuItem;
         private Button buttonDeteteFilter;
         private Button buttonScheduleForEmployee;
+        private Button buttonEmployeePdf;
     }
 }

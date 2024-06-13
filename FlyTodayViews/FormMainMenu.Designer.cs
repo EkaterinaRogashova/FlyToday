@@ -42,6 +42,7 @@
             labelIsAuthorized = new Label();
             buttonExit = new Button();
             buttonSchedule = new Button();
+            buttonStatisticTickets = new Button();
             buttonDirStatistics = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -137,6 +138,9 @@
             // buttonDirections
             // 
             buttonDirections.BackColor = SystemColors.ControlLightLight;
+            buttonDirections.Font = new Font("Segoe UI", 12F);
+            buttonDirections.Location = new Point(567, 47);
+            buttonDirections.Margin = new Padding(3, 4, 3, 4);
             buttonDirections.Location = new Point(480, 16);
             buttonDirections.Name = "buttonDirections";
             buttonDirections.Size = new Size(186, 50);
@@ -148,6 +152,9 @@
             // buttonPlanes
             // 
             buttonPlanes.BackColor = SystemColors.ControlLightLight;
+            buttonPlanes.Font = new Font("Segoe UI", 12F);
+            buttonPlanes.Location = new Point(567, 122);
+            buttonPlanes.Margin = new Padding(3, 4, 3, 4);
             buttonPlanes.Location = new Point(480, 73);
             buttonPlanes.Name = "buttonPlanes";
             buttonPlanes.Size = new Size(186, 48);
@@ -159,6 +166,9 @@
             // buttonFlights
             // 
             buttonFlights.BackColor = SystemColors.ControlLightLight;
+            buttonFlights.Font = new Font("Segoe UI", 12F);
+            buttonFlights.Location = new Point(567, 199);
+            buttonFlights.Margin = new Padding(3, 4, 3, 4);
             buttonFlights.Location = new Point(481, 127);
             buttonFlights.Name = "buttonFlights";
             buttonFlights.Size = new Size(185, 47);
@@ -202,6 +212,18 @@
             buttonSchedule.UseVisualStyleBackColor = false;
             buttonSchedule.Click += buttonSchedule_Click;
             // 
+            // buttonStatisticTickets
+            // 
+            buttonStatisticTickets.BackColor = SystemColors.ControlLightLight;
+            buttonStatisticTickets.Font = new Font("Segoe UI", 12F);
+            buttonStatisticTickets.Location = new Point(14, 195);
+            buttonStatisticTickets.Name = "buttonStatisticTickets";
+            buttonStatisticTickets.Size = new Size(213, 67);
+            buttonStatisticTickets.TabIndex = 13;
+            buttonStatisticTickets.Text = "Статистика по продажам";
+            buttonStatisticTickets.UseVisualStyleBackColor = false;
+            buttonStatisticTickets.Click += buttonStatisticTickets_Click;
+            // 
             // buttonDirStatistics
             // 
             buttonDirStatistics.BackColor = SystemColors.ControlLightLight;
@@ -218,6 +240,8 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ButtonHighlight;
+            ClientSize = new Size(790, 522);
+            Controls.Add(buttonStatisticTickets);
             ClientSize = new Size(676, 392);
             Controls.Add(buttonDirStatistics);
             Controls.Add(buttonExit);
@@ -258,6 +282,7 @@
         private Label labelIsAuthorized;
         private Button buttonExit;
         private Button buttonSchedule;
+        private Button buttonStatisticTickets;
         private Button buttonDirStatistics;
     }
 }

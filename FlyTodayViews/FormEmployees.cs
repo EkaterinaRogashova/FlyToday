@@ -22,12 +22,14 @@ namespace FlyTodayViews
         private readonly ILogger _logger;
         private readonly IEmployeeLogic _logic;
         private readonly IPositionAtWorkLogic _joblogic;
+        private readonly IReportLogic _reportlogic;
 
-        public FormEmployees(ILogger<FormEmployee> logger, IEmployeeLogic logic, IFlightLogic flightlogic, IPositionAtWorkLogic joblogic, IDirectionLogic directionlogic)
+        public FormEmployees(ILogger<FormEmployee> logger, IEmployeeLogic logic, IFlightLogic flightlogic, IPositionAtWorkLogic joblogic, IDirectionLogic directionlogic, IReportLogic reportLogic)
         {
             InitializeComponent();
             _logger = logger;
             _logic = logic;
+            _reportlogic = reportLogic;
             _joblogic = joblogic;
             dataGridView1.Columns.Add("Job", "Должность");
             dataGridView1.Columns.Add("MedAnalysData", "Медицинский осмотр действует до:");
@@ -79,7 +81,8 @@ namespace FlyTodayViews
                         {
                             row.Cells["MedAnalysData"].Value = "Нет осмотра";
                         }
-                        else {
+                        else
+                        {
                             string dateString = ((DateTime)row.Cells["DateMedAnalys"].Value).ToString("d");
                             row.Cells["MedAnalysData"].Value = dateString;
                         }
@@ -258,6 +261,34 @@ namespace FlyTodayViews
                     if (form.ShowDialog() == DialogResult.OK)
                     {
                         LoadData();
+                    }
+                }
+            }
+        }
+
+        private void buttonEmployeePdf_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count == 1)
+            {
+                // Получаем значение Id из выбранной строки
+                int Id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
+                using var dialog = new SaveFileDialog { Filter = "pdf|*.pdf" };
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        _reportlogic.SaveReportScheduleForEmployeeToPdfFile(new ReportBindingModel
+                        {
+                            FileName = dialog.FileName,
+                            EmployeeId = Id
+                        });
+                        _logger.LogInformation("Сохранение расписание за сотрудника");
+                        MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Ошибка сохранения");
+                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }

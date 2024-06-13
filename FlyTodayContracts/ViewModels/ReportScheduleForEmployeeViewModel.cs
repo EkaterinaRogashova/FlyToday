@@ -8,7 +8,7 @@ namespace FlyTodayContracts.ViewModels
 {
     public class ReportScheduleForEmployeeViewModel
     {
-        public string EmloyeeFIO { get; set; } = string.Empty;
-        public List<Tuple<int, string>> Schedule { get; set; } = new();
+        public string EmployeeFIO { get; set; } = string.Empty;
+        public List<Tuple<DateTime, string>> Schedule { get; set; } = new();
     }
 }

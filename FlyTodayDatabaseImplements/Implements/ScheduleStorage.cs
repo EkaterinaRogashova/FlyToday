@@ -61,6 +61,12 @@ namespace FlyTodayDatabaseImplements.Implements
             {
                 scheduleQuery = scheduleQuery.Where(x => x.Date <= model.DateTo);
             }
+
+            if (model.EmployeeId.HasValue)
+            {
+                scheduleQuery = scheduleQuery.Where(x => x.EmployeeId == model.EmployeeId.Value);
+            }
+
             return scheduleQuery.Select(x => x.GetViewModel).ToList();
         }
 

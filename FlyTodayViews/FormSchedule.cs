@@ -1,4 +1,5 @@
-﻿using FlyTodayContracts.BusinessLogicContracts;
+﻿using FlyTodayContracts.BindingModels;
+using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.ViewModels;
 using Microsoft.Extensions.Logging;
@@ -22,7 +23,9 @@ namespace FlyTodayViews
         private readonly IScheduleLogic _schedulelogic;
         private readonly IEmployeeLogic _employeelogic;
         private readonly IPositionAtWorkLogic _joblogic;
-        public FormSchedule(ILogger<FormSchedule> logger, IScheduleLogic schedulelogic, IEmployeeLogic employeeLogic, IPositionAtWorkLogic joblogic)
+        private readonly IReportLogic _logic;
+
+        public FormSchedule(ILogger<FormSchedule> logger, IScheduleLogic schedulelogic, IEmployeeLogic employeeLogic, IPositionAtWorkLogic joblogic, IReportLogic logic)
         {
             InitializeComponent();
             _logger = logger;
@@ -33,6 +36,7 @@ namespace FlyTodayViews
             dateTimePickerFrom.Enabled = false;
             dateTimePickerTo.Enabled = false;
             checkBox.CheckedChanged += CheckBox_CheckedChanged;
+            _logic = logic;
         }
         private void CheckBox_CheckedChanged(object sender, EventArgs e)
         {
@@ -212,5 +216,35 @@ namespace FlyTodayViews
         {
             LoadData();
         }
+
+        private void ButtonToPdf_Click(object sender, EventArgs e)
+        {
+            if (dateTimePickerFrom.Value.Date >= dateTimePickerTo.Value.Date)
+            {
+                MessageBox.Show("Дата начала должна быть меньше даты окончания", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            using var dialog = new SaveFileDialog { Filter = "pdf|*.pdf" };
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    _logic.SaveReportScheduleToPdfFile(new ReportBindingModel
+                    {
+                        FileName = dialog.FileName,
+                        DateFrom = dateTimePickerFrom.Value.ToUniversalTime(),
+                        DateTo = dateTimePickerTo.Value.ToUniversalTime()
+                    });
+                    _logger.LogInformation("Сохранение расписание за период {From}-{To}", dateTimePickerFrom.Value.ToShortDateString(), dateTimePickerTo.Value.ToShortDateString());
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Ошибка сохранения списка заказов на период");
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
     }
 }

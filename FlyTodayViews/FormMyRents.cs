@@ -130,7 +130,6 @@ namespace FlyTodayViews
                 {
                     if (rent.Status == "Оплачено")
                     {
-                        button1.Enabled = false;
                         MessageBox.Show("Билеты уже оформлены. Вы можете их только посмотреть и зарегистрировать на рейс", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
@@ -144,15 +143,13 @@ namespace FlyTodayViews
                                 LoadData();
                             }
                         }
-                        buttonLookTickets.Enabled = false;
                     }
                 }
                 else
                 {
-
+                    MessageBox.Show("Выберите бронирование", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            button1.Enabled = true;
         }
 
         private void buttonRefresh_Click(object sender, EventArgs e)
@@ -169,8 +166,6 @@ namespace FlyTodayViews
                 {
                     if (rent.Status == "Оплачено")
                     {
-                        button1.Enabled = false;
-                        buttonLookTickets.Enabled = true;
                         var service = Program.ServiceProvider?.GetService(typeof(FormRentTickets));
                         if (service is FormRentTickets form)
                         {
@@ -183,11 +178,10 @@ namespace FlyTodayViews
                     }
                     else
                     {
-                        buttonLookTickets.Enabled = false;
+                        MessageBox.Show("Сначала надо оформить билеты!", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
-            buttonLookTickets.Enabled = true;
         }
 
         private void buttonDeleteRent_Click(object sender, EventArgs e)
