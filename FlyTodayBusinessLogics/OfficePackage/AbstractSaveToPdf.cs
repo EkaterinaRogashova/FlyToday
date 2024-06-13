@@ -70,34 +70,20 @@ namespace FlyTodayBusinessLogics.OfficePackage
             }
             SavePdf(info);
         }
-        public void CreateDocReportBoardingPasses(PdfInfo info) { 
-            CreateTable(new List<string> { "6cm", "3cm", "5cm", "3cm" });
-            CreateRow(new PdfRowParameters
+        public void CreateDocReportBoardingPasses(PdfInfo info) {
+            CreatePdf(info);
+            CreateParagraph(new PdfParagraph
             {
-                Texts = new List<string> { "ФИО", "Серия документа", "Номер документа", "Место"},
+                Text = info.Title,
                 Style = "NormalTitle",
                 ParagraphAlignment = PdfParagraphAlignmentType.Center
             });
-            foreach (var boardingPass in info.BoardingPasses)
-            {
-                CreateRow(new PdfRowParameters
-                {
-                    Texts = new List<string> { boardingPass.FIO,
-                    boardingPass.Seria, boardingPass.Number, boardingPass.Place },
-                    Style = "Normal",
-                    ParagraphAlignment = PdfParagraphAlignmentType.Left
-                });
-            }
             CreateParagraph(new PdfParagraph
             {
-                Text = $"\nИтого: {info.BoardingPasses.Count()}\t",
+                Text = $"на рейс {info.Direction} {info.DepartureDate}",
                 Style = "Normal",
-                ParagraphAlignment = PdfParagraphAlignmentType.Right
+                ParagraphAlignment = PdfParagraphAlignmentType.Center
             });
-            SavePdf(info);
-        }
-        public void CreateDocReportBoardingPass(PdfInfo info)
-        {
             CreateTable(new List<string> { "6cm", "3cm", "5cm", "3cm" });
             CreateRow(new PdfRowParameters
             {
@@ -112,7 +98,7 @@ namespace FlyTodayBusinessLogics.OfficePackage
                     Texts = new List<string> { boardingPass.FIO,
                     boardingPass.Seria, boardingPass.Number, boardingPass.Place },
                     Style = "Normal",
-                    ParagraphAlignment = PdfParagraphAlignmentType.Left
+                    ParagraphAlignment = PdfParagraphAlignmentType.Center
                 });
             }
             CreateParagraph(new PdfParagraph
@@ -121,6 +107,40 @@ namespace FlyTodayBusinessLogics.OfficePackage
                 Style = "Normal",
                 ParagraphAlignment = PdfParagraphAlignmentType.Right
             });
+            SavePdf(info);
+        }
+        public void CreateDocReportBoardingPass(PdfInfo info)
+        {
+            CreatePdf(info);
+            CreateParagraph(new PdfParagraph
+            {
+                Text = info.Title,
+                Style = "NormalTitle",
+                ParagraphAlignment = PdfParagraphAlignmentType.Center
+            });
+            CreateParagraph(new PdfParagraph
+            {
+                Text = $"на рейс {info.Direction} {info.DepartureDate}",
+                Style = "Normal",
+                ParagraphAlignment = PdfParagraphAlignmentType.Center
+            });
+            CreateTable(new List<string> { "6cm", "3cm", "5cm", "3cm" });
+            CreateRow(new PdfRowParameters
+            {
+                Texts = new List<string> { "ФИО", "Серия документа", "Номер документа", "Место" },
+                Style = "NormalTitle",
+                ParagraphAlignment = PdfParagraphAlignmentType.Center
+            });
+            foreach (var boardingPass in info.BoardingPass)
+            {
+                CreateRow(new PdfRowParameters
+                {
+                    Texts = new List<string> { boardingPass.FIO,
+                    boardingPass.Seria, boardingPass.Number, boardingPass.Place },
+                    Style = "Normal",
+                    ParagraphAlignment = PdfParagraphAlignmentType.Center
+                });
+            }
             SavePdf(info);
         }
         /// <summary>

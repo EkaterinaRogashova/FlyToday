@@ -121,6 +121,7 @@
             Controls.Add(buttonEnter);
             Name = "FormEnter";
             Text = "Вход";
+            FormClosed += FormEnter_FormClosed;
             ResumeLayout(false);
             PerformLayout();
         }

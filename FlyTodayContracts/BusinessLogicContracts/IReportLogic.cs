@@ -15,5 +15,6 @@ namespace FlyTodayContracts.BusinessLogicContracts
         void SaveReportScheduleToPdfFile(ReportBindingModel model);
         void SaveReportScheduleForEmployeeToPdfFile(ReportBindingModel model);
         void SaveBoardingPassesToPdf(ReportBindingModel model);
+        void SaveBoardingPassToPdf(ReportBindingModel model);
     }
 }

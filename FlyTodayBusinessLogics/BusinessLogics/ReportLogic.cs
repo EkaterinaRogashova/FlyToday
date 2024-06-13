@@ -258,7 +258,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             });
         }
 
-        public void SaveBoardingPassToPdfFile(ReportBindingModel model)
+        public void SaveBoardingPassToPdf(ReportBindingModel model)
         {
             if (model.TicketId == null)
             {
@@ -268,7 +268,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             var rent = _rentStorage.GetElement(new RentSearchModel { Id = ticket.RentId });
             var flight = _flightStorage.GetElement(new FlightSearchModel { Id = rent.FlightId });
             var direction = _directionStorage.GetElement(new DirectionSearchModel { Id = flight.DirectionId });
-            _saveToPdf.CreateDocReportBoardingPasses(new PdfInfo
+            _saveToPdf.CreateDocReportBoardingPass(new PdfInfo
             {
                 FileName = model.FileName,
                 Title = "Посадочный талон",

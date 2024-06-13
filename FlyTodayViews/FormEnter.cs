@@ -97,5 +97,16 @@ namespace FlyTodayViews
                 MessageBox.Show("¬ведите почту, на которую нужно отправить письмо с подтверждением", "ќшибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void FormEnter_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormMainMenu));
+            if (service is FormMainMenu newForm)
+            {
+                newForm.Show();
+                newForm.LoadData();
+                newForm.Refresh();
+            }
+        }
     }
 }
