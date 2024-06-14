@@ -97,6 +97,12 @@ namespace FlyTodayViews
             {
                 var flight = _logic.ReadElement(new FlightSearchModel { Id = _id.Value });
                 var user = _userLogic.ReadElement(new UserSearchModel { Id = _currentUserId.Value });
+                var subscribe = _flightSubscriberLogic.ReadElement(new FlightSubscriberSearchModel { FlightId = _id.Value, UserId = _currentUserId.Value });
+                if (subscribe!= null)
+                {
+                    MessageBox.Show("Вы уже следите за изменением цены на этот рейс.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 var operationResult = false;
                 if (user != null)
                 {

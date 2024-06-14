@@ -37,20 +37,25 @@
             // 
             // dataGridView1
             // 
+            dataGridView1.Anchor = AnchorStyles.None;
             dataGridView1.BackgroundColor = SystemColors.ButtonFace;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 12);
+            dataGridView1.Location = new Point(12, 11);
+            dataGridView1.Margin = new Padding(3, 2, 3, 2);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(276, 426);
+            dataGridView1.Size = new Size(614, 505);
             dataGridView1.TabIndex = 0;
             // 
             // buttonAdd
             // 
+            buttonAdd.Anchor = AnchorStyles.None;
+            buttonAdd.AutoSize = true;
             buttonAdd.Font = new Font("Segoe UI", 12F);
-            buttonAdd.Location = new Point(294, 12);
+            buttonAdd.Location = new Point(632, 11);
+            buttonAdd.Margin = new Padding(3, 2, 3, 2);
             buttonAdd.Name = "buttonAdd";
-            buttonAdd.Size = new Size(126, 48);
+            buttonAdd.Size = new Size(110, 36);
             buttonAdd.TabIndex = 1;
             buttonAdd.Text = "Добавить";
             buttonAdd.UseVisualStyleBackColor = true;
@@ -58,10 +63,13 @@
             // 
             // buttonEdit
             // 
+            buttonEdit.Anchor = AnchorStyles.None;
+            buttonEdit.AutoSize = true;
             buttonEdit.Font = new Font("Segoe UI", 12F);
-            buttonEdit.Location = new Point(294, 66);
+            buttonEdit.Location = new Point(632, 52);
+            buttonEdit.Margin = new Padding(3, 2, 3, 2);
             buttonEdit.Name = "buttonEdit";
-            buttonEdit.Size = new Size(126, 48);
+            buttonEdit.Size = new Size(110, 36);
             buttonEdit.TabIndex = 2;
             buttonEdit.Text = "Изменить";
             buttonEdit.UseVisualStyleBackColor = true;
@@ -69,10 +77,13 @@
             // 
             // buttonDelete
             // 
+            buttonDelete.Anchor = AnchorStyles.None;
+            buttonDelete.AutoSize = true;
             buttonDelete.Font = new Font("Segoe UI", 12F);
-            buttonDelete.Location = new Point(294, 120);
+            buttonDelete.Location = new Point(632, 92);
+            buttonDelete.Margin = new Padding(3, 2, 3, 2);
             buttonDelete.Name = "buttonDelete";
-            buttonDelete.Size = new Size(126, 48);
+            buttonDelete.Size = new Size(110, 36);
             buttonDelete.TabIndex = 3;
             buttonDelete.Text = "Удалить";
             buttonDelete.UseVisualStyleBackColor = true;
@@ -80,18 +91,21 @@
             // 
             // FormSales
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(427, 453);
+            ClientSize = new Size(754, 527);
             Controls.Add(buttonDelete);
             Controls.Add(buttonEdit);
             Controls.Add(buttonAdd);
             Controls.Add(dataGridView1);
+            Margin = new Padding(3, 2, 3, 2);
+            MaximizeBox = false;
             Name = "FormSales";
             Text = "Льготы";
             Load += FormSales_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

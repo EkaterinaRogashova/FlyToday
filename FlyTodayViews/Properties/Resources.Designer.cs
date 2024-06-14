@@ -69,5 +69,15 @@ namespace FlyTodayViews.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Снимок_экрана_2024_06_14_150221 {
+            get {
+                object obj = ResourceManager.GetObject("Снимок экрана 2024-06-14 150221", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

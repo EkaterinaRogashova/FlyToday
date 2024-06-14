@@ -18,8 +18,9 @@ namespace FlyTodayBusinessLogics.BusinessLogics
         private readonly IRentStorage _rentStorage;
         private readonly ITicketStorage _ticketStorage;
         private readonly IPlaceStorage _placeStorage;
+        private readonly IPlaneStorage _planeStorage;
         private readonly AbstractSaveToPdf _saveToPdf;
-        public ReportLogic(IEmployeeStorage employeeStorage, IScheduleStorage scheduleStorage, AbstractSaveToPdf saveToPdf, IBoardingPassStorage boardingPassStorage, IFlightStorage flightStorage, IRentStorage rentStorage, ITicketStorage ticketStorage, IDirectionStorage directionStorage, IPlaceStorage placeStorage)
+        public ReportLogic(IEmployeeStorage employeeStorage, IScheduleStorage scheduleStorage, AbstractSaveToPdf saveToPdf, IBoardingPassStorage boardingPassStorage, IFlightStorage flightStorage, IRentStorage rentStorage, ITicketStorage ticketStorage, IDirectionStorage directionStorage, IPlaceStorage placeStorage, IPlaneStorage planeStorage)
         {
             _saveToPdf = saveToPdf;
             _employeeStorage = employeeStorage;
@@ -30,6 +31,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             _ticketStorage = ticketStorage;
             _directionStorage = directionStorage;
             _placeStorage = placeStorage;
+            _planeStorage = planeStorage;
         }
         public List<ReportScheduleViewModel> GetSchedule(ReportBindingModel model)
         {
@@ -76,7 +78,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
 
                 var reportSchedule = new ReportScheduleForEmployeeViewModel
                 {
-                    EmployeeFIO = employee.Surname + " " + employee.Name + "" + employee.LastName,
+                    EmployeeFIO = employee.Surname + " " + employee.Name + " " + employee.LastName,
                     Schedule = employeeSchedules.Select(s => new Tuple<DateTime, string>(s.Date, s.Shift)).ToList()
                 };
 
@@ -142,6 +144,10 @@ namespace FlyTodayBusinessLogics.BusinessLogics
                 {
                     Id = flight.DirectionId
                 });
+                var plane = _planeStorage.GetElement(new PlaneSearchModel
+                {
+                    Id = flight.PlaneId
+                });
                 if (direction != null)
                 {
                     var rents = _rentStorage.GetFilteredList(new RentSearchModel
@@ -179,7 +185,8 @@ namespace FlyTodayBusinessLogics.BusinessLogics
                                                 Number = ticket.NumberOfDocument,
                                                 Place = place.PlaceName,
                                                 FlightDirection = direction.CityFrom + " - " + direction.CityTo,
-                                                DepartureDate = flight.DepartureDate
+                                                DepartureDate = flight.DepartureDate,
+                                                Plane = plane.ModelName
                                             });                                            
                                         }                                        
                                     }
@@ -258,7 +265,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             });
         }
 
-        public void SaveBoardingPassToPdfFile(ReportBindingModel model)
+        public void SaveBoardingPassToPdf(ReportBindingModel model)
         {
             if (model.TicketId == null)
             {
@@ -268,13 +275,15 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             var rent = _rentStorage.GetElement(new RentSearchModel { Id = ticket.RentId });
             var flight = _flightStorage.GetElement(new FlightSearchModel { Id = rent.FlightId });
             var direction = _directionStorage.GetElement(new DirectionSearchModel { Id = flight.DirectionId });
-            _saveToPdf.CreateDocReportBoardingPasses(new PdfInfo
+            var plane = _planeStorage.GetElement(new PlaneSearchModel { Id = flight.PlaneId });
+            _saveToPdf.CreateDocReportBoardingPass(new PdfInfo
             {
                 FileName = model.FileName,
                 Title = "Посадочный талон",
                 BoardingPass = GetBoardingPass(model),
                 Direction = direction.CityFrom + " - " + direction.CityTo,
-                DepartureDate = flight.DepartureDate.ToShortDateString() + " " + flight.DepartureDate.ToShortTimeString()
+                DepartureDate = flight.DepartureDate.ToShortDateString() + " " + flight.DepartureDate.ToShortTimeString(),
+                Plane = plane.ModelName
             });
         }
     }

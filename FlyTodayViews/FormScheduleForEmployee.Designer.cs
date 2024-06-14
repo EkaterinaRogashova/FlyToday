@@ -93,6 +93,7 @@
             Controls.Add(dateTimePicker1);
             Controls.Add(label1);
             Controls.Add(buttonSave);
+            MaximizeBox = false;
             Name = "FormScheduleForEmployee";
             Text = "Создание расписания для сотрудника";
             ResumeLayout(false);

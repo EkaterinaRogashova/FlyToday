@@ -13,6 +13,5 @@ namespace FlyTodayContracts.SearchModels
         public string? Surname { get; set; }
         public bool? MedAnalys { get; set; }
         public int? PositionAtWorkId { get; set; }
-        public TypeWorkEnum? TypeWork { get; set; }
     }
 }

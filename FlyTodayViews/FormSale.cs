@@ -39,6 +39,8 @@ namespace FlyTodayViews
                     });
                     if (view != null)
                     {
+                        if (view.AgeTo != 0) textBoxAgeTo.Text = view.AgeTo.ToString();
+                        if (view.AgeFrom != 150) textBoxAgeFrom.Text = view.AgeFrom.ToString();
                         textBoxCategoryName.Text = view.Category;
                         textBoxPercent.Text = view.Percent.ToString();
                     }
@@ -59,6 +61,25 @@ namespace FlyTodayViews
                MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            int ageTo;
+            int ageFrom;
+
+            if (string.IsNullOrEmpty(textBoxAgeTo.Text) && string.IsNullOrEmpty(textBoxAgeFrom.Text))
+            {
+                ageTo = 0;
+                ageFrom = 150;
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(textBoxAgeTo.Text)) {ageTo = 0; ageFrom = Convert.ToInt32(textBoxAgeFrom.Text); }
+                else if (string.IsNullOrEmpty(textBoxAgeFrom.Text)) { ageFrom = 150; ageTo = Convert.ToInt32(textBoxAgeTo.Text); }
+                else
+                {
+                    ageFrom = Convert.ToInt32(textBoxAgeFrom.Text);
+                    ageTo = Convert.ToInt32(textBoxAgeTo.Text);
+                }
+                
+            }
             _logger.LogInformation("Сохранение льготы");
             try
             {
@@ -66,7 +87,9 @@ namespace FlyTodayViews
                 {
                     Id = _id ?? 0,
                     Category = textBoxCategoryName.Text,
-                    Percent = Convert.ToDouble(textBoxPercent.Text)
+                    Percent = Convert.ToDouble(textBoxPercent.Text),
+                    AgeTo = ageTo,
+                    AgeFrom = ageFrom
                 };
                 var operationResult = _id.HasValue ? _logic.Update(model) :
                _logic.Create(model);

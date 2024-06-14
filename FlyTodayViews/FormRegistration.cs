@@ -45,7 +45,7 @@ namespace FlyTodayViews
                 MessageBox.Show("Заполните данные", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if ( textBoxPassword.Text != textBoxRepeatPassword.Text )
+            if (textBoxPassword.Text != textBoxRepeatPassword.Text)
             {
                 MessageBox.Show("Повторите пароль еще раз", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -115,6 +115,11 @@ namespace FlyTodayViews
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
                MessageBoxIcon.Error);
             }
+        }
+
+        private void FormRegistration_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

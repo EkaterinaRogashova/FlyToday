@@ -103,9 +103,9 @@
             label6.Font = new Font("Segoe UI", 12F);
             label6.Location = new Point(33, 171);
             label6.Name = "label6";
-            label6.Size = new Size(652, 28);
+            label6.Size = new Size(663, 28);
             label6.TabIndex = 3;
-            label6.Text = "Статистика проданных билето по наличию дополнительного багажа:\r\n";
+            label6.Text = "Статистика проданных билетов по наличию дополнительного багажа:\r\n";
             // 
             // label7
             // 
@@ -133,9 +133,9 @@
             label9.Font = new Font("Segoe UI", 12F);
             label9.Location = new Point(33, 313);
             label9.Name = "label9";
-            label9.Size = new Size(409, 28);
+            label9.Size = new Size(420, 28);
             label9.TabIndex = 6;
-            label9.Text = "Статистика проданных билето по возрасту:\r\n";
+            label9.Text = "Статистика проданных билетов по возрасту:\r\n";
             // 
             // label10
             // 
@@ -239,6 +239,7 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            MaximizeBox = false;
             Name = "FormStatisticTickets";
             Text = "Статистика по продажам";
             Load += FormStatisticTickets_Load;

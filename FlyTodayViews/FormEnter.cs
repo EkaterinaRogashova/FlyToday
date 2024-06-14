@@ -50,9 +50,9 @@ namespace FlyTodayViews
                     if (service is FormMainMenu newForm)
                     {
                         newForm.CurrentUserId = CurrentUser.Id;
-                        newForm.Show();
+                        newForm.Show();/*
                         newForm.LoadData();
-                        newForm.Refresh();
+                        newForm.Refresh(); */
                     }
                 }
                 else
@@ -70,6 +70,7 @@ namespace FlyTodayViews
         {
             if (!string.IsNullOrEmpty(textBoxEmail.Text))
             {
+
                 string confirmationCode = GenerateRandomString();
                 _mailWorker.MailSendAsync(new()
                 {
@@ -89,12 +90,24 @@ namespace FlyTodayViews
                 }
                 else
                 {
-                    MessageBox.Show("Неверный код подтверждения", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Пользователь с такой почтой не зарегистрирован", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
                 MessageBox.Show("Введите почту, на которую нужно отправить письмо с подтверждением", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void buttonMenu_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormMainMenu));
+            if (service is FormMainMenu newForm)
+            {
+                newForm.Show();
+                newForm.LoadData();
+                newForm.Refresh();
+                Close();
             }
         }
     }

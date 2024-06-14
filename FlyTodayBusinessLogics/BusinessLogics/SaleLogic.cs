@@ -103,6 +103,14 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             {
                 throw new ArgumentNullException("Неверно введенный процент", nameof(model.Percent));
             }
+            if (model.AgeTo < 0)
+            {
+                throw new ArgumentNullException("Неверно введенный возраст", nameof(model.AgeTo));
+            }
+            if (model.AgeFrom < 0)
+            {
+                throw new ArgumentNullException("Неверно введенный возраст", nameof(model.AgeFrom));
+            }
             _logger.LogInformation("Sales. Category:{Category}. Percent:{ Percent}. Id: { Id} ", model.Category, model.Percent, model.Id);
             var element = _saleStorage.GetElement(new SaleSearchModel
             {

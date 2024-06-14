@@ -116,6 +116,7 @@
             Controls.Add(button1);
             Controls.Add(dataGridView1);
             Controls.Add(label1);
+            MaximizeBox = false;
             Name = "FormMyRents";
             Text = "Мои бронирования";
             Load += FormMyRents_Load;

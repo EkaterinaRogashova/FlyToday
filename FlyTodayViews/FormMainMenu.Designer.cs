@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMainMenu));
             pictureBox1 = new PictureBox();
             buttonMainSearch = new Button();
@@ -44,27 +45,33 @@
             buttonSchedule = new Button();
             buttonStatisticTickets = new Button();
             buttonDirStatistics = new Button();
+            slider = new PictureBox();
+            timer1 = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)slider).BeginInit();
             SuspendLayout();
             // 
             // pictureBox1
             // 
+            pictureBox1.Anchor = AnchorStyles.None;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(255, 16);
+            pictureBox1.Location = new Point(570, 42);
             pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(179, 112);
+            pictureBox1.Size = new Size(214, 200);
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
             // buttonMainSearch
             // 
+            buttonMainSearch.Anchor = AnchorStyles.None;
+            buttonMainSearch.AutoSize = true;
             buttonMainSearch.BackColor = SystemColors.ActiveCaption;
             buttonMainSearch.Font = new Font("Segoe UI", 16F);
-            buttonMainSearch.Location = new Point(215, 143);
+            buttonMainSearch.Location = new Point(524, 240);
             buttonMainSearch.Margin = new Padding(3, 2, 3, 2);
             buttonMainSearch.Name = "buttonMainSearch";
-            buttonMainSearch.Size = new Size(262, 38);
+            buttonMainSearch.Size = new Size(291, 79);
             buttonMainSearch.TabIndex = 1;
             buttonMainSearch.Text = "Поиск авиабилетов";
             buttonMainSearch.UseVisualStyleBackColor = false;
@@ -72,12 +79,13 @@
             // 
             // buttonMainEnter
             // 
+            buttonMainEnter.Anchor = AnchorStyles.None;
             buttonMainEnter.BackColor = SystemColors.ActiveCaption;
             buttonMainEnter.Font = new Font("Segoe UI", 16F);
-            buttonMainEnter.Location = new Point(215, 223);
+            buttonMainEnter.Location = new Point(524, 404);
             buttonMainEnter.Margin = new Padding(3, 2, 3, 2);
             buttonMainEnter.Name = "buttonMainEnter";
-            buttonMainEnter.Size = new Size(262, 38);
+            buttonMainEnter.Size = new Size(291, 77);
             buttonMainEnter.TabIndex = 2;
             buttonMainEnter.Text = "Вход";
             buttonMainEnter.UseVisualStyleBackColor = false;
@@ -85,12 +93,13 @@
             // 
             // buttonMainRegistration
             // 
+            buttonMainRegistration.Anchor = AnchorStyles.None;
             buttonMainRegistration.BackColor = SystemColors.ControlLightLight;
             buttonMainRegistration.Font = new Font("Segoe UI", 16F);
-            buttonMainRegistration.Location = new Point(215, 263);
+            buttonMainRegistration.Location = new Point(524, 485);
             buttonMainRegistration.Margin = new Padding(3, 2, 3, 2);
             buttonMainRegistration.Name = "buttonMainRegistration";
-            buttonMainRegistration.Size = new Size(262, 38);
+            buttonMainRegistration.Size = new Size(291, 77);
             buttonMainRegistration.TabIndex = 3;
             buttonMainRegistration.Text = "Регистрация";
             buttonMainRegistration.UseVisualStyleBackColor = false;
@@ -98,12 +107,13 @@
             // 
             // buttonMainLK
             // 
+            buttonMainLK.Anchor = AnchorStyles.None;
             buttonMainLK.BackColor = SystemColors.ActiveCaption;
             buttonMainLK.Font = new Font("Segoe UI", 16F);
-            buttonMainLK.Location = new Point(215, 304);
+            buttonMainLK.Location = new Point(524, 566);
             buttonMainLK.Margin = new Padding(3, 2, 3, 2);
             buttonMainLK.Name = "buttonMainLK";
-            buttonMainLK.Size = new Size(262, 38);
+            buttonMainLK.Size = new Size(291, 77);
             buttonMainLK.TabIndex = 4;
             buttonMainLK.Text = "Личный кабинет";
             buttonMainLK.UseVisualStyleBackColor = false;
@@ -111,12 +121,14 @@
             // 
             // buttonEmployees
             // 
+            buttonEmployees.Anchor = AnchorStyles.None;
+            buttonEmployees.AutoSize = true;
             buttonEmployees.BackColor = SystemColors.ControlLightLight;
-            buttonEmployees.Font = new Font("Segoe UI", 12F);
-            buttonEmployees.Location = new Point(12, 35);
+            buttonEmployees.Font = new Font("Segoe UI", 9F);
+            buttonEmployees.Location = new Point(421, 6);
             buttonEmployees.Margin = new Padding(3, 2, 3, 2);
             buttonEmployees.Name = "buttonEmployees";
-            buttonEmployees.Size = new Size(186, 50);
+            buttonEmployees.Size = new Size(185, 30);
             buttonEmployees.TabIndex = 5;
             buttonEmployees.Text = "К подбору персонала";
             buttonEmployees.UseVisualStyleBackColor = false;
@@ -124,12 +136,14 @@
             // 
             // buttonSales
             // 
+            buttonSales.Anchor = AnchorStyles.None;
+            buttonSales.AutoSize = true;
             buttonSales.BackColor = SystemColors.ControlLightLight;
-            buttonSales.Font = new Font("Segoe UI", 12F);
-            buttonSales.Location = new Point(12, 92);
+            buttonSales.Font = new Font("Segoe UI", 9F);
+            buttonSales.Location = new Point(212, 6);
             buttonSales.Margin = new Padding(3, 2, 3, 2);
             buttonSales.Name = "buttonSales";
-            buttonSales.Size = new Size(186, 50);
+            buttonSales.Size = new Size(185, 31);
             buttonSales.TabIndex = 6;
             buttonSales.Text = "Льготы";
             buttonSales.UseVisualStyleBackColor = false;
@@ -137,13 +151,13 @@
             // 
             // buttonDirections
             // 
+            buttonDirections.Anchor = AnchorStyles.None;
             buttonDirections.BackColor = SystemColors.ControlLightLight;
-            buttonDirections.Font = new Font("Segoe UI", 12F);
-            buttonDirections.Location = new Point(567, 47);
+            buttonDirections.Font = new Font("Segoe UI", 9F);
+            buttonDirections.Location = new Point(630, 737);
             buttonDirections.Margin = new Padding(3, 4, 3, 4);
-            buttonDirections.Location = new Point(480, 16);
             buttonDirections.Name = "buttonDirections";
-            buttonDirections.Size = new Size(186, 50);
+            buttonDirections.Size = new Size(185, 31);
             buttonDirections.TabIndex = 7;
             buttonDirections.Text = "Направления";
             buttonDirections.UseVisualStyleBackColor = false;
@@ -151,13 +165,13 @@
             // 
             // buttonPlanes
             // 
+            buttonPlanes.Anchor = AnchorStyles.None;
             buttonPlanes.BackColor = SystemColors.ControlLightLight;
-            buttonPlanes.Font = new Font("Segoe UI", 12F);
-            buttonPlanes.Location = new Point(567, 122);
+            buttonPlanes.Font = new Font("Segoe UI", 9F);
+            buttonPlanes.Location = new Point(430, 737);
             buttonPlanes.Margin = new Padding(3, 4, 3, 4);
-            buttonPlanes.Location = new Point(480, 73);
             buttonPlanes.Name = "buttonPlanes";
-            buttonPlanes.Size = new Size(186, 48);
+            buttonPlanes.Size = new Size(185, 30);
             buttonPlanes.TabIndex = 8;
             buttonPlanes.Text = "Самолеты";
             buttonPlanes.UseVisualStyleBackColor = false;
@@ -165,13 +179,13 @@
             // 
             // buttonFlights
             // 
+            buttonFlights.Anchor = AnchorStyles.None;
             buttonFlights.BackColor = SystemColors.ControlLightLight;
-            buttonFlights.Font = new Font("Segoe UI", 12F);
-            buttonFlights.Location = new Point(567, 199);
+            buttonFlights.Font = new Font("Segoe UI", 9F);
+            buttonFlights.Location = new Point(230, 736);
             buttonFlights.Margin = new Padding(3, 4, 3, 4);
-            buttonFlights.Location = new Point(481, 127);
             buttonFlights.Name = "buttonFlights";
-            buttonFlights.Size = new Size(185, 47);
+            buttonFlights.Size = new Size(185, 31);
             buttonFlights.TabIndex = 9;
             buttonFlights.Text = "Рейсы";
             buttonFlights.UseVisualStyleBackColor = false;
@@ -180,20 +194,22 @@
             // labelIsAuthorized
             // 
             labelIsAuthorized.AutoSize = true;
-            labelIsAuthorized.Location = new Point(12, 9);
+            labelIsAuthorized.Font = new Font("Segoe UI", 14F);
+            labelIsAuthorized.Location = new Point(12, 4);
             labelIsAuthorized.Name = "labelIsAuthorized";
-            labelIsAuthorized.Size = new Size(38, 15);
+            labelIsAuthorized.Size = new Size(63, 25);
             labelIsAuthorized.TabIndex = 10;
             labelIsAuthorized.Text = "label1";
             // 
             // buttonExit
             // 
+            buttonExit.Anchor = AnchorStyles.None;
             buttonExit.BackColor = SystemColors.ControlLightLight;
             buttonExit.Font = new Font("Segoe UI", 16F);
-            buttonExit.Location = new Point(217, 345);
+            buttonExit.Location = new Point(524, 647);
             buttonExit.Margin = new Padding(3, 2, 3, 2);
             buttonExit.Name = "buttonExit";
-            buttonExit.Size = new Size(262, 38);
+            buttonExit.Size = new Size(291, 77);
             buttonExit.TabIndex = 11;
             buttonExit.Text = "Выйти";
             buttonExit.UseVisualStyleBackColor = false;
@@ -201,12 +217,14 @@
             // 
             // buttonSchedule
             // 
+            buttonSchedule.Anchor = AnchorStyles.None;
+            buttonSchedule.AutoSize = true;
             buttonSchedule.BackColor = SystemColors.ControlLightLight;
-            buttonSchedule.Font = new Font("Segoe UI", 14F);
-            buttonSchedule.Location = new Point(215, 182);
+            buttonSchedule.Font = new Font("Segoe UI", 16F);
+            buttonSchedule.Location = new Point(524, 323);
             buttonSchedule.Margin = new Padding(3, 2, 3, 2);
             buttonSchedule.Name = "buttonSchedule";
-            buttonSchedule.Size = new Size(262, 38);
+            buttonSchedule.Size = new Size(291, 77);
             buttonSchedule.TabIndex = 12;
             buttonSchedule.Text = "Расписание на сегодня";
             buttonSchedule.UseVisualStyleBackColor = false;
@@ -214,11 +232,13 @@
             // 
             // buttonStatisticTickets
             // 
+            buttonStatisticTickets.Anchor = AnchorStyles.None;
+            buttonStatisticTickets.AutoSize = true;
             buttonStatisticTickets.BackColor = SystemColors.ControlLightLight;
-            buttonStatisticTickets.Font = new Font("Segoe UI", 12F);
-            buttonStatisticTickets.Location = new Point(14, 195);
+            buttonStatisticTickets.Font = new Font("Segoe UI", 9F);
+            buttonStatisticTickets.Location = new Point(630, 6);
             buttonStatisticTickets.Name = "buttonStatisticTickets";
-            buttonStatisticTickets.Size = new Size(213, 67);
+            buttonStatisticTickets.Size = new Size(185, 31);
             buttonStatisticTickets.TabIndex = 13;
             buttonStatisticTickets.Text = "Статистика по продажам";
             buttonStatisticTickets.UseVisualStyleBackColor = false;
@@ -226,23 +246,42 @@
             // 
             // buttonDirStatistics
             // 
+            buttonDirStatistics.Anchor = AnchorStyles.None;
             buttonDirStatistics.BackColor = SystemColors.ControlLightLight;
-            buttonDirStatistics.Location = new Point(481, 180);
+            buttonDirStatistics.Font = new Font("Segoe UI", 9F);
+            buttonDirStatistics.Location = new Point(21, 736);
             buttonDirStatistics.Name = "buttonDirStatistics";
-            buttonDirStatistics.Size = new Size(185, 47);
+            buttonDirStatistics.Size = new Size(185, 31);
             buttonDirStatistics.TabIndex = 13;
             buttonDirStatistics.Text = "Статистика по направлениям";
             buttonDirStatistics.UseVisualStyleBackColor = false;
             buttonDirStatistics.Click += buttonDirStatistics_Click;
+            // 
+            // slider
+            // 
+            slider.Anchor = AnchorStyles.None;
+            slider.Image = (Image)resources.GetObject("slider.Image");
+            slider.Location = new Point(12, 41);
+            slider.Name = "slider";
+            slider.Size = new Size(501, 688);
+            slider.SizeMode = PictureBoxSizeMode.StretchImage;
+            slider.TabIndex = 14;
+            slider.TabStop = false;
+            // 
+            // timer1
+            // 
+            timer1.Enabled = true;
+            timer1.Interval = 5000;
+            timer1.Tick += timer1_Tick;
             // 
             // FormMainMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ButtonHighlight;
-            ClientSize = new Size(790, 522);
+            ClientSize = new Size(842, 777);
+            Controls.Add(slider);
             Controls.Add(buttonStatisticTickets);
-            ClientSize = new Size(676, 392);
             Controls.Add(buttonDirStatistics);
             Controls.Add(buttonExit);
             Controls.Add(buttonSchedule);
@@ -258,11 +297,14 @@
             Controls.Add(buttonMainSearch);
             Controls.Add(pictureBox1);
             Margin = new Padding(3, 2, 3, 2);
+            MaximizeBox = false;
             Name = "FormMainMenu";
             Text = "Главная";
+            WindowState = FormWindowState.Maximized;
             FormClosed += FormMainMenu_FormClosed;
             Load += FormMainMenu_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)slider).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -284,5 +326,7 @@
         private Button buttonSchedule;
         private Button buttonStatisticTickets;
         private Button buttonDirStatistics;
+        private PictureBox slider;
+        private System.Windows.Forms.Timer timer1;
     }
 }

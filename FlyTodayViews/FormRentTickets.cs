@@ -1,8 +1,11 @@
-﻿using FlyTodayContracts.BusinessLogicContracts;
+﻿using FlyTodayBusinessLogics.BusinessLogics;
+using FlyTodayContracts.BindingModels;
+using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.ViewModels;
 using FlyTodayDatabaseImplements.Models;
 using Microsoft.Extensions.Logging;
+using PdfSharp.Drawing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,10 +29,11 @@ namespace FlyTodayViews
         private readonly ISaleLogic _salelogic;
         private readonly IPlaceLogic _placelogic;
         private readonly IFlightLogic _flightlogic;
+        private readonly IReportLogic _reportlogic;
         private int? _currentRentId;
         public int CurrentRentId { set { _currentRentId = value; } }
         private Dictionary<Button, int> buttonTicketIdMap = new Dictionary<Button, int>();
-        public FormRentTickets(ILogger<FormRent> logger, ITicketLogic logic, IRentLogic rentlogic, IBoardingPassLogic boardingpasslogic, IDirectionLogic directionlogic, ISaleLogic salelogic, IPlaceLogic placelogic, IFlightLogic flightlogic)
+        public FormRentTickets(ILogger<FormRent> logger, ITicketLogic logic, IRentLogic rentlogic, IBoardingPassLogic boardingpasslogic, IDirectionLogic directionlogic, ISaleLogic salelogic, IPlaceLogic placelogic, IFlightLogic flightlogic, IReportLogic reportlogic)
         {
             InitializeComponent();
             _logger = logger;
@@ -40,6 +44,7 @@ namespace FlyTodayViews
             _boardingpasslogic = boardingpasslogic;
             _placelogic = placelogic;
             _flightlogic = flightlogic;
+            _reportlogic = reportlogic;
         }
 
         private GroupBox CloneGroupBox(GroupBox original, int ticketId)
@@ -76,7 +81,6 @@ namespace FlyTodayViews
             }
             if (original is Button)
             {
-                ((Button)clone).Click += buttonCreateBoardingPass_Click;
                 buttonTicketIdMap[clone as Button] = ticketId;
             }
             return clone;
@@ -104,6 +108,9 @@ namespace FlyTodayViews
                             var bordingpasses = _boardingpasslogic.ReadElement(new BoardingPassSearchModel { TicketId = ticket.Id });
                             var labelPlace = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelPlace");
                             var buttonBoardingPass = groupBox.Controls.OfType<Button>().FirstOrDefault(b => b.Name == "buttonCreateBoardingPass");
+                            var buttonSave = groupBox.Controls.OfType<Button>().FirstOrDefault(b => b.Name == "buttonSaveBoardingPass");
+                            buttonBoardingPass.Click += buttonCreateBoardingPass_Click;
+                            buttonSave.Click += buttonSaveBoardingPass_Click;
                             if (DateTime.Now >= flight.DepartureDate - TimeSpan.FromHours(2) && DateTime.Now <= flight.DepartureDate - TimeSpan.FromMinutes(40))
                             {
                                 buttonBoardingPass.BackColor = Color.AliceBlue;
@@ -138,6 +145,7 @@ namespace FlyTodayViews
                             var labelDoc = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelDocument");
                             var labelType = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelType");
                             var labelCost = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelCost");
+                            var labelBag = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelBags");
                             groupBox.Name = $"groupBoxTicket{i + 1}";
                             groupBox.Text = $"Билет {i + 1}";
                             groupBox.Dock = DockStyle.Top;
@@ -145,6 +153,11 @@ namespace FlyTodayViews
                             labelDoc.Text = ticket.SeriesOfDocument + " " + ticket.NumberOfDocument;
                             labelType.Text = ticket.TypeTicket;
                             labelCost.Text = ticket.TicketCost.ToString("C");
+                            if (ticket.Bags == true)
+                            {
+                                labelBag.Text = "Да";
+                            }
+                            else { labelBag.Text = "Нет"; }
                             pnlTickets.Controls.Add(groupBox);
                         }
                     }
@@ -155,7 +168,6 @@ namespace FlyTodayViews
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
         }
 
         private void FormRentTickets_Load(object sender, EventArgs e)
@@ -229,6 +241,40 @@ namespace FlyTodayViews
         private void button1_Click(object sender, EventArgs e)
         {
             LoadDataRefresh();
+        }
+
+        private void buttonSaveBoardingPass_Click(object sender, EventArgs e)
+        {
+            if (buttonTicketIdMap.TryGetValue(sender as Button, out int ticketId))
+            {
+                var boardingpass = _boardingpasslogic.ReadElement(new BoardingPassSearchModel { TicketId = ticketId });
+                if (boardingpass == null)
+                {
+                    MessageBox.Show("Билет еще не зарегистрирован", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    using var dialog = new SaveFileDialog { Filter = "pdf|*.pdf" };
+                    if (dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            _reportlogic.SaveBoardingPassToPdf(new ReportBindingModel
+                            {
+                                FileName = dialog.FileName,
+                                TicketId = ticketId
+                            });
+                            _logger.LogInformation("Сохранение посадочного талона");
+                            MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogError(ex, "Ошибка сохранения");
+                            MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
         }
     }
 }

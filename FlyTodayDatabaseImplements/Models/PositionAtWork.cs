@@ -15,8 +15,10 @@ namespace FlyTodayDatabaseImplements.Models
         public int Id { get; private set; }
         [Required]
         public string Name { get; private set; } = string.Empty;
+        public int? NumberOfEmployeesInShift { get; private set; }
         [Required]
-        public int NumberOfEmployeesInShift { get; private set; }
+        public string TypeWork { get; private set; } = string.Empty;
+
 
         public static PositionAtWork? Create(PositionAtWorkBindingModel model)
         {
@@ -28,7 +30,8 @@ namespace FlyTodayDatabaseImplements.Models
             {
                 Id = model.Id,
                 Name = model.Name,
-                NumberOfEmployeesInShift = model.NumberOfEmployeesInShift
+                NumberOfEmployeesInShift = model.NumberOfEmployeesInShift,
+                TypeWork = model.TypeWork
             };
         }
         public static PositionAtWork Create(PositionAtWorkViewModel model)
@@ -37,7 +40,8 @@ namespace FlyTodayDatabaseImplements.Models
             {
                 Id = model.Id,
                 Name = model.Name,
-                NumberOfEmployeesInShift = model.NumberOfEmployeesInShift
+                NumberOfEmployeesInShift = model.NumberOfEmployeesInShift,
+                TypeWork = model.TypeWork
             };
         }
         public void Update(PositionAtWorkBindingModel model)
@@ -48,12 +52,14 @@ namespace FlyTodayDatabaseImplements.Models
             }
             Name = model.Name;
             NumberOfEmployeesInShift = model.NumberOfEmployeesInShift;
+            TypeWork = model.TypeWork;
         }
         public PositionAtWorkViewModel GetViewModel => new()
         {
             Id = Id,
             Name = Name,
-            NumberOfEmployeesInShift = NumberOfEmployeesInShift
+            NumberOfEmployeesInShift = NumberOfEmployeesInShift,
+            TypeWork = TypeWork
         };
     }
 }

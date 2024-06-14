@@ -40,7 +40,6 @@
             menuStrip1 = new MenuStrip();
             менюToolStripMenuItem = new ToolStripMenuItem();
             scheduleToolStripMenuItem = new ToolStripMenuItem();
-            tabelToolStripMenuItem = new ToolStripMenuItem();
             должностиToolStripMenuItem = new ToolStripMenuItem();
             buttonScheduleForEmployee = new Button();
             buttonEmployeePdf = new Button();
@@ -160,7 +159,7 @@
             // 
             // менюToolStripMenuItem
             // 
-            менюToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { scheduleToolStripMenuItem, tabelToolStripMenuItem, должностиToolStripMenuItem });
+            менюToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { scheduleToolStripMenuItem, должностиToolStripMenuItem });
             менюToolStripMenuItem.Name = "менюToolStripMenuItem";
             менюToolStripMenuItem.Size = new Size(65, 24);
             менюToolStripMenuItem.Text = "Меню";
@@ -171,12 +170,6 @@
             scheduleToolStripMenuItem.Size = new Size(174, 26);
             scheduleToolStripMenuItem.Text = "Расписание";
             scheduleToolStripMenuItem.Click += scheduleToolStripMenuItem_Click;
-            // 
-            // tabelToolStripMenuItem
-            // 
-            tabelToolStripMenuItem.Name = "tabelToolStripMenuItem";
-            tabelToolStripMenuItem.Size = new Size(174, 26);
-            tabelToolStripMenuItem.Text = "Табель";
             // 
             // должностиToolStripMenuItem
             // 
@@ -221,6 +214,7 @@
             Controls.Add(dataGridView1);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
+            MaximizeBox = false;
             Name = "FormEmployees";
             Text = "Сотрудники";
             Load += FormEmployees_Load;
@@ -246,7 +240,6 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem менюToolStripMenuItem;
         private ToolStripMenuItem scheduleToolStripMenuItem;
-        private ToolStripMenuItem tabelToolStripMenuItem;
         private ToolStripMenuItem должностиToolStripMenuItem;
         private Button buttonDeteteFilter;
         private Button buttonScheduleForEmployee;

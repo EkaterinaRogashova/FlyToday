@@ -9,6 +9,8 @@ namespace FlyTodayDatabaseImplements
         {
             if (optionsBuilder.IsConfigured == false)
             {
+                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=FlyTodayBd;Username=postgres;Password=1234");
+                //optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=FlyTodayBd;Username=postgres;Password=1234");
                 //optionsBuilder.UseNpgsql("Host=192.168.1.65;Port=5432;Database=FlyTodayBd;Username=tanya;Password=1234");
                 optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=FlyTodayBd;Username=postgres;Password=12345");
             }

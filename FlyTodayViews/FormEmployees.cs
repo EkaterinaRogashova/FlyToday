@@ -61,7 +61,6 @@ namespace FlyTodayViews
                     dataGridView1.Columns["Job"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView1.Columns["MedAnalysData"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView1.Columns["Gender"].Visible = false;
-                    dataGridView1.Columns["TypeWork"].Visible = false;
                     foreach (DataGridViewRow row in dataGridView1.Rows)
                     {
                         int jobId = Convert.ToInt32(row.Cells["PositionAtWorkId"].Value);
@@ -194,7 +193,6 @@ namespace FlyTodayViews
                 dataGridView1.Columns["PositionAtWorkId"].Visible = false;
                 dataGridView1.Columns["Job"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 dataGridView1.Columns["Gender"].Visible = false;
-                dataGridView1.Columns["TypeWork"].Visible = false;
                 foreach (DataGridViewRow row in dataGridView1.Rows)
                 {
                     int jobId = Convert.ToInt32(row.Cells["PositionAtWorkId"].Value);
@@ -213,6 +211,10 @@ namespace FlyTodayViews
                     if (row.Cells["DateMedAnalys"].Value != null && row.Cells["DateMedAnalys"].Value.ToString() == new DateTime(1900, 1, 1).ToUniversalTime().ToString())
                     {
                         row.Cells["MedAnalysData"].Value = "Нет осмотра";
+                    }
+                    if (row.Cells["DateMedAnalys"].Value is DateTime dateMedAnalys && dateMedAnalys < DateTime.Now)
+                    {
+                        row.Cells["MedAnalysData"].Value = "Закончился";
                     }
                     else { row.Cells["MedAnalysData"].Value = row.Cells["DateMedAnalys"].Value.ToString(); }
 
@@ -243,16 +245,25 @@ namespace FlyTodayViews
             if (dataGridView1.SelectedRows.Count == 1)
             {
                 // Получаем значение TypeWork из выбранной строки
-                int typeWork = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["TypeWork"].Value);
-
-                // Проверяем, является ли тип работы "на рейсе"
-                if (typeWork == 1)
+                int workId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["PositionAtWorkId"].Value);
+                var typeWork = _joblogic.ReadElement(new PositionAtWorkSearchModel { Id =  workId });
+                if (typeWork != null)
                 {
-                    // Выводим сообщение и выходим из метода
-                    MessageBox.Show("Этот сотрудник работает на рейсах", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    // Проверяем, является ли тип работы "на рейсе"
+                    if (typeWork.TypeWork == "На рейсе")
+                    {
+                        // Выводим сообщение и выходим из метода
+                        MessageBox.Show("Этот сотрудник работает на рейсах", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+                int employeeId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
+                var employee = _logic.ReadElement(new EmployeeSearchModel { Id = employeeId });
+                if (employee.MedAnalys == false || employee.DateMedAnalys <= DateTime.Now)
+                {
+                    MessageBox.Show("У сотрудника закончится мед. осмотр", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-
                 // Если тип работы не "на рейсе", продолжаем выполнение метода
                 var service = Program.ServiceProvider?.GetService(typeof(FormScheduleForEmployee));
                 if (service is FormScheduleForEmployee form)
@@ -270,6 +281,19 @@ namespace FlyTodayViews
         {
             if (dataGridView1.SelectedRows.Count == 1)
             {
+                // Получаем значение TypeWork из выбранной строки
+                int workId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["PositionAtWorkId"].Value);
+                var typeWork = _joblogic.ReadElement(new PositionAtWorkSearchModel { Id = workId });
+                if (typeWork != null)
+                {
+                    // Проверяем, является ли тип работы "на рейсе"
+                    if (typeWork.TypeWork == "На рейсе")
+                    {
+                        // Выводим сообщение и выходим из метода
+                        MessageBox.Show("Этот сотрудник работает на рейсах", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
                 // Получаем значение Id из выбранной строки
                 int Id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
                 using var dialog = new SaveFileDialog { Filter = "pdf|*.pdf" };

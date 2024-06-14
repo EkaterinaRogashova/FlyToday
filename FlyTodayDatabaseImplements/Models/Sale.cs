@@ -17,6 +17,8 @@ namespace FlyTodayDatabaseImplements.Models
         public string Category { get; private set; } = string.Empty;
         [Required]
         public double Percent { get; private set; }
+        public int? AgeTo {  get; private set; }
+        public int? AgeFrom { get; private set; }
 
         public static Sale? Create(SaleBindingModel model)
         {
@@ -28,7 +30,9 @@ namespace FlyTodayDatabaseImplements.Models
             {
                 Id = model.Id,
                 Category = model.Category,
-                Percent = model.Percent
+                Percent = model.Percent,
+                AgeFrom = model.AgeFrom,
+                AgeTo = model.AgeTo
             };
         }
         public static Sale Create(SaleViewModel model)
@@ -37,7 +41,9 @@ namespace FlyTodayDatabaseImplements.Models
             {
                 Id = model.Id,
                 Category = model.Category,
-                Percent = model.Percent
+                Percent = model.Percent,
+                AgeFrom = model.AgeFrom,
+                AgeTo = model.AgeTo
             };
         }
         public void Update(SaleBindingModel model)
@@ -48,12 +54,16 @@ namespace FlyTodayDatabaseImplements.Models
             }
             Category = model.Category;
             Percent = model.Percent;
+            AgeFrom = model.AgeFrom;
+            AgeTo = model.AgeTo;
         }
         public SaleViewModel GetViewModel => new()
         {
             Id = Id,
             Category = Category,
-            Percent = Percent
+            Percent = Percent,
+            AgeFrom = AgeFrom,
+            AgeTo = AgeTo
         };
     }
 }

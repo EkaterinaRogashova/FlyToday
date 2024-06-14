@@ -126,6 +126,12 @@ namespace FlyTodayViews
                 {
                     foreach (var flight in flights)
                     {
+                        var subscribe = _flightSubscriberLogic.ReadElement(new FlightSubscriberSearchModel { FlightId = _id.Value, UserId = _currentUserId.Value });
+                        if (subscribe != null)
+                        {
+                            MessageBox.Show("Вы уже следите за изменением цены на этот рейс.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
                         if (!user.AllowNotifications)
                         {
                             MessageBox.Show("Сначала разрешите уведомления! Это можно сделать в личном кабинете.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);

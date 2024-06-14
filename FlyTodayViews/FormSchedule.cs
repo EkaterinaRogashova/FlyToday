@@ -219,31 +219,35 @@ namespace FlyTodayViews
 
         private void ButtonToPdf_Click(object sender, EventArgs e)
         {
-            if (dateTimePickerFrom.Value.Date >= dateTimePickerTo.Value.Date)
+            if (checkBox.Checked)
             {
-                MessageBox.Show("Дата начала должна быть меньше даты окончания", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            using var dialog = new SaveFileDialog { Filter = "pdf|*.pdf" };
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                try
+                if (dateTimePickerFrom.Value.Date >= dateTimePickerTo.Value.Date)
                 {
-                    _logic.SaveReportScheduleToPdfFile(new ReportBindingModel
+                    MessageBox.Show("Дата начала должна быть меньше даты окончания", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                using var dialog = new SaveFileDialog { Filter = "pdf|*.pdf" };
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
                     {
-                        FileName = dialog.FileName,
-                        DateFrom = dateTimePickerFrom.Value.ToUniversalTime(),
-                        DateTo = dateTimePickerTo.Value.ToUniversalTime()
-                    });
-                    _logger.LogInformation("Сохранение расписание за период {From}-{To}", dateTimePickerFrom.Value.ToShortDateString(), dateTimePickerTo.Value.ToShortDateString());
-                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Ошибка сохранения списка заказов на период");
-                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        _logic.SaveReportScheduleToPdfFile(new ReportBindingModel
+                        {
+                            FileName = dialog.FileName,
+                            DateFrom = dateTimePickerFrom.Value.ToUniversalTime(),
+                            DateTo = dateTimePickerTo.Value.ToUniversalTime()
+                        });
+                        _logger.LogInformation("Сохранение расписание за период {From}-{To}", dateTimePickerFrom.Value.ToShortDateString(), dateTimePickerTo.Value.ToShortDateString());
+                        MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Ошибка сохранения списка заказов на период");
+                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
+            else MessageBox.Show("Выберите период", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
     }

@@ -11,6 +11,7 @@ namespace FlyTodayBusinessLogics.OfficePackage.HelperModels
         public DateTime DateTo { get; set; }
         public string? DepartureDate { get; set; }
         public string? Direction { get; set; }
+        public string? Plane { get; set; }
         public List<ReportBoardingPassesViewModel> BoardingPass { get; set; }
         public List<ReportScheduleViewModel> Schedule { get; set; } = new();
         public List<ReportScheduleForEmployeeViewModel> ScheduleForEmployee { get; set; } = new();

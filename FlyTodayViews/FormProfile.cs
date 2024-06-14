@@ -57,7 +57,7 @@ namespace FlyTodayViews
                         var service = Program.ServiceProvider?.GetService(typeof(FormMainMenu));
                         if (service is FormMainMenu form)
                         {
-                            form.CurrentUserId = -1;
+                            form.Show();
                             form.LoadData();
                             form.Refresh();
                         }
@@ -154,7 +154,7 @@ namespace FlyTodayViews
                 if (!operationResult)
                 {
                     throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
-                }                
+                }
             }
             catch (Exception ex)
             {
@@ -163,6 +163,17 @@ namespace FlyTodayViews
             }
         }
 
-
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormMainMenu));
+            if (service is FormMainMenu newForm)
+            {
+                newForm.CurrentUserId = _id.Value;
+                newForm.Show();
+                newForm.LoadData();
+                newForm.Refresh();
+                Close();
+            }
+        }
     }
 }

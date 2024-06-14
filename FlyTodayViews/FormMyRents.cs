@@ -128,6 +128,12 @@ namespace FlyTodayViews
                 var rent = _rentlogic.ReadElement(new RentSearchModel { Id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value) });
                 if (rent != null)
                 {
+                    if (dataGridView1.SelectedRows[0].Cells["StatusFlight"].Value == "Вылетел" || dataGridView1.SelectedRows[0].Cells["StatusFlight"].Value == "Регистрация закончилась")
+                    {
+                        MessageBox.Show("Нельзя оформить билет на данный рейс", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                        
                     if (rent.Status == "Оплачено")
                     {
                         MessageBox.Show("Билеты уже оформлены. Вы можете их только посмотреть и зарегистрировать на рейс", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);

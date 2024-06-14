@@ -38,9 +38,11 @@
             // 
             // buttonSave
             // 
+            buttonSave.Location = new Point(212, 156);
+            buttonSave.Margin = new Padding(3, 4, 3, 4);
             buttonSave.Location = new Point(192, 89);
             buttonSave.Name = "buttonSave";
-            buttonSave.Size = new Size(75, 23);
+            buttonSave.Size = new Size(96, 31);
             buttonSave.TabIndex = 0;
             buttonSave.Text = "Сохранить";
             buttonSave.UseVisualStyleBackColor = true;
@@ -49,24 +51,27 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 22);
+            label1.Location = new Point(14, 29);
             label1.Name = "label1";
-            label1.Size = new Size(107, 15);
+            label1.Size = new Size(137, 20);
             label1.TabIndex = 1;
             label1.Text = "Название модели:";
             // 
             // textBoxModelName
             // 
-            textBoxModelName.Location = new Point(125, 19);
+            textBoxModelName.Location = new Point(157, 26);
+            textBoxModelName.Margin = new Padding(3, 4, 3, 4);
             textBoxModelName.Name = "textBoxModelName";
-            textBoxModelName.Size = new Size(228, 23);
+            textBoxModelName.Size = new Size(260, 27);
             textBoxModelName.TabIndex = 2;
             // 
             // buttonCancel
             // 
+            buttonCancel.Location = new Point(318, 156);
+            buttonCancel.Margin = new Padding(3, 4, 3, 4);
             buttonCancel.Location = new Point(276, 89);
             buttonCancel.Name = "buttonCancel";
-            buttonCancel.Size = new Size(75, 23);
+            buttonCancel.Size = new Size(99, 31);
             buttonCancel.TabIndex = 5;
             buttonCancel.Text = "Отмена";
             buttonCancel.UseVisualStyleBackColor = true;
@@ -74,6 +79,12 @@
             // 
             // comboBoxPlaneScheme
             // 
+            label3.AutoSize = true;
+            label3.Location = new Point(14, 104);
+            label3.Name = "label3";
+            label3.Size = new Size(201, 20);
+            label3.TabIndex = 6;
+            label3.Text = "Кол-во мест бизнес-класса:";
             comboBoxPlaneScheme.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxPlaneScheme.FormattingEnabled = true;
             comboBoxPlaneScheme.Location = new Point(125, 48);
@@ -83,6 +94,11 @@
             // 
             // label2
             // 
+            textBoxBusinessPlacesCount.Location = new Point(222, 104);
+            textBoxBusinessPlacesCount.Margin = new Padding(3, 4, 3, 4);
+            textBoxBusinessPlacesCount.Name = "textBoxBusinessPlacesCount";
+            textBoxBusinessPlacesCount.Size = new Size(194, 27);
+            textBoxBusinessPlacesCount.TabIndex = 8;
             label2.AutoSize = true;
             label2.Location = new Point(12, 51);
             label2.Name = "label2";
@@ -92,8 +108,11 @@
             // 
             // FormPlane
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(426, 193);
+            Controls.Add(textBoxBusinessPlacesCount);
+            Controls.Add(label3);
             ClientSize = new Size(363, 120);
             Controls.Add(label2);
             Controls.Add(comboBoxPlaneScheme);
@@ -101,6 +120,8 @@
             Controls.Add(textBoxModelName);
             Controls.Add(label1);
             Controls.Add(buttonSave);
+            Margin = new Padding(3, 4, 3, 4);
+            MaximizeBox = false;
             Name = "FormPlane";
             Text = "Самолет";
             Load += FormPlane_Load;

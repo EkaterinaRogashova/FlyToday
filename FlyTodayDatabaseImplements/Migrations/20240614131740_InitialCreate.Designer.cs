@@ -3,6 +3,7 @@ using System;
 using FlyTodayDatabaseImplements;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FlyTodayDatabaseImplements.Migrations
 {
     [DbContext(typeof(FlyTodayDatabase))]
-    partial class FlyTodayDatabaseModelSnapshot : ModelSnapshot
+    [Migration("20240614131740_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -113,9 +116,6 @@ namespace FlyTodayDatabaseImplements.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("TypeWork")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.HasIndex("FlightId");
@@ -184,11 +184,9 @@ namespace FlyTodayDatabaseImplements.Migrations
 
                     b.HasIndex("FlightId")
                         .IsUnique();
-                    b.HasIndex("FlightId");
 
                     b.HasIndex("UserId")
                         .IsUnique();
-                    b.HasIndex("UserId");
 
                     b.ToTable("FlightSubscribers");
                 });
@@ -234,71 +232,29 @@ namespace FlyTodayDatabaseImplements.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("PlaneSchemeId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("PlaneSchemeId");
 
                     b.ToTable("Planes");
                 });
 
             modelBuilder.Entity("FlyTodayDatabaseImplements.Models.PositionAtWork", b =>
-            modelBuilder.Entity("FlyTodayDatabaseImplements.Models.PlaneScheme", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BusinessPlacesCount")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("EconomPlacesCount")
-                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int?>("NumberOfEmployeesInShift")
-                    b.Property<int>("PlacesInFirstLineBusiness")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PlacesInFirstLineEconom")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PlacesInLastLineBusiness")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PlacesInLastLineEconom")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PlacesInMiddleLineEconom")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PlaneSchemes");
-                });
-
-            modelBuilder.Entity("FlyTodayDatabaseImplements.Models.PositionAtWork", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
                     b.Property<string>("TypeWork")
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("NumberOfEmployeesInShift")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -541,7 +497,6 @@ namespace FlyTodayDatabaseImplements.Migrations
 
                     b.HasOne("FlyTodayDatabaseImplements.Models.Plane", "Plane")
                         .WithMany("Flights")
-                        .WithMany()
                         .HasForeignKey("PlaneId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -556,33 +511,18 @@ namespace FlyTodayDatabaseImplements.Migrations
                     b.HasOne("FlyTodayDatabaseImplements.Models.Flight", "Flight")
                         .WithOne("FlightSubscriber")
                         .HasForeignKey("FlyTodayDatabaseImplements.Models.FlightSubscriber", "FlightId")
-                        .WithMany("Subscribers")
-                        .HasForeignKey("FlightId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FlyTodayDatabaseImplements.Models.User", "User")
                         .WithOne("FlightSubscriber")
                         .HasForeignKey("FlyTodayDatabaseImplements.Models.FlightSubscriber", "UserId")
-                        .WithMany("FlightSubscribers")
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Flight");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("FlyTodayDatabaseImplements.Models.Plane", b =>
-                {
-                    b.HasOne("FlyTodayDatabaseImplements.Models.PlaneScheme", "PlaneScheme")
-                        .WithMany("Planes")
-                        .HasForeignKey("PlaneSchemeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PlaneScheme");
                 });
 
             modelBuilder.Entity("FlyTodayDatabaseImplements.Models.Rent", b =>
@@ -643,7 +583,6 @@ namespace FlyTodayDatabaseImplements.Migrations
 
                     b.Navigation("FlightSubscriber")
                         .IsRequired();
-                    b.Navigation("Subscribers");
                 });
 
             modelBuilder.Entity("FlyTodayDatabaseImplements.Models.Place", b =>
@@ -652,17 +591,14 @@ namespace FlyTodayDatabaseImplements.Migrations
                 });
 
             modelBuilder.Entity("FlyTodayDatabaseImplements.Models.Plane", b =>
-            modelBuilder.Entity("FlyTodayDatabaseImplements.Models.PlaneScheme", b =>
                 {
                     b.Navigation("Flights");
-                    b.Navigation("Planes");
                 });
 
             modelBuilder.Entity("FlyTodayDatabaseImplements.Models.User", b =>
                 {
                     b.Navigation("FlightSubscriber")
                         .IsRequired();
-                    b.Navigation("FlightSubscribers");
                 });
 #pragma warning restore 612, 618
         }

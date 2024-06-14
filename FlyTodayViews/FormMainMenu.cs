@@ -2,6 +2,7 @@
 using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using FlyTodayDataModels.Enums;
+using FlyTodayViews.Properties;
 using Microsoft.Extensions.Logging;
 using System.Windows.Forms;
 
@@ -17,12 +18,23 @@ namespace FlyTodayViews
         public int CurrentUserId { set { _currentUserId = value; } }
         public string Password { set { _password = value; } }
         public string Email { set { _email = value; } }
+        private int picturenumber = 1;
+        private void ImageSlide()
+        {
+            if (picturenumber == 1) slider.ImageLocation = "C:\\Users\\admin\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\1.jpg";
+            if (picturenumber == 2) slider.ImageLocation = "C:\\Users\\admin\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\2.jpg";
+            if (picturenumber == 3) slider.ImageLocation = "C:\\Users\\admin\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\3.jpg";
+            if (picturenumber == 4) slider.ImageLocation = "C:\\Users\\admin\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\4.jpg";
+            if (picturenumber == 5) slider.ImageLocation = "C:\\Users\\admin\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\5.jpg";
+            if (picturenumber == 6) { picturenumber = 1; slider.ImageLocation = "C:\\Users\\admin\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\1.jpg"; }
+            picturenumber++;
+        }
         public FormMainMenu(ILogger<FormMainMenu> logger, IUserLogic logic)
         {
             InitializeComponent();
             _logger = logger;
             _logic = logic;
-            LoadData();
+            //LoadData();
         }
         private void buttonMainEnter_Click(object sender, EventArgs e)
         {
@@ -140,6 +152,7 @@ namespace FlyTodayViews
             {
                 try
                 {
+                    Hide();
                     var currentUser = _logic.ReadElement(new UserSearchModel { Id = _currentUserId.Value });
                     if (currentUser != null)
                     {
@@ -147,7 +160,8 @@ namespace FlyTodayViews
                         if (service is FormProfile form)
                         {
                             form.Id = _currentUserId.Value;
-                            form.ShowDialog();
+                            form.Show();
+                            Hide();
                         }
                     }
                     else
@@ -182,6 +196,8 @@ namespace FlyTodayViews
                     buttonSales.Visible = user.AccessRule == AccessEnum.Администратор;
                     buttonStatisticTickets.Visible = user.AccessRule == AccessEnum.Администратор;
                     buttonDirStatistics.Visible = user.AccessRule == AccessEnum.Администратор;
+                    buttonMainRegistration.Enabled = false;
+                    buttonMainEnter.Enabled = false;
                 }
                 else
                 {
@@ -240,6 +256,7 @@ namespace FlyTodayViews
 
             MessageBox.Show("Вы вышли из системы.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
             LoadData();
+            buttonMainEnter.Enabled = true;
         }
 
         private void buttonSchedule_Click(object sender, EventArgs e)
@@ -267,6 +284,11 @@ namespace FlyTodayViews
             {
                 form.ShowDialog();
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            ImageSlide();
         }
     }
 }
