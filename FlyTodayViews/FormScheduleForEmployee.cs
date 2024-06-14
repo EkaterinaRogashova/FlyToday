@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FlyTodayContracts.SearchModels;
 
 namespace FlyTodayViews
 {
@@ -19,13 +20,15 @@ namespace FlyTodayViews
     {
         private readonly ILogger _logger;
         private readonly IScheduleLogic _schedulelogic;
+        private readonly IEmployeeLogic _employeelogic;
         private int? _id;
         public int Id { set { _id = value; } }
-        public FormScheduleForEmployee(ILogger<FormScheduleForEmployee> logger, IScheduleLogic logic)
+        public FormScheduleForEmployee(ILogger<FormScheduleForEmployee> logger, IScheduleLogic logic, IEmployeeLogic employeelogic)
         {
             InitializeComponent();
             _logger = logger;
             _schedulelogic = logic;
+            _employeelogic = employeelogic;
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -45,11 +48,25 @@ namespace FlyTodayViews
                     throw new Exception("Выбрана неизвестная смена");
                 }
                 DateTime date = dateTimePicker1.Value.ToUniversalTime();
-                for (int i = 0; i < 30; i++)
+                int countDays = 30;
+                var employee = _employeelogic.ReadElement(new EmployeeSearchModel { Id = _id });
+                DateTime endDate = employee.DateMedAnalys;
+
+                if (employee.DateMedAnalys < DateTime.Now + TimeSpan.FromDays(30))
                 {
+                    TimeSpan remainingDays = endDate - DateTime.Now;
+                    countDays = remainingDays.Days;
+                }
+
+                for (int i = 0; i < countDays; i++)
+                {
+                    if (date.Date >= endDate.AddDays(1).Date)
+                    {
+                        break;
+                    }
+
                     var model = new ScheduleBindingModel
                     {
-
                         EmployeeId = _id ?? 0,
                         Shift = shifts[shiftIndex],
                         Date = date,

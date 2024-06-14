@@ -81,8 +81,6 @@ namespace FlyTodayViews
             }
             if (original is Button)
             {
-                //((Button)clone).Click += buttonCreateBoardingPass_Click;
-                //((Button)clone).Click += buttonSaveBoardingPass_Click;
                 buttonTicketIdMap[clone as Button] = ticketId;
             }
             return clone;
@@ -111,7 +109,7 @@ namespace FlyTodayViews
                             var labelPlace = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelPlace");
                             var buttonBoardingPass = groupBox.Controls.OfType<Button>().FirstOrDefault(b => b.Name == "buttonCreateBoardingPass");
                             var buttonSave = groupBox.Controls.OfType<Button>().FirstOrDefault(b => b.Name == "buttonSaveBoardingPass");
-                            buttonBoardingPass.Click += ButtonBoardingPass_Click;
+                            buttonBoardingPass.Click += buttonCreateBoardingPass_Click;
                             buttonSave.Click += buttonSaveBoardingPass_Click;
                             if (DateTime.Now >= flight.DepartureDate - TimeSpan.FromHours(2) && DateTime.Now <= flight.DepartureDate - TimeSpan.FromMinutes(40))
                             {
@@ -147,6 +145,7 @@ namespace FlyTodayViews
                             var labelDoc = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelDocument");
                             var labelType = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelType");
                             var labelCost = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelCost");
+                            var labelBag = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelBags");
                             groupBox.Name = $"groupBoxTicket{i + 1}";
                             groupBox.Text = $"Билет {i + 1}";
                             groupBox.Dock = DockStyle.Top;
@@ -154,6 +153,11 @@ namespace FlyTodayViews
                             labelDoc.Text = ticket.SeriesOfDocument + " " + ticket.NumberOfDocument;
                             labelType.Text = ticket.TypeTicket;
                             labelCost.Text = ticket.TicketCost.ToString("C");
+                            if (ticket.Bags == true)
+                            {
+                                labelBag.Text = "Да";
+                            }
+                            else { labelBag.Text = "Нет"; }
                             pnlTickets.Controls.Add(groupBox);
                         }
                     }
@@ -164,12 +168,6 @@ namespace FlyTodayViews
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
-        }
-
-        private void ButtonBoardingPass_Click(object? sender, EventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         private void FormRentTickets_Load(object sender, EventArgs e)

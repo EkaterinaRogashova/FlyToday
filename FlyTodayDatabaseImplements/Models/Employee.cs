@@ -32,8 +32,6 @@ namespace FlyTodayDatabaseImplements.Models
         [Required]
         public int PositionAtWorkId { get; private set; }
         public PositionAtWork PositionAtWork { get; set; }
-        [Required]
-        public TypeWorkEnum TypeWork { get; private set; }
 
         public static Employee? Create(EmployeeBindingModel model)
         {
@@ -51,8 +49,7 @@ namespace FlyTodayDatabaseImplements.Models
                 MedAnalys = model.MedAnalys,
                 DateMedAnalys = model.DateMedAnalys,
                 Gender = model.Gender,
-                PositionAtWorkId = model.PositionAtWorkId,
-                TypeWork = model.TypeWork
+                PositionAtWorkId = model.PositionAtWorkId
             };
         }
         public static Employee Create(EmployeeViewModel model)
@@ -67,8 +64,7 @@ namespace FlyTodayDatabaseImplements.Models
                 MedAnalys = model.MedAnalys,
                 DateMedAnalys = model.DateMedAnalys,
                 Gender = model.Gender,
-                PositionAtWorkId = model.PositionAtWorkId,
-                TypeWork = model.TypeWork
+                PositionAtWorkId = model.PositionAtWorkId
             };
         }
         public void Update(EmployeeBindingModel model)
@@ -85,7 +81,6 @@ namespace FlyTodayDatabaseImplements.Models
             DateMedAnalys = model.DateMedAnalys;
             Gender = model.Gender;
             PositionAtWorkId = model.PositionAtWorkId;
-            TypeWork = model.TypeWork;
         }
         public EmployeeViewModel GetViewModel => new()
         {
@@ -97,8 +92,7 @@ namespace FlyTodayDatabaseImplements.Models
             MedAnalys = MedAnalys,
             DateMedAnalys = DateMedAnalys,
             Gender = Gender,
-            PositionAtWorkId = PositionAtWorkId,
-            TypeWork = TypeWork
+            PositionAtWorkId = PositionAtWorkId
         };
     }
 }

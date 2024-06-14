@@ -1,5 +1,6 @@
 ﻿using FlyTodayContracts.BindingModels;
 using FlyTodayContracts.BusinessLogicContracts;
+using FlyTodayContracts.SearchModels;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace FlyTodayViews
             InitializeComponent();
             _logger = logger;
             _logic = logic;
+            dataGridView1.Columns.Add("Age", "Возраст");
         }
         private void FormSales_Load(object sender, EventArgs e)
         {
@@ -39,9 +41,24 @@ namespace FlyTodayViews
                     dataGridView1.Columns["Id"].Visible = false;
                     dataGridView1.Columns["Category"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView1.Columns["Percent"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView1.Columns["AgeTo"].Visible = false;
+                    dataGridView1.Columns["AgeFrom"].Visible = false;
                 }
                 _logger.LogInformation("Загрузка льгот");
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    if (Convert.ToInt32(row.Cells["AgeTo"].Value) == 0 && Convert.ToInt32(row.Cells["AgeFrom"].Value) == 150)
+                    {
+                        row.Cells["Age"].Value = "Безвозрастная категория";
+                    }
+                    else
+                    {
+                        if (Convert.ToInt32(row.Cells["AgeTo"].Value) == 0) { row.Cells["Age"].Value = "До " + row.Cells["AgeFrom"].Value; }
+                        else if (Convert.ToInt32(row.Cells["AgeFrom"].Value) == 150) { row.Cells["Age"].Value = "От " + row.Cells["AgeTo"].Value; }
+                        else { row.Cells["Age"].Value = "От " + row.Cells["AgeTo"].Value + " до " + row.Cells["AgeFrom"].Value; }
+                    }
 
+                }
             }
             catch (Exception ex)
             {

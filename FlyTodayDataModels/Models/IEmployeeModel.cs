@@ -18,7 +18,6 @@ namespace FlyTodayDataModels.Models
         DateTime DateOfBirth {  get; }
         string Gender { get; }
         int PositionAtWorkId { get; }
-        TypeWorkEnum TypeWork { get; }
 
     }
 }

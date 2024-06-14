@@ -1,5 +1,6 @@
 ﻿using FlyTodayBusinessLogics.OfficePackage.HelperEnums;
 using FlyTodayBusinessLogics.OfficePackage.HelperModels;
+using MigraDoc.Rendering;
 
 namespace FlyTodayBusinessLogics.OfficePackage
 {
@@ -112,35 +113,47 @@ namespace FlyTodayBusinessLogics.OfficePackage
         public void CreateDocReportBoardingPass(PdfInfo info)
         {
             CreatePdf(info);
+
             CreateParagraph(new PdfParagraph
             {
                 Text = info.Title,
                 Style = "NormalTitle",
                 ParagraphAlignment = PdfParagraphAlignmentType.Center
             });
+
             CreateParagraph(new PdfParagraph
             {
                 Text = $"на рейс {info.Direction} {info.DepartureDate}",
                 Style = "Normal",
                 ParagraphAlignment = PdfParagraphAlignmentType.Center
             });
+
+            CreateParagraph(new PdfParagraph
+            {
+                Text = $"Информация о самолете: {info.Plane}",
+                Style = "Normal",
+                ParagraphAlignment = PdfParagraphAlignmentType.Left
+            });
+
             CreateTable(new List<string> { "6cm", "3cm", "5cm", "3cm" });
+
             CreateRow(new PdfRowParameters
             {
                 Texts = new List<string> { "ФИО", "Серия документа", "Номер документа", "Место" },
                 Style = "NormalTitle",
                 ParagraphAlignment = PdfParagraphAlignmentType.Center
             });
+
             foreach (var boardingPass in info.BoardingPass)
             {
                 CreateRow(new PdfRowParameters
                 {
-                    Texts = new List<string> { boardingPass.FIO,
-                    boardingPass.Seria, boardingPass.Number, boardingPass.Place },
+                    Texts = new List<string> { boardingPass.FIO, boardingPass.Seria, boardingPass.Number, boardingPass.Place },
                     Style = "Normal",
                     ParagraphAlignment = PdfParagraphAlignmentType.Center
                 });
             }
+
             SavePdf(info);
         }
         /// <summary>

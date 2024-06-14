@@ -51,7 +51,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             {
                 throw new ArgumentNullException(nameof(model));
             }
-            _logger.LogInformation("ReadElement. Name:{Name}. Id:{ Id}", model.Name, model.Id);
+            _logger.LogInformation("ReadElement. Name:{Name}. TypeWork: {TypeWork}. Id:{ Id}", model.Name, model.TypeWork, model.Id);
             var element = _positionAtWorkStorage.GetElement(model);
             if (element == null)
             {
@@ -64,7 +64,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
 
         public List<PositionAtWorkViewModel>? ReadList(PositionAtWorkSearchModel? model)
         {
-            _logger.LogInformation("ReadList. Category:{Category}. Id:{ Id}", model?.Name, model?.Id);
+            _logger.LogInformation("ReadList. Category:{Category}. TypeWork: {TypeWork}. Id:{ Id}", model?.Name, model?.TypeWork, model?.Id);
             var list = model == null ? _positionAtWorkStorage.GetFullList() : _positionAtWorkStorage.GetFilteredList(model);
             if (list == null)
             {
@@ -100,7 +100,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             {
                 throw new ArgumentNullException("Нет названия должности", nameof(model.Name));
             }
-            _logger.LogInformation("PositionAtWorks. Name:{Name}. Id: { Id} ", model.Name, model.Id);
+            _logger.LogInformation("PositionAtWorks. Name:{Name}. TypeWork: {TypeWork}. Id: { Id} ", model.Name, model.Id, model.TypeWork);
             var element = _positionAtWorkStorage.GetElement(new PositionAtWorkSearchModel
             {
                 Name = model.Name

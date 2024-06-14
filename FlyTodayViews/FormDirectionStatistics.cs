@@ -75,22 +75,25 @@ namespace FlyTodayViews
                     {
                         foreach (var rent in rents)
                         {
-                            ticketCount = 0;
-                            var tickets = _ticketLogic.ReadList(new TicketSearchModel { RentId = rent.Id });
-                            if (tickets != null) ticketCount += tickets.Count;
-                            var flight = _flightLogic.ReadElement(new FlightSearchModel { Id = rent.FlightId });
-                            if (flight != null)
+                            if (rent.Status == "Оплачено")
                             {
-                                if (flight.DepartureDate >= dateTimePickerDateFrom.Value && flight.DepartureDate <= dateTimePickerDateTo.Value)
+                                ticketCount = 0;
+                                var tickets = _ticketLogic.ReadList(new TicketSearchModel { RentId = rent.Id });
+                                if (tickets != null) ticketCount += tickets.Count;
+                                var flight = _flightLogic.ReadElement(new FlightSearchModel { Id = rent.FlightId });
+                                if (flight != null)
                                 {
-                                    var direction = _logic.ReadElement(new DirectionSearchModel { Id = flight.DirectionId });
-                                    if (direction != null && !uniqueDirections.Contains(direction.Id))
+                                    if (flight.DepartureDate >= dateTimePickerDateFrom.Value && flight.DepartureDate <= dateTimePickerDateTo.Value)
                                     {
-                                        directionsTickets.Add(direction, ticketCount);
-                                        uniqueDirections.Add(direction.Id);
+                                        var direction = _logic.ReadElement(new DirectionSearchModel { Id = flight.DirectionId });
+                                        if (direction != null && !uniqueDirections.Contains(direction.Id))
+                                        {
+                                            directionsTickets.Add(direction, ticketCount);
+                                            uniqueDirections.Add(direction.Id);
+                                        }
                                     }
                                 }
-                            }
+                            }                            
                         }
                     }
                 }

@@ -99,7 +99,7 @@ namespace FlyTodayViews
             }
         }
 
-        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void buttonMenu_Click(object sender, EventArgs e)
         {
             var service = Program.ServiceProvider?.GetService(typeof(FormMainMenu));
             if (service is FormMainMenu newForm)

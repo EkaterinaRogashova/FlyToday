@@ -10,5 +10,7 @@ namespace FlyTodayDataModels.Models
     {
         string Category { get; }
         double Percent {  get; }
+        int? AgeFrom { get; }
+        int? AgeTo { get; }
     }
 }

@@ -65,7 +65,8 @@ namespace FlyTodayDatabaseImplements.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    NumberOfEmployeesInShift = table.Column<int>(type: "integer", nullable: false)
+                    NumberOfEmployeesInShift = table.Column<int>(type: "integer", nullable: true),
+                    TypeWork = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -79,7 +80,9 @@ namespace FlyTodayDatabaseImplements.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Category = table.Column<string>(type: "text", nullable: false),
-                    Percent = table.Column<double>(type: "double precision", nullable: false)
+                    Percent = table.Column<double>(type: "double precision", nullable: false),
+                    AgeTo = table.Column<int>(type: "integer", nullable: true),
+                    AgeFrom = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -152,7 +155,6 @@ namespace FlyTodayDatabaseImplements.Migrations
                     DateOfBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Gender = table.Column<string>(type: "text", nullable: false),
                     PositionAtWorkId = table.Column<int>(type: "integer", nullable: false),
-                    TypeWork = table.Column<int>(type: "integer", nullable: false),
                     FlightId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>

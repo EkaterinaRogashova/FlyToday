@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FlyTodayDatabaseImplements.Migrations
 {
     [DbContext(typeof(FlyTodayDatabase))]
-    [Migration("20240613023325_InitialCreate")]
+    [Migration("20240614131740_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -115,9 +115,6 @@ namespace FlyTodayDatabaseImplements.Migrations
                     b.Property<string>("Surname")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("TypeWork")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -252,8 +249,12 @@ namespace FlyTodayDatabaseImplements.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("NumberOfEmployeesInShift")
+                    b.Property<int?>("NumberOfEmployeesInShift")
                         .HasColumnType("integer");
+
+                    b.Property<string>("TypeWork")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -303,6 +304,12 @@ namespace FlyTodayDatabaseImplements.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AgeFrom")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("AgeTo")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Category")
                         .IsRequired()

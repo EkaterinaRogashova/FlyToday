@@ -14,6 +14,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Cache;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -35,6 +36,7 @@ namespace FlyTodayViews
 
         public int CurrentRentId { set { _currentRentId = value; } }
         private Dictionary<ComboBox, List<GroupBox>> _comboBoxToGroupBoxes = new Dictionary<ComboBox, List<GroupBox>>();
+        private Dictionary<CheckBox, List<GroupBox>> _checkBoxToGroupBoxes = new Dictionary<CheckBox, List<GroupBox>>();
         public FormTickets(ILogger<FormRent> logger, ITicketLogic logic, IRentLogic rentlogic, IFlightLogic flightlogic, IDirectionLogic directionlogic, ISaleLogic salelogic, IUserLogic userlogic, AbstractMailWorker mailWorker)
         {
             InitializeComponent();
@@ -87,6 +89,10 @@ namespace FlyTodayViews
                 ((ComboBox)clone).ValueMember = ((ComboBox)original).ValueMember;
                 ((ComboBox)clone).SelectedIndexChanged += comboBoxSale_SelectedIndexChanged;
                 ((ComboBox)clone).DropDownStyle = ((ComboBox)original).DropDownStyle;
+            }
+            if (original is CheckBox)
+            {
+                ((CheckBox)clone).CheckedChanged += checkBoxBags_CheckedChanged;
             }
             if (original is CheckedListBox)
             {
@@ -209,13 +215,32 @@ namespace FlyTodayViews
                     }
                 }
             }
+            _checkBoxToGroupBoxes = new Dictionary<CheckBox, List<GroupBox>>();
+            foreach (Control control in pnlTickets.Controls)
+            {
+                if (control is GroupBox groupBox)
+                {
+                    var checkBox = groupBox.Controls.OfType<CheckBox>().FirstOrDefault(cb => cb.Name == "checkBoxBags");
+                    if (checkBox != null)
+                    {
+                        if (!_checkBoxToGroupBoxes.ContainsKey(checkBox))
+                        {
+                            _checkBoxToGroupBoxes[checkBox] = new List<GroupBox>();
+                        }
+                        _checkBoxToGroupBoxes[checkBox].Add(groupBox);
+                    }
+                }
+            }
 
             comboBoxSale.SelectedIndexChanged += comboBoxSale_SelectedIndexChanged;
+            checkBoxBags.CheckedChanged += checkBoxBags_CheckedChanged;
         }
         private void textBoxCost_Changed(object sender, EventArgs e)
         {
             CalculateTotalCost();
         }
+
+
         private void comboBoxSale_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Получаем текущий выбранный элемент
@@ -226,9 +251,11 @@ namespace FlyTodayViews
             var selectedSale = (SaleViewModel)changedComboBox.SelectedItem;
             var view = _rentlogic.ReadElement(new RentSearchModel { Id = _currentRentId.Value });
             var flight = _flightlogic.ReadElement(new FlightSearchModel { Id = view.FlightId });
+
+            double costBags = 0;
+
             if (selectedSale.Id > 0)
             {
-                // Ищем все элементы TextBox с ценой внутри каждого groupBox
                 if (_comboBoxToGroupBoxes.TryGetValue(changedComboBox, out var relatedGroupBoxes))
                 {
                     // Обновляем цены билетов только в связанных GroupBox
@@ -236,15 +263,34 @@ namespace FlyTodayViews
                     {
                         var textBoxCostEconom = groupBox.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "textBoxCostEconom");
                         var textBoxCostBusiness = groupBox.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "textBoxCostBusiness");
-                        if (textBoxCostEconom != null)
+                        var checkBox = groupBox.Controls.OfType<CheckBox>().FirstOrDefault(tb => tb.Name == "checkBoxBags");
+                        if (checkBox.Checked)
                         {
-                            textBoxCostEconom.Text = (flight.EconomPrice * (1 - selectedSale.Percent / 100)).ToString();
+                            if (textBoxCostEconom != null)
+                            {
+                                costBags = flight.EconomPrice * 1.05;
+                                textBoxCostEconom.Text = (costBags * (1 - selectedSale.Percent / 100)).ToString();
 
+                            }
+                            if (textBoxCostBusiness != null)
+                            {
+                                costBags = flight.BusinessPrice * 1.05;
+                                textBoxCostBusiness.Text = (costBags * (1 - selectedSale.Percent / 100)).ToString();
+                            }
                         }
-                        if (textBoxCostBusiness != null)
+                        else
                         {
-                            textBoxCostBusiness.Text = (flight.BusinessPrice * (1 - selectedSale.Percent / 100)).ToString();
+                            if (textBoxCostEconom != null)
+                            {
+                                textBoxCostEconom.Text = (flight.EconomPrice * (1 - selectedSale.Percent / 100)).ToString();
+
+                            }
+                            if (textBoxCostBusiness != null)
+                            {
+                                textBoxCostBusiness.Text = (flight.BusinessPrice * (1 - selectedSale.Percent / 100)).ToString();
+                            }
                         }
+                        
                     }
                 }
             }
@@ -257,17 +303,36 @@ namespace FlyTodayViews
                     {
                         var textBoxCostEconom = groupBox.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "textBoxCostEconom");
                         var textBoxCostBusiness = groupBox.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "textBoxCostBusiness");
-                        if (textBoxCostEconom != null)
+                        var checkBox = groupBox.Controls.OfType<CheckBox>().FirstOrDefault(tb => tb.Name == "checkBoxBags");
+                        if (checkBox.Checked)
                         {
-                            textBoxCostEconom.Text = flight.EconomPrice.ToString();
+                            if (textBoxCostEconom != null)
+                            {
+                                costBags = flight.EconomPrice * 1.05;
+                                textBoxCostEconom.Text = costBags.ToString();
 
+                            }
+                            if (textBoxCostBusiness != null)
+                            {
+                                costBags = flight.BusinessPrice * 1.05;
+                                textBoxCostBusiness.Text = costBags.ToString();
+                            }
                         }
-                        if (textBoxCostBusiness != null)
+                        else
                         {
-                            textBoxCostBusiness.Text = flight.BusinessPrice.ToString();
+                            if (textBoxCostEconom != null)
+                            {
+                                textBoxCostEconom.Text = flight.EconomPrice.ToString();
+
+                            }
+                            if (textBoxCostBusiness != null)
+                            {
+                                textBoxCostBusiness.Text = flight.BusinessPrice.ToString();
+                            }
                         }
                     }
                 }
+
             }
 
         }
@@ -323,7 +388,7 @@ namespace FlyTodayViews
                 {
                     if (control is GroupBox groupBox)
                     {
-                        
+
                         var textBoxCostEconom = groupBox.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "textBoxCostEconom");
                         var textBoxCostBusiness = groupBox.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "textBoxCostBusiness");
                         var comboBoxSale = groupBox.Controls.OfType<ComboBox>().FirstOrDefault(cb => cb.Name == "comboBoxSale");
@@ -355,7 +420,19 @@ namespace FlyTodayViews
                             };
                             if (comboBoxSale?.SelectedValue != null && int.TryParse(comboBoxSale.SelectedValue.ToString(), out int saleId) && saleId > 0)
                             {
-                                ticket.SaleId = saleId;
+                                var sale = _salelogic.ReadElement(new SaleSearchModel { Id = saleId });
+                                int age = DateTime.Now.Year - Date.Value.Year;
+                                if (DateTime.Now.Month < Date.Value.Month || (DateTime.Now.Month == Date.Value.Month && DateTime.Now.Day < Date.Value.Day))
+                                {
+                                    age--;
+                                }
+                                if (age >= sale.AgeTo && age <= sale.AgeFrom) ticket.SaleId = saleId;
+                                else
+                                {
+                                    MessageBox.Show("Возраст не соответствует выбранной категории", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+
                             }
                             else
                             {
@@ -390,9 +467,9 @@ namespace FlyTodayViews
                     {
                         MailAddress = user.Email,
                         Subject = "Оплата бронирования",
-                        Text = $"Ваше бронирование на рейс {dir.CountryFrom} {dir.CityFrom} - {dir.CountryTo} {dir.CityTo} на сумму {Math.Round(newView.Cost,2)} руб. успешно оплачено."
+                        Text = $"Ваше бронирование на рейс {dir.CountryFrom} {dir.CityFrom} - {dir.CountryTo} {dir.CityTo} на сумму {Math.Round(newView.Cost, 2)} руб. успешно оплачено."
                     });
-                }                
+                }
                 var curFlight = new FlightBindingModel
                 {
                     Id = view.FlightId,
@@ -419,5 +496,97 @@ namespace FlyTodayViews
         {
             Close();
         }
+
+        private void checkBoxBags_CheckedChanged(object sender, EventArgs e)
+        {
+            var view = _rentlogic.ReadElement(new RentSearchModel { Id = _currentRentId.Value });
+            var flight = _flightlogic.ReadElement(new FlightSearchModel { Id = view.FlightId });
+
+            var changedCheckBox = (CheckBox)sender;
+            double costBags = 0;
+
+            if (changedCheckBox.Checked)
+            {
+                if (_checkBoxToGroupBoxes.TryGetValue(changedCheckBox, out var relatedGroupBoxes))
+                {
+                    // Обновляем цены билетов только в связанных GroupBox
+                    foreach (var groupBox in relatedGroupBoxes)
+                    {
+                        var textBoxCostEconom = groupBox.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "textBoxCostEconom");
+                        var textBoxCostBusiness = groupBox.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "textBoxCostBusiness");
+                        var Sale = groupBox.Controls.OfType<ComboBox>().FirstOrDefault(tb => tb.Name == "comboBoxSale");
+                        var selectedSale = (SaleViewModel)Sale.SelectedItem;
+                        if (selectedSale.Id > 0)
+                        {
+                            if (textBoxCostEconom != null)
+                            {
+                                costBags = flight.EconomPrice * 1.05;
+                                textBoxCostEconom.Text = (costBags * (1 - selectedSale.Percent / 100)).ToString();
+
+                            }
+                            if (textBoxCostBusiness != null)
+                            {
+                                costBags = flight.BusinessPrice * 1.05;
+                                textBoxCostBusiness.Text = (costBags * (1 - selectedSale.Percent / 100)).ToString();
+                            }
+                        }
+                        else
+                        {
+                            if (textBoxCostEconom != null)
+                            {
+                                costBags = flight.EconomPrice * 1.05;
+                                textBoxCostEconom.Text = costBags.ToString();
+
+                            }
+                            if (textBoxCostBusiness != null)
+                            {
+                                costBags = flight.BusinessPrice * 1.05;
+                                textBoxCostBusiness.Text = costBags.ToString();
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (_checkBoxToGroupBoxes.TryGetValue(changedCheckBox, out var relatedGroupBoxes))
+                {
+                    // Обновляем цены билетов только в связанных GroupBox
+                    foreach (var groupBox in relatedGroupBoxes)
+                    {
+                        var textBoxCostEconom = groupBox.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "textBoxCostEconom");
+                        var textBoxCostBusiness = groupBox.Controls.OfType<TextBox>().FirstOrDefault(tb => tb.Name == "textBoxCostBusiness");
+                        var Sale = groupBox.Controls.OfType<ComboBox>().FirstOrDefault(tb => tb.Name == "comboBoxSale");
+                        var selectedSale = (SaleViewModel)Sale.SelectedItem;
+                        if (selectedSale.Id > 0)
+                        {
+                            if (textBoxCostEconom != null)
+                            {
+                                textBoxCostEconom.Text = (flight.EconomPrice * (1 - selectedSale.Percent / 100)).ToString();
+
+                            }
+                            if (textBoxCostBusiness != null)
+                            {
+                                textBoxCostBusiness.Text = (flight.BusinessPrice * (1 - selectedSale.Percent / 100)).ToString();
+                            }
+                        }
+                        else
+                        {
+                            if (textBoxCostEconom != null)
+                            {
+                                textBoxCostEconom.Text = flight.EconomPrice.ToString();
+
+                            }
+                            if (textBoxCostBusiness != null)
+                            {
+                                textBoxCostBusiness.Text = flight.BusinessPrice.ToString();
+                            }
+                        }
+                    }
+                }
+            }
+        }       
+
     }
 }
+

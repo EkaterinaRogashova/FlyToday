@@ -89,6 +89,7 @@
             // 
             textBoxRepeatPassword.Location = new Point(35, 183);
             textBoxRepeatPassword.Name = "textBoxRepeatPassword";
+            textBoxPassword.PasswordChar = '*';
             textBoxRepeatPassword.Size = new Size(314, 27);
             textBoxRepeatPassword.TabIndex = 6;
             // 

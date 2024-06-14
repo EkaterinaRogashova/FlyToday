@@ -33,15 +33,18 @@
             textBoxName = new TextBox();
             textBoxNumber = new TextBox();
             label2 = new Label();
+            label3 = new Label();
+            comboBoxTypeWork = new ComboBox();
             SuspendLayout();
             // 
             // buttonSave
             // 
             buttonSave.BackColor = SystemColors.ActiveCaption;
             buttonSave.Font = new Font("Segoe UI", 12F);
-            buttonSave.Location = new Point(100, 174);
+            buttonSave.Location = new Point(70, 192);
+            buttonSave.Margin = new Padding(3, 2, 3, 2);
             buttonSave.Name = "buttonSave";
-            buttonSave.Size = new Size(144, 46);
+            buttonSave.Size = new Size(126, 34);
             buttonSave.TabIndex = 0;
             buttonSave.Text = "Сохранить";
             buttonSave.UseVisualStyleBackColor = false;
@@ -51,46 +54,73 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(17, 22);
+            label1.Location = new Point(15, 16);
             label1.Name = "label1";
-            label1.Size = new Size(211, 28);
+            label1.Size = new Size(164, 21);
             label1.TabIndex = 1;
             label1.Text = "Название должности:";
             // 
             // textBoxName
             // 
-            textBoxName.Location = new Point(17, 55);
+            textBoxName.Location = new Point(15, 41);
+            textBoxName.Margin = new Padding(3, 2, 3, 2);
             textBoxName.Name = "textBoxName";
-            textBoxName.Size = new Size(291, 27);
+            textBoxName.Size = new Size(255, 23);
             textBoxName.TabIndex = 2;
             // 
             // textBoxNumber
             // 
-            textBoxNumber.Location = new Point(17, 128);
+            textBoxNumber.Enabled = false;
+            textBoxNumber.Location = new Point(18, 162);
+            textBoxNumber.Margin = new Padding(3, 2, 3, 2);
             textBoxNumber.Name = "textBoxNumber";
-            textBoxNumber.Size = new Size(291, 27);
+            textBoxNumber.Size = new Size(255, 23);
             textBoxNumber.TabIndex = 4;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(17, 95);
+            label2.Location = new Point(18, 139);
             label2.Name = "label2";
-            label2.Size = new Size(291, 28);
+            label2.Size = new Size(226, 21);
             label2.TabIndex = 3;
             label2.Text = "Количество человек на смене:";
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F);
+            label3.Location = new Point(18, 76);
+            label3.Name = "label3";
+            label3.Size = new Size(96, 21);
+            label3.TabIndex = 5;
+            label3.Text = "Тип работы:";
+            // 
+            // comboBoxTypeWork
+            // 
+            comboBoxTypeWork.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxTypeWork.FormattingEnabled = true;
+            comboBoxTypeWork.Items.AddRange(new object[] { "Посменная", "На рейсе" });
+            comboBoxTypeWork.Location = new Point(18, 100);
+            comboBoxTypeWork.Name = "comboBoxTypeWork";
+            comboBoxTypeWork.Size = new Size(252, 23);
+            comboBoxTypeWork.TabIndex = 6;
+            comboBoxTypeWork.SelectedIndexChanged += comboBoxTypeWork_SelectedIndexChanged;
+            // 
             // FormPositionAtWork
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(326, 263);
+            ClientSize = new Size(285, 237);
+            Controls.Add(comboBoxTypeWork);
+            Controls.Add(label3);
             Controls.Add(textBoxNumber);
             Controls.Add(label2);
             Controls.Add(textBoxName);
             Controls.Add(label1);
             Controls.Add(buttonSave);
+            Margin = new Padding(3, 2, 3, 2);
             MaximizeBox = false;
             Name = "FormPositionAtWork";
             Text = "Должность";
@@ -106,5 +136,7 @@
         private TextBox textBoxName;
         private TextBox textBoxNumber;
         private Label label2;
+        private Label label3;
+        private ComboBox comboBoxTypeWork;
     }
 }

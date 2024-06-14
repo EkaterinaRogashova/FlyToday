@@ -9,5 +9,6 @@
         public string Seria { get; set; } = string.Empty;
         public string Number { get; set; } = string.Empty;
         public string Place { get; set; } = string.Empty;
+        public string Plane { get; set; } = string.Empty;
     }
 }

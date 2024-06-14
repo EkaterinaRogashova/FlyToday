@@ -28,7 +28,5 @@ namespace FlyTodayContracts.ViewModels
         [DisplayName("Должность")]
         public int PositionAtWorkId { get; set; }
         public int Id { get; set; }
-        [DisplayName("Тип работы")]
-        public TypeWorkEnum TypeWork {  get; set; }
     }
 }

@@ -66,7 +66,6 @@ namespace FlyTodayViews
                         dateTimePickerBirth.Value = view.DateOfBirth;
                         dateTimePickerMedAnalys.Value = view.DateMedAnalys;
                         checkBoxMedAnalys.Checked = view.MedAnalys;
-                        comboBoxTypeWork.SelectedItem = view.TypeWork == 0 ? "Посменная" : "На рейсе";
                         comboBoxGender.SelectedItem = view.Gender == "Женский" ? "Ж" : "М";
                         comboBoxJob.SelectedValue = view.PositionAtWorkId;
                     }
@@ -114,14 +113,6 @@ namespace FlyTodayViews
                 else
                 {
                     model.DateMedAnalys = new DateTime(1900, 1, 1).ToUniversalTime();
-                }
-                if (comboBoxTypeWork.SelectedItem.ToString() == "Посменная")
-                {
-                    model.TypeWork = TypeWorkEnum.Посменно;
-                }
-                else
-                {
-                    model.TypeWork = TypeWorkEnum.НаРейсе;
                 }
                 var operationResult = _id.HasValue ? _logic.Update(model) :
                _logic.Create(model);

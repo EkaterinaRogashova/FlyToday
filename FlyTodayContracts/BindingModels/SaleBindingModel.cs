@@ -12,6 +12,8 @@ namespace FlyTodayContracts.BindingModels
         public string Category { get; set; } = string.Empty;
 
         public double Percent { get; set; }
+        public int? AgeFrom { get; set; }
+        public int? AgeTo { get; set; }
 
         public int Id { get; set; }
     }

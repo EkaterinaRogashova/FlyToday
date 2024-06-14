@@ -38,7 +38,8 @@ namespace FlyTodayViews
                     dataGridView1.DataSource = list;
                     dataGridView1.Columns["Id"].Visible = false;
                     dataGridView1.Columns["Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView1.Columns["NumberOfEmployeesInShift"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView1.Columns["TypeWork"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView1.Columns["NumberOfEmployeesInShift"].Visible = false;
                 }
                 _logger.LogInformation("Загрузка должностей");
 

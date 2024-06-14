@@ -2,6 +2,7 @@
 using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using FlyTodayDataModels.Enums;
+using FlyTodayViews.Properties;
 using Microsoft.Extensions.Logging;
 using System.Windows.Forms;
 
@@ -17,6 +18,17 @@ namespace FlyTodayViews
         public int CurrentUserId { set { _currentUserId = value; } }
         public string Password { set { _password = value; } }
         public string Email { set { _email = value; } }
+        private int picturenumber = 1;
+        private void ImageSlide()
+        {
+            if (picturenumber == 1) slider.ImageLocation = "C:\\Users\\admin\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\1.jpg";
+            if (picturenumber == 2) slider.ImageLocation = "C:\\Users\\admin\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\2.jpg";
+            if (picturenumber == 3) slider.ImageLocation = "C:\\Users\\admin\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\3.jpg";
+            if (picturenumber == 4) slider.ImageLocation = "C:\\Users\\admin\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\4.jpg";
+            if (picturenumber == 5) slider.ImageLocation = "C:\\Users\\admin\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\5.jpg";
+            if (picturenumber == 6) { picturenumber = 1; slider.ImageLocation = "C:\\Users\\admin\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\1.jpg"; }
+            picturenumber++;
+        }
         public FormMainMenu(ILogger<FormMainMenu> logger, IUserLogic logic)
         {
             InitializeComponent();
@@ -149,7 +161,7 @@ namespace FlyTodayViews
                         {
                             form.Id = _currentUserId.Value;
                             form.Show();
-                            Hide();                            
+                            Hide();
                         }
                     }
                     else
@@ -195,7 +207,7 @@ namespace FlyTodayViews
                     buttonPlanes.Visible = false;
                     buttonSales.Visible = false;
                     buttonStatisticTickets.Visible = false;
-                    buttonDirStatistics.Visible = false;                    
+                    buttonDirStatistics.Visible = false;
                 }
             }
             else
@@ -272,6 +284,11 @@ namespace FlyTodayViews
             {
                 form.ShowDialog();
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            ImageSlide();
         }
     }
 }

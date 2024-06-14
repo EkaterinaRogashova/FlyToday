@@ -110,7 +110,7 @@ namespace FlyTodayViews
                     {
                         MessageBox.Show("По запросу ничего не найдено", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    if (!textBoxDirectionCityFrom.Text.IsNullOrEmpty() || !textBoxDirectionCityTo.Text.IsNullOrEmpty())
+                    if (!textBoxDirectionCityFrom.Text.IsNullOrEmpty() && !textBoxDirectionCityTo.Text.IsNullOrEmpty())
                     {
                         if (transfers != null)
                         {

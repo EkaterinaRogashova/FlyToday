@@ -110,7 +110,7 @@ namespace FlyTodayViews
 
         private void ButtonSave_Click(object sender, EventArgs e)
         {
-            if (dateTimePickerDeparture.Value > DateTime.Now + TimeSpan.FromDays(1))
+            if (dateTimePickerDeparture.Value > DateTime.Now)
             {
                 if (string.IsNullOrEmpty(comboBoxSelectDirection.Text) || string.IsNullOrEmpty(dateTimePickerDeparture.Text) || string.IsNullOrEmpty(comboBoxSelectPlane.Text) || string.IsNullOrEmpty(textBoxEconomCost.Text) || string.IsNullOrEmpty(textBoxBusinessCost.Text) || string.IsNullOrEmpty(textBoxTimeInFlight.Text))
                 {
