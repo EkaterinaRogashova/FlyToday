@@ -12,7 +12,7 @@ namespace FlyTodayDatabaseImplements.Implements
         public UserViewModel? Delete(UserBindingModel model)
         {
             using var context = new FlyTodayDatabase();
-            var element = context.Users.Include(x => x.FlightSubscriber).FirstOrDefault(rec => rec.Id == model.Id);
+            var element = context.Users.FirstOrDefault(rec => rec.Id == model.Id);
             if (element != null)
             {
                 context.Users.Remove(element);

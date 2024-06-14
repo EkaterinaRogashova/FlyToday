@@ -24,6 +24,7 @@ namespace FlyTodayContracts.BindingModels
 
         public double TimeInFlight { get; set; }
 
-        public int Id { get; set; }        
+        public int Id { get; set; }
+        public Dictionary<int, IUserModel> FlightSubscribers { get; set; } = new();
     }
 }

@@ -15,8 +15,9 @@ namespace FlyTodayDatabaseImplements.Models
         public int EconomPlacesCount { get; private set; }
         [Required]
         public int BusinessPlacesCount { get; private set; }
-        [ForeignKey("PlaneId")]
-        public virtual List<Flight> Flights { get; set; } = new();
+        [Required]
+        public int PlaneSchemeId { get; private set; }
+        public virtual PlaneScheme PlaneScheme { get; set; }
 
         public static Plane? Create(PlaneBindingModel model)
         {
@@ -29,7 +30,8 @@ namespace FlyTodayDatabaseImplements.Models
                 Id = model.Id,
                 ModelName = model.ModelName,
                 EconomPlacesCount = model.EconomPlacesCount,
-                BusinessPlacesCount = model.BusinessPlacesCount
+                BusinessPlacesCount = model.BusinessPlacesCount,
+                PlaneSchemeId = model.PlaneSchemeId
             };
         }
 
@@ -42,6 +44,7 @@ namespace FlyTodayDatabaseImplements.Models
             ModelName = model.ModelName;
             EconomPlacesCount = model.EconomPlacesCount;
             BusinessPlacesCount = model.BusinessPlacesCount;
+            PlaneSchemeId = model.PlaneSchemeId;
         }
 
         public PlaneViewModel GetViewModel => new()
@@ -49,7 +52,8 @@ namespace FlyTodayDatabaseImplements.Models
             Id = Id,
             ModelName = ModelName,
             EconomPlacesCount = EconomPlacesCount,
-            BusinessPlacesCount = BusinessPlacesCount
-        };
+            BusinessPlacesCount = BusinessPlacesCount,
+            PlaneSchemeId = PlaneSchemeId
+        };        
     }
 }

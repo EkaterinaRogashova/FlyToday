@@ -9,8 +9,8 @@ namespace FlyTodayDatabaseImplements
         {
             if (optionsBuilder.IsConfigured == false)
             {
-                optionsBuilder.UseNpgsql("Host=192.168.1.65;Port=5432;Database=FlyTodayBd;Username=tanya;Password=1234");
-                //optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=FlyTodayBd;Username=postgres;Password=1234");
+                //optionsBuilder.UseNpgsql("Host=192.168.1.65;Port=5432;Database=FlyTodayBd;Username=tanya;Password=1234");
+                optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=FlyTodayBd;Username=postgres;Password=12345");
             }
             base.OnConfiguring(optionsBuilder);
         }
@@ -28,6 +28,6 @@ namespace FlyTodayDatabaseImplements
         public virtual DbSet<User> Users { set; get; }
         public virtual DbSet<PositionAtWork> PositionAtWorks { set; get; }
         public virtual DbSet<FlightSubscriber> FlightSubscribers { set; get; }
-
+        public virtual DbSet<PlaneScheme> PlaneSchemes { set; get; }
     }
 }

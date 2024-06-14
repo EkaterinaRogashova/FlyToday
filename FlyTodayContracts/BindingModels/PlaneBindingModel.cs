@@ -16,5 +16,7 @@ namespace FlyTodayContracts.BindingModels
         public int BusinessPlacesCount { get; set; }
 
         public int Id { get; set; }
+
+        public int PlaneSchemeId { get; set; }
     }
 }

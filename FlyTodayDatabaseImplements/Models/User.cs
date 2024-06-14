@@ -2,13 +2,8 @@
 using FlyTodayContracts.ViewModels;
 using FlyTodayDataModels.Enums;
 using FlyTodayDataModels.Models;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FlyTodayDatabaseImplements.Models
 {
@@ -31,7 +26,8 @@ namespace FlyTodayDatabaseImplements.Models
         public AccessEnum AccessRule { get; private set; }
         [Required]
         public bool AllowNotifications { get; private set; }
-        public FlightSubscriber FlightSubscriber { get; set; }
+        [ForeignKey("UserId")]
+        public virtual List<FlightSubscriber> FlightSubscribers { get; set; } = new();
 
         public static User? Create(UserBindingModel model)
         {
@@ -93,6 +89,6 @@ namespace FlyTodayDatabaseImplements.Models
             DateOfBirthday = DateOfBirthday,
             AccessRule = AccessRule,
             AllowNotifications = AllowNotifications
-        };
+        };       
     }
 }

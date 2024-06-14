@@ -4,6 +4,7 @@ using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.ViewModels;
 using FlyTodayDatabaseImplements.Models;
 using FlyTodayDataModels.Enums;
+using FlyTodayDataModels.Models;
 using Microsoft.Extensions.Logging;
 
 namespace FlyTodayViews
@@ -15,7 +16,6 @@ namespace FlyTodayViews
         private readonly IDirectionLogic _directionLogic;
         private readonly IPlaneLogic _planeLogic;
         private readonly IUserLogic _userLogic;
-        private readonly IFlightSubscriberLogic _flightSubscriberLogic;
         private int? _id;
         private int? _directionId;
         private int? _planeId;
@@ -24,8 +24,9 @@ namespace FlyTodayViews
         public int PlaneId { set { _planeId = value; } }
         private int? _currentUserId;
         public int CurrentUserId { set { _currentUserId = value; } }
+        private Dictionary<int, IUserModel> _flightSubscribers;
 
-        public FormViewFlight(ILogger<FormViewFlight> logger, IFlightLogic logic, IDirectionLogic directionLogic, IPlaneLogic planeLogic, IUserLogic userLogic, IFlightSubscriberLogic flightSubscriberLogic)
+        public FormViewFlight(ILogger<FormViewFlight> logger, IFlightLogic logic, IDirectionLogic directionLogic, IPlaneLogic planeLogic, IUserLogic userLogic)
         {
             InitializeComponent();
             _logger = logger;
@@ -33,7 +34,24 @@ namespace FlyTodayViews
             _directionLogic = directionLogic;
             _planeLogic = planeLogic;
             _userLogic = userLogic;
-            _flightSubscriberLogic = flightSubscriberLogic;
+            _flightSubscribers = new Dictionary<int, IUserModel>();
+        }
+
+        public IUserModel? UserModel
+        {
+            get
+            {
+                if (_currentUserId.HasValue)
+                {
+                    var user = _userLogic.ReadElement(new UserSearchModel
+                    {
+                        Id = _currentUserId.Value
+                    });
+                    return user;
+                }
+
+                return null;
+            }
         }
 
         private void FormFlight_Load(object sender, EventArgs e)
@@ -79,6 +97,7 @@ namespace FlyTodayViews
             {
                 var flight = _logic.ReadElement(new FlightSearchModel { Id = _id.Value });
                 var user = _userLogic.ReadElement(new UserSearchModel { Id = _currentUserId.Value });
+                var operationResult = false;
                 if (user != null)
                 {
                     if (flight != null)
@@ -91,13 +110,12 @@ namespace FlyTodayViews
                         {
                             try
                             {
-                                var model = new FlightSubscriberBindingModel
+                                if (UserModel != null)
                                 {
-                                    Id = 0,
-                                    UserId = user.Id,
-                                    FlightId = flight.Id
-                                };
-                                var operationResult = _flightSubscriberLogic.Create(model);
+                                    _flightSubscribers.Add(flight.Id, UserModel);
+                                    operationResult = true;
+                                }
+                                
                                 if (!operationResult)
                                 {
                                     throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");

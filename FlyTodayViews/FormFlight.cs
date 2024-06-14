@@ -4,7 +4,6 @@ using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.ViewModels;
 using FlyTodayDataModels.Models;
 using Microsoft.Extensions.Logging;
-using System.Windows.Forms;
 
 namespace FlyTodayViews
 {
@@ -17,6 +16,7 @@ namespace FlyTodayViews
         public int Id { set { _id = value; } }
         private readonly List<DirectionViewModel>? _listDirection;
         private readonly List<PlaneViewModel>? _listPlane;
+        private Dictionary<int, IUserModel> _flightSubscribers;
 
         public FormFlight(ILogger<FormFlight> logger, IFlightLogic logic, IDirectionLogic directionLogic, IPlaneLogic planeLogic)
         {
@@ -45,6 +45,7 @@ namespace FlyTodayViews
             _planeLogic = planeLogic;
             dateTimePickerDeparture.Format = DateTimePickerFormat.Custom;
             dateTimePickerDeparture.CustomFormat = "dd.MM.yyyy HH:mm";
+            _flightSubscribers = new Dictionary<int, IUserModel>();
         }
 
         public int DirectionId
@@ -58,25 +59,6 @@ namespace FlyTodayViews
                 comboBoxSelectDirection.SelectedValue = value;
             }
         }
-        public IDirectionModel? DirectionModel
-        {
-            get
-            {
-                if (_listDirection == null)
-                {
-                    return null;
-                }
-                foreach (var elem in _listDirection)
-                {
-                    if (elem.Id == DirectionId)
-                    {
-                        return elem;
-                    }
-                }
-                return null;
-            }
-        }
-
 
         public int PlaneId
         {
@@ -87,24 +69,6 @@ namespace FlyTodayViews
             set
             {
                 comboBoxSelectPlane.SelectedValue = value;
-            }
-        }
-        public IPlaneModel? PlaneModel
-        {
-            get
-            {
-                if (_listPlane == null)
-                {
-                    return null;
-                }
-                foreach (var elem in _listPlane)
-                {
-                    if (elem.Id == PlaneId)
-                    {
-                        return elem;
-                    }
-                }
-                return null;
             }
         }
 
@@ -130,7 +94,8 @@ namespace FlyTodayViews
                     FreePlacesCountBusiness = placesCountBusiness,
                     EconomPrice = Convert.ToInt32(textBoxEconomCost.Text),
                     BusinessPrice = Convert.ToInt32(textBoxBusinessCost.Text),
-                    TimeInFlight = Convert.ToDouble(textBoxTimeInFlight.Text)
+                    TimeInFlight = Convert.ToDouble(textBoxTimeInFlight.Text),
+                    FlightSubscribers = _flightSubscribers
                 };
                 var operationResult = _id.HasValue ? _logic.Update(model) : _logic.Create(model);
                 if (!operationResult)

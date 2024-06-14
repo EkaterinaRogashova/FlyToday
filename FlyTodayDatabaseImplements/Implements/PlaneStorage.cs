@@ -3,6 +3,7 @@ using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.StoragesContracts;
 using FlyTodayContracts.ViewModels;
 using FlyTodayDatabaseImplements.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlyTodayDatabaseImplements.Implements
 {
@@ -44,6 +45,7 @@ namespace FlyTodayDatabaseImplements.Implements
             }
             using var context = new FlyTodayDatabase();
             return context.Planes
+                .Include(x => x.PlaneScheme)
             .Where(x => x.ModelName.Contains(model.ModelName))
            .Select(x => x.GetViewModel)
            .ToList();
@@ -53,6 +55,7 @@ namespace FlyTodayDatabaseImplements.Implements
         {
             using var context = new FlyTodayDatabase();
             return context.Planes
+                .Include(x => x.PlaneScheme)
             .Select(x => x.GetViewModel)
            .ToList();
         }

@@ -117,12 +117,22 @@ namespace FlyTodayBusinessLogics.BusinessLogics
 
             if (model.FreePlacesCountEconom < 0)
             {
-                throw new ArgumentException("Количество свободных мест эконом должно быть больше или равно 0", nameof(model.FreePlacesCountEconom));
+                throw new ArgumentException("Количество свободных мест эконом класса должно быть больше или равно 0", nameof(model.FreePlacesCountEconom));
+            }
+
+            if (!int.TryParse(model.FreePlacesCountEconom.ToString(), out _))
+            {
+                throw new ArgumentException("Количество свободных мест эконом класса должно быть целым числом", nameof(model.FreePlacesCountEconom));
             }
 
             if (model.FreePlacesCountBusiness < 0)
             {
-                throw new ArgumentException("Количество свободных мест бизнес должно быть больше или равно 0", nameof(model.FreePlacesCountBusiness));
+                throw new ArgumentException("Количество свободных мест бизнес класса должно быть больше или равно 0", nameof(model.FreePlacesCountBusiness));
+            }
+
+            if (!int.TryParse(model.FreePlacesCountBusiness.ToString(), out _))
+            {
+                throw new ArgumentException("Количество свободных мест бизнес класса должно быть целым числом", nameof(model.FreePlacesCountBusiness));
             }
 
             if (model.DirectionId == 0)
@@ -135,9 +145,19 @@ namespace FlyTodayBusinessLogics.BusinessLogics
                 throw new ArgumentException("Цена эконом-класса должна быть больше 0", nameof(model.EconomPrice));
             }
 
+            if (!double.TryParse(model.EconomPrice.ToString(), out _))
+            {
+                throw new ArgumentException("Цена эконом-класса должна быть числом", nameof(model.EconomPrice));
+            }
+
             if (model.BusinessPrice <= 0)
             {
                 throw new ArgumentException("Цена бизнес-класса должна быть больше 0", nameof(model.BusinessPrice));
+            }
+
+            if (!double.TryParse(model.BusinessPrice.ToString(), out _))
+            {
+                throw new ArgumentException("Цена бизнес-класса должна быть числом", nameof(model.BusinessPrice));
             }
 
             if (model.TimeInFlight <= 0)
@@ -145,7 +165,12 @@ namespace FlyTodayBusinessLogics.BusinessLogics
                 throw new ArgumentException("Время в полете должно быть больше 0", nameof(model.TimeInFlight));
             }
 
-            _logger.LogInformation("Flight. PlaneId:{PlaneId}, DepartureDate:{DepartureDate}, FreePlacesCount:{FreePlacesCount}, DirectionId:{DirectionId}, EconomPrice:{EconomPrice}, BusinessPrice:{BusinessPrice}, TimeInFlight:{TimeInFlight}, Id:{Id}",
+            if (!int.TryParse(model.TimeInFlight.ToString(), out _))
+            {
+                throw new ArgumentException("Время в полете должно быть целым числом", nameof(model.TimeInFlight));
+            }
+
+            _logger.LogInformation("Flight. PlaneId:{PlaneId}, DepartureDate:{DepartureDate}, FreePlacesCountEconom:{FreePlacesCountEconom}, FreePlacesCountBusiness:{FreePlacesCountBusiness}, DirectionId:{DirectionId}, EconomPrice:{EconomPrice}, BusinessPrice:{BusinessPrice}, TimeInFlight:{TimeInFlight}, Id:{Id}",
                 model.PlaneId, model.DepartureDate, model.FreePlacesCountEconom, model.FreePlacesCountBusiness, model.DirectionId, model.EconomPrice, model.BusinessPrice, model.TimeInFlight, model.Id);
 
             var element = _flightStorage.GetElement(new FlightSearchModel

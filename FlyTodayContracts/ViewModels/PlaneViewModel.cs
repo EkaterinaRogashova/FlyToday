@@ -1,11 +1,5 @@
-﻿using FlyTodayContracts.BusinessLogicContracts;
-using FlyTodayDataModels.Models;
-using System;
-using System.Collections.Generic;
+﻿using FlyTodayDataModels.Models;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FlyTodayContracts.ViewModels
 {
@@ -17,6 +11,8 @@ namespace FlyTodayContracts.ViewModels
         public int EconomPlacesCount { get; set; }
         [DisplayName("Места бизнес")]
         public int BusinessPlacesCount { get; set; }
+        [DisplayName("Схема размещения мест")]
+        public int PlaneSchemeId { get; set; }
 
         public int Id { get; set; }
     }

@@ -1,6 +1,6 @@
 ﻿namespace FlyTodayViews
 {
-    partial class FormPlanes
+    partial class FormPlaneSchemes
     {
         /// <summary>
         /// Required designer variable.
@@ -33,7 +33,6 @@
             buttonUpd = new Button();
             buttonDel = new Button();
             buttonRef = new Button();
-            buttonPlaneSchemes = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
@@ -43,12 +42,12 @@
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView.Location = new Point(12, 12);
             dataGridView.Name = "dataGridView";
-            dataGridView.Size = new Size(660, 426);
+            dataGridView.Size = new Size(357, 426);
             dataGridView.TabIndex = 0;
             // 
             // buttonAdd
             // 
-            buttonAdd.Location = new Point(703, 142);
+            buttonAdd.Location = new Point(411, 31);
             buttonAdd.Name = "buttonAdd";
             buttonAdd.Size = new Size(75, 23);
             buttonAdd.TabIndex = 1;
@@ -58,7 +57,7 @@
             // 
             // buttonUpd
             // 
-            buttonUpd.Location = new Point(703, 190);
+            buttonUpd.Location = new Point(411, 79);
             buttonUpd.Name = "buttonUpd";
             buttonUpd.Size = new Size(75, 23);
             buttonUpd.TabIndex = 2;
@@ -68,7 +67,7 @@
             // 
             // buttonDel
             // 
-            buttonDel.Location = new Point(703, 242);
+            buttonDel.Location = new Point(411, 131);
             buttonDel.Name = "buttonDel";
             buttonDel.Size = new Size(75, 23);
             buttonDel.TabIndex = 3;
@@ -78,7 +77,7 @@
             // 
             // buttonRef
             // 
-            buttonRef.Location = new Point(703, 298);
+            buttonRef.Location = new Point(411, 187);
             buttonRef.Name = "buttonRef";
             buttonRef.Size = new Size(75, 23);
             buttonRef.TabIndex = 4;
@@ -86,30 +85,19 @@
             buttonRef.UseVisualStyleBackColor = true;
             buttonRef.Click += ButtonRef_Click;
             // 
-            // buttonPlaneSchemes
-            // 
-            buttonPlaneSchemes.Location = new Point(703, 75);
-            buttonPlaneSchemes.Name = "buttonPlaneSchemes";
-            buttonPlaneSchemes.Size = new Size(75, 47);
-            buttonPlaneSchemes.TabIndex = 5;
-            buttonPlaneSchemes.Text = "Схемы самолетов";
-            buttonPlaneSchemes.UseVisualStyleBackColor = true;
-            buttonPlaneSchemes.Click += buttonPlaneSchemes_Click;
-            // 
-            // FormPlanes
+            // FormPlaneSchemes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(805, 450);
-            Controls.Add(buttonPlaneSchemes);
+            ClientSize = new Size(520, 450);
             Controls.Add(buttonRef);
             Controls.Add(buttonDel);
             Controls.Add(buttonUpd);
             Controls.Add(buttonAdd);
             Controls.Add(dataGridView);
-            Name = "FormPlanes";
-            Text = "Самолеты";
-            Load += FormPlanes_Load;
+            Name = "FormPlaneSchemes";
+            Text = "Схемы самолетов";
+            Load += FormPlaneSchemes_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             ResumeLayout(false);
         }
@@ -121,6 +109,5 @@
         private Button buttonUpd;
         private Button buttonDel;
         private Button buttonRef;
-        private Button buttonPlaneSchemes;
     }
 }

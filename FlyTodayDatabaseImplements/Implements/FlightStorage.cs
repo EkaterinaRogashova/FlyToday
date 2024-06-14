@@ -15,7 +15,7 @@ namespace FlyTodayDatabaseImplements.Implements
             var element = context.Flights
                 .Include(x => x.Plane)
                 .Include(x => x.Direction)
-                .Include(x => x.FlightSubscriber)
+                .Include(x => x.Subscribers)
                 .FirstOrDefault(rec => rec.Id == model.Id);
             if (element != null)
             {
@@ -36,7 +36,8 @@ namespace FlyTodayDatabaseImplements.Implements
             return context.Flights
              .Include(x => x.Plane)
              .Include(x => x.Direction)
-             .Include(x => x.FlightSubscriber)
+             .Include(x => x.Subscribers)
+             .ThenInclude(x => x.User)
              .FirstOrDefault(x => (model.DepartureDate != null &&
             x.DepartureDate == model.DepartureDate) || (x.DirectionId == model.DirectionId) ||
             (model.Id.HasValue && x.Id == model.Id))
@@ -53,6 +54,8 @@ namespace FlyTodayDatabaseImplements.Implements
             return context.Flights
                 .Include(x => x.Direction)
                 .Include(x => x.Plane)
+                .Include(x => x.Subscribers)
+                .ThenInclude(x => x.User)
             .Where(x => x.DirectionId.Equals(model.DirectionId))
             .ToList()
             .Select(x => x.GetViewModel)
@@ -65,7 +68,8 @@ namespace FlyTodayDatabaseImplements.Implements
             return context.Flights
              .Include(x => x.Direction)
             .Include(x => x.Plane)
-            .Include(x => x.FlightSubscriber)
+            .Include(x => x.Subscribers)
+            .ThenInclude(x => x.User)
             .ToList()
             .Select(x => x.GetViewModel)
             .ToList();
@@ -95,10 +99,11 @@ namespace FlyTodayDatabaseImplements.Implements
                 {
                     return null;
                 }
-                flight.UpdateDirection(context, model);
-                flight.UpdatePlane(context, model);
                 flight.Update(model);
                 context.SaveChanges();
+                flight.UpdateSubscribers(context, model);
+                flight.UpdateDirection(context, model);
+                flight.UpdatePlane(context, model);
                 transaction.Commit();
                 return flight.GetViewModel;
             }

@@ -128,20 +128,36 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             {
                 throw new ArgumentNullException("Не указана страна отправления", nameof(model.CountryFrom));
             }
+            else if (int.TryParse(model.CountryFrom, out _))
+            {
+                throw new ArgumentException("Страна отправления должна быть строкой, а не числом", nameof(model.CountryFrom));
+            }
 
             if (string.IsNullOrEmpty(model.CountryTo))
             {
                 throw new ArgumentNullException("Не указана страна прибытия", nameof(model.CountryTo));
+            }
+            else if (int.TryParse(model.CountryTo, out _))
+            {
+                throw new ArgumentException("Страна прибытия должна быть строкой, а не числом", nameof(model.CountryTo));
             }
 
             if (string.IsNullOrEmpty(model.CityFrom))
             {
                 throw new ArgumentNullException("Не указан город отправления", nameof(model.CityFrom));
             }
+            else if (int.TryParse(model.CityFrom, out _))
+            {
+                throw new ArgumentException("Город отправления должен быть строкой, а не числом", nameof(model.CityFrom));
+            }
 
             if (string.IsNullOrEmpty(model.CityTo))
             {
                 throw new ArgumentNullException("Не указан город прибытия", nameof(model.CityTo));
+            }
+            else if (int.TryParse(model.CityTo, out _))
+            {
+                throw new ArgumentException("Город прибытия должен быть строкой, а не числом", nameof(model.CityTo));
             }
 
             _logger.LogInformation("Direction. CountryFrom:{CountryFrom}. CountryTo:{CountryTo}. CityFrom:{CityFrom}. CityTo:{CityTo}. Id:{Id}",

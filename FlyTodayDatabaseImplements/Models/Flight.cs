@@ -27,9 +27,25 @@ namespace FlyTodayDatabaseImplements.Models
         public double TimeInFlight { get; private set; }
         [ForeignKey("FlightId")]
         public virtual List<Employee> Employees { get; set; } = new();
-        public Plane Plane { get; set; }
-        public Direction Direction { get; set; }
-        public FlightSubscriber FlightSubscriber { get; set; }
+        public virtual Plane Plane { get; set; }
+        public virtual Direction Direction { get; set; }
+        [ForeignKey("FlightId")]
+        public virtual List<FlightSubscriber> Subscribers { get; set; } = new();
+
+        private Dictionary<int, IUserModel>? _flightSubscribers = null;
+        [NotMapped]
+        public Dictionary<int, IUserModel> FlightSubscribers
+        {
+            get
+            {
+                if (_flightSubscribers == null)
+                {
+                    _flightSubscribers = Subscribers
+                        .ToDictionary(rec => rec.UserId, rec => (rec.User as IUserModel));
+                }
+                return _flightSubscribers;
+            }
+        }
 
         public static Flight? Create(FlightBindingModel model)
         {
@@ -79,18 +95,30 @@ namespace FlyTodayDatabaseImplements.Models
             }
         }
 
-        public void UpdateSubscriber(FlyTodayDatabase context, FlightBindingModel model)
+        public void UpdateSubscribers(FlyTodayDatabase context, FlightBindingModel model)
         {
-            FlightSubscriber subscriber = context.FlightSubscribers.First(x => x.FlightId == model.Id);
-            if (subscriber == null)
-            {
-                return;
+            var flightSubscribers = context.FlightSubscribers.Where(rec => rec.FlightId == model.Id).ToList();
+            if (flightSubscribers != null && flightSubscribers.Count > 0)
+            { 
+                context.FlightSubscribers.RemoveRange(flightSubscribers.Where(rec => !model.FlightSubscribers.ContainsKey(rec.UserId)));
+                context.SaveChanges();
+                foreach (var updateUser in flightSubscribers)
+                {
+                    model.FlightSubscribers.Remove(updateUser.UserId);
+                }
+                context.SaveChanges();
             }
-            else
+            var flight = context.Flights.First(x => x.Id == Id);
+            foreach (var fs in model.FlightSubscribers)
             {
-                model.Id = subscriber.FlightId;
-                FlightSubscriber = subscriber;
+                context.FlightSubscribers.Add(new FlightSubscriber
+                {
+                    Flight = flight,
+                    User = context.Users.First(x => x.Id == fs.Key)
+                });
+                context.SaveChanges();
             }
+            _flightSubscribers = null;
         }
 
         public void Update(FlightBindingModel model)

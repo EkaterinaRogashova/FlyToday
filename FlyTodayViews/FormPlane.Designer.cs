@@ -31,16 +31,14 @@
             buttonSave = new Button();
             label1 = new Label();
             textBoxModelName = new TextBox();
-            label2 = new Label();
-            textBoxEconomPlacesCount = new TextBox();
             buttonCancel = new Button();
-            label3 = new Label();
-            textBoxBusinessPlacesCount = new TextBox();
+            comboBoxPlaneScheme = new ComboBox();
+            label2 = new Label();
             SuspendLayout();
             // 
             // buttonSave
             // 
-            buttonSave.Location = new Point(194, 117);
+            buttonSave.Location = new Point(192, 89);
             buttonSave.Name = "buttonSave";
             buttonSave.Size = new Size(75, 23);
             buttonSave.TabIndex = 0;
@@ -64,25 +62,9 @@
             textBoxModelName.Size = new Size(228, 23);
             textBoxModelName.TabIndex = 2;
             // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(12, 50);
-            label2.Name = "label2";
-            label2.Size = new Size(165, 15);
-            label2.TabIndex = 3;
-            label2.Text = "Кол-во мест эконом-класса:";
-            // 
-            // textBoxEconomPlacesCount
-            // 
-            textBoxEconomPlacesCount.Location = new Point(183, 50);
-            textBoxEconomPlacesCount.Name = "textBoxEconomPlacesCount";
-            textBoxEconomPlacesCount.Size = new Size(170, 23);
-            textBoxEconomPlacesCount.TabIndex = 4;
-            // 
             // buttonCancel
             // 
-            buttonCancel.Location = new Point(278, 117);
+            buttonCancel.Location = new Point(276, 89);
             buttonCancel.Name = "buttonCancel";
             buttonCancel.Size = new Size(75, 23);
             buttonCancel.TabIndex = 5;
@@ -90,32 +72,32 @@
             buttonCancel.UseVisualStyleBackColor = true;
             buttonCancel.Click += ButtonCancel_Click;
             // 
-            // label3
+            // comboBoxPlaneScheme
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(12, 78);
-            label3.Name = "label3";
-            label3.Size = new Size(161, 15);
-            label3.TabIndex = 6;
-            label3.Text = "Кол-во мест бизнес-класса:";
+            comboBoxPlaneScheme.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxPlaneScheme.FormattingEnabled = true;
+            comboBoxPlaneScheme.Location = new Point(125, 48);
+            comboBoxPlaneScheme.Name = "comboBoxPlaneScheme";
+            comboBoxPlaneScheme.Size = new Size(228, 23);
+            comboBoxPlaneScheme.TabIndex = 10;
             // 
-            // textBoxBusinessPlacesCount
+            // label2
             // 
-            textBoxBusinessPlacesCount.Location = new Point(183, 78);
-            textBoxBusinessPlacesCount.Name = "textBoxBusinessPlacesCount";
-            textBoxBusinessPlacesCount.Size = new Size(170, 23);
-            textBoxBusinessPlacesCount.TabIndex = 8;
+            label2.AutoSize = true;
+            label2.Location = new Point(12, 51);
+            label2.Name = "label2";
+            label2.Size = new Size(45, 15);
+            label2.TabIndex = 11;
+            label2.Text = "Схема:";
             // 
             // FormPlane
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(363, 145);
-            Controls.Add(textBoxBusinessPlacesCount);
-            Controls.Add(label3);
-            Controls.Add(buttonCancel);
-            Controls.Add(textBoxEconomPlacesCount);
+            ClientSize = new Size(363, 120);
             Controls.Add(label2);
+            Controls.Add(comboBoxPlaneScheme);
+            Controls.Add(buttonCancel);
             Controls.Add(textBoxModelName);
             Controls.Add(label1);
             Controls.Add(buttonSave);
@@ -131,10 +113,8 @@
         private Button buttonSave;
         private Label label1;
         private TextBox textBoxModelName;
-        private Label label2;
-        private TextBox textBoxEconomPlacesCount;
         private Button buttonCancel;
-        private Label label3;
-        private TextBox textBoxBusinessPlacesCount;
+        private ComboBox comboBoxPlaneScheme;
+        private Label label2;
     }
 }

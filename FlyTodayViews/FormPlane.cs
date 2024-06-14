@@ -1,6 +1,8 @@
-﻿using FlyTodayContracts.BindingModels;
+﻿using FlyTodayBusinessLogics.BusinessLogics;
+using FlyTodayContracts.BindingModels;
 using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
+using FlyTodayContracts.ViewModels;
 using Microsoft.Extensions.Logging;
 
 namespace FlyTodayViews
@@ -9,24 +11,43 @@ namespace FlyTodayViews
     {
         private readonly ILogger _logger;
         private readonly IPlaneLogic _logic;
+        private readonly IPlaneSchemeLogic _planeSchemeLogic;
         private int? _id;
         public int Id { set { _id = value; } }
-        public FormPlane(ILogger<FormPlane> logger, IPlaneLogic logic)
+        private readonly List<PlaneSchemeViewModel>? _listPlaneScheme;
+        public FormPlane(ILogger<FormPlane> logger, IPlaneLogic logic, IPlaneSchemeLogic planeSchemeLogic)
         {
             InitializeComponent();
             _logger = logger;
             _logic = logic;
+            _planeSchemeLogic = planeSchemeLogic;
+            _listPlaneScheme = planeSchemeLogic.ReadList(null);
+            if (_listPlaneScheme != null)
+            {
+                comboBoxPlaneScheme.DisplayMember = "Name";
+                comboBoxPlaneScheme.ValueMember = "Id";
+                comboBoxPlaneScheme.DataSource = _listPlaneScheme;
+                comboBoxPlaneScheme.SelectedItem = null;
+            }
+        }
+
+        public int PlaneSchemeId
+        {
+            get
+            {
+                return Convert.ToInt32(comboBoxPlaneScheme.SelectedValue);
+            }
+            set
+            {
+                comboBoxPlaneScheme.SelectedValue = value;
+            }
         }
 
         private void ButtonSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(textBoxEconomPlacesCount.Text)) {
-                MessageBox.Show("Заполните кол-во мест эконом класса.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (string.IsNullOrEmpty(textBoxBusinessPlacesCount.Text))
+            if (string.IsNullOrEmpty(comboBoxPlaneScheme.Text))
             {
-                MessageBox.Show("Заполните кол-во мест бизнес класса.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Выберите схему самолета", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (string.IsNullOrEmpty(textBoxModelName.Text))
@@ -35,19 +56,24 @@ namespace FlyTodayViews
                 return;
             }
             _logger.LogInformation("Сохранение самолета");
+            var planeScheme = _planeSchemeLogic.ReadElement(new PlaneSchemeSearchModel { Id = PlaneSchemeId });
             try
             {
-                var model = new PlaneBindingModel
+                if (planeScheme != null)
                 {
-                    Id = _id ?? 0,
-                    ModelName = textBoxModelName.Text,
-                    EconomPlacesCount = Convert.ToInt32(textBoxEconomPlacesCount.Text),
-                    BusinessPlacesCount = Convert.ToInt32(textBoxBusinessPlacesCount.Text)
-                };
-                var operationResult = _id.HasValue ? _logic.Update(model) : _logic.Create(model);
-                if (!operationResult)
-                {
-                    throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
+                    var model = new PlaneBindingModel
+                    {
+                        Id = _id ?? 0,
+                        ModelName = textBoxModelName.Text,
+                        EconomPlacesCount = planeScheme.EconomPlacesCount,
+                        BusinessPlacesCount = planeScheme.BusinessPlacesCount,
+                        PlaneSchemeId = PlaneSchemeId
+                    };
+                    var operationResult = _id.HasValue ? _logic.Update(model) : _logic.Create(model);
+                    if (!operationResult)
+                    {
+                        throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
+                    }
                 }
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
@@ -77,8 +103,7 @@ namespace FlyTodayViews
                     if (view != null)
                     {
                         textBoxModelName.Text = view.ModelName;
-                        textBoxEconomPlacesCount.Text = view.EconomPlacesCount.ToString();
-                        textBoxBusinessPlacesCount.Text = view.BusinessPlacesCount.ToString();                   
+                        PlaneSchemeId = view.PlaneSchemeId;
                     }
                 }
                 catch (Exception ex)

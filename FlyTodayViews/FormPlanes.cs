@@ -1,5 +1,7 @@
-﻿using FlyTodayContracts.BindingModels;
+﻿using FlyTodayBusinessLogics.BusinessLogics;
+using FlyTodayContracts.BindingModels;
 using FlyTodayContracts.BusinessLogicContracts;
+using FlyTodayContracts.SearchModels;
 using Microsoft.Extensions.Logging;
 
 namespace FlyTodayViews
@@ -8,11 +10,15 @@ namespace FlyTodayViews
     {
         private readonly ILogger _logger;
         private readonly IPlaneLogic _logic;
-        public FormPlanes(ILogger<FormPlanes> logger, IPlaneLogic logic)
+        private readonly IPlaneSchemeLogic _planeSchemeLogic;
+        public FormPlanes(ILogger<FormPlanes> logger, IPlaneLogic logic, IPlaneSchemeLogic planeSchemeLogic)
         {
             InitializeComponent();
             _logger = logger;
             _logic = logic;
+            dataGridView.Columns.Add("PlaneScheme", "Схема самолета");
+            dataGridView.Columns["PlaneScheme"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            _planeSchemeLogic = planeSchemeLogic;
         }
 
         private void FormPlanes_Load(object sender, EventArgs e)
@@ -30,7 +36,26 @@ namespace FlyTodayViews
                     dataGridView.DataSource = list;
                     dataGridView.Columns["Id"].Visible = false;
                     dataGridView.Columns["ModelName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns["PlaneSchemeId"].Visible = false;
                 }
+
+                foreach (DataGridViewRow row in dataGridView.Rows)
+                {
+                    int planeSchemeId = Convert.ToInt32(row.Cells["PlaneSchemeId"].Value);
+                    var planeScheme = _planeSchemeLogic.ReadElement(new PlaneSchemeSearchModel
+                    {
+                        Id = planeSchemeId
+                    });
+                    if (planeScheme != null)
+                    {
+                        row.Cells["PlaneScheme"].Value = planeScheme.Name;
+                    }
+                    else
+                    {
+                        row.Cells["PlaneScheme"].Value = "Схема не найдена";
+                    }                    
+                }
+
                 _logger.LogInformation("Загрузка самолетов");
             }
             catch (Exception ex)
@@ -96,6 +121,18 @@ namespace FlyTodayViews
         private void ButtonRef_Click(object sender, EventArgs e)
         {
             LoadData();
+        }
+
+        private void buttonPlaneSchemes_Click(object sender, EventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormPlaneSchemes));
+            if (service is FormPlaneSchemes form)
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    LoadData();
+                }
+            }
         }
     }
 }
