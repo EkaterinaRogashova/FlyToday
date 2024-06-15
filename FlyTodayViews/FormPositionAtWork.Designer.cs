@@ -112,6 +112,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ControlLightLight;
             ClientSize = new Size(285, 237);
             Controls.Add(comboBoxTypeWork);
             Controls.Add(label3);

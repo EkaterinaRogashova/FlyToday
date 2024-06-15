@@ -2,22 +2,7 @@
 using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.ViewModels;
-using FlyTodayDataModels.Enums;
-using FlyTodayDatabaseImplements.Models;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using FlyTodayBusinessLogics.BusinessLogics;
-using MigraDoc.DocumentObjectModel.Tables;
 
 namespace FlyTodayViews
 {
@@ -48,7 +33,7 @@ namespace FlyTodayViews
             comboBoxJob.DataSource = list;
             comboBoxJob.DisplayMember = "Name";
             comboBoxJob.ValueMember = "Id";
-            
+
             if (_id.HasValue)
             {
                 _logger.LogInformation("Загрузка сотрудника");
@@ -130,6 +115,33 @@ namespace FlyTodayViews
                 _logger.LogError(ex, "Ошибка сохранения сотрудника");
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
                MessageBoxIcon.Error);
+            }
+        }
+
+        private void comboBoxTypeWork_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Получить выбранное значение в comboBoxTypeWork
+            string selectedTypeWork = comboBoxTypeWork.SelectedItem.ToString();
+
+            if (selectedTypeWork == "Посменная")
+            {
+                // Отфильтровать элементы в comboBoxJob по TypeWork == "посменная"
+                var filteredJobs = _joblogic.ReadList(new PositionAtWorkSearchModel { TypeWork = selectedTypeWork });
+
+                // Установить новый источник данных для comboBoxJob
+                comboBoxJob.DataSource = filteredJobs;
+                comboBoxJob.DisplayMember = "Name";
+                comboBoxJob.ValueMember = "Id";
+            }
+            else
+            {
+                // Отфильтровать элементы в comboBoxJob по TypeWork == "посменная"
+                var filteredJobs = _joblogic.ReadList(new PositionAtWorkSearchModel { TypeWork = selectedTypeWork });
+
+                // Установить новый источник данных для comboBoxJob
+                comboBoxJob.DataSource = filteredJobs;
+                comboBoxJob.DisplayMember = "Name";
+                comboBoxJob.ValueMember = "Id";
             }
         }
     }

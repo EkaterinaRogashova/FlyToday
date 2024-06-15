@@ -41,11 +41,9 @@
             labelTypeTicket = new Label();
             checkedListBoxTypeDoc = new CheckedListBox();
             label13 = new Label();
-            label10 = new Label();
             dateTimePickerBirth = new DateTimePicker();
             checkedListBoxGender = new CheckedListBox();
             textBoxCost = new TextBox();
-            label14 = new Label();
             label16 = new Label();
             label15 = new Label();
             comboBoxSale = new ComboBox();
@@ -68,6 +66,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             groupBox1.BackColor = SystemColors.GradientActiveCaption;
             groupBox1.Controls.Add(button2);
             groupBox1.Controls.Add(button1);
@@ -77,23 +76,25 @@
             groupBox1.Controls.Add(label4);
             groupBox1.Controls.Add(labelFlight);
             groupBox1.Controls.Add(label1);
+            groupBox1.Font = new Font("Segoe UI", 14F);
             groupBox1.Location = new Point(10, 9);
             groupBox1.Margin = new Padding(3, 2, 3, 2);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(3, 2, 3, 2);
-            groupBox1.Size = new Size(367, 377);
+            groupBox1.Size = new Size(458, 1021);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Бронирование";
             // 
             // button2
             // 
+            button2.Anchor = AnchorStyles.None;
             button2.BackColor = SystemColors.ActiveCaption;
-            button2.Font = new Font("Segoe UI", 12F);
-            button2.Location = new Point(7, 295);
+            button2.Font = new Font("Segoe UI", 20F);
+            button2.Location = new Point(52, 874);
             button2.Margin = new Padding(3, 2, 3, 2);
             button2.Name = "button2";
-            button2.Size = new Size(354, 32);
+            button2.Size = new Size(354, 74);
             button2.TabIndex = 7;
             button2.Text = "Отмена";
             button2.UseVisualStyleBackColor = false;
@@ -101,12 +102,13 @@
             // 
             // button1
             // 
+            button1.Anchor = AnchorStyles.None;
             button1.BackColor = SystemColors.ActiveCaption;
-            button1.Font = new Font("Segoe UI", 12F);
-            button1.Location = new Point(7, 247);
+            button1.Font = new Font("Segoe UI", 20F);
+            button1.Location = new Point(52, 780);
             button1.Margin = new Padding(3, 2, 3, 2);
             button1.Name = "button1";
-            button1.Size = new Size(354, 32);
+            button1.Size = new Size(354, 74);
             button1.TabIndex = 6;
             button1.Text = "Оплатить";
             button1.UseVisualStyleBackColor = false;
@@ -115,75 +117,74 @@
             // labelCost
             // 
             labelCost.AutoSize = true;
-            labelCost.Font = new Font("Segoe UI", 12F);
-            labelCost.Location = new Point(7, 172);
+            labelCost.Font = new Font("Segoe UI", 18F);
+            labelCost.Location = new Point(22, 369);
             labelCost.Name = "labelCost";
-            labelCost.Size = new Size(46, 21);
+            labelCost.Size = new Size(66, 32);
             labelCost.TabIndex = 5;
             labelCost.Text = "5000";
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 12F);
-            label6.Location = new Point(5, 152);
+            label6.Font = new Font("Segoe UI", 18F);
+            label6.Location = new Point(22, 337);
             label6.Name = "label6";
-            label6.Size = new Size(90, 21);
+            label6.Size = new Size(136, 32);
             label6.TabIndex = 4;
             label6.Text = "Стоимость:";
             // 
             // labelDate
             // 
             labelDate.AutoSize = true;
-            labelDate.Font = new Font("Segoe UI", 12F);
-            labelDate.Location = new Point(5, 109);
+            labelDate.Font = new Font("Segoe UI", 18F);
+            labelDate.Location = new Point(22, 269);
             labelDate.Name = "labelDate";
-            labelDate.Size = new Size(75, 21);
+            labelDate.Size = new Size(113, 32);
             labelDate.TabIndex = 3;
             labelDate.Text = "1 августа";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 12F);
-            label4.Location = new Point(5, 88);
+            label4.Font = new Font("Segoe UI", 18F);
+            label4.Location = new Point(22, 230);
             label4.Name = "label4";
-            label4.Size = new Size(108, 21);
+            label4.Size = new Size(167, 32);
             label4.TabIndex = 2;
             label4.Text = "Дата и время:";
             // 
             // labelFlight
             // 
             labelFlight.AutoSize = true;
-            labelFlight.Font = new Font("Segoe UI", 12F);
-            labelFlight.Location = new Point(5, 46);
+            labelFlight.Font = new Font("Segoe UI", 18F);
+            labelFlight.Location = new Point(22, 160);
             labelFlight.MinimumSize = new Size(350, 0);
             labelFlight.Name = "labelFlight";
-            labelFlight.Size = new Size(350, 21);
+            labelFlight.Size = new Size(350, 32);
             labelFlight.TabIndex = 1;
             labelFlight.Text = "Москва - Ульяновск";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(5, 26);
+            label1.Font = new Font("Segoe UI", 18F);
+            label1.Location = new Point(22, 114);
             label1.Name = "label1";
-            label1.Size = new Size(46, 21);
+            label1.Size = new Size(70, 32);
             label1.TabIndex = 0;
             label1.Text = "Рейс:";
             // 
             // groupBoxTicket
             // 
+            groupBoxTicket.AutoSize = true;
             groupBoxTicket.BackColor = SystemColors.InactiveBorder;
             groupBoxTicket.Controls.Add(labelTypeTicket);
             groupBoxTicket.Controls.Add(checkedListBoxTypeDoc);
             groupBoxTicket.Controls.Add(label13);
-            groupBoxTicket.Controls.Add(label10);
             groupBoxTicket.Controls.Add(dateTimePickerBirth);
             groupBoxTicket.Controls.Add(checkedListBoxGender);
             groupBoxTicket.Controls.Add(textBoxCost);
-            groupBoxTicket.Controls.Add(label14);
             groupBoxTicket.Controls.Add(label16);
             groupBoxTicket.Controls.Add(label15);
             groupBoxTicket.Controls.Add(comboBoxSale);
@@ -199,11 +200,12 @@
             groupBoxTicket.Controls.Add(label7);
             groupBoxTicket.Controls.Add(textBoxSurname);
             groupBoxTicket.Enabled = false;
+            groupBoxTicket.Font = new Font("Segoe UI", 13F);
             groupBoxTicket.Location = new Point(3, 2);
             groupBoxTicket.Margin = new Padding(3, 2, 3, 2);
             groupBoxTicket.Name = "groupBoxTicket";
             groupBoxTicket.Padding = new Padding(3, 2, 3, 2);
-            groupBoxTicket.Size = new Size(490, 225);
+            groupBoxTicket.Size = new Size(1471, 371);
             groupBoxTicket.TabIndex = 1;
             groupBoxTicket.TabStop = false;
             groupBoxTicket.Text = "Билет №1";
@@ -212,227 +214,240 @@
             // labelTypeTicket
             // 
             labelTypeTicket.AutoSize = true;
-            labelTypeTicket.Location = new Point(424, 0);
+            labelTypeTicket.Font = new Font("Segoe UI", 20F);
+            labelTypeTicket.Location = new Point(1291, 22);
             labelTypeTicket.Name = "labelTypeTicket";
-            labelTypeTicket.Size = new Size(50, 15);
+            labelTypeTicket.Size = new Size(114, 37);
             labelTypeTicket.TabIndex = 30;
             labelTypeTicket.Text = "Эконом";
             // 
             // checkedListBoxTypeDoc
             // 
+            checkedListBoxTypeDoc.Anchor = AnchorStyles.None;
+            checkedListBoxTypeDoc.Font = new Font("Segoe UI", 18F);
             checkedListBoxTypeDoc.FormattingEnabled = true;
             checkedListBoxTypeDoc.Items.AddRange(new object[] { "Паспорт", "Св. о рождении" });
-            checkedListBoxTypeDoc.Location = new Point(300, 87);
+            checkedListBoxTypeDoc.Location = new Point(1010, 149);
             checkedListBoxTypeDoc.Margin = new Padding(3, 2, 3, 2);
             checkedListBoxTypeDoc.Name = "checkedListBoxTypeDoc";
-            checkedListBoxTypeDoc.Size = new Size(128, 22);
+            checkedListBoxTypeDoc.Size = new Size(367, 72);
             checkedListBoxTypeDoc.TabIndex = 29;
             // 
             // label13
             // 
+            label13.Anchor = AnchorStyles.None;
             label13.AutoSize = true;
-            label13.Font = new Font("Segoe UI", 10F);
-            label13.Location = new Point(18, 68);
+            label13.Font = new Font("Segoe UI", 18F);
+            label13.Location = new Point(45, 139);
             label13.Name = "label13";
-            label13.Size = new Size(110, 19);
+            label13.Size = new Size(189, 32);
             label13.TabIndex = 20;
             label13.Text = "Дата рождения:";
             // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Segoe UI", 10F);
-            label10.Location = new Point(300, 66);
-            label10.Name = "label10";
-            label10.Size = new Size(108, 19);
-            label10.TabIndex = 14;
-            label10.Text = "Вид документа:";
-            // 
             // dateTimePickerBirth
             // 
-            dateTimePickerBirth.Location = new Point(18, 87);
+            dateTimePickerBirth.Anchor = AnchorStyles.None;
+            dateTimePickerBirth.Font = new Font("Segoe UI", 18F);
+            dateTimePickerBirth.Location = new Point(45, 178);
             dateTimePickerBirth.Margin = new Padding(3, 2, 3, 2);
             dateTimePickerBirth.Name = "dateTimePickerBirth";
-            dateTimePickerBirth.Size = new Size(128, 23);
+            dateTimePickerBirth.Size = new Size(408, 39);
             dateTimePickerBirth.TabIndex = 19;
             // 
             // checkedListBoxGender
             // 
+            checkedListBoxGender.Anchor = AnchorStyles.None;
+            checkedListBoxGender.Font = new Font("Segoe UI", 18F);
             checkedListBoxGender.FormattingEnabled = true;
             checkedListBoxGender.Items.AddRange(new object[] { "М", "Ж" });
-            checkedListBoxGender.Location = new Point(162, 87);
+            checkedListBoxGender.Location = new Point(530, 149);
             checkedListBoxGender.Margin = new Padding(3, 2, 3, 2);
             checkedListBoxGender.Name = "checkedListBoxGender";
-            checkedListBoxGender.Size = new Size(128, 22);
+            checkedListBoxGender.Size = new Size(384, 72);
             checkedListBoxGender.TabIndex = 28;
             // 
             // textBoxCost
             // 
+            textBoxCost.Anchor = AnchorStyles.None;
             textBoxCost.BackColor = Color.LightSteelBlue;
-            textBoxCost.Location = new Point(300, 183);
+            textBoxCost.Font = new Font("Segoe UI", 18F);
+            textBoxCost.Location = new Point(1010, 304);
             textBoxCost.Margin = new Padding(3, 2, 3, 2);
             textBoxCost.Name = "textBoxCost";
             textBoxCost.ReadOnly = true;
-            textBoxCost.Size = new Size(128, 23);
+            textBoxCost.Size = new Size(367, 39);
             textBoxCost.TabIndex = 27;
             textBoxCost.TextChanged += textBoxCost_Changed;
             // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Font = new Font("Segoe UI", 10F);
-            label14.Location = new Point(162, 68);
-            label14.Name = "label14";
-            label14.Size = new Size(37, 19);
-            label14.TabIndex = 24;
-            label14.Text = "Пол:";
-            // 
             // label16
             // 
+            label16.Anchor = AnchorStyles.None;
             label16.AutoSize = true;
-            label16.Font = new Font("Segoe UI", 10F);
-            label16.Location = new Point(143, 183);
+            label16.Font = new Font("Segoe UI", 18F);
+            label16.Location = new Point(693, 311);
             label16.Name = "label16";
-            label16.Size = new Size(139, 19);
+            label16.Size = new Size(241, 32);
             label16.TabIndex = 26;
             label16.Text = "Итоговая стоимость:";
             // 
             // label15
             // 
+            label15.Anchor = AnchorStyles.None;
             label15.AutoSize = true;
-            label15.Font = new Font("Segoe UI", 10F);
-            label15.Location = new Point(300, 127);
+            label15.Font = new Font("Segoe UI", 18F);
+            label15.Location = new Point(1010, 219);
             label15.Name = "label15";
-            label15.Size = new Size(54, 19);
+            label15.Size = new Size(92, 32);
             label15.TabIndex = 25;
             label15.Text = "Льгота:";
             // 
             // comboBoxSale
             // 
+            comboBoxSale.Anchor = AnchorStyles.None;
             comboBoxSale.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxSale.Font = new Font("Segoe UI", 18F);
             comboBoxSale.FormattingEnabled = true;
-            comboBoxSale.Location = new Point(300, 146);
+            comboBoxSale.Location = new Point(1010, 256);
             comboBoxSale.Margin = new Padding(3, 2, 3, 2);
             comboBoxSale.Name = "comboBoxSale";
-            comboBoxSale.Size = new Size(128, 23);
+            comboBoxSale.Size = new Size(367, 40);
             comboBoxSale.TabIndex = 23;
             // 
             // checkBoxBags
             // 
+            checkBoxBags.Anchor = AnchorStyles.None;
             checkBoxBags.AutoSize = true;
-            checkBoxBags.Location = new Point(24, 185);
+            checkBoxBags.Font = new Font("Segoe UI", 18F);
+            checkBoxBags.Location = new Point(45, 300);
             checkBoxBags.Margin = new Padding(3, 2, 3, 2);
             checkBoxBags.Name = "checkBoxBags";
-            checkBoxBags.Size = new Size(87, 19);
+            checkBoxBags.Size = new Size(155, 36);
             checkBoxBags.TabIndex = 22;
             checkBoxBags.Text = "Доп. багаж";
             checkBoxBags.UseVisualStyleBackColor = true;
             // 
             // label12
             // 
+            label12.Anchor = AnchorStyles.None;
             label12.AutoSize = true;
-            label12.Font = new Font("Segoe UI", 10F);
-            label12.Location = new Point(162, 128);
+            label12.Font = new Font("Segoe UI", 18F);
+            label12.Location = new Point(530, 223);
             label12.Name = "label12";
-            label12.Size = new Size(55, 19);
+            label12.Size = new Size(94, 32);
             label12.TabIndex = 18;
             label12.Text = "Номер:";
             // 
             // textBoxNumber
             // 
-            textBoxNumber.Location = new Point(162, 146);
+            textBoxNumber.Anchor = AnchorStyles.None;
+            textBoxNumber.Font = new Font("Segoe UI", 18F);
+            textBoxNumber.Location = new Point(530, 257);
             textBoxNumber.Margin = new Padding(3, 2, 3, 2);
             textBoxNumber.Name = "textBoxNumber";
-            textBoxNumber.Size = new Size(128, 23);
+            textBoxNumber.Size = new Size(384, 39);
             textBoxNumber.TabIndex = 17;
             // 
             // label11
             // 
+            label11.Anchor = AnchorStyles.None;
             label11.AutoSize = true;
-            label11.Font = new Font("Segoe UI", 10F);
-            label11.Location = new Point(24, 128);
+            label11.Font = new Font("Segoe UI", 18F);
+            label11.Location = new Point(45, 219);
             label11.Name = "label11";
-            label11.Size = new Size(51, 19);
+            label11.Size = new Size(87, 32);
             label11.TabIndex = 16;
             label11.Text = "Серия:";
             // 
             // textBoxSeria
             // 
-            textBoxSeria.Location = new Point(24, 146);
+            textBoxSeria.Anchor = AnchorStyles.None;
+            textBoxSeria.Font = new Font("Segoe UI", 18F);
+            textBoxSeria.Location = new Point(45, 257);
             textBoxSeria.Margin = new Padding(3, 2, 3, 2);
             textBoxSeria.Name = "textBoxSeria";
-            textBoxSeria.Size = new Size(128, 23);
+            textBoxSeria.Size = new Size(408, 39);
             textBoxSeria.TabIndex = 15;
             // 
             // label9
             // 
+            label9.Anchor = AnchorStyles.None;
             label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 10F);
-            label9.Location = new Point(300, 28);
+            label9.Font = new Font("Segoe UI", 18F);
+            label9.Location = new Point(1010, 59);
             label9.Name = "label9";
-            label9.Size = new Size(165, 19);
+            label9.Size = new Size(287, 32);
             label9.TabIndex = 12;
             label9.Text = "Отчество (при наличии):";
             // 
             // textBoxLastname
             // 
-            textBoxLastname.Location = new Point(300, 46);
+            textBoxLastname.Anchor = AnchorStyles.None;
+            textBoxLastname.Font = new Font("Segoe UI", 18F);
+            textBoxLastname.Location = new Point(1010, 96);
             textBoxLastname.Margin = new Padding(3, 2, 3, 2);
             textBoxLastname.Name = "textBoxLastname";
-            textBoxLastname.Size = new Size(128, 23);
+            textBoxLastname.Size = new Size(367, 39);
             textBoxLastname.TabIndex = 11;
             // 
             // label8
             // 
+            label8.Anchor = AnchorStyles.None;
             label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 10F);
-            label8.Location = new Point(162, 28);
+            label8.Font = new Font("Segoe UI", 18F);
+            label8.Location = new Point(530, 59);
             label8.Name = "label8";
-            label8.Size = new Size(39, 19);
+            label8.Size = new Size(66, 32);
             label8.TabIndex = 10;
             label8.Text = "Имя:";
             // 
             // textBoxName
             // 
-            textBoxName.Location = new Point(162, 46);
+            textBoxName.Anchor = AnchorStyles.None;
+            textBoxName.Font = new Font("Segoe UI", 18F);
+            textBoxName.Location = new Point(530, 93);
             textBoxName.Margin = new Padding(3, 2, 3, 2);
             textBoxName.Name = "textBoxName";
-            textBoxName.Size = new Size(128, 23);
+            textBoxName.Size = new Size(384, 39);
             textBoxName.TabIndex = 9;
             // 
             // label7
             // 
+            label7.Anchor = AnchorStyles.None;
             label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 10F);
-            label7.Location = new Point(18, 28);
+            label7.Font = new Font("Segoe UI", 18F);
+            label7.Location = new Point(45, 59);
             label7.Name = "label7";
-            label7.Size = new Size(69, 19);
+            label7.Size = new Size(118, 32);
             label7.TabIndex = 8;
             label7.Text = "Фамилия:";
             // 
             // textBoxSurname
             // 
-            textBoxSurname.Location = new Point(18, 45);
+            textBoxSurname.Anchor = AnchorStyles.None;
+            textBoxSurname.Font = new Font("Segoe UI", 18F);
+            textBoxSurname.Location = new Point(45, 93);
             textBoxSurname.Margin = new Padding(3, 2, 3, 2);
             textBoxSurname.Name = "textBoxSurname";
-            textBoxSurname.Size = new Size(128, 23);
+            textBoxSurname.Size = new Size(408, 39);
             textBoxSurname.TabIndex = 0;
             // 
             // pnlTickets
             // 
+            pnlTickets.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             pnlTickets.AutoScroll = true;
             pnlTickets.Controls.Add(groupBoxTicket);
-            pnlTickets.Location = new Point(382, 9);
+            pnlTickets.Location = new Point(474, 9);
             pnlTickets.Margin = new Padding(3, 2, 3, 2);
             pnlTickets.Name = "pnlTickets";
-            pnlTickets.Size = new Size(498, 377);
+            pnlTickets.Size = new Size(1418, 1021);
             pnlTickets.TabIndex = 2;
             // 
             // FormTickets
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(886, 395);
+            BackColor = SystemColors.ControlLightLight;
+            ClientSize = new Size(1904, 1041);
             Controls.Add(pnlTickets);
             Controls.Add(groupBox1);
             Margin = new Padding(3, 2, 3, 2);
@@ -446,6 +461,7 @@
             groupBoxTicket.ResumeLayout(false);
             groupBoxTicket.PerformLayout();
             pnlTickets.ResumeLayout(false);
+            pnlTickets.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -467,7 +483,6 @@
         private TextBox textBoxNumber;
         private Label label11;
         private TextBox textBoxSeria;
-        private Label label10;
         private Label label9;
         private TextBox textBoxLastname;
         private Label label8;
@@ -477,7 +492,6 @@
         private TextBox textBoxCost;
         private Label label16;
         private Label label15;
-        private Label label14;
         private ComboBox comboBoxSale;
         private CheckBox checkBoxBags;
         private Panel pnlTickets;

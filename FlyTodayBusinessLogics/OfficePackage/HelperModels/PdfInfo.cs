@@ -16,5 +16,14 @@ namespace FlyTodayBusinessLogics.OfficePackage.HelperModels
         public List<ReportScheduleViewModel> Schedule { get; set; } = new();
         public List<ReportScheduleForEmployeeViewModel> ScheduleForEmployee { get; set; } = new();
         public List<ReportBoardingPassesViewModel> BoardingPasses { get; set; } = new();
+
+        public string Female { get; set; } = string.Empty;
+        public string Male { get; set; } = string.Empty;
+        public string WithBags { get; set; } = string.Empty;
+        public string NotWithBags { get; set; } = string.Empty;
+        public string Children { get; set; } = string.Empty;
+        public string People { get; set; } = string.Empty;
+        public string OlderPeople { get; set; } = string.Empty;
     }
 }
+

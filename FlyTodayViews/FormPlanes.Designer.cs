@@ -41,21 +41,17 @@
             // 
             dataGridView.BackgroundColor = SystemColors.Control;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView.Location = new Point(14, 16);
-            dataGridView.Margin = new Padding(3, 4, 3, 4);
+            dataGridView.Location = new Point(12, 12);
             dataGridView.Name = "dataGridView";
             dataGridView.RowHeadersWidth = 51;
-            dataGridView.Size = new Size(408, 568);
-            dataGridView.Size = new Size(660, 426);
+            dataGridView.Size = new Size(578, 320);
             dataGridView.TabIndex = 0;
             // 
             // buttonAdd
             // 
-            buttonAdd.Location = new Point(470, 41);
-            buttonAdd.Margin = new Padding(3, 4, 3, 4);
-            buttonAdd.Location = new Point(703, 142);
+            buttonAdd.Location = new Point(615, 106);
             buttonAdd.Name = "buttonAdd";
-            buttonAdd.Size = new Size(86, 31);
+            buttonAdd.Size = new Size(75, 23);
             buttonAdd.TabIndex = 1;
             buttonAdd.Text = "Добавить";
             buttonAdd.UseVisualStyleBackColor = true;
@@ -63,11 +59,9 @@
             // 
             // buttonUpd
             // 
-            buttonUpd.Location = new Point(470, 105);
-            buttonUpd.Margin = new Padding(3, 4, 3, 4);
-            buttonUpd.Location = new Point(703, 190);
+            buttonUpd.Location = new Point(615, 142);
             buttonUpd.Name = "buttonUpd";
-            buttonUpd.Size = new Size(86, 31);
+            buttonUpd.Size = new Size(75, 23);
             buttonUpd.TabIndex = 2;
             buttonUpd.Text = "Изменить";
             buttonUpd.UseVisualStyleBackColor = true;
@@ -75,11 +69,9 @@
             // 
             // buttonDel
             // 
-            buttonDel.Location = new Point(470, 175);
-            buttonDel.Margin = new Padding(3, 4, 3, 4);
-            buttonDel.Location = new Point(703, 242);
+            buttonDel.Location = new Point(615, 182);
             buttonDel.Name = "buttonDel";
-            buttonDel.Size = new Size(86, 31);
+            buttonDel.Size = new Size(75, 23);
             buttonDel.TabIndex = 3;
             buttonDel.Text = "Удалить";
             buttonDel.UseVisualStyleBackColor = true;
@@ -87,11 +79,9 @@
             // 
             // buttonRef
             // 
-            buttonRef.Location = new Point(470, 249);
-            buttonRef.Margin = new Padding(3, 4, 3, 4);
-            buttonRef.Location = new Point(703, 298);
+            buttonRef.Location = new Point(615, 224);
             buttonRef.Name = "buttonRef";
-            buttonRef.Size = new Size(86, 31);
+            buttonRef.Size = new Size(75, 23);
             buttonRef.TabIndex = 4;
             buttonRef.Text = "Обновить";
             buttonRef.UseVisualStyleBackColor = true;
@@ -99,9 +89,10 @@
             // 
             // buttonPlaneSchemes
             // 
-            buttonPlaneSchemes.Location = new Point(703, 75);
+            buttonPlaneSchemes.Location = new Point(615, 56);
+            buttonPlaneSchemes.Margin = new Padding(3, 2, 3, 2);
             buttonPlaneSchemes.Name = "buttonPlaneSchemes";
-            buttonPlaneSchemes.Size = new Size(75, 47);
+            buttonPlaneSchemes.Size = new Size(66, 35);
             buttonPlaneSchemes.TabIndex = 5;
             buttonPlaneSchemes.Text = "Схемы самолетов";
             buttonPlaneSchemes.UseVisualStyleBackColor = true;
@@ -109,17 +100,16 @@
             // 
             // FormPlanes
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(594, 600);
-            ClientSize = new Size(805, 450);
+            BackColor = SystemColors.ControlLightLight;
+            ClientSize = new Size(704, 338);
             Controls.Add(buttonPlaneSchemes);
             Controls.Add(buttonRef);
             Controls.Add(buttonDel);
             Controls.Add(buttonUpd);
             Controls.Add(buttonAdd);
             Controls.Add(dataGridView);
-            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             Name = "FormPlanes";
             Text = "Самолеты";

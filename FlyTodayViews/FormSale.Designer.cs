@@ -128,6 +128,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ControlLightLight;
             ClientSize = new Size(264, 270);
             Controls.Add(textBoxAgeFrom);
             Controls.Add(label4);

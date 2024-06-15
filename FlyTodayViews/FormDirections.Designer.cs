@@ -40,19 +40,17 @@
             // 
             dataGridView.BackgroundColor = SystemColors.Control;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView.Location = new Point(14, 16);
-            dataGridView.Margin = new Padding(3, 4, 3, 4);
+            dataGridView.Location = new Point(12, 12);
             dataGridView.Name = "dataGridView";
             dataGridView.RowHeadersWidth = 51;
-            dataGridView.Size = new Size(408, 568);
+            dataGridView.Size = new Size(357, 426);
             dataGridView.TabIndex = 0;
             // 
             // buttonAdd
             // 
-            buttonAdd.Location = new Point(470, 41);
-            buttonAdd.Margin = new Padding(3, 4, 3, 4);
+            buttonAdd.Location = new Point(411, 31);
             buttonAdd.Name = "buttonAdd";
-            buttonAdd.Size = new Size(86, 31);
+            buttonAdd.Size = new Size(75, 23);
             buttonAdd.TabIndex = 1;
             buttonAdd.Text = "Добавить";
             buttonAdd.UseVisualStyleBackColor = true;
@@ -60,10 +58,9 @@
             // 
             // buttonUpd
             // 
-            buttonUpd.Location = new Point(470, 105);
-            buttonUpd.Margin = new Padding(3, 4, 3, 4);
+            buttonUpd.Location = new Point(411, 79);
             buttonUpd.Name = "buttonUpd";
-            buttonUpd.Size = new Size(86, 31);
+            buttonUpd.Size = new Size(75, 23);
             buttonUpd.TabIndex = 2;
             buttonUpd.Text = "Изменить";
             buttonUpd.UseVisualStyleBackColor = true;
@@ -71,10 +68,9 @@
             // 
             // buttonDel
             // 
-            buttonDel.Location = new Point(470, 175);
-            buttonDel.Margin = new Padding(3, 4, 3, 4);
+            buttonDel.Location = new Point(411, 131);
             buttonDel.Name = "buttonDel";
-            buttonDel.Size = new Size(86, 31);
+            buttonDel.Size = new Size(75, 23);
             buttonDel.TabIndex = 3;
             buttonDel.Text = "Удалить";
             buttonDel.UseVisualStyleBackColor = true;
@@ -82,10 +78,9 @@
             // 
             // buttonRef
             // 
-            buttonRef.Location = new Point(470, 249);
-            buttonRef.Margin = new Padding(3, 4, 3, 4);
+            buttonRef.Location = new Point(411, 187);
             buttonRef.Name = "buttonRef";
-            buttonRef.Size = new Size(86, 31);
+            buttonRef.Size = new Size(75, 23);
             buttonRef.TabIndex = 4;
             buttonRef.Text = "Обновить";
             buttonRef.UseVisualStyleBackColor = true;
@@ -93,15 +88,15 @@
             // 
             // FormDirections
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(594, 600);
+            BackColor = SystemColors.ControlLightLight;
+            ClientSize = new Size(520, 450);
             Controls.Add(buttonRef);
             Controls.Add(buttonDel);
             Controls.Add(buttonUpd);
             Controls.Add(buttonAdd);
             Controls.Add(dataGridView);
-            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             Name = "FormDirections";
             Text = "Направления";

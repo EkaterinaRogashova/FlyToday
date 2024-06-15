@@ -126,7 +126,7 @@ namespace FlyTodayViews
             {
                 Shift = comboBox1.SelectedItem?.ToString()
             });
-            
+
             //объединение списков сотрудников и расписания (оба фильтрованны)
             var filteredList = from employee in employeesList
                                join schedule in scheduleList
@@ -250,5 +250,20 @@ namespace FlyTodayViews
             else MessageBox.Show("Выберите период", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void buttonEdit_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count == 1)
+            {
+                var service = Program.ServiceProvider?.GetService(typeof(FormScheduleForEmployee));
+                if (service is FormScheduleForEmployee form)
+                {
+                    form.ScheduleId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        LoadData();
+                    }
+                }
+            }
+        }
     }
 }

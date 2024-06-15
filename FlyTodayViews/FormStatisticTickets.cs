@@ -12,6 +12,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FlyTodayBusinessLogics.BusinessLogics;
+using FlyTodayContracts.BindingModels;
 
 namespace FlyTodayViews
 {
@@ -21,14 +23,16 @@ namespace FlyTodayViews
         private readonly IUserLogic _userLogic;
         private readonly ITicketLogic _ticketLogic;
         private readonly IRentLogic _rentLogic;
+        private readonly IReportLogic _reportlogic;
 
-        public FormStatisticTickets(ILogger<FormStatisticTickets> logger, IUserLogic userLogic, ITicketLogic ticketLogic, IRentLogic rentLogic)
+        public FormStatisticTickets(ILogger<FormStatisticTickets> logger, IUserLogic userLogic, ITicketLogic ticketLogic, IRentLogic rentLogic, IReportLogic reportlogic)
         {
             InitializeComponent();
             _ticketLogic = ticketLogic;
             _rentLogic = rentLogic;
             _userLogic = userLogic;
             _logger = logger;
+            _reportlogic = reportlogic;
         }
 
         private void FormStatisticTickets_Load(object sender, EventArgs e)
@@ -70,11 +74,11 @@ namespace FlyTodayViews
                         NotBagsCount++;
                     }
                     int age = DateTime.Now.Year - ticket.DateOfBirthday.Year;
-                    if (age <= 12)
+                    if (age <= 18)
                     {
                         yearsold12++;
                     }
-                    else if (age < 65 && age >12)
+                    else if (age < 65 && age > 18)
                     {
                         yearsold1265++;
                     }
@@ -99,6 +103,35 @@ namespace FlyTodayViews
             labelFemale.Text = femaleCount.ToString() + " (" + femalePercentage + "%)";
             labelWithBags.Text = BagsCount.ToString() + " (" + bagsPercentage + "%)";
             labelNotWithBags.Text = NotBagsCount.ToString() + " (" + notBagsPercentage + "%)";
+        }
+
+        private void buttonSavePdf_Click(object sender, EventArgs e)
+        {
+            using var dialog = new SaveFileDialog { Filter = "pdf|*.pdf" };
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    _reportlogic.SaveStatisticTicketToPdf(new ReportBindingModel
+                    {
+                        FileName = dialog.FileName,
+                        Female = labelFemale.Text,
+                        Male = labelMale.Text,
+                        WithBags = labelWithBags.Text,
+                        NotWithBags = labelNotWithBags.Text,
+                        Children = label12.Text,
+                        People = label12to65.Text,
+                        OlderPeople = label65.Text
+                    });
+                    _logger.LogInformation("Сохранение расписание за сотрудника");
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Ошибка сохранения");
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

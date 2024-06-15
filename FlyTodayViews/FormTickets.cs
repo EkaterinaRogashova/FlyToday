@@ -59,6 +59,7 @@ namespace FlyTodayViews
             clone.Anchor = original.Anchor;
             clone.ForeColor = original.ForeColor;
             clone.BackColor = original.BackColor;
+            clone.Font = new Font(original.Font.FontFamily, original.Font.Size);
             foreach (Control control in original.Controls)
             {
                 Control clonedControl = CloneControl(control, control.Name);
@@ -77,6 +78,7 @@ namespace FlyTodayViews
             clone.Anchor = original.Anchor;
             clone.ForeColor = original.ForeColor;
             clone.BackColor = original.BackColor;
+            clone.Font = new Font(original.Font.FontFamily, original.Font.Size);
             if (original is TextBox)
             {
                 ((TextBox)clone).ReadOnly = ((TextBox)original).ReadOnly;

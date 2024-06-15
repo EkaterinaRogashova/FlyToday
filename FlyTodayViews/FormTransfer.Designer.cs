@@ -80,11 +80,9 @@
             groupBox2.Controls.Add(label8);
             groupBox2.Controls.Add(labelSecondDir);
             groupBox2.Controls.Add(labelFirstDir);
-            groupBox2.Location = new Point(10, 16);
-            groupBox2.Margin = new Padding(3, 4, 3, 4);
+            groupBox2.Location = new Point(9, 12);
             groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new Padding(3, 4, 3, 4);
-            groupBox2.Size = new Size(865, 200);
+            groupBox2.Size = new Size(757, 150);
             groupBox2.TabIndex = 18;
             groupBox2.TabStop = false;
             groupBox2.Text = "Пересадка";
@@ -93,9 +91,9 @@
             // 
             labelTimeInFlight2.AutoSize = true;
             labelTimeInFlight2.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelTimeInFlight2.Location = new Point(555, 97);
+            labelTimeInFlight2.Location = new Point(486, 73);
             labelTimeInFlight2.Name = "labelTimeInFlight2";
-            labelTimeInFlight2.Size = new Size(114, 20);
+            labelTimeInFlight2.Size = new Size(90, 15);
             labelTimeInFlight2.TabIndex = 41;
             labelTimeInFlight2.Text = "1 час 30 минут";
             // 
@@ -103,9 +101,9 @@
             // 
             labelArrivalDate2.AutoSize = true;
             labelArrivalDate2.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelArrivalDate2.Location = new Point(554, 77);
+            labelArrivalDate2.Location = new Point(485, 58);
             labelArrivalDate2.Name = "labelArrivalDate2";
-            labelArrivalDate2.Size = new Size(118, 20);
+            labelArrivalDate2.Size = new Size(91, 15);
             labelArrivalDate2.TabIndex = 40;
             labelArrivalDate2.Text = "01.01.2000 16:30";
             // 
@@ -113,9 +111,9 @@
             // 
             labelDepartureDate2.AutoSize = true;
             labelDepartureDate2.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelDepartureDate2.Location = new Point(554, 57);
+            labelDepartureDate2.Location = new Point(485, 43);
             labelDepartureDate2.Name = "labelDepartureDate2";
-            labelDepartureDate2.Size = new Size(118, 20);
+            labelDepartureDate2.Size = new Size(91, 15);
             labelDepartureDate2.TabIndex = 39;
             labelDepartureDate2.Text = "01.01.2000 15:00";
             // 
@@ -123,9 +121,9 @@
             // 
             labelBusinessPrice2.AutoSize = true;
             labelBusinessPrice2.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelBusinessPrice2.Location = new Point(551, 157);
+            labelBusinessPrice2.Location = new Point(482, 118);
             labelBusinessPrice2.Name = "labelBusinessPrice2";
-            labelBusinessPrice2.Size = new Size(33, 20);
+            labelBusinessPrice2.Size = new Size(25, 15);
             labelBusinessPrice2.TabIndex = 38;
             labelBusinessPrice2.Text = "100";
             // 
@@ -133,9 +131,9 @@
             // 
             labelEconomPrice2.AutoSize = true;
             labelEconomPrice2.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelEconomPrice2.Location = new Point(551, 137);
+            labelEconomPrice2.Location = new Point(482, 103);
             labelEconomPrice2.Name = "labelEconomPrice2";
-            labelEconomPrice2.Size = new Size(33, 20);
+            labelEconomPrice2.Size = new Size(25, 15);
             labelEconomPrice2.TabIndex = 37;
             labelEconomPrice2.Text = "100";
             // 
@@ -143,9 +141,9 @@
             // 
             labelPlane2.AutoSize = true;
             labelPlane2.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelPlane2.Location = new Point(554, 117);
+            labelPlane2.Location = new Point(485, 88);
             labelPlane2.Name = "labelPlane2";
-            labelPlane2.Size = new Size(81, 20);
+            labelPlane2.Size = new Size(64, 15);
             labelPlane2.TabIndex = 35;
             labelPlane2.Text = "Boeing 737";
             // 
@@ -153,18 +151,18 @@
             // 
             labelTimeInFlight1.AutoSize = true;
             labelTimeInFlight1.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelTimeInFlight1.Location = new Point(249, 97);
+            labelTimeInFlight1.Location = new Point(218, 73);
             labelTimeInFlight1.Name = "labelTimeInFlight1";
-            labelTimeInFlight1.Size = new Size(114, 20);
+            labelTimeInFlight1.Size = new Size(90, 15);
             labelTimeInFlight1.TabIndex = 34;
             labelTimeInFlight1.Text = "1 час 30 минут";
             // 
             // label21
             // 
             label21.AutoSize = true;
-            label21.Location = new Point(7, 97);
+            label21.Location = new Point(6, 73);
             label21.Name = "label21";
-            label21.Size = new Size(104, 20);
+            label21.Size = new Size(82, 15);
             label21.TabIndex = 33;
             label21.Text = "Время в пути:";
             // 
@@ -172,9 +170,9 @@
             // 
             labelArrivalDate1.AutoSize = true;
             labelArrivalDate1.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelArrivalDate1.Location = new Point(251, 77);
+            labelArrivalDate1.Location = new Point(220, 58);
             labelArrivalDate1.Name = "labelArrivalDate1";
-            labelArrivalDate1.Size = new Size(118, 20);
+            labelArrivalDate1.Size = new Size(91, 15);
             labelArrivalDate1.TabIndex = 32;
             labelArrivalDate1.Text = "01.01.2000 16:30";
             // 
@@ -182,9 +180,9 @@
             // 
             labelDepartureDate1.AutoSize = true;
             labelDepartureDate1.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelDepartureDate1.Location = new Point(251, 57);
+            labelDepartureDate1.Location = new Point(220, 43);
             labelDepartureDate1.Name = "labelDepartureDate1";
-            labelDepartureDate1.Size = new Size(118, 20);
+            labelDepartureDate1.Size = new Size(91, 15);
             labelDepartureDate1.TabIndex = 31;
             labelDepartureDate1.Text = "01.01.2000 15:00";
             // 
@@ -192,9 +190,9 @@
             // 
             labelBusinessPrice1.AutoSize = true;
             labelBusinessPrice1.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelBusinessPrice1.Location = new Point(249, 157);
+            labelBusinessPrice1.Location = new Point(218, 118);
             labelBusinessPrice1.Name = "labelBusinessPrice1";
-            labelBusinessPrice1.Size = new Size(33, 20);
+            labelBusinessPrice1.Size = new Size(25, 15);
             labelBusinessPrice1.TabIndex = 30;
             labelBusinessPrice1.Text = "100";
             // 
@@ -202,9 +200,9 @@
             // 
             labelEconomPrice1.AutoSize = true;
             labelEconomPrice1.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelEconomPrice1.Location = new Point(249, 137);
+            labelEconomPrice1.Location = new Point(218, 103);
             labelEconomPrice1.Name = "labelEconomPrice1";
-            labelEconomPrice1.Size = new Size(33, 20);
+            labelEconomPrice1.Size = new Size(25, 15);
             labelEconomPrice1.TabIndex = 29;
             labelEconomPrice1.Text = "100";
             // 
@@ -212,45 +210,45 @@
             // 
             labelPlane1.AutoSize = true;
             labelPlane1.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelPlane1.Location = new Point(251, 117);
+            labelPlane1.Location = new Point(220, 88);
             labelPlane1.Name = "labelPlane1";
-            labelPlane1.Size = new Size(81, 20);
+            labelPlane1.Size = new Size(64, 15);
             labelPlane1.TabIndex = 27;
             labelPlane1.Text = "Boeing 737";
             // 
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(7, 157);
+            label15.Location = new Point(6, 118);
             label15.Name = "label15";
-            label15.Size = new Size(242, 20);
+            label15.Size = new Size(194, 15);
             label15.TabIndex = 26;
             label15.Text = "Стоимость билета бизнес-класса:";
             // 
             // label16
             // 
             label16.AutoSize = true;
-            label16.Location = new Point(7, 137);
+            label16.Location = new Point(6, 103);
             label16.Name = "label16";
-            label16.Size = new Size(245, 20);
+            label16.Size = new Size(198, 15);
             label16.TabIndex = 25;
             label16.Text = "Стоимость билета эконом-класса:";
             // 
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new Point(7, 117);
+            label18.Location = new Point(6, 88);
             label18.Name = "label18";
-            label18.Size = new Size(71, 20);
+            label18.Size = new Size(58, 15);
             label18.TabIndex = 23;
             label18.Text = "Самолет:";
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(7, 77);
+            label9.Location = new Point(6, 58);
             label9.Name = "label9";
-            label9.Size = new Size(118, 20);
+            label9.Size = new Size(93, 15);
             label9.TabIndex = 22;
             label9.Text = "Дата прибытия:";
             // 
@@ -258,9 +256,9 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 9F);
-            label8.Location = new Point(7, 57);
+            label8.Location = new Point(6, 43);
             label8.Name = "label8";
-            label8.Size = new Size(97, 20);
+            label8.Size = new Size(77, 15);
             label8.TabIndex = 21;
             label8.Text = "Дата вылета:";
             // 
@@ -268,10 +266,10 @@
             // 
             labelSecondDir.AutoSize = true;
             labelSecondDir.Font = new Font("Segoe UI", 9F, FontStyle.Bold | FontStyle.Italic);
-            labelSecondDir.Location = new Point(554, 25);
-            labelSecondDir.MinimumSize = new Size(300, 0);
+            labelSecondDir.Location = new Point(485, 19);
+            labelSecondDir.MinimumSize = new Size(262, 0);
             labelSecondDir.Name = "labelSecondDir";
-            labelSecondDir.Size = new Size(300, 20);
+            labelSecondDir.Size = new Size(262, 15);
             labelSecondDir.TabIndex = 20;
             labelSecondDir.Text = "Казань - Москва";
             // 
@@ -279,19 +277,18 @@
             // 
             labelFirstDir.AutoSize = true;
             labelFirstDir.Font = new Font("Segoe UI", 9F, FontStyle.Bold | FontStyle.Italic);
-            labelFirstDir.Location = new Point(249, 25);
-            labelFirstDir.MinimumSize = new Size(300, 0);
+            labelFirstDir.Location = new Point(218, 19);
+            labelFirstDir.MinimumSize = new Size(262, 0);
             labelFirstDir.Name = "labelFirstDir";
-            labelFirstDir.Size = new Size(300, 20);
+            labelFirstDir.Size = new Size(262, 15);
             labelFirstDir.TabIndex = 19;
             labelFirstDir.Text = "Ульяновск - Казань";
             // 
             // buttonTrackPriceChanges
             // 
-            buttonTrackPriceChanges.Location = new Point(8, 347);
-            buttonTrackPriceChanges.Margin = new Padding(3, 4, 3, 4);
+            buttonTrackPriceChanges.Location = new Point(7, 260);
             buttonTrackPriceChanges.Name = "buttonTrackPriceChanges";
-            buttonTrackPriceChanges.Size = new Size(867, 31);
+            buttonTrackPriceChanges.Size = new Size(759, 23);
             buttonTrackPriceChanges.TabIndex = 20;
             buttonTrackPriceChanges.Text = "Отслеживать изменение цены";
             buttonTrackPriceChanges.UseVisualStyleBackColor = true;
@@ -299,10 +296,9 @@
             // 
             // buttonRent
             // 
-            buttonRent.Location = new Point(8, 308);
-            buttonRent.Margin = new Padding(3, 4, 3, 4);
+            buttonRent.Location = new Point(7, 231);
             buttonRent.Name = "buttonRent";
-            buttonRent.Size = new Size(867, 31);
+            buttonRent.Size = new Size(759, 23);
             buttonRent.TabIndex = 19;
             buttonRent.Text = "Забронировать";
             buttonRent.UseVisualStyleBackColor = true;
@@ -311,9 +307,9 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(17, 233);
+            label1.Location = new Point(15, 175);
             label1.Name = "label1";
-            label1.Size = new Size(155, 20);
+            label1.Size = new Size(123, 15);
             label1.TabIndex = 42;
             label1.Text = "Общее время в пути:";
             // 
@@ -321,18 +317,18 @@
             // 
             labelGeneralTimeInFlight.AutoSize = true;
             labelGeneralTimeInFlight.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelGeneralTimeInFlight.Location = new Point(178, 233);
+            labelGeneralTimeInFlight.Location = new Point(156, 175);
             labelGeneralTimeInFlight.Name = "labelGeneralTimeInFlight";
-            labelGeneralTimeInFlight.Size = new Size(114, 20);
+            labelGeneralTimeInFlight.Size = new Size(90, 15);
             labelGeneralTimeInFlight.TabIndex = 42;
             labelGeneralTimeInFlight.Text = "1 час 30 минут";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(17, 267);
+            label2.Location = new Point(15, 200);
             label2.Name = "label2";
-            label2.Size = new Size(133, 20);
+            label2.Size = new Size(105, 15);
             label2.TabIndex = 43;
             label2.Text = "Длина пересадки:";
             // 
@@ -340,17 +336,18 @@
             // 
             labelTransferDur.AutoSize = true;
             labelTransferDur.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelTransferDur.Location = new Point(165, 267);
+            labelTransferDur.Location = new Point(144, 200);
             labelTransferDur.Name = "labelTransferDur";
-            labelTransferDur.Size = new Size(114, 20);
+            labelTransferDur.Size = new Size(90, 15);
             labelTransferDur.TabIndex = 44;
             labelTransferDur.Text = "1 час 30 минут";
             // 
             // FormTransfer
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(887, 387);
+            BackColor = SystemColors.ControlLightLight;
+            ClientSize = new Size(776, 290);
             Controls.Add(labelTransferDur);
             Controls.Add(label2);
             Controls.Add(labelGeneralTimeInFlight);
@@ -358,7 +355,6 @@
             Controls.Add(buttonTrackPriceChanges);
             Controls.Add(buttonRent);
             Controls.Add(groupBox2);
-            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             Name = "FormTransfer";
             Text = "Информация о пересадке";

@@ -28,15 +28,14 @@ namespace FlyTodayDatabaseImplements.Implements
 
         public ScheduleViewModel? GetElement(ScheduleSearchModel model)
         {
-            //using var context = new FlyTodayDatabase();
-            //if (model.Id.HasValue)
-            //    return context.Schedules.FirstOrDefault(x => x.Id == model.Id)?.GetViewModel;
-            //if (!string.IsNullOrEmpty(model.Email) && !string.IsNullOrEmpty(model.Password))
-            //    return context.Schedules.FirstOrDefault(x => x.Email.Equals(model.Email) && x.Password.Equals(model.Password))?.GetViewModel;
-            //if (!string.IsNullOrEmpty(model.Email))
-            //    return context.Schedules.FirstOrDefault(x => x.Email.Equals(model.Email))?.GetViewModel;
+            using var context = new FlyTodayDatabase();
+            if (model.Id.HasValue)
+                return context.Schedules.FirstOrDefault(x => x.Id == model.Id)?.GetViewModel;
+            if (model.Date != null && model.EmployeeId.HasValue)
+                return context.Schedules.FirstOrDefault(x => x.Date.Date == model.Date.Value.Date && x.EmployeeId.Equals(model.EmployeeId))?.GetViewModel;
             return null;
         }
+
 
         public List<ScheduleViewModel> GetFilteredList(ScheduleSearchModel model)
         {

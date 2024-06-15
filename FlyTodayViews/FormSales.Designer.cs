@@ -93,6 +93,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ControlLightLight;
             ClientSize = new Size(754, 527);
             Controls.Add(buttonDelete);
             Controls.Add(buttonEdit);
