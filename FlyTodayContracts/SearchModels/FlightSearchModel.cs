@@ -1,4 +1,6 @@
-﻿namespace FlyTodayContracts.SearchModels
+﻿using FlyTodayDataModels.Enums;
+
+namespace FlyTodayContracts.SearchModels
 {
     public class FlightSearchModel
     {
@@ -9,5 +11,6 @@
         public double? EconomPrice {  get; set; }
         public double? BusinessPrice { get; set; }
         public int? DirectionId { get; set; }
+        public FlightStatusEnum? FlightStatus { get; set; }
     }
 }

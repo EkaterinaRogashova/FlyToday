@@ -33,6 +33,17 @@ namespace FlyTodayDatabaseImplements.Implements
                 return null;
             }
             using var context = new FlyTodayDatabase();
+            if (model.FlightStatus != null)
+            {
+                return context.Flights.Include(x => x.Plane)
+             .Include(x => x.Direction)
+             .Include(x => x.Subscribers)
+             .ThenInclude(x => x.User)
+             .FirstOrDefault(x => (
+            x.FlightStatus == model.FlightStatus) &&
+            (model.Id.HasValue && x.Id == model.Id))
+            ?.GetViewModel;
+            }
             return context.Flights
              .Include(x => x.Plane)
              .Include(x => x.Direction)

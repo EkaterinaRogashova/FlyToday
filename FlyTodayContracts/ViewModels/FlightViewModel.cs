@@ -1,4 +1,5 @@
-﻿using FlyTodayDataModels.Models;
+﻿using FlyTodayDataModels.Enums;
+using FlyTodayDataModels.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,7 +29,8 @@ namespace FlyTodayContracts.ViewModels
         public string? HasTransit { get; set; }
         [DisplayName("Время в пути")]
         public double TimeInFlight { get; set; }
-
+        [DisplayName("Статус")]
+        public FlightStatusEnum FlightStatus { get; set; }
         public int Id { get; set; }
     }
 }

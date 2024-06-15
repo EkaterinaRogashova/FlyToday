@@ -50,7 +50,7 @@ namespace FlyTodayViews
                     return user;
                 }
 
-                return  null;
+                return null;
             }
         }
 
@@ -83,7 +83,7 @@ namespace FlyTodayViews
                     var directionTo = _directionLogic.ReadElement(new DirectionSearchModel { Id = _dir });
                     var viewSecond = _logic.ReadElement(new FlightSearchModel { DirectionId = _dir });
                     if (viewSecond != null)
-                    {                        
+                    {
                         labelSecondDir.Text = directionTo.CityFrom + " - " + directionTo.CityTo;
                         labelDepartureDate2.Text = viewSecond.DepartureDate.ToShortDateString() + " " + viewSecond.DepartureDate.ToShortTimeString() + " МСК";
                         labelArrivalDate2.Text = (viewSecond.DepartureDate + TimeSpan.FromHours(viewSecond.TimeInFlight)).ToShortDateString() + " " + (viewSecond.DepartureDate + TimeSpan.FromHours(viewSecond.TimeInFlight)).ToShortTimeString() + " МСК";
@@ -119,19 +119,13 @@ namespace FlyTodayViews
                 {
                     _logic.ReadElement(new FlightSearchModel { Id = _id.Value }),
                     _logic.ReadElement(new FlightSearchModel { DirectionId = _dir })
-                };                
+                };
                 var user = _userLogic.ReadElement(new UserSearchModel { Id = _currentUserId.Value });
                 bool operationResult = false;
                 if (user != null)
                 {
                     foreach (var flight in flights)
                     {
-                        var subscribe = _flightSubscriberLogic.ReadElement(new FlightSubscriberSearchModel { FlightId = _id.Value, UserId = _currentUserId.Value });
-                        if (subscribe != null)
-                        {
-                            MessageBox.Show("Вы уже следите за изменением цены на этот рейс.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
                         if (!user.AllowNotifications)
                         {
                             MessageBox.Show("Сначала разрешите уведомления! Это можно сделать в личном кабинете.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -148,7 +142,7 @@ namespace FlyTodayViews
                                         operationResult = true;
                                     }
                                 }
-                                
+
                                 if (!operationResult)
                                 {
                                     throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");

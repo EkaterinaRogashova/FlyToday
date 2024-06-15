@@ -96,7 +96,8 @@ namespace FlyTodayViews
                         FreePlacesCountBusiness = placesCountBusiness,
                         EconomPrice = Convert.ToInt32(textBoxEconomCost.Text),
                         BusinessPrice = Convert.ToInt32(textBoxBusinessCost.Text),
-                        TimeInFlight = Convert.ToDouble(textBoxTimeInFlight.Text)
+                        TimeInFlight = Convert.ToDouble(textBoxTimeInFlight.Text),
+                        FlightSubscribers = _flightSubscribers
                     };
                     var operationResult = _id.HasValue ? _logic.Update(model) : _logic.Create(model);
                     if (!operationResult)
@@ -114,45 +115,7 @@ namespace FlyTodayViews
                 }
             }   
             else MessageBox.Show("Нельзя создать рейс на выбранную дату и время", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-            if (string.IsNullOrEmpty(comboBoxSelectDirection.Text) || string.IsNullOrEmpty(dateTimePickerDeparture.Text) || string.IsNullOrEmpty(comboBoxSelectPlane.Text) || string.IsNullOrEmpty(textBoxEconomCost.Text) || string.IsNullOrEmpty(textBoxBusinessCost.Text) || string.IsNullOrEmpty(textBoxTimeInFlight.Text))
-            {
-                MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            _logger.LogInformation("Сохранение рейса");
-            var placesCountEconom = _planeLogic.ReadElement(new PlaneSearchModel { Id = PlaneId }).EconomPlacesCount;
-            var placesCountBusiness = _planeLogic.ReadElement(new PlaneSearchModel { Id = PlaneId }).BusinessPlacesCount;
-            try
-            {
-                var model = new FlightBindingModel
-                {
-                    Id = _id ?? 0,
-                    PlaneId = PlaneId,
-                    DirectionId = DirectionId,
-                    DepartureDate = dateTimePickerDeparture.Value.ToUniversalTime() + TimeSpan.FromHours(4),
-                    FreePlacesCountEconom = placesCountEconom,
-                    FreePlacesCountBusiness = placesCountBusiness,
-                    EconomPrice = Convert.ToInt32(textBoxEconomCost.Text),
-                    BusinessPrice = Convert.ToInt32(textBoxBusinessCost.Text),
-                    TimeInFlight = Convert.ToDouble(textBoxTimeInFlight.Text),
-                    FlightSubscribers = _flightSubscribers
-                };
-                var operationResult = _id.HasValue ? _logic.Update(model) : _logic.Create(model);
-                if (!operationResult)
-                {
-                    throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
-                }
-                MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                DialogResult = DialogResult.OK;
-                Close();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Ошибка сохранения рейса");
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+        }           
 
         private void ButtonCancel_Click(object sender, EventArgs e)
         {

@@ -79,12 +79,6 @@
             // 
             // comboBoxPlaneScheme
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(14, 104);
-            label3.Name = "label3";
-            label3.Size = new Size(201, 20);
-            label3.TabIndex = 6;
-            label3.Text = "Кол-во мест бизнес-класса:";
             comboBoxPlaneScheme.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxPlaneScheme.FormattingEnabled = true;
             comboBoxPlaneScheme.Location = new Point(125, 48);
@@ -94,11 +88,6 @@
             // 
             // label2
             // 
-            textBoxBusinessPlacesCount.Location = new Point(222, 104);
-            textBoxBusinessPlacesCount.Margin = new Padding(3, 4, 3, 4);
-            textBoxBusinessPlacesCount.Name = "textBoxBusinessPlacesCount";
-            textBoxBusinessPlacesCount.Size = new Size(194, 27);
-            textBoxBusinessPlacesCount.TabIndex = 8;
             label2.AutoSize = true;
             label2.Location = new Point(12, 51);
             label2.Name = "label2";
@@ -111,8 +100,6 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(426, 193);
-            Controls.Add(textBoxBusinessPlacesCount);
-            Controls.Add(label3);
             ClientSize = new Size(363, 120);
             Controls.Add(label2);
             Controls.Add(comboBoxPlaneScheme);

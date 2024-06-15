@@ -1,4 +1,6 @@
-﻿namespace FlyTodayDataModels.Models
+﻿using FlyTodayDataModels.Enums;
+
+namespace FlyTodayDataModels.Models
 {
     public interface IFlightModel : IId
     {
@@ -10,5 +12,6 @@
         double EconomPrice { get; }
         double BusinessPrice { get; }
         double TimeInFlight { get; }
+        FlightStatusEnum FlightStatus { get; }
     }
 }

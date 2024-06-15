@@ -1,4 +1,5 @@
-﻿using FlyTodayDataModels.Models;
+﻿using FlyTodayDataModels.Enums;
+using FlyTodayDataModels.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace FlyTodayContracts.BindingModels
         public double BusinessPrice { get; set; }
 
         public double TimeInFlight { get; set; }
+        public FlightStatusEnum FlightStatus { get; set; }
 
         public int Id { get; set; }
         public Dictionary<int, IUserModel> FlightSubscribers { get; set; } = new();

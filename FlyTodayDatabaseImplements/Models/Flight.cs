@@ -1,5 +1,6 @@
 ﻿using FlyTodayContracts.BindingModels;
 using FlyTodayContracts.ViewModels;
+using FlyTodayDataModels.Enums;
 using FlyTodayDataModels.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -25,6 +26,8 @@ namespace FlyTodayDatabaseImplements.Models
         public double BusinessPrice { get; private set; }
         [Required]
         public double TimeInFlight { get; private set; }
+        [Required]
+        public FlightStatusEnum FlightStatus { get; private set; }
         [ForeignKey("FlightId")]
         public virtual List<Employee> Employees { get; set; } = new();
         public virtual Plane Plane { get; set; }
