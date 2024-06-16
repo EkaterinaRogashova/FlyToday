@@ -58,10 +58,10 @@
             // 
             buttonSave.BackColor = SystemColors.ActiveCaption;
             buttonSave.Font = new Font("Segoe UI", 16F);
-            buttonSave.Location = new Point(281, 292);
-            buttonSave.Margin = new Padding(3, 2, 3, 2);
+            buttonSave.Location = new Point(442, 545);
+            buttonSave.Margin = new Padding(5, 4, 5, 4);
             buttonSave.Name = "buttonSave";
-            buttonSave.Size = new Size(147, 35);
+            buttonSave.Size = new Size(231, 65);
             buttonSave.TabIndex = 0;
             buttonSave.Text = "Сохранить";
             buttonSave.UseVisualStyleBackColor = false;
@@ -69,44 +69,44 @@
             // 
             // textBoxSurname
             // 
-            textBoxSurname.Location = new Point(13, 40);
-            textBoxSurname.Margin = new Padding(3, 2, 3, 2);
+            textBoxSurname.Location = new Point(20, 75);
+            textBoxSurname.Margin = new Padding(5, 4, 5, 4);
             textBoxSurname.Name = "textBoxSurname";
-            textBoxSurname.Size = new Size(249, 23);
+            textBoxSurname.Size = new Size(394, 34);
             textBoxSurname.TabIndex = 1;
             // 
             // textBoxLastName
             // 
-            textBoxLastName.Location = new Point(13, 132);
-            textBoxLastName.Margin = new Padding(3, 2, 3, 2);
+            textBoxLastName.Location = new Point(20, 246);
+            textBoxLastName.Margin = new Padding(5, 4, 5, 4);
             textBoxLastName.Name = "textBoxLastName";
-            textBoxLastName.Size = new Size(249, 23);
+            textBoxLastName.Size = new Size(394, 34);
             textBoxLastName.TabIndex = 2;
             // 
             // textBoxName
             // 
-            textBoxName.Location = new Point(15, 86);
-            textBoxName.Margin = new Padding(3, 2, 3, 2);
+            textBoxName.Location = new Point(20, 161);
+            textBoxName.Margin = new Padding(5, 4, 5, 4);
             textBoxName.Name = "textBoxName";
-            textBoxName.Size = new Size(247, 23);
+            textBoxName.Size = new Size(394, 34);
             textBoxName.TabIndex = 3;
             // 
             // dateTimePickerMedAnalys
             // 
-            dateTimePickerMedAnalys.Font = new Font("Segoe UI", 10F);
-            dateTimePickerMedAnalys.Location = new Point(21, 82);
-            dateTimePickerMedAnalys.Margin = new Padding(3, 2, 3, 2);
+            dateTimePickerMedAnalys.Font = new Font("Segoe UI", 15F);
+            dateTimePickerMedAnalys.Location = new Point(33, 153);
+            dateTimePickerMedAnalys.Margin = new Padding(5, 4, 5, 4);
             dateTimePickerMedAnalys.Name = "dateTimePickerMedAnalys";
-            dateTimePickerMedAnalys.Size = new Size(242, 25);
+            dateTimePickerMedAnalys.Size = new Size(378, 34);
             dateTimePickerMedAnalys.TabIndex = 5;
             // 
             // dateTimePickerBirth
             // 
-            dateTimePickerBirth.Font = new Font("Segoe UI", 10F);
-            dateTimePickerBirth.Location = new Point(13, 178);
-            dateTimePickerBirth.Margin = new Padding(3, 2, 3, 2);
+            dateTimePickerBirth.Font = new Font("Segoe UI", 15F);
+            dateTimePickerBirth.Location = new Point(20, 332);
+            dateTimePickerBirth.Margin = new Padding(5, 4, 5, 4);
             dateTimePickerBirth.Name = "dateTimePickerBirth";
-            dateTimePickerBirth.Size = new Size(249, 25);
+            dateTimePickerBirth.Size = new Size(394, 34);
             dateTimePickerBirth.TabIndex = 6;
             // 
             // groupBox1
@@ -122,11 +122,11 @@
             groupBox1.Controls.Add(dateTimePickerBirth);
             groupBox1.Controls.Add(textBoxName);
             groupBox1.Controls.Add(textBoxLastName);
-            groupBox1.Location = new Point(43, 17);
-            groupBox1.Margin = new Padding(3, 2, 3, 2);
+            groupBox1.Location = new Point(68, 32);
+            groupBox1.Margin = new Padding(5, 4, 5, 4);
             groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(3, 2, 3, 2);
-            groupBox1.Size = new Size(282, 270);
+            groupBox1.Padding = new Padding(5, 4, 5, 4);
+            groupBox1.Size = new Size(443, 504);
             groupBox1.TabIndex = 7;
             groupBox1.TabStop = false;
             groupBox1.Text = "Личные данные";
@@ -134,10 +134,11 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 12F);
-            label6.Location = new Point(13, 206);
+            label6.Font = new Font("Segoe UI", 15F);
+            label6.Location = new Point(20, 385);
+            label6.Margin = new Padding(5, 0, 5, 0);
             label6.Name = "label6";
-            label6.Size = new Size(41, 21);
+            label6.Size = new Size(53, 28);
             label6.TabIndex = 12;
             label6.Text = "Пол:";
             // 
@@ -146,49 +147,53 @@
             comboBoxGender.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxGender.FormattingEnabled = true;
             comboBoxGender.Items.AddRange(new object[] { "Ж", "М" });
-            comboBoxGender.Location = new Point(13, 229);
-            comboBoxGender.Margin = new Padding(3, 2, 3, 2);
+            comboBoxGender.Location = new Point(20, 427);
+            comboBoxGender.Margin = new Padding(5, 4, 5, 4);
             comboBoxGender.Name = "comboBoxGender";
-            comboBoxGender.Size = new Size(249, 23);
+            comboBoxGender.Size = new Size(394, 36);
             comboBoxGender.TabIndex = 11;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 12F);
-            label4.Location = new Point(15, 63);
+            label4.Font = new Font("Segoe UI", 15F);
+            label4.Location = new Point(24, 129);
+            label4.Margin = new Padding(5, 0, 5, 0);
             label4.Name = "label4";
-            label4.Size = new Size(44, 21);
+            label4.Size = new Size(55, 28);
             label4.TabIndex = 10;
             label4.Text = "Имя:";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 12F);
-            label3.Location = new Point(13, 109);
+            label3.Font = new Font("Segoe UI", 15F);
+            label3.Location = new Point(20, 214);
+            label3.Margin = new Padding(5, 0, 5, 0);
             label3.Name = "label3";
-            label3.Size = new Size(80, 21);
+            label3.Size = new Size(100, 28);
             label3.TabIndex = 9;
             label3.Text = "Отчество:";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(13, 154);
+            label2.Font = new Font("Segoe UI", 15F);
+            label2.Location = new Point(20, 300);
+            label2.Margin = new Padding(5, 0, 5, 0);
             label2.Name = "label2";
-            label2.Size = new Size(124, 21);
+            label2.Size = new Size(157, 28);
             label2.TabIndex = 8;
             label2.Text = "Дата рождения:";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(13, 17);
+            label1.Font = new Font("Segoe UI", 15F);
+            label1.Location = new Point(20, 43);
+            label1.Margin = new Padding(5, 0, 5, 0);
             label1.Name = "label1";
-            label1.Size = new Size(78, 21);
+            label1.Size = new Size(100, 28);
             label1.TabIndex = 7;
             label1.Text = "Фамилия:";
             // 
@@ -198,11 +203,11 @@
             groupBox2.Controls.Add(label5);
             groupBox2.Controls.Add(checkBoxMedAnalys);
             groupBox2.Controls.Add(dateTimePickerMedAnalys);
-            groupBox2.Location = new Point(378, 17);
-            groupBox2.Margin = new Padding(3, 2, 3, 2);
+            groupBox2.Location = new Point(594, 32);
+            groupBox2.Margin = new Padding(5, 4, 5, 4);
             groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new Padding(3, 2, 3, 2);
-            groupBox2.Size = new Size(282, 124);
+            groupBox2.Padding = new Padding(5, 4, 5, 4);
+            groupBox2.Size = new Size(443, 231);
             groupBox2.TabIndex = 8;
             groupBox2.TabStop = false;
             groupBox2.Text = "Медицинский осмотр";
@@ -210,21 +215,22 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 12F);
-            label5.Location = new Point(21, 58);
+            label5.Font = new Font("Segoe UI", 15F);
+            label5.Location = new Point(28, 107);
+            label5.Margin = new Padding(5, 0, 5, 0);
             label5.Name = "label5";
-            label5.Size = new Size(108, 21);
+            label5.Size = new Size(136, 28);
             label5.TabIndex = 7;
             label5.Text = "Действует до:";
             // 
             // checkBoxMedAnalys
             // 
             checkBoxMedAnalys.AutoSize = true;
-            checkBoxMedAnalys.Font = new Font("Segoe UI", 12F);
-            checkBoxMedAnalys.Location = new Point(23, 27);
-            checkBoxMedAnalys.Margin = new Padding(3, 2, 3, 2);
+            checkBoxMedAnalys.Font = new Font("Segoe UI", 15F);
+            checkBoxMedAnalys.Location = new Point(36, 50);
+            checkBoxMedAnalys.Margin = new Padding(5, 4, 5, 4);
             checkBoxMedAnalys.Name = "checkBoxMedAnalys";
-            checkBoxMedAnalys.Size = new Size(59, 25);
+            checkBoxMedAnalys.Size = new Size(68, 32);
             checkBoxMedAnalys.TabIndex = 6;
             checkBoxMedAnalys.Text = "Есть";
             checkBoxMedAnalys.UseVisualStyleBackColor = true;
@@ -236,11 +242,11 @@
             groupBox3.Controls.Add(label9);
             groupBox3.Controls.Add(comboBoxJob);
             groupBox3.Controls.Add(label7);
-            groupBox3.Location = new Point(378, 149);
-            groupBox3.Margin = new Padding(3, 2, 3, 2);
+            groupBox3.Location = new Point(594, 278);
+            groupBox3.Margin = new Padding(5, 4, 5, 4);
             groupBox3.Name = "groupBox3";
-            groupBox3.Padding = new Padding(3, 2, 3, 2);
-            groupBox3.Size = new Size(282, 138);
+            groupBox3.Padding = new Padding(5, 4, 5, 4);
+            groupBox3.Size = new Size(443, 258);
             groupBox3.TabIndex = 9;
             groupBox3.TabStop = false;
             groupBox3.Text = "Данные о работе";
@@ -250,10 +256,10 @@
             comboBoxTypeWork.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxTypeWork.FormattingEnabled = true;
             comboBoxTypeWork.Items.AddRange(new object[] { "На рейсе", "Посменная" });
-            comboBoxTypeWork.Location = new Point(18, 46);
-            comboBoxTypeWork.Margin = new Padding(3, 2, 3, 2);
+            comboBoxTypeWork.Location = new Point(33, 86);
+            comboBoxTypeWork.Margin = new Padding(5, 4, 5, 4);
             comboBoxTypeWork.Name = "comboBoxTypeWork";
-            comboBoxTypeWork.Size = new Size(246, 23);
+            comboBoxTypeWork.Size = new Size(384, 36);
             comboBoxTypeWork.Sorted = true;
             comboBoxTypeWork.TabIndex = 11;
             comboBoxTypeWork.SelectedIndexChanged += comboBoxTypeWork_SelectedIndexChanged;
@@ -261,10 +267,11 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 12F);
-            label9.Location = new Point(21, 17);
+            label9.Font = new Font("Segoe UI", 15F);
+            label9.Location = new Point(28, 43);
+            label9.Margin = new Padding(5, 0, 5, 0);
             label9.Name = "label9";
-            label9.Size = new Size(96, 21);
+            label9.Size = new Size(123, 28);
             label9.TabIndex = 10;
             label9.Text = "Тип работы:";
             // 
@@ -272,33 +279,35 @@
             // 
             comboBoxJob.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxJob.FormattingEnabled = true;
-            comboBoxJob.Location = new Point(21, 97);
-            comboBoxJob.Margin = new Padding(3, 2, 3, 2);
+            comboBoxJob.Location = new Point(33, 181);
+            comboBoxJob.Margin = new Padding(5, 4, 5, 4);
             comboBoxJob.Name = "comboBoxJob";
-            comboBoxJob.Size = new Size(246, 23);
+            comboBoxJob.Size = new Size(384, 36);
             comboBoxJob.TabIndex = 8;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 12F);
-            label7.Location = new Point(21, 74);
+            label7.Font = new Font("Segoe UI", 15F);
+            label7.Location = new Point(28, 139);
+            label7.Margin = new Padding(5, 0, 5, 0);
             label7.Name = "label7";
-            label7.Size = new Size(93, 21);
+            label7.Size = new Size(119, 28);
             label7.TabIndex = 5;
             label7.Text = "Должность:";
             // 
             // FormEmployee
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLightLight;
-            ClientSize = new Size(700, 332);
+            ClientSize = new Size(1100, 620);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(buttonSave);
-            Margin = new Padding(3, 2, 3, 2);
+            Font = new Font("Segoe UI", 15F);
+            Margin = new Padding(5, 4, 5, 4);
             MinimizeBox = false;
             Name = "FormEmployee";
             Text = "Сотрудник";

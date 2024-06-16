@@ -42,7 +42,6 @@
             scheduleToolStripMenuItem = new ToolStripMenuItem();
             должностиToolStripMenuItem = new ToolStripMenuItem();
             buttonScheduleForEmployee = new Button();
-            buttonEmployeePdfWeek = new Button();
             buttonToPdfMonth = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             groupBox1.SuspendLayout();
@@ -208,24 +207,11 @@
             buttonScheduleForEmployee.UseVisualStyleBackColor = true;
             buttonScheduleForEmployee.Click += buttonScheduleForEmployee_Click;
             // 
-            // buttonEmployeePdfWeek
-            // 
-            buttonEmployeePdfWeek.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            buttonEmployeePdfWeek.Font = new Font("Segoe UI", 14F);
-            buttonEmployeePdfWeek.Location = new Point(1620, 686);
-            buttonEmployeePdfWeek.Margin = new Padding(3, 2, 3, 2);
-            buttonEmployeePdfWeek.Name = "buttonEmployeePdfWeek";
-            buttonEmployeePdfWeek.Size = new Size(240, 92);
-            buttonEmployeePdfWeek.TabIndex = 7;
-            buttonEmployeePdfWeek.Text = "Получить расписание сотрудника на неделю";
-            buttonEmployeePdfWeek.UseVisualStyleBackColor = true;
-            buttonEmployeePdfWeek.Click += buttonEmployeePdf_Click;
-            // 
             // buttonToPdfMonth
             // 
             buttonToPdfMonth.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             buttonToPdfMonth.Font = new Font("Segoe UI", 14F);
-            buttonToPdfMonth.Location = new Point(1620, 807);
+            buttonToPdfMonth.Location = new Point(1620, 706);
             buttonToPdfMonth.Margin = new Padding(3, 2, 3, 2);
             buttonToPdfMonth.Name = "buttonToPdfMonth";
             buttonToPdfMonth.Size = new Size(240, 87);
@@ -241,7 +227,6 @@
             BackColor = SystemColors.ControlLightLight;
             ClientSize = new Size(1904, 1041);
             Controls.Add(buttonToPdfMonth);
-            Controls.Add(buttonEmployeePdfWeek);
             Controls.Add(buttonScheduleForEmployee);
             Controls.Add(groupBox1);
             Controls.Add(buttonAdd);
@@ -281,7 +266,6 @@
         private ToolStripMenuItem должностиToolStripMenuItem;
         private Button buttonDeteteFilter;
         private Button buttonScheduleForEmployee;
-        private Button buttonEmployeePdfWeek;
         private Button buttonToPdfMonth;
     }
 }

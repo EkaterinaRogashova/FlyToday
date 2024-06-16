@@ -39,10 +39,25 @@ namespace FlyTodayBusinessLogics.OfficePackage.Implements
             style = document.Styles.AddStyle("NormalTitle", "Normal");
             style.Font.Bold = true;
         }
+        private static void DefineStylesAlbum(Document document)
+        {
+            var style = document.Styles["Normal"];
+            style.Font.Name = "Times New Roman";
+            style.Font.Size = 10;
+            style = document.Styles.AddStyle("NormalTitle", "Normal");
+            style.Font.Bold = true;
+        }
         protected override void CreatePdf(PdfInfo info)
         {
             _document = new Document();
             DefineStyles(_document);
+            _section = _document.AddSection();
+        }
+        protected override void CreateAlbumPdf(PdfInfo info)
+        {
+            _document = new Document();
+            _document.DefaultPageSetup.Orientation = Orientation.Landscape;
+            DefineStylesAlbum(_document);
             _section = _document.AddSection();
         }
         protected override void CreateParagraph(PdfParagraph pdfParagraph)
@@ -92,32 +107,6 @@ namespace FlyTodayBusinessLogics.OfficePackage.Implements
                GetParagraphAlignment(rowParameters.ParagraphAlignment);
                 row.Cells[i].VerticalAlignment = VerticalAlignment.Center;
             }
-
-            // Если есть значение для ячейки на пересечении
-            if (!string.IsNullOrEmpty(rowParameters.IntersectionValue))
-            {
-                // Создаем новую строку с одной ячейкой и объединяем ее со всеми ячейками предыдущей строки
-                var intersectionRow = _table.AddRow();
-                var intersectionCell = intersectionRow.Cells[0];
-                intersectionCell.MergeDown = rowParameters.Texts.Count;
-                intersectionCell.MergeRight = 1;
-                intersectionCell.AddParagraph(rowParameters.IntersectionValue);
-                if (!string.IsNullOrEmpty(rowParameters.Style))
-                {
-                    intersectionCell.Style = rowParameters.Style;
-                }
-                SetCellBorders(intersectionCell);
-                intersectionCell.Format.Alignment = GetParagraphAlignment(rowParameters.ParagraphAlignment);
-                intersectionCell.VerticalAlignment = VerticalAlignment.Center;
-            }
-        }
-        private void SetCellBorders(Cell cell)
-        {
-            Unit borderWidth = 0.5;
-            cell.Borders.Left.Width = borderWidth;
-            cell.Borders.Right.Width = borderWidth;
-            cell.Borders.Top.Width = borderWidth;
-            cell.Borders.Bottom.Width = borderWidth;
         }
         protected override void SavePdf(PdfInfo info)
         {

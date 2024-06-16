@@ -39,7 +39,6 @@
             label1 = new Label();
             groupBoxTicket = new GroupBox();
             labelTypeTicket = new Label();
-            checkedListBoxTypeDoc = new CheckedListBox();
             label13 = new Label();
             dateTimePickerBirth = new DateTimePicker();
             checkedListBoxGender = new CheckedListBox();
@@ -59,6 +58,7 @@
             label7 = new Label();
             textBoxSurname = new TextBox();
             pnlTickets = new Panel();
+            label2 = new Label();
             groupBox1.SuspendLayout();
             groupBoxTicket.SuspendLayout();
             pnlTickets.SuspendLayout();
@@ -76,7 +76,7 @@
             groupBox1.Controls.Add(label4);
             groupBox1.Controls.Add(labelFlight);
             groupBox1.Controls.Add(label1);
-            groupBox1.Font = new Font("Segoe UI", 14F);
+            groupBox1.Font = new Font("Segoe UI", 18F);
             groupBox1.Location = new Point(10, 9);
             groupBox1.Margin = new Padding(3, 2, 3, 2);
             groupBox1.Name = "groupBox1";
@@ -179,8 +179,8 @@
             // 
             groupBoxTicket.AutoSize = true;
             groupBoxTicket.BackColor = SystemColors.InactiveBorder;
+            groupBoxTicket.Controls.Add(label2);
             groupBoxTicket.Controls.Add(labelTypeTicket);
-            groupBoxTicket.Controls.Add(checkedListBoxTypeDoc);
             groupBoxTicket.Controls.Add(label13);
             groupBoxTicket.Controls.Add(dateTimePickerBirth);
             groupBoxTicket.Controls.Add(checkedListBoxGender);
@@ -221,18 +221,6 @@
             labelTypeTicket.TabIndex = 30;
             labelTypeTicket.Text = "Эконом";
             // 
-            // checkedListBoxTypeDoc
-            // 
-            checkedListBoxTypeDoc.Anchor = AnchorStyles.None;
-            checkedListBoxTypeDoc.Font = new Font("Segoe UI", 18F);
-            checkedListBoxTypeDoc.FormattingEnabled = true;
-            checkedListBoxTypeDoc.Items.AddRange(new object[] { "Паспорт", "Св. о рождении" });
-            checkedListBoxTypeDoc.Location = new Point(1010, 149);
-            checkedListBoxTypeDoc.Margin = new Padding(3, 2, 3, 2);
-            checkedListBoxTypeDoc.Name = "checkedListBoxTypeDoc";
-            checkedListBoxTypeDoc.Size = new Size(367, 72);
-            checkedListBoxTypeDoc.TabIndex = 29;
-            // 
             // label13
             // 
             label13.Anchor = AnchorStyles.None;
@@ -248,7 +236,7 @@
             // 
             dateTimePickerBirth.Anchor = AnchorStyles.None;
             dateTimePickerBirth.Font = new Font("Segoe UI", 18F);
-            dateTimePickerBirth.Location = new Point(45, 178);
+            dateTimePickerBirth.Location = new Point(45, 182);
             dateTimePickerBirth.Margin = new Padding(3, 2, 3, 2);
             dateTimePickerBirth.Name = "dateTimePickerBirth";
             dateTimePickerBirth.Size = new Size(408, 39);
@@ -295,7 +283,7 @@
             label15.Anchor = AnchorStyles.None;
             label15.AutoSize = true;
             label15.Font = new Font("Segoe UI", 18F);
-            label15.Location = new Point(1010, 219);
+            label15.Location = new Point(1010, 144);
             label15.Name = "label15";
             label15.Size = new Size(92, 32);
             label15.TabIndex = 25;
@@ -307,7 +295,7 @@
             comboBoxSale.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxSale.Font = new Font("Segoe UI", 18F);
             comboBoxSale.FormattingEnabled = true;
-            comboBoxSale.Location = new Point(1010, 256);
+            comboBoxSale.Location = new Point(1010, 181);
             comboBoxSale.Margin = new Padding(3, 2, 3, 2);
             comboBoxSale.Name = "comboBoxSale";
             comboBoxSale.Size = new Size(367, 40);
@@ -318,7 +306,7 @@
             checkBoxBags.Anchor = AnchorStyles.None;
             checkBoxBags.AutoSize = true;
             checkBoxBags.Font = new Font("Segoe UI", 18F);
-            checkBoxBags.Location = new Point(45, 300);
+            checkBoxBags.Location = new Point(1010, 228);
             checkBoxBags.Margin = new Padding(3, 2, 3, 2);
             checkBoxBags.Name = "checkBoxBags";
             checkBoxBags.Size = new Size(155, 36);
@@ -442,6 +430,18 @@
             pnlTickets.Size = new Size(1418, 1021);
             pnlTickets.TabIndex = 2;
             // 
+            // label2
+            // 
+            label2.Anchor = AnchorStyles.None;
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 12F);
+            label2.ForeColor = Color.Blue;
+            label2.Location = new Point(1010, 266);
+            label2.Name = "label2";
+            label2.Size = new Size(187, 21);
+            label2.TabIndex = 31;
+            label2.Text = "+5% к стоимости билета";
+            // 
             // FormTickets
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -495,8 +495,8 @@
         private ComboBox comboBoxSale;
         private CheckBox checkBoxBags;
         private Panel pnlTickets;
-        private CheckedListBox checkedListBoxTypeDoc;
         private CheckedListBox checkedListBoxGender;
         private Label labelTypeTicket;
+        private Label label2;
     }
 }

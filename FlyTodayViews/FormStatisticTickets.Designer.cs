@@ -116,7 +116,7 @@
             label7.Name = "label7";
             label7.Size = new Size(181, 21);
             label7.TabIndex = 8;
-            label7.Text = "Пассажиры от 12 до 65:";
+            label7.Text = "Пассажиры от 18 до 65:";
             // 
             // label8
             // 
@@ -126,7 +126,7 @@
             label8.Name = "label8";
             label8.Size = new Size(166, 21);
             label8.TabIndex = 7;
-            label8.Text = "Пассажиры до 12 лет:";
+            label8.Text = "Пассажиры до 18 лет:";
             // 
             // label9
             // 

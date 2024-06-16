@@ -20,7 +20,8 @@ namespace FlyTodayBusinessLogics.BusinessLogics
         private readonly IPlaceStorage _placeStorage;
         private readonly IPlaneStorage _planeStorage;
         private readonly AbstractSaveToPdf _saveToPdf;
-        public ReportLogic(IEmployeeStorage employeeStorage, IScheduleStorage scheduleStorage, AbstractSaveToPdf saveToPdf, IBoardingPassStorage boardingPassStorage, IFlightStorage flightStorage, IRentStorage rentStorage, ITicketStorage ticketStorage, IDirectionStorage directionStorage, IPlaceStorage placeStorage, IPlaneStorage planeStorage)
+        private readonly AbstractSaveToExcel _saveToExcel;
+        public ReportLogic(IEmployeeStorage employeeStorage, IScheduleStorage scheduleStorage, AbstractSaveToPdf saveToPdf, IBoardingPassStorage boardingPassStorage, IFlightStorage flightStorage, IRentStorage rentStorage, ITicketStorage ticketStorage, IDirectionStorage directionStorage, IPlaceStorage placeStorage, IPlaneStorage planeStorage, AbstractSaveToExcel saveToExcel)
         {
             _saveToPdf = saveToPdf;
             _employeeStorage = employeeStorage;
@@ -32,6 +33,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             _directionStorage = directionStorage;
             _placeStorage = placeStorage;
             _planeStorage = planeStorage;
+            _saveToExcel = saveToExcel;
         }
         public List<ReportScheduleViewModel> GetSchedule(ReportBindingModel model)
         {
@@ -99,6 +101,27 @@ namespace FlyTodayBusinessLogics.BusinessLogics
                 throw new ArgumentException("Дата окончания не задана");
             }
             _saveToPdf.CreateDoc(new PdfInfo
+            {
+                FileName = model.FileName,
+                Title = "Расписание",
+                DateFrom = model.DateFrom!.Value,
+                DateTo = model.DateTo!.Value,
+                Schedule = GetSchedule(model)
+            });
+        }
+
+        public void SaveReportScheduleToExcelFile(ReportBindingModel model)
+        {
+            if (model.DateFrom == null)
+            {
+                throw new ArgumentException("Дата начала не задана");
+            }
+
+            if (model.DateTo == null)
+            {
+                throw new ArgumentException("Дата окончания не задана");
+            }
+            _saveToExcel.CreateReport(new ExcelInfo
             {
                 FileName = model.FileName,
                 Title = "Расписание",

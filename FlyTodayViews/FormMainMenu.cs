@@ -20,17 +20,17 @@ namespace FlyTodayViews
         public string Email { set { _email = value; } }
         private int picturenumber = 1;
 
+        //private void ImageSlide()
+        //{
+        //    if (picturenumber == 1) slider.ImageLocation = "C:\\Users\\User\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\1.jpg";
+        //    if (picturenumber == 2) slider.ImageLocation = "C:\\Users\\User\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\2.jpg";
+        //    if (picturenumber == 3) slider.ImageLocation = "C:\\Users\\User\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\3.jpg";
+        //    if (picturenumber == 4) slider.ImageLocation = "C:\\Users\\User\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\4.jpg";
+        //    if (picturenumber == 5) slider.ImageLocation = "C:\\Users\\User\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\5.jpg";
+        //    if (picturenumber == 6) { picturenumber = 1; slider.ImageLocation = "C:\\Users\\User\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\1.jpg"; }
+        //    picturenumber++;
+        //}
         private void ImageSlide()
-        {
-            if (picturenumber == 1) slider.ImageLocation = "C:\\Users\\User\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\1.jpg";
-            if (picturenumber == 2) slider.ImageLocation = "C:\\Users\\User\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\2.jpg";
-            if (picturenumber == 3) slider.ImageLocation = "C:\\Users\\User\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\3.jpg";
-            if (picturenumber == 4) slider.ImageLocation = "C:\\Users\\User\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\4.jpg";
-            if (picturenumber == 5) slider.ImageLocation = "C:\\Users\\User\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\5.jpg";
-            if (picturenumber == 6) { picturenumber = 1; slider.ImageLocation = "C:\\Users\\User\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\1.jpg"; }
-            picturenumber++;
-        }
-        /*private void ImageSlide()
         {
             if (picturenumber == 1) slider.ImageLocation = "C:\\Users\\admin\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\1.jpg";
             if (picturenumber == 2) slider.ImageLocation = "C:\\Users\\admin\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\2.jpg";
@@ -39,7 +39,7 @@ namespace FlyTodayViews
             if (picturenumber == 5) slider.ImageLocation = "C:\\Users\\admin\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\5.jpg";
             if (picturenumber == 6) { picturenumber = 1; slider.ImageLocation = "C:\\Users\\admin\\source\\repos\\FlyToday\\FlyTodayViews\\Resources\\1.jpg"; }
             picturenumber++;
-        }*/
+        }
         public FormMainMenu(ILogger<FormMainMenu> logger, IUserLogic logic)
         {
             InitializeComponent();
@@ -264,6 +264,7 @@ namespace FlyTodayViews
             buttonSales.Visible = false;
             buttonStatisticTickets.Visible = false;
             buttonExit.Enabled = false;
+            buttonMainRegistration.Enabled = true;
 
             MessageBox.Show("Вы вышли из системы.", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
             LoadData();

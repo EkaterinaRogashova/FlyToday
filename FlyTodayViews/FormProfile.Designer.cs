@@ -36,14 +36,13 @@
             labelEmail = new Label();
             buttonUpd = new Button();
             buttonDel = new Button();
-            buttonMyRents = new Button();
+            buttonMenu = new Button();
             groupBox1 = new GroupBox();
             checkBoxAllowNotif = new CheckBox();
             label4 = new Label();
             dataGridView1 = new DataGridView();
             buttonTickets = new Button();
             buttonCreateBoardingPass = new Button();
-            buttonAddToArhiv = new Button();
             buttonArchive = new Button();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -135,18 +134,18 @@
             buttonDel.UseVisualStyleBackColor = true;
             buttonDel.Click += buttonDel_Click;
             // 
-            // buttonMyRents
+            // buttonMenu
             // 
-            buttonMyRents.Anchor = AnchorStyles.None;
-            buttonMyRents.BackColor = SystemColors.ActiveCaption;
-            buttonMyRents.Font = new Font("Segoe UI", 14F);
-            buttonMyRents.Location = new Point(32, 508);
-            buttonMyRents.Name = "buttonMyRents";
-            buttonMyRents.Size = new Size(378, 64);
-            buttonMyRents.TabIndex = 10;
-            buttonMyRents.Text = "В главное меню";
-            buttonMyRents.UseVisualStyleBackColor = false;
-            buttonMyRents.Click += buttonMyRents_Click;
+            buttonMenu.Anchor = AnchorStyles.None;
+            buttonMenu.BackColor = SystemColors.ActiveCaption;
+            buttonMenu.Font = new Font("Segoe UI", 14F);
+            buttonMenu.Location = new Point(32, 508);
+            buttonMenu.Name = "buttonMenu";
+            buttonMenu.Size = new Size(378, 64);
+            buttonMenu.TabIndex = 10;
+            buttonMenu.Text = "В главное меню";
+            buttonMenu.UseVisualStyleBackColor = false;
+            buttonMenu.Click += buttonMyRents_Click;
             // 
             // groupBox1
             // 
@@ -227,27 +226,17 @@
             buttonCreateBoardingPass.UseVisualStyleBackColor = false;
             buttonCreateBoardingPass.Click += buttonCreateBoardingPass_Click;
             // 
-            // buttonAddToArhiv
-            // 
-            buttonAddToArhiv.Anchor = AnchorStyles.None;
-            buttonAddToArhiv.Font = new Font("Segoe UI", 14F);
-            buttonAddToArhiv.Location = new Point(501, 508);
-            buttonAddToArhiv.Name = "buttonAddToArhiv";
-            buttonAddToArhiv.Size = new Size(378, 64);
-            buttonAddToArhiv.TabIndex = 17;
-            buttonAddToArhiv.Text = "Добавить в архив";
-            buttonAddToArhiv.UseVisualStyleBackColor = true;
-            // 
             // buttonArchive
             // 
             buttonArchive.Anchor = AnchorStyles.None;
             buttonArchive.Font = new Font("Segoe UI", 14F);
-            buttonArchive.Location = new Point(911, 508);
+            buttonArchive.Location = new Point(697, 508);
             buttonArchive.Name = "buttonArchive";
             buttonArchive.Size = new Size(378, 64);
             buttonArchive.TabIndex = 18;
-            buttonArchive.Text = "Архив";
+            buttonArchive.Text = "Мой архив";
             buttonArchive.UseVisualStyleBackColor = true;
+            buttonArchive.Click += buttonArchive_Click;
             // 
             // FormProfile
             // 
@@ -256,14 +245,13 @@
             BackColor = SystemColors.ControlLightLight;
             ClientSize = new Size(1332, 637);
             Controls.Add(buttonArchive);
-            Controls.Add(buttonAddToArhiv);
             Controls.Add(buttonCreateBoardingPass);
             Controls.Add(buttonTickets);
             Controls.Add(dataGridView1);
             Controls.Add(label4);
             Controls.Add(checkBoxAllowNotif);
             Controls.Add(groupBox1);
-            Controls.Add(buttonMyRents);
+            Controls.Add(buttonMenu);
             Controls.Add(buttonDel);
             Controls.Add(buttonUpd);
             Controls.Add(label1);
@@ -289,14 +277,13 @@
         private Label labelEmail;
         private Button buttonUpd;
         private Button buttonDel;
-        private Button buttonMyRents;
+        private Button buttonMenu;
         private GroupBox groupBox1;
         private CheckBox checkBoxAllowNotif;
         private Label label4;
         private DataGridView dataGridView1;
         private Button buttonTickets;
         private Button buttonCreateBoardingPass;
-        private Button buttonAddToArhiv;
         private Button buttonArchive;
     }
 }
