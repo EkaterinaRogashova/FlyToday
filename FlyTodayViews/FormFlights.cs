@@ -3,12 +3,9 @@ using FlyTodayContracts.BindingModels;
 using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.ViewModels;
-using FlyTodayDatabaseImplements.Models;
+using FlyTodayDataModels.Enums;
 using FlyTodayDataModels.Models;
 using Microsoft.Extensions.Logging;
-using Microsoft.VisualBasic.ApplicationServices;
-using System.Numerics;
-using System.Windows.Forms;
 
 namespace FlyTodayViews
 {
@@ -21,9 +18,12 @@ namespace FlyTodayViews
         private readonly IUserLogic _userLogic;
         private readonly IReportLogic _reportLogic;
         private readonly IPlaceLogic _placeLogic;
+        private readonly IRentLogic _rentLogic;
         private readonly AbstractMailWorker _mailWorker;
-        private Dictionary<int, IUserModel> _flightSubscribers;
-        public FormFlights(ILogger<FormFlights> logger, IFlightLogic logic, IPlaneLogic planeLogic, IDirectionLogic directionLogic, IUserLogic userLogic, AbstractMailWorker mailWorker, IReportLogic reportLogic, IPlaceLogic placeLogic)
+        private Dictionary<int, int>? _flightSubscribers;
+        public Dictionary<int, int> FlightSubscribers { set { _flightSubscribers = value; } }
+    
+        public FormFlights(ILogger<FormFlights> logger, IFlightLogic logic, IPlaneLogic planeLogic, IDirectionLogic directionLogic, IUserLogic userLogic, AbstractMailWorker mailWorker, IReportLogic reportLogic, IPlaceLogic placeLogic, IRentLogic rentLogic)
         {
             InitializeComponent();
             _logger = logger;
@@ -31,12 +31,14 @@ namespace FlyTodayViews
             _planeLogic = planeLogic;
             dataGridView.Columns.Add("FlightDirection", "Направление");
             dataGridView.Columns.Add("PlaneModel", "Самолет");
+            dataGridView.Columns.Add("Status", "Статус");
             _directionLogic = directionLogic;
             _userLogic = userLogic;
             _mailWorker = mailWorker;
             _reportLogic = reportLogic;
-            _placeLogic = placeLogic;
-            _flightSubscribers = new Dictionary<int, IUserModel>();
+            _placeLogic = placeLogic;            
+            _flightSubscribers = new Dictionary<int, int>();
+            _rentLogic = rentLogic;
         }
 
         private void FormFlights_Load(object sender, EventArgs e)
@@ -56,14 +58,16 @@ namespace FlyTodayViews
                     dataGridView.Columns["DepartureDate"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView.Columns["FreePlacesCountEconom"].Visible = false;
                     dataGridView.Columns["FreePlacesCountBusiness"].Visible = false;
-                    dataGridView.Columns["EconomPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                    dataGridView.Columns["BusinessPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                    dataGridView.Columns["TimeInFlight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+                    dataGridView.Columns["EconomPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns["BusinessPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns["TimeInFlight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView.Columns["PlaneId"].Visible = false;
                     dataGridView.Columns["DirectionId"].Visible = false;
                     dataGridView.Columns["HasTransit"].Visible = false;
-                    dataGridView.Columns["PlaneModel"].AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
-                    dataGridView.Columns["FlightDirection"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns["PlaneModel"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns["FlightDirection"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+                    dataGridView.Columns["FlightSubscribers"].Visible = false;
+                    dataGridView.Columns["FlightStatus"].Visible = false;
 
                     foreach (DataGridViewRow row in dataGridView.Rows)
                     {
@@ -95,7 +99,35 @@ namespace FlyTodayViews
                             row.Cells["FlightDirection"].Value = "Направление не найдено";
                         }
                     }
-
+                    foreach (DataGridViewRow row in dataGridView.Rows)
+                    {
+                        int flightId = Convert.ToInt32(row.Cells["Id"].Value);
+                        var flight = _logic.ReadElement(new FlightSearchModel { Id = flightId });
+                        if (flight != null)
+                        {
+                            if (flight.FlightStatus == FlightStatusEnum.РегистрацияНеНачалась)
+                            {
+                                row.Cells["Status"].Value = "Регистрация не началась";
+                            }
+                            else if (flight.FlightStatus == FlightStatusEnum.РегистрацияИдет)
+                            {
+                                row.Cells["Status"].Value = "Регистрация идет";
+                            }
+                            else if (flight.FlightStatus == FlightStatusEnum.РегистрацияЗакончилась)
+                            {
+                                row.Cells["Status"].Value = "Регистрация закончилась";
+                            }
+                            else if (flight.FlightStatus == FlightStatusEnum.Отменен)
+                            {
+                                row.Cells["Status"].Value = "Отменен";
+                            }
+                            else if (flight.FlightStatus == FlightStatusEnum.Неизвестен)
+                            {
+                                row.Cells["Status"].Value = "Неизвестен";
+                            }
+                            dataGridView.Columns["Status"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        }
+                    }
                 }
                 _logger.LogInformation("Загрузка рейсов");
             }
@@ -129,7 +161,7 @@ namespace FlyTodayViews
                     form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
                     if (form.ShowDialog() == DialogResult.OK)
                     {
-                        LoadData();                        
+                        LoadData();
                     }
                 }
             }
@@ -202,24 +234,25 @@ namespace FlyTodayViews
         {
             ClearOldNotifications();
 
-            if (_flightSubscribers != null)
+            foreach (var flight in flights)
             {
-                foreach (var subscriber in _flightSubscribers)
+                var direction = _directionLogic.ReadElement(new DirectionSearchModel { Id = flight.DirectionId });
+                _flightSubscribers = _logic.GetSubscribers(new FlightSearchModel { Id = flight.Id });
+                if (_flightSubscribers != null && _flightSubscribers.Count != 0)
                 {
-                    if (subscriber.Value != null)
+                    foreach (var subscriber in _flightSubscribers.Values)
                     {
-                        var user = _userLogic.ReadElement(new UserSearchModel { Id = subscriber.Value.Id });
-                        if (user != null)
+                        if (subscriber != 0)
                         {
-                            if(user.AllowNotifications)
+                            var user = _userLogic.ReadElement(new UserSearchModel { Id = subscriber });
+                            if (user != null)
                             {
-                                foreach (var flight in flights)
+                                if (user.AllowNotifications)
                                 {
-                                    var direction = _directionLogic.ReadElement(new DirectionSearchModel { Id = flight.DirectionId });
 
-                                    if (oldEconomPrice.HasValue && newEconomPrice.HasValue && flight.EconomPrice != oldEconomPrice)
+                                    if (oldEconomPrice.HasValue && newEconomPrice.HasValue)
                                     {
-                                        if (!HasSentNotification(flight.Id, subscriber.Value.Id, oldEconomPrice.Value, newEconomPrice.Value, false))
+                                        if (!HasSentNotification(flight.Id, subscriber, oldEconomPrice.Value, newEconomPrice.Value, false))
                                         {
                                             var economSubject = $"Снижение цены билетов эконом-класса на рейс {direction.CountryFrom} {direction.CityFrom} - {direction.CountryTo} {direction.CityTo}";
                                             var economText = $"Стоимость билета эконом-класса теперь составляет {newEconomPrice} (была {oldEconomPrice}). \nУспейте приобрести билеты по выгодной цене! \n \n Ваша FlyToday.";
@@ -232,7 +265,7 @@ namespace FlyTodayViews
                                             _sentNotifications.Add(new PriceReductionNotification
                                             {
                                                 FlightId = flight.Id,
-                                                UserId = subscriber.Value.Id,
+                                                UserId = subscriber,
                                                 OldPrice = oldEconomPrice.Value,
                                                 NewPrice = newEconomPrice.Value,
                                                 IsBusiness = false,
@@ -241,9 +274,9 @@ namespace FlyTodayViews
                                         }
                                     }
 
-                                    if (oldBusinessPrice.HasValue && newBusinessPrice.HasValue && flight.BusinessPrice != oldBusinessPrice)
+                                    if (oldBusinessPrice.HasValue && newBusinessPrice.HasValue)
                                     {
-                                        if (!HasSentNotification(flight.Id, subscriber.Value.Id, oldBusinessPrice.Value, newBusinessPrice.Value, true))
+                                        if (!HasSentNotification(flight.Id, subscriber, oldBusinessPrice.Value, newBusinessPrice.Value, true))
                                         {
                                             var businessSubject = $"Снижение цены билетов бизнес-класса на рейс {direction.CountryFrom} {direction.CityFrom} - {direction.CountryTo} {direction.CityTo}";
                                             var businessText = $"Стоимость билета бизнес-класса теперь составляет {newBusinessPrice} (была {oldBusinessPrice}). \nУспейте приобрести билеты по выгодной цене! \n \n Ваша FlyToday.";
@@ -256,7 +289,7 @@ namespace FlyTodayViews
                                             _sentNotifications.Add(new PriceReductionNotification
                                             {
                                                 FlightId = flight.Id,
-                                                UserId = subscriber.Value.Id,
+                                                UserId = subscriber,
                                                 OldPrice = oldBusinessPrice.Value,
                                                 NewPrice = newBusinessPrice.Value,
                                                 IsBusiness = true,
@@ -266,10 +299,10 @@ namespace FlyTodayViews
                                     }
                                 }
                             }
-                        }                        
+                        }
                     }
-                }                
-            }            
+                }
+            }
         }
 
         private bool HasSentNotification(int flightId, int userId, double oldPrice, double newPrice, bool isBusiness)
@@ -287,7 +320,7 @@ namespace FlyTodayViews
         {
             var list = _logic.ReadList(null);
             bool businessChanged = false;
-            bool economChanged = false;            
+            bool economChanged = false;
             foreach (var flight in list)
             {
                 List<FlightViewModel> flights = new();
@@ -310,7 +343,7 @@ namespace FlyTodayViews
                         EconomPrice = flight.EconomPrice * 0.5,
                         BusinessPrice = flight.BusinessPrice * 0.5,
                         TimeInFlight = flight.TimeInFlight,
-                        FlightSubscribers = _flightSubscribers
+                        FlightSubscribers = flight.FlightSubscribers
                     };
                     var operationResult = _logic.UpdatePrices(model);
                     if (!operationResult)
@@ -321,6 +354,7 @@ namespace FlyTodayViews
                 }
                 else if (flight.FreePlacesCountEconom <= 10 && flight.EconomPrice > 1500)
                 {
+                    flights.Add(flight);
                     economChanged = true;
                     var oldPrice = flight.EconomPrice;
                     var model = new FlightBindingModel
@@ -344,6 +378,7 @@ namespace FlyTodayViews
                 }
                 else if (flight.FreePlacesCountBusiness <= 10 && flight.BusinessPrice > 10000)
                 {
+                    flights.Add(flight);
                     businessChanged = true;
                     var oldPrice = flight.BusinessPrice;
                     var model = new FlightBindingModel
@@ -403,12 +438,101 @@ namespace FlyTodayViews
                             MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
-                }                
+                }
             }
             else
             {
                 MessageBox.Show("Сначала выберите рейс", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void buttonCancelFlight_Click(object sender, EventArgs e)
+        {
+            if (dataGridView.SelectedRows.Count == 1)
+            {
+                var flight = _logic.ReadElement(new FlightSearchModel
+                {
+                    Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value)
+                });
+                if (flight != null)
+                {
+                    try
+                    {
+                        _logic.Update(new FlightBindingModel
+                        {
+                            Id = flight.Id,
+                            PlaneId = flight.PlaneId,
+                            DirectionId = flight.DirectionId,
+                            DepartureDate = flight.DepartureDate,
+                            FreePlacesCountEconom = flight.FreePlacesCountEconom,
+                            FreePlacesCountBusiness = flight.FreePlacesCountBusiness,
+                            EconomPrice = flight.EconomPrice,
+                            BusinessPrice = flight.BusinessPrice,
+                            TimeInFlight = flight.TimeInFlight,
+                            FlightSubscribers = flight.FlightSubscribers,
+                            FlightStatus = FlightStatusEnum.Отменен
+                        });
+                        _logger.LogInformation("Обновление статуса рейса на Отменен");
+                        MessageBox.Show("Рейс успешно отменен", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        var direction = _directionLogic.ReadElement(new DirectionSearchModel { Id = flight.DirectionId });
+                        var rents = _rentLogic.ReadList(null);
+                        foreach (var rent in rents)
+                        {
+                            var users = _userLogic.ReadList(new UserSearchModel
+                            {
+                                Id = rent.UserId
+                            });
+                            if (rent.Status == "Оплачено")
+                            {
+                                foreach (var user in users)
+                                {
+                                    _mailWorker.MailSendAsync(new()
+                                    {
+                                        MailAddress = user.Email,
+                                        Subject = $"Отмена рейса",
+                                        Text = $"Вы оплатили билеты на рейс {direction.CountryFrom} {direction.CityFrom} - {direction.CountryTo} {direction.CityTo} {flight.DepartureDate}, он по техническим причинам был отменен." +
+                                        $"\nДля возврата средств обратитесь в Службу работы с клиентами." +
+                                        $"\nВаша FlyToday."
+                                    });
+                                }                                
+                            }
+                        }   
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Ошибка обновления статуса рейса");
+                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Сначала выберите рейс", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void dataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dataGridView.Columns.Contains("TimeInFlight") && e.ColumnIndex == dataGridView.Columns["TimeInFlight"].Index && e.Value is int)
+            {
+                int totalMinutes = (int)e.Value;
+                int hours = (int)totalMinutes / 60;
+                int minutes = (int)totalMinutes % 60;
+                e.Value = $"{hours} час(ов) {minutes} мин.";
+                e.FormattingApplied = true;
+            }
+            if (dataGridView.Columns.Contains("EconomPrice") && e.ColumnIndex == dataGridView.Columns["EconomPrice"].Index && e.Value is double)
+            {
+                double price = (double)e.Value;
+                e.Value = $"{price} руб.";
+                e.FormattingApplied = true;
+            }
+            if (dataGridView.Columns.Contains("BusinessPrice") && e.ColumnIndex == dataGridView.Columns["BusinessPrice"].Index && e.Value is double)
+            {
+                double price = (double)e.Value;
+                e.Value = $"{price} руб.";
+                e.FormattingApplied = true;
+            }            
         }
     }
 }

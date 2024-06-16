@@ -28,9 +28,11 @@ namespace FlyTodayContracts.ViewModels
         [DisplayName("Пересадка")]
         public string? HasTransit { get; set; }
         [DisplayName("Время в пути")]
-        public double TimeInFlight { get; set; }
+        public int TimeInFlight { get; set; }
         [DisplayName("Статус")]
         public FlightStatusEnum FlightStatus { get; set; }
+
+        public Dictionary<int, IUserModel> FlightSubscribers { get; set; } = new();
         public int Id { get; set; }
     }
 }

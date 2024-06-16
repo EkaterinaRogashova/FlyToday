@@ -1,18 +1,9 @@
-﻿using FlyTodayContracts.BindingModels;
-using FlyTodayContracts.BusinessLogicContracts;
+﻿using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.ViewModels;
-using FlyTodayDatabaseImplements.Models;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using FlyTodayDataModels.Enums;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Numerics;
-using System.Security.Cryptography.Xml;
-using System.Windows.Forms;
 namespace FlyTodayViews
 {
     public partial class FormSearchFlights : Form
@@ -37,6 +28,7 @@ namespace FlyTodayViews
             dataGridView.Columns["FlightDirection"].Visible = false;
             dataGridView.Columns.Add("HasTransfer", "Пересадка");
             dataGridView.Columns["HasTransfer"].Visible = false;
+            dataGridView.Columns.Add("Status", "Статус");
             dataGridView.Visible = false;
             _directionLogic = directionLogic;
             dateTimePickerDateFrom.Format = DateTimePickerFormat.Custom;
@@ -49,8 +41,9 @@ namespace FlyTodayViews
             textBoxFilterBusinessPriceTo.Text = "10000";
             textBoxFilterTimeInFlightFrom.Text = "0";
             textBoxFilterTimeInFlightTo.Text = "10";
-            dateTimePickerDateFrom.Value = DateTime.Now + TimeSpan.FromMinutes(1);
-            dateTimePickerDateTo.Value = DateTime.Now + TimeSpan.FromMinutes(2);
+            dateTimePickerDateFrom.Value = DateTime.Today;
+            dateTimePickerDateTo.Value = DateTime.Today.AddDays(1);
+            dataGridView.CellFormatting += dataGridView_CellFormatting;
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
@@ -88,10 +81,10 @@ namespace FlyTodayViews
                         return;
                     }
 
-                    if (dateTimePickerDateFrom.Value < DateTime.Now || (dateTimePickerDateFrom.Value == DateTime.Now && dateTimePickerDateFrom.Value.TimeOfDay < DateTime.Now.TimeOfDay))
+                    if (dateTimePickerDateFrom.Value < DateTime.Today)
                     {
                         MessageBox.Show("Нельзя вводить дату и время раньше, чем текущая дата и время", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
+                        dateTimePickerDateFrom.Value = DateTime.Today;
                     }
 
                     if (directions != null)
@@ -116,7 +109,7 @@ namespace FlyTodayViews
                         {
                             foundFlights.AddRange(AddFlightsWithTransfers(transfers));
                         }
-                    }                    
+                    }
 
                     if (checkBoxFilterEconomPrice.Checked)
                     {
@@ -158,9 +151,39 @@ namespace FlyTodayViews
                     dataGridView.Columns["PlaneModel"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dataGridView.Columns["HasTransit"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
                     dataGridView.Columns["FlightDirection"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+                    dataGridView.Columns["FlightSubscribers"].Visible = false;
+                    dataGridView.Columns["FlightStatus"].Visible = false;
                     var sortedList = SortList(foundFlights, dataGridView.Columns["EconomPrice"].DataPropertyName, isAscending);
                     dataGridView.DataSource = sortedList;
                     ShowPlanesAndDirections();
+                    foreach (DataGridViewRow row in dataGridView.Rows)
+                    {
+                        int flightId = Convert.ToInt32(row.Cells["Id"].Value);
+                        var flight = _logic.ReadElement(new FlightSearchModel { Id = flightId });
+                        if (flight != null)
+                        {
+                            if (flight.FlightStatus == FlightStatusEnum.РегистрацияНеНачалась)
+                            {
+                                row.Cells["Status"].Value = "Регистрация не началась";
+                            }
+                            else if (flight.FlightStatus == FlightStatusEnum.РегистрацияИдет)
+                            {
+                                row.Cells["Status"].Value = "Регистрация идет";
+                            }
+                            else if (flight.FlightStatus == FlightStatusEnum.РегистрацияЗакончилась)
+                            {
+                                row.Cells["Status"].Value = "Регистрация закончилась";
+                            }
+                            else if (flight.FlightStatus == FlightStatusEnum.Отменен)
+                            {
+                                row.Cells["Status"].Value = "Отменен";
+                            }
+                            else if (flight.FlightStatus == FlightStatusEnum.Неизвестен)
+                            {
+                                row.Cells["Status"].Value = "Неизвестен";
+                            }
+                        }
+                    }
                 }
                 MessageBox.Show("Поиск завершен", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 _logger.LogInformation("Загрузка рейсов");
@@ -187,7 +210,8 @@ namespace FlyTodayViews
                     {
                         foreach (var secFlight in secondFlights)
                         {
-                            if (secFlight.DepartureDate - (firFlight.DepartureDate + TimeSpan.FromHours(firFlight.TimeInFlight)) < TimeSpan.FromHours(1)) continue;
+                            if (secFlight.DepartureDate - (firFlight.DepartureDate + TimeSpan.FromMinutes(firFlight.TimeInFlight)) >= TimeSpan.FromHours(1) &&
+                                secFlight.DepartureDate - (firFlight.DepartureDate + TimeSpan.FromMinutes(firFlight.TimeInFlight)) < TimeSpan.FromHours(6)) continue;
                             var directionFirst = _directionLogic.ReadElement(new DirectionSearchModel { Id = firFlight.DirectionId });
                             var directionSecond = _directionLogic.ReadElement(new DirectionSearchModel { Id = secFlight.DirectionId });
                             if (directionFirst != null && directionSecond != null)
@@ -204,8 +228,8 @@ namespace FlyTodayViews
                                     EconomPrice = firFlight.EconomPrice + secFlight.EconomPrice,
                                     BusinessPrice = firFlight.BusinessPrice + secFlight.BusinessPrice,
                                     HasTransit = "Есть",
-                                    TimeInFlight = Math.Round(firFlight.TimeInFlight + secFlight.TimeInFlight + (secFlight.DepartureDate - firFlight.DepartureDate.AddHours(firFlight.TimeInFlight)).TotalHours, 2)
-                            };
+                                    TimeInFlight = (int)(firFlight.TimeInFlight + secFlight.TimeInFlight + (secFlight.DepartureDate - firFlight.DepartureDate.AddMinutes(firFlight.TimeInFlight)).TotalMinutes)
+                                };
 
                                 list.Add(newFlight);
                                 dataGridView.Rows.Add(newFlight);
@@ -411,6 +435,30 @@ namespace FlyTodayViews
         private void checkBoxFilterNoTransfer_CheckedChanged(object sender, EventArgs e)
         {
             checkBoxNoFilters.Checked = false;
+        }
+
+        private void dataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == dataGridView.Columns["TimeInFlight"].Index && e.Value is int)
+            {
+                int totalMinutes = (int)e.Value;
+                int hours = (int)totalMinutes / 60;
+                int minutes = (int)totalMinutes % 60;
+                e.Value = $"{hours} час(ов) {minutes} мин.";
+                e.FormattingApplied = true;
+            }
+            if (e.ColumnIndex == dataGridView.Columns["EconomPrice"].Index && e.Value is double)
+            {
+                double price = (double)e.Value;
+                e.Value = $"{price} руб.";
+                e.FormattingApplied = true;
+            }
+            if (e.ColumnIndex == dataGridView.Columns["BusinessPrice"].Index && e.Value is double)
+            {
+                double price = (double)e.Value;
+                e.Value = $"{price} руб.";
+                e.FormattingApplied = true;
+            }
         }
 
         private List<T> SortList<T>(List<T> list, string propertyName, bool isAscending)

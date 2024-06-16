@@ -3,6 +3,7 @@ using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.StoragesContracts;
 using FlyTodayContracts.ViewModels;
 using FlyTodayDatabaseImplements.Models;
+using FlyTodayDataModels.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FlyTodayDatabaseImplements.Implements
@@ -44,6 +45,7 @@ namespace FlyTodayDatabaseImplements.Implements
             (model.Id.HasValue && x.Id == model.Id))
             ?.GetViewModel;
             }
+
             return context.Flights
              .Include(x => x.Plane)
              .Include(x => x.Direction)
@@ -62,6 +64,18 @@ namespace FlyTodayDatabaseImplements.Implements
                 return new();
             }
             using var context = new FlyTodayDatabase();
+
+            if (model.FlightStatus != null)
+            {
+                return context.Flights.Include(x => x.Plane)
+             .Include(x => x.Direction)
+             .Include(x => x.Subscribers)
+             .ThenInclude(x => x.User)
+             .Where(x => (x.FlightStatus == model.FlightStatus) &&
+                (model.Id.HasValue && x.Id == model.Id)).ToList()
+            .Select(x => x.GetViewModel).ToList();
+            }
+            
             return context.Flights
                 .Include(x => x.Direction)
                 .Include(x => x.Plane)
@@ -86,10 +100,20 @@ namespace FlyTodayDatabaseImplements.Implements
             .ToList();
         }
 
+        public Dictionary<int, int> GetSubscribers(FlightSearchModel model)
+        {
+            using var context = new FlyTodayDatabase();
+            return context.FlightSubscribers.Where(rec => rec.FlightId == model.Id).ToList()
+                .ToDictionary(
+                    fs => fs.FlightId,
+                    fs => fs.UserId
+                );
+        }
+
         public FlightViewModel? Insert(FlightBindingModel model)
         {
             using var context = new FlyTodayDatabase();
-            var newFlight = Flight.Create(model);
+            var newFlight = Flight.Create(context, model);
             if (newFlight == null)
             {
                 return null;

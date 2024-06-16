@@ -25,7 +25,7 @@ namespace FlyTodayDatabaseImplements.Models
         [Required]
         public double BusinessPrice { get; private set; }
         [Required]
-        public double TimeInFlight { get; private set; }
+        public int TimeInFlight { get; private set; }
         [Required]
         public FlightStatusEnum FlightStatus { get; private set; }
         [ForeignKey("FlightId")]
@@ -50,12 +50,8 @@ namespace FlyTodayDatabaseImplements.Models
             }
         }
 
-        public static Flight? Create(FlightBindingModel model)
+        public static Flight Create(FlyTodayDatabase context, FlightBindingModel model)
         {
-            if (model == null)
-            {
-                return null;
-            }
             return new Flight()
             {
                 Id = model.Id,
@@ -66,7 +62,12 @@ namespace FlyTodayDatabaseImplements.Models
                 DirectionId = model.DirectionId,
                 EconomPrice = model.EconomPrice,
                 BusinessPrice = model.BusinessPrice,
-                TimeInFlight = model.TimeInFlight
+                TimeInFlight = model.TimeInFlight,
+                Subscribers = model.FlightSubscribers.Select(x => new FlightSubscriber
+                {
+                    User = context.Users.First(y => y.Id == x.Key)
+                }).ToList(),
+                FlightStatus = model.FlightStatus
             };
         }
 
@@ -100,24 +101,13 @@ namespace FlyTodayDatabaseImplements.Models
 
         public void UpdateSubscribers(FlyTodayDatabase context, FlightBindingModel model)
         {
-            var flightSubscribers = context.FlightSubscribers.Where(rec => rec.FlightId == model.Id).ToList();
-            if (flightSubscribers != null && flightSubscribers.Count > 0)
-            { 
-                context.FlightSubscribers.RemoveRange(flightSubscribers.Where(rec => !model.FlightSubscribers.ContainsKey(rec.UserId)));
-                context.SaveChanges();
-                foreach (var updateUser in flightSubscribers)
-                {
-                    model.FlightSubscribers.Remove(updateUser.UserId);
-                }
-                context.SaveChanges();
-            }
             var flight = context.Flights.First(x => x.Id == Id);
             foreach (var fs in model.FlightSubscribers)
             {
                 context.FlightSubscribers.Add(new FlightSubscriber
                 {
                     Flight = flight,
-                    User = context.Users.First(x => x.Id == fs.Key)
+                    User = context.Users.First(x => x.Id == fs.Value.Id)
                 });
                 context.SaveChanges();
             }
@@ -126,16 +116,13 @@ namespace FlyTodayDatabaseImplements.Models
 
         public void Update(FlightBindingModel model)
         {
-            if (model == null)
-            {
-                return;
-            }
             DepartureDate = model.DepartureDate;
             FreePlacesCountEconom = model.FreePlacesCountEconom;
             FreePlacesCountBusiness = model.FreePlacesCountBusiness;
             EconomPrice = model.EconomPrice;
             BusinessPrice = model.BusinessPrice;
             TimeInFlight = model.TimeInFlight;
+            FlightStatus = model.FlightStatus;
         }
 
         public FlightViewModel GetViewModel => new()
@@ -148,7 +135,9 @@ namespace FlyTodayDatabaseImplements.Models
             DirectionId = DirectionId,
             EconomPrice = EconomPrice,
             BusinessPrice = BusinessPrice,
-            TimeInFlight = TimeInFlight
+            TimeInFlight = TimeInFlight,            
+            FlightStatus = FlightStatus,
+            FlightSubscribers = FlightSubscribers
         };
     }
 }

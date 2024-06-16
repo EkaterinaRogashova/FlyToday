@@ -36,26 +36,27 @@
             buttonCreatePlace = new Button();
             buttonReducePrices = new Button();
             buttonSaveReport = new Button();
+            buttonCancelFlight = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
             // dataGridView
             // 
-            dataGridView.BackgroundColor = SystemColors.Control;
+            dataGridView.BackgroundColor = SystemColors.ControlLightLight;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView.Location = new Point(14, 16);
-            dataGridView.Margin = new Padding(3, 4, 3, 4);
+            dataGridView.Dock = DockStyle.Left;
+            dataGridView.Location = new Point(0, 0);
             dataGridView.Name = "dataGridView";
             dataGridView.RowHeadersWidth = 51;
-            dataGridView.Size = new Size(1174, 568);
+            dataGridView.Size = new Size(1136, 450);
             dataGridView.TabIndex = 0;
+            dataGridView.CellFormatting += dataGridView_CellFormatting;
             // 
             // buttonAdd
             // 
-            buttonAdd.Location = new Point(1216, 16);
-            buttonAdd.Margin = new Padding(3, 4, 3, 4);
+            buttonAdd.Location = new Point(1151, 116);
             buttonAdd.Name = "buttonAdd";
-            buttonAdd.Size = new Size(113, 31);
+            buttonAdd.Size = new Size(113, 23);
             buttonAdd.TabIndex = 1;
             buttonAdd.Text = "Добавить";
             buttonAdd.UseVisualStyleBackColor = true;
@@ -63,10 +64,9 @@
             // 
             // buttonUpd
             // 
-            buttonUpd.Location = new Point(1216, 55);
-            buttonUpd.Margin = new Padding(3, 4, 3, 4);
+            buttonUpd.Location = new Point(1151, 145);
             buttonUpd.Name = "buttonUpd";
-            buttonUpd.Size = new Size(113, 31);
+            buttonUpd.Size = new Size(113, 23);
             buttonUpd.TabIndex = 2;
             buttonUpd.Text = "Изменить";
             buttonUpd.UseVisualStyleBackColor = true;
@@ -74,10 +74,9 @@
             // 
             // buttonDel
             // 
-            buttonDel.Location = new Point(1216, 93);
-            buttonDel.Margin = new Padding(3, 4, 3, 4);
+            buttonDel.Location = new Point(1151, 174);
             buttonDel.Name = "buttonDel";
-            buttonDel.Size = new Size(113, 31);
+            buttonDel.Size = new Size(113, 23);
             buttonDel.TabIndex = 3;
             buttonDel.Text = "Удалить";
             buttonDel.UseVisualStyleBackColor = true;
@@ -85,10 +84,9 @@
             // 
             // buttonRef
             // 
-            buttonRef.Location = new Point(1216, 132);
-            buttonRef.Margin = new Padding(3, 4, 3, 4);
+            buttonRef.Location = new Point(1151, 203);
             buttonRef.Name = "buttonRef";
-            buttonRef.Size = new Size(113, 31);
+            buttonRef.Size = new Size(113, 23);
             buttonRef.TabIndex = 4;
             buttonRef.Text = "Обновить";
             buttonRef.UseVisualStyleBackColor = true;
@@ -96,10 +94,9 @@
             // 
             // buttonCreatePlace
             // 
-            buttonCreatePlace.Location = new Point(1216, 171);
-            buttonCreatePlace.Margin = new Padding(3, 4, 3, 4);
+            buttonCreatePlace.Location = new Point(1151, 232);
             buttonCreatePlace.Name = "buttonCreatePlace";
-            buttonCreatePlace.Size = new Size(113, 55);
+            buttonCreatePlace.Size = new Size(113, 24);
             buttonCreatePlace.TabIndex = 5;
             buttonCreatePlace.Text = "Добавить места";
             buttonCreatePlace.UseVisualStyleBackColor = true;
@@ -107,10 +104,9 @@
             // 
             // buttonReducePrices
             // 
-            buttonReducePrices.Location = new Point(1216, 233);
-            buttonReducePrices.Margin = new Padding(3, 4, 3, 4);
+            buttonReducePrices.Location = new Point(1151, 261);
             buttonReducePrices.Name = "buttonReducePrices";
-            buttonReducePrices.Size = new Size(113, 93);
+            buttonReducePrices.Size = new Size(113, 70);
             buttonReducePrices.TabIndex = 6;
             buttonReducePrices.Text = "Снизить цены на оставшиеся билеты";
             buttonReducePrices.UseVisualStyleBackColor = true;
@@ -118,20 +114,32 @@
             // 
             // buttonSaveReport
             // 
-            buttonSaveReport.Location = new Point(1216, 334);
-            buttonSaveReport.Margin = new Padding(3, 4, 3, 4);
+            buttonSaveReport.Location = new Point(1151, 336);
             buttonSaveReport.Name = "buttonSaveReport";
-            buttonSaveReport.Size = new Size(113, 91);
+            buttonSaveReport.Size = new Size(113, 68);
             buttonSaveReport.TabIndex = 7;
             buttonSaveReport.Text = "Печать списка посадочных талонов";
             buttonSaveReport.UseVisualStyleBackColor = true;
             buttonSaveReport.Click += buttonSaveReport_Click;
             // 
+            // buttonCancelFlight
+            // 
+            buttonCancelFlight.Location = new Point(1151, 410);
+            buttonCancelFlight.Name = "buttonCancelFlight";
+            buttonCancelFlight.Size = new Size(113, 23);
+            buttonCancelFlight.TabIndex = 8;
+            buttonCancelFlight.Text = "Отменить рейс";
+            buttonCancelFlight.UseVisualStyleBackColor = true;
+            buttonCancelFlight.Click += buttonCancelFlight_Click;
+            // 
             // FormFlights
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1357, 600);
+            AutoScroll = true;
+            BackColor = SystemColors.ControlLightLight;
+            ClientSize = new Size(1276, 450);
+            Controls.Add(buttonCancelFlight);
             Controls.Add(buttonSaveReport);
             Controls.Add(buttonReducePrices);
             Controls.Add(buttonCreatePlace);
@@ -140,10 +148,10 @@
             Controls.Add(buttonUpd);
             Controls.Add(buttonAdd);
             Controls.Add(dataGridView);
-            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             Name = "FormFlights";
             Text = "Рейсы";
+            WindowState = FormWindowState.Maximized;
             Load += FormFlights_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             ResumeLayout(false);
@@ -159,5 +167,6 @@
         private Button buttonCreatePlace;
         private Button buttonReducePrices;
         private Button buttonSaveReport;
+        private Button buttonCancelFlight;
     }
 }

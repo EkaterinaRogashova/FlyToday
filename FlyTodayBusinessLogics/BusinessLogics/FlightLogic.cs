@@ -3,6 +3,7 @@ using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.StoragesContracts;
 using FlyTodayContracts.ViewModels;
+using FlyTodayDataModels.Models;
 using Microsoft.Extensions.Logging;
 
 namespace FlyTodayBusinessLogics.BusinessLogics
@@ -57,9 +58,19 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             return element;
         }
 
+        public Dictionary<int, int> GetSubscribers(FlightSearchModel model)
+        {
+            var dictionary = _flightStorage.GetSubscribers(model);
+            if (dictionary == null)
+            {
+                return null;
+            }
+            return dictionary;
+        }
+
         public List<FlightViewModel>? ReadList(FlightSearchModel? model)
         {
-            _logger.LogInformation("ReadList. DepartureDate:{DepartureDate}, FreePlacesCount:{FreePlacesCount}, EconomPrice:{EconomPrice}, BusinessPrice:{BusinessPrice}, Id:{Id}",
+            _logger.LogInformation("ReadList. DepartureDate:{DepartureDate}, FreePlacesCountEconom:{FreePlacesCountEconom}, FreePlacesCountBusiness:{FreePlacesCountBusiness}, EconomPrice:{EconomPrice}, BusinessPrice:{BusinessPrice}, Id:{Id}",
                 model?.DepartureDate, model?.FreePlacesCountEconom, model?.FreePlacesCountBusiness, model?.EconomPrice, model?.BusinessPrice, model?.Id);
             var list = model == null ? _flightStorage.GetFullList() : _flightStorage.GetFilteredList(model);
             if (list == null)

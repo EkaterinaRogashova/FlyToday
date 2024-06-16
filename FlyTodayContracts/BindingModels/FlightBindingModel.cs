@@ -23,7 +23,7 @@ namespace FlyTodayContracts.BindingModels
 
         public double BusinessPrice { get; set; }
 
-        public double TimeInFlight { get; set; }
+        public int TimeInFlight { get; set; }
         public FlightStatusEnum FlightStatus { get; set; }
 
         public int Id { get; set; }

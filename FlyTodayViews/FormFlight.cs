@@ -2,8 +2,10 @@
 using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.ViewModels;
+using FlyTodayDataModels.Enums;
 using FlyTodayDataModels.Models;
 using Microsoft.Extensions.Logging;
+using System.Windows.Forms;
 
 namespace FlyTodayViews
 {
@@ -96,9 +98,28 @@ namespace FlyTodayViews
                         FreePlacesCountBusiness = placesCountBusiness,
                         EconomPrice = Convert.ToInt32(textBoxEconomCost.Text),
                         BusinessPrice = Convert.ToInt32(textBoxBusinessCost.Text),
-                        TimeInFlight = Convert.ToDouble(textBoxTimeInFlight.Text),
-                        FlightSubscribers = _flightSubscribers
+                        TimeInFlight = Convert.ToInt32(textBoxTimeInFlight.Text),
+                        FlightSubscribers = _flightSubscribers,
+                        FlightStatus = FlightStatusEnum.Неизвестен
                     };
+                    if (DateTime.Now >= model.DepartureDate)
+                    {
+                        model.FlightStatus = FlightStatusEnum.Вылетел;
+                    }
+                    if (DateTime.Now >= model.DepartureDate - TimeSpan.FromMinutes(40) && DateTime.Now < model.DepartureDate)
+                    {
+                        model.FlightStatus = FlightStatusEnum.РегистрацияЗакончилась;
+                    }
+
+                    if (DateTime.Now > model.DepartureDate - TimeSpan.FromHours(2) && DateTime.Now < model.DepartureDate - TimeSpan.FromMinutes(40))
+                    {
+                        model.FlightStatus = FlightStatusEnum.РегистрацияИдет;
+                    }
+                    if (DateTime.Now < model.DepartureDate - TimeSpan.FromHours(2))
+                    {
+                        model.FlightStatus = FlightStatusEnum.РегистрацияНеНачалась;
+                    }
+                    
                     var operationResult = _id.HasValue ? _logic.Update(model) : _logic.Create(model);
                     if (!operationResult)
                     {

@@ -5,11 +5,11 @@ namespace FlyTodayDatabaseImplements.Models
 {
     public class FlightSubscriber : IFlightSubscriberModel
     {
-        public int Id { get; private set; }
+        public int Id { get; set; }
         [Required]
-        public int FlightId { get; private set; }
+        public int FlightId { get; set; }
         [Required]
-        public int UserId { get; private set; }
+        public int UserId { get; set; }
         public virtual Flight Flight { get; set; } = new();
         public virtual User User { get; set; } = new();        
     }

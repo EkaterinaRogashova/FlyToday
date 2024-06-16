@@ -1,6 +1,7 @@
 ﻿using FlyTodayContracts.BindingModels;
 using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.ViewModels;
+using FlyTodayDataModels.Models;
 
 namespace FlyTodayContracts.BusinessLogicContracts
 {
@@ -12,5 +13,6 @@ namespace FlyTodayContracts.BusinessLogicContracts
         bool Update(FlightBindingModel model);
         bool Delete(FlightBindingModel model);
         bool UpdatePrices(FlightBindingModel model);
+        Dictionary<int, int> GetSubscribers(FlightSearchModel model);
     }
 }

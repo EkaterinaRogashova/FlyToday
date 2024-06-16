@@ -1,6 +1,7 @@
 ﻿using FlyTodayContracts.BindingModels;
 using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.ViewModels;
+using FlyTodayDataModels.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,6 @@ namespace FlyTodayContracts.StoragesContracts
         FlightViewModel? Insert(FlightBindingModel model);
         FlightViewModel? Update(FlightBindingModel model);
         FlightViewModel? Delete(FlightBindingModel model);
+        public Dictionary<int, int> GetSubscribers(FlightSearchModel model);
     }
 }

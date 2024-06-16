@@ -11,7 +11,7 @@ namespace FlyTodayDataModels.Models
         int DirectionId { get; }
         double EconomPrice { get; }
         double BusinessPrice { get; }
-        double TimeInFlight { get; }
+        int TimeInFlight { get; }
         FlightStatusEnum FlightStatus { get; }
     }
 }
