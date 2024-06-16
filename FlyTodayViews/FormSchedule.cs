@@ -219,35 +219,31 @@ namespace FlyTodayViews
 
         private void ButtonToPdf_Click(object sender, EventArgs e)
         {
-            if (checkBox.Checked)
+            using var dialog = new SaveFileDialog { Filter = "pdf|*.pdf" };
+            if (dialog.ShowDialog() == DialogResult.OK)
             {
-                if (dateTimePickerFrom.Value.Date >= dateTimePickerTo.Value.Date)
+                try
                 {
-                    MessageBox.Show("Дата начала должна быть меньше даты окончания", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    DateTime currentDate = DateTime.Now;
+                    var firstDayOfMonth = new DateTime(currentDate.Year, currentDate.Month, 1);
+                    var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+                    _logic.SaveReportScheduleToPdfFile(new ReportBindingModel
+                    {
+                        FileName = dialog.FileName,
+                        DateFrom = firstDayOfMonth.ToUniversalTime(),
+                        DateTo = lastDayOfMonth.ToUniversalTime()
+                    });
+
+                    _logger.LogInformation("Сохранение расписание за текущий месяц ({Month})", currentDate.ToString("MMMM yyyy"));
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                using var dialog = new SaveFileDialog { Filter = "pdf|*.pdf" };
-                if (dialog.ShowDialog() == DialogResult.OK)
+                catch (Exception ex)
                 {
-                    try
-                    {
-                        _logic.SaveReportScheduleToPdfFile(new ReportBindingModel
-                        {
-                            FileName = dialog.FileName,
-                            DateFrom = dateTimePickerFrom.Value.ToUniversalTime(),
-                            DateTo = dateTimePickerTo.Value.ToUniversalTime()
-                        });
-                        _logger.LogInformation("Сохранение расписание за период {From}-{To}", dateTimePickerFrom.Value.ToShortDateString(), dateTimePickerTo.Value.ToShortDateString());
-                        MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError(ex, "Ошибка сохранения списка заказов на период");
-                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    _logger.LogError(ex, "Ошибка сохранения расписания на период");
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else MessageBox.Show("Выберите период", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void buttonEdit_Click(object sender, EventArgs e)
@@ -262,6 +258,31 @@ namespace FlyTodayViews
                     {
                         LoadData();
                     }
+                }
+            }
+        }
+
+
+        private void buttonCreatePdfMonth_Click(object sender, EventArgs e)
+        {
+            using var dialog = new SaveFileDialog { Filter = "pdf|*.pdf" };
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    _logic.SaveReportScheduleToPdfFile(new ReportBindingModel
+                    {
+                        FileName = dialog.FileName,
+                        DateFrom = dateTimePicker1.Value.ToUniversalTime(),
+                        DateTo = (dateTimePicker1.Value + TimeSpan.FromDays(30)).ToUniversalTime()
+                    });
+                    _logger.LogInformation("Сохранение расписание за период {From}-{To}", dateTimePickerFrom.Value.ToShortDateString(), dateTimePickerTo.Value.ToShortDateString());
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Ошибка сохранения списка расписания на период");
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

@@ -344,12 +344,15 @@ namespace FlyTodayViews
                 {
                     try
                     {
+                        DateTime currentDate = DateTime.Now;
+                        var firstDayOfMonth = new DateTime(currentDate.Year, currentDate.Month, 1);
+                        var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
                         _reportlogic.SaveReportScheduleForEmployeeToPdfFile(new ReportBindingModel
                         {
                             FileName = dialog.FileName,
                             EmployeeId = Id,
-                            DateTo = DateTime.Now,
-                            DateFrom = DateTime.Now + TimeSpan.FromDays(30)
+                            DateFrom = firstDayOfMonth.ToUniversalTime(),
+                            DateTo = lastDayOfMonth.ToUniversalTime()
                         });
                         _logger.LogInformation("Сохранение расписание за сотрудника");
                         MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);

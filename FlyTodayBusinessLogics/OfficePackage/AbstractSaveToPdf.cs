@@ -8,7 +8,7 @@ namespace FlyTodayBusinessLogics.OfficePackage
     {
         public void CreateDoc(PdfInfo info)
         {
-            CreatePdf(info);
+            CreateAlbumPdf(info);
             CreateParagraph(new PdfParagraph
             {
                 Text = info.Title,
@@ -21,19 +21,44 @@ namespace FlyTodayBusinessLogics.OfficePackage
                 Style = "Normal",
                 ParagraphAlignment = PdfParagraphAlignmentType.Center
             });
-            CreateTable(new List<string> { "6cm", "3cm", "6cm" });
+            List<string> columnWidths = new List<string> { "1.5cm" }; // первая колонка для сотрудников
+            List<string> uniqueDates = info.Schedule.Select(x => x.Date.ToString("dd.MM")).Distinct().ToList(); // получаем уникальные даты
+
+            foreach (var date in uniqueDates)
+            {
+                columnWidths.Add("1cm"); // добавляем колонку для каждой уникальной даты
+            }
+
+            CreateTable(columnWidths);
             CreateRow(new PdfRowParameters
             {
-                Texts = new List<string> { "Дата", "Смена", "Сотрудник" },
+                Texts = new List<string> { "" }.Concat(uniqueDates).ToList(), // добавляем пустую ячейку и уникальные даты
                 Style = "NormalTitle",
                 ParagraphAlignment = PdfParagraphAlignmentType.Center
             });
-            foreach (var schedule in info.Schedule)
+
+            foreach (var employeeSchedule in info.Schedule.GroupBy(x => x.EmployeeFIO))
             {
+                var rowTexts = new List<string> { employeeSchedule.Key }; // добавляем имя сотрудника
+
+                // заполнение оставшихся ячеек сменами по датам
+                foreach (var date in uniqueDates)
+                {
+                    var shift = employeeSchedule.FirstOrDefault(s => s.Date.ToString("dd.MM") == date)?.Shift ?? "";
+
+                    if (!string.IsNullOrEmpty(shift))
+                    {
+                        rowTexts.Add(shift.Substring(0, 1));
+                    }
+                    else
+                    {
+                        rowTexts.Add("");
+                    }
+                }
+
                 CreateRow(new PdfRowParameters
                 {
-                    Texts = new List<string> {
-                    schedule.Date.ToShortDateString(), schedule.Shift, schedule.EmployeeFIO },
+                    Texts = rowTexts,
                     Style = "Normal",
                     ParagraphAlignment = PdfParagraphAlignmentType.Center
                 });
@@ -210,6 +235,7 @@ namespace FlyTodayBusinessLogics.OfficePackage
         /// </summary>
         /// <param name="info"></param>
         protected abstract void CreatePdf(PdfInfo info);
+        protected abstract void CreateAlbumPdf(PdfInfo info);
         /// <summary>
         /// Создание параграфа с текстом
         /// </summary>

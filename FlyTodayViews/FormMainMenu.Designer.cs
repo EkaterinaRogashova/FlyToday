@@ -68,7 +68,6 @@
             buttonMainSearch.AutoSize = true;
             buttonMainSearch.BackColor = SystemColors.ActiveCaption;
             buttonMainSearch.Font = new Font("Segoe UI", 16F);
-            buttonMainSearch.Location = new Point(524, 226);
             buttonMainSearch.Location = new Point(524, 256);
             buttonMainSearch.Margin = new Padding(3, 2, 3, 2);
             buttonMainSearch.Name = "buttonMainSearch";
@@ -83,7 +82,6 @@
             buttonMainEnter.Anchor = AnchorStyles.None;
             buttonMainEnter.BackColor = SystemColors.ActiveCaption;
             buttonMainEnter.Font = new Font("Segoe UI", 16F);
-            buttonMainEnter.Location = new Point(524, 350);
             buttonMainEnter.Location = new Point(524, 420);
             buttonMainEnter.Margin = new Padding(3, 2, 3, 2);
             buttonMainEnter.Name = "buttonMainEnter";
@@ -98,7 +96,6 @@
             buttonMainRegistration.Anchor = AnchorStyles.None;
             buttonMainRegistration.BackColor = SystemColors.ControlLightLight;
             buttonMainRegistration.Font = new Font("Segoe UI", 16F);
-            buttonMainRegistration.Location = new Point(524, 411);
             buttonMainRegistration.Location = new Point(524, 501);
             buttonMainRegistration.Margin = new Padding(3, 2, 3, 2);
             buttonMainRegistration.Name = "buttonMainRegistration";
@@ -113,7 +110,6 @@
             buttonMainLK.Anchor = AnchorStyles.None;
             buttonMainLK.BackColor = SystemColors.ActiveCaption;
             buttonMainLK.Font = new Font("Segoe UI", 16F);
-            buttonMainLK.Location = new Point(524, 472);
             buttonMainLK.Location = new Point(524, 582);
             buttonMainLK.Margin = new Padding(3, 2, 3, 2);
             buttonMainLK.Name = "buttonMainLK";
@@ -158,7 +154,6 @@
             buttonDirections.Anchor = AnchorStyles.Bottom;
             buttonDirections.BackColor = SystemColors.ControlLightLight;
             buttonDirections.Font = new Font("Segoe UI", 9F);
-            buttonDirections.Location = new Point(442, 676);
             buttonDirections.Location = new Point(630, 753);
             buttonDirections.Margin = new Padding(3, 4, 3, 4);
             buttonDirections.Name = "buttonDirections";
@@ -173,7 +168,6 @@
             buttonPlanes.Anchor = AnchorStyles.Bottom;
             buttonPlanes.BackColor = SystemColors.ControlLightLight;
             buttonPlanes.Font = new Font("Segoe UI", 9F);
-            buttonPlanes.Location = new Point(245, 676);
             buttonPlanes.Location = new Point(430, 753);
             buttonPlanes.Margin = new Padding(3, 4, 3, 4);
             buttonPlanes.Name = "buttonPlanes";
@@ -188,7 +182,6 @@
             buttonFlights.Anchor = AnchorStyles.Bottom;
             buttonFlights.BackColor = SystemColors.ControlLightLight;
             buttonFlights.Font = new Font("Segoe UI", 9F);
-            buttonFlights.Location = new Point(48, 675);
             buttonFlights.Location = new Point(230, 752);
             buttonFlights.Margin = new Padding(3, 4, 3, 4);
             buttonFlights.Name = "buttonFlights";
@@ -213,7 +206,6 @@
             buttonExit.Anchor = AnchorStyles.None;
             buttonExit.BackColor = SystemColors.ControlLightLight;
             buttonExit.Font = new Font("Segoe UI", 16F);
-            buttonExit.Location = new Point(524, 533);
             buttonExit.Location = new Point(524, 663);
             buttonExit.Margin = new Padding(3, 2, 3, 2);
             buttonExit.Name = "buttonExit";
@@ -229,7 +221,6 @@
             buttonSchedule.AutoSize = true;
             buttonSchedule.BackColor = SystemColors.ControlLightLight;
             buttonSchedule.Font = new Font("Segoe UI", 16F);
-            buttonSchedule.Location = new Point(524, 289);
             buttonSchedule.Location = new Point(524, 339);
             buttonSchedule.Margin = new Padding(3, 2, 3, 2);
             buttonSchedule.Name = "buttonSchedule";
@@ -258,7 +249,6 @@
             buttonDirStatistics.Anchor = AnchorStyles.Bottom;
             buttonDirStatistics.BackColor = SystemColors.ControlLightLight;
             buttonDirStatistics.Font = new Font("Segoe UI", 9F);
-            buttonDirStatistics.Location = new Point(639, 678);
             buttonDirStatistics.Location = new Point(21, 752);
             buttonDirStatistics.Name = "buttonDirStatistics";
             buttonDirStatistics.Size = new Size(191, 31);
@@ -273,7 +263,7 @@
             slider.Image = (Image)resources.GetObject("slider.Image");
             slider.Location = new Point(12, 57);
             slider.Name = "slider";
-            slider.Size = new Size(473, 616);
+            slider.Size = new Size(473, 663);
             slider.SizeMode = PictureBoxSizeMode.StretchImage;
             slider.TabIndex = 14;
             slider.TabStop = false;
@@ -289,7 +279,6 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ButtonHighlight;
-            ClientSize = new Size(842, 749);
             ClientSize = new Size(842, 809);
             Controls.Add(slider);
             Controls.Add(buttonStatisticTickets);

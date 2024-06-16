@@ -60,6 +60,7 @@ namespace FlyTodayViews
             services.AddTransient<IUserStorage, UserStorage>();
             services.AddSingleton<AbstractMailWorker, MailKitWorker>();
             services.AddTransient<AbstractSaveToPdf, SaveToPdf>();
+            services.AddTransient<AbstractSaveToExcel, SaveToExcel>();
 
             services.AddTransient<IBoardingPassStorage, BoardingPassStorage>();
             services.AddTransient<IDirectionStorage, DirectionStorage>();
@@ -124,6 +125,7 @@ namespace FlyTodayViews
             services.AddTransient<FormDirectionStatistics>();
             services.AddTransient<FormPlaneScheme>();
             services.AddTransient<FormPlaneSchemes>();
+            services.AddTransient<Archiv>();
         }
     }
 }

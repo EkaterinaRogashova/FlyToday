@@ -127,6 +127,21 @@ namespace FlyTodayViews
                     {
                         UserId = _id.Value
                     });
+                    var flightlistRegZakonch = _flightlogic.ReadList(new FlightSearchModel { FlightStatus = FlightStatusEnum.РегистрацияЗакончилась });
+                    var flightlistRegIdet = _flightlogic.ReadList(new FlightSearchModel { FlightStatus = FlightStatusEnum.РегистрацияИдет });
+                    var flightlistRehNeNach = _flightlogic.ReadList(new FlightSearchModel { FlightStatus = FlightStatusEnum.РегистрацияНеНачалась });
+
+                    var flightIds = 
+                        flightlistRegZakonch.Select(f => f.Id)
+                        .Union(flightlistRegIdet.Select(f => f.Id))
+                        .Union(flightlistRehNeNach.Select(f => f.Id))
+                        .ToList();
+
+                    // Фильтруем список бронирований по UserId и FlightId
+                    var filteredList = list.Where(r => flightIds.Contains(r.FlightId)).ToList();
+
+                    // Выводим результат в DataGridView
+                    dataGridView1.DataSource = filteredList;
                     if (list != null)
                     {
                         dataGridView1.DataSource = list;
@@ -160,23 +175,27 @@ namespace FlyTodayViews
                                 {
                                     row.Cells["Flight"].Value = "Рейс не найден";
                                 }
-                            }
-                            if (DateTime.Now >= flight.DepartureDate)
-                            {
-                                row.Cells["StatusFlight"].Value = "Вылетел";
-                            }
-                            if (DateTime.Now >= flight.DepartureDate - TimeSpan.FromMinutes(40) && DateTime.Now < flight.DepartureDate)
-                            {
-                                row.Cells["StatusFlight"].Value = "Регистрация закончилась";
-                            }
-
-                            if (DateTime.Now > flight.DepartureDate - TimeSpan.FromHours(2) && DateTime.Now < flight.DepartureDate - TimeSpan.FromMinutes(40))
-                            {
-                                row.Cells["StatusFlight"].Value = "Регистрация идет";
-                            }
-                            if (DateTime.Now < flight.DepartureDate - TimeSpan.FromHours(2))
-                            {
-                                row.Cells["StatusFlight"].Value = "Регистрация еще не началась";
+                                if (flight.FlightStatus == FlightStatusEnum.РегистрацияНеНачалась)
+                                {
+                                    row.Cells["StatusFlight"].Value = "Регистрация не началась";
+                                }
+                                else if (flight.FlightStatus == FlightStatusEnum.РегистрацияИдет)
+                                {
+                                    row.Cells["StatusFlight"].Value = "Регистрация идет";
+                                }
+                                else if (flight.FlightStatus == FlightStatusEnum.РегистрацияЗакончилась)
+                                {
+                                    row.Cells["StatusFlight"].Value = "Регистрация закончилась";
+                                }
+                                else if (flight.FlightStatus == FlightStatusEnum.Отменен)
+                                {
+                                    row.Cells["StatusFlight"].Value = "Отменен";
+                                }
+                                else if (flight.FlightStatus == FlightStatusEnum.Неизвестен)
+                                {
+                                    row.Cells["StatusFlight"].Value = "Неизвестен";
+                                }
+                                dataGridView1.Columns["StatusFlight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                             }
                         }
 
@@ -295,6 +314,20 @@ namespace FlyTodayViews
                     {
                         MessageBox.Show("Сначала надо оформить билеты!", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
+                }
+            }
+        }
+
+        private void buttonArchive_Click(object sender, EventArgs e)
+        {
+            var user = _logic.ReadElement(new UserSearchModel { Id = _id.Value });
+            var service = Program.ServiceProvider?.GetService(typeof(Archiv));
+            if (service is Archiv form)
+            {
+                if (_id != null)
+                {
+                    form.CurrentUserId = _id.Value;
+                    form.Show();
                 }
             }
         }
