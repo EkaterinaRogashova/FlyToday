@@ -28,6 +28,16 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             return true;
         }
 
+        public bool SimpleUpdate(FlightBindingModel model)
+        {
+            if (_flightStorage.SimpleUpdate(model) == null)
+            {
+                _logger.LogWarning("Update flight status operation failed");
+                return false;
+            }
+            return true;
+        }
+
         public bool Delete(FlightBindingModel model)
         {
             CheckModel(model, false);

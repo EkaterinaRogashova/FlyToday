@@ -27,26 +27,36 @@ namespace FlyTodayViews
                 MessageBox.Show("Заполните поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            _logger.LogInformation("Сохранение схемы самолета");
+            if ((Convert.ToInt32(textBoxBusinessPlacesCount.Text) == 0 && Convert.ToInt32(textBoxFirstLineCountBusiness.Text) != 0 && Convert.ToInt32(textBoxLastLineCountBusiness.Text) != 0)
+                || (Convert.ToInt32(textBoxEconomPlacesCount.Text) == 0 && Convert.ToInt32(textBoxFirstLineCountEconom.Text) != 0 && Convert.ToInt32(textBoxSecondLineCountEconom.Text) != 0 && Convert.ToInt32(textBoxLastLineCountEconom.Text) != 0))
+            {
+                MessageBox.Show("Количество мест в рядах не может быть больше общего количества мест", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+                _logger.LogInformation("Сохранение схемы самолета");
             try
             {
-                var model = new PlaneSchemeBindingModel
+                if (Convert.ToInt32(textBoxBusinessPlacesCount.Text) == 0)
                 {
-                    Id = _id ?? 0,
-                    Name = $"Эконом {textBoxEconomPlacesCount.Text}: {textBoxFirstLineCountEconom.Text}, {textBoxSecondLineCountEconom.Text}, {textBoxLastLineCountEconom.Text}; Бизнес {textBoxBusinessPlacesCount.Text}: {textBoxFirstLineCountBusiness.Text}, {textBoxLastLineCountBusiness.Text}",
-                    BusinessPlacesCount = Convert.ToInt32(textBoxBusinessPlacesCount.Text),
-                    EconomPlacesCount = Convert.ToInt32(textBoxEconomPlacesCount.Text),
-                    PlacesInFirstLineEconom = Convert.ToInt32(textBoxFirstLineCountEconom.Text),
-                    PlacesInMiddleLineEconom = Convert.ToInt32(textBoxSecondLineCountEconom.Text),
-                    PlacesInLastLineEconom = Convert.ToInt32(textBoxLastLineCountEconom.Text),
-                    PlacesInFirstLineBusiness = Convert.ToInt32(textBoxFirstLineCountBusiness.Text),
-                    PlacesInLastLineBusiness = Convert.ToInt32(textBoxLastLineCountBusiness.Text)
-                };
-                var operationResult = _id.HasValue ? _logic.Update(model) : _logic.Create(model);
-                if (!operationResult)
-                {
-                    throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
+                    var model = new PlaneSchemeBindingModel
+                    {
+                        Id = _id ?? 0,
+                        Name = $"Эконом {textBoxEconomPlacesCount.Text}: {textBoxFirstLineCountEconom.Text}, {textBoxSecondLineCountEconom.Text}, {textBoxLastLineCountEconom.Text}; Бизнес {textBoxBusinessPlacesCount.Text}: {textBoxFirstLineCountBusiness.Text}, {textBoxLastLineCountBusiness.Text}",
+                        BusinessPlacesCount = Convert.ToInt32(textBoxBusinessPlacesCount.Text),
+                        EconomPlacesCount = Convert.ToInt32(textBoxEconomPlacesCount.Text),
+                        PlacesInFirstLineEconom = Convert.ToInt32(textBoxFirstLineCountEconom.Text),
+                        PlacesInMiddleLineEconom = Convert.ToInt32(textBoxSecondLineCountEconom.Text),
+                        PlacesInLastLineEconom = Convert.ToInt32(textBoxLastLineCountEconom.Text),
+                        PlacesInFirstLineBusiness = Convert.ToInt32(textBoxFirstLineCountBusiness.Text),
+                        PlacesInLastLineBusiness = Convert.ToInt32(textBoxLastLineCountBusiness.Text)
+                    };
+                    var operationResult = _id.HasValue ? _logic.Update(model) : _logic.Create(model);
+                    if (!operationResult)
+                    {
+                        throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
+                    }
                 }
+                
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
                 Close();

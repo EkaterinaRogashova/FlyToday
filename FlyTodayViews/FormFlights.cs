@@ -7,6 +7,7 @@ using FlyTodayDataModels.Enums;
 using FlyTodayDataModels.Models;
 using Microsoft.Extensions.Logging;
 using System.Reflection.Metadata.Ecma335;
+using System.Windows.Forms;
 
 namespace FlyTodayViews
 {
@@ -70,6 +71,49 @@ namespace FlyTodayViews
                     dataGridView.Columns["FlightSubscribers"].Visible = false;
                     dataGridView.Columns["FlightStatus"].Visible = false;
 
+                    foreach (var flight in list)
+                    {
+                        var flightStatus = FlightStatusEnum.Неизвестен;
+                        if (DateTime.Now.CompareTo(flight.DepartureDate) >= 0)
+                        {
+                            flightStatus = FlightStatusEnum.Вылетел;
+                        }
+                        if (DateTime.Now.CompareTo(flight.DepartureDate - TimeSpan.FromMinutes(40)) >= 0 && DateTime.Now.CompareTo(flight.DepartureDate) < 0)
+                        {
+                            flightStatus = FlightStatusEnum.РегистрацияЗакончилась;
+                        }
+                        if (DateTime.Now.CompareTo(flight.DepartureDate - TimeSpan.FromHours(2)) > 0 && DateTime.Now.CompareTo(flight.DepartureDate - TimeSpan.FromMinutes(40)) < 0)
+                        {
+                            flightStatus = FlightStatusEnum.РегистрацияИдет;
+                        }
+                        if (DateTime.Now.CompareTo(flight.DepartureDate - TimeSpan.FromHours(2)) < 0)
+                        {
+                            flightStatus = FlightStatusEnum.РегистрацияНеНачалась;
+                        }
+                        var model = new FlightBindingModel
+                        {
+                            DepartureDate = flight.DepartureDate,
+                            FreePlacesCountEconom = flight.FreePlacesCountEconom,
+                            FreePlacesCountBusiness = flight.FreePlacesCountBusiness,
+                            EconomPrice = flight.EconomPrice,
+                            BusinessPrice = flight.BusinessPrice,
+                            TimeInFlight = flight.TimeInFlight,
+                            FlightStatus = flightStatus
+                        };
+                        _logic.SimpleUpdate(model);
+                        if (flight.FlightStatus == FlightStatusEnum.Вылетел || flight.FlightStatus == FlightStatusEnum.Отменен)
+                        {
+                            var existPlaces = _placeLogic.ReadList(new PlaceSearchModel { FlightId = flight.Id });
+                            if (existPlaces != null && existPlaces.Count > 0)
+                            {
+                                foreach (var place in existPlaces)
+                                {
+                                    _placeLogic.Delete(new PlaceBindingModel { Id = place.Id });
+                                }
+                            }                            
+                        }
+                    }
+
                     foreach (DataGridViewRow row in dataGridView.Rows)
                     {
                         int planeId = Convert.ToInt32(row.Cells["PlaneId"].Value);
@@ -122,6 +166,10 @@ namespace FlyTodayViews
                             {
                                 row.Cells["Status"].Value = "Отменен";
                             }
+                            else if (flight.FlightStatus == FlightStatusEnum.Вылетел)
+                            {
+                                row.Cells["Status"].Value = "Вылетел";
+                            }
                             else if (flight.FlightStatus == FlightStatusEnum.Неизвестен)
                             {
                                 row.Cells["Status"].Value = "Неизвестен";
@@ -138,7 +186,7 @@ namespace FlyTodayViews
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+       
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
             var service = Program.ServiceProvider?.GetService(typeof(FormFlight));
@@ -438,18 +486,14 @@ namespace FlyTodayViews
                 {
                     try
                     {
-                        _logic.Update(new FlightBindingModel
+                        _logic.SimpleUpdate(new FlightBindingModel
                         {
-                            Id = flight.Id,
-                            PlaneId = flight.PlaneId,
-                            DirectionId = flight.DirectionId,
                             DepartureDate = flight.DepartureDate,
                             FreePlacesCountEconom = flight.FreePlacesCountEconom,
                             FreePlacesCountBusiness = flight.FreePlacesCountBusiness,
                             EconomPrice = flight.EconomPrice,
                             BusinessPrice = flight.BusinessPrice,
                             TimeInFlight = flight.TimeInFlight,
-                            FlightSubscribers = flight.FlightSubscribers,
                             FlightStatus = FlightStatusEnum.Отменен
                         });
                         _logger.LogInformation("Обновление статуса рейса на Отменен");
@@ -573,7 +617,7 @@ namespace FlyTodayViews
                         }
                     }
                 }
-            }                        
+            }
         }
     }
 }

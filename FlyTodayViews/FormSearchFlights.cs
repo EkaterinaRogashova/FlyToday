@@ -43,7 +43,6 @@ namespace FlyTodayViews
             textBoxFilterTimeInFlightTo.Text = "10";
             dateTimePickerDateFrom.Value = DateTime.Today;
             dateTimePickerDateTo.Value = DateTime.Today.AddDays(1);
-            dataGridView.CellFormatting += dataGridView_CellFormatting;
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
@@ -87,22 +86,18 @@ namespace FlyTodayViews
                         dateTimePickerDateFrom.Value = DateTime.Today;
                     }
 
-                    if (directions != null)
+                    if (directions != null && directions.Count > 0)
                     {
                         foreach (var dir in directions)
                         {
                             var flights = _logic.ReadList(new FlightSearchModel { DirectionId = dir.Id });
-                            if (flights != null)
+                            if (flights != null && flights.Count > 0)
                             {
                                 var filteredFlights = flights.Where(f => f.DepartureDate >= dateTimePickerDateFrom.Value.ToUniversalTime() && f.DepartureDate <= dateTimePickerDateTo.Value.ToUniversalTime()).ToList();
                                 foundFlights.AddRange(filteredFlights);
-                            }
+                            }                            
                         }
-                    }
-                    else
-                    {
-                        MessageBox.Show("По запросу ничего не найдено", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    }                    
                     if (!textBoxDirectionCityFrom.Text.IsNullOrEmpty() && !textBoxDirectionCityTo.Text.IsNullOrEmpty())
                     {
                         if (transfers != null)
@@ -132,6 +127,11 @@ namespace FlyTodayViews
                     if (checkBoxFilterNoTransfer.Checked)
                     {
                         foundFlights = FilterByTransfer(foundFlights);
+                    }
+                    if (foundFlights == null || foundFlights.Count == 0)
+                    {
+                        MessageBox.Show("По запросу ничего не найдено", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
                     }
 
                     dataGridView.Visible = true;
@@ -439,7 +439,7 @@ namespace FlyTodayViews
 
         private void dataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == dataGridView.Columns["TimeInFlight"].Index && e.Value is int)
+            if (dataGridView.Columns.Contains("TimeInFlight") && e.ColumnIndex == dataGridView.Columns["TimeInFlight"].Index && e.Value is int)
             {
                 int totalMinutes = (int)e.Value;
                 int hours = (int)totalMinutes / 60;
@@ -447,19 +447,19 @@ namespace FlyTodayViews
                 e.Value = $"{hours} час(ов) {minutes} мин.";
                 e.FormattingApplied = true;
             }
-            if (e.ColumnIndex == dataGridView.Columns["EconomPrice"].Index && e.Value is double)
+            if (dataGridView.Columns.Contains("EconomPrice") && e.ColumnIndex == dataGridView.Columns["EconomPrice"].Index && e.Value is double)
             {
                 double price = (double)e.Value;
                 e.Value = $"{price} руб.";
                 e.FormattingApplied = true;
             }
-            if (e.ColumnIndex == dataGridView.Columns["BusinessPrice"].Index && e.Value is double)
+            if (dataGridView.Columns.Contains("BusinessPrice") && e.ColumnIndex == dataGridView.Columns["BusinessPrice"].Index && e.Value is double)
             {
                 double price = (double)e.Value;
                 e.Value = $"{price} руб.";
                 e.FormattingApplied = true;
             }
-        }
+        }        
 
         private List<T> SortList<T>(List<T> list, string propertyName, bool isAscending)
         {

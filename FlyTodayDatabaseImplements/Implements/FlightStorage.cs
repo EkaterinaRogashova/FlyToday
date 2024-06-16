@@ -124,6 +124,19 @@ namespace FlyTodayDatabaseImplements.Implements
             return newFlight.GetViewModel;
         }
 
+        public FlightViewModel? SimpleUpdate(FlightBindingModel model)
+        {
+            using var context = new FlyTodayDatabase();
+            var flight = context.Flights.FirstOrDefault(x => x.Id == model.Id);
+            if (flight == null)
+            {
+                return null;
+            }
+            flight.Update(model);
+            context.SaveChanges();
+            return flight.GetViewModel;
+        }
+
         public FlightViewModel? Update(FlightBindingModel model)
         {
             using var context = new FlyTodayDatabase();
@@ -135,18 +148,15 @@ namespace FlyTodayDatabaseImplements.Implements
                 {
                     return null;
                 }
-
                 flight.Update(model);
                 context.SaveChanges();
                 flight.UpdateSubscribers(context, model);
                 flight.UpdateDirection(context, model);
                 flight.UpdatePlane(context, model);
-
                 if (transaction != null)
                 {
                     transaction.Commit();
                 }
-
                 return flight.GetViewModel;
             }
             catch

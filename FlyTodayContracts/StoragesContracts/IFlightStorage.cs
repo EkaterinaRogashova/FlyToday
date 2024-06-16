@@ -19,5 +19,6 @@ namespace FlyTodayContracts.StoragesContracts
         FlightViewModel? Update(FlightBindingModel model);
         FlightViewModel? Delete(FlightBindingModel model);
         public Dictionary<int, int> GetSubscribers(FlightSearchModel model);
+        public FlightViewModel? SimpleUpdate(FlightBindingModel model);
     }
 }

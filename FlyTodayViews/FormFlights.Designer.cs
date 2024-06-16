@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             dataGridView = new DataGridView();
             buttonAdd = new Button();
             buttonUpd = new Button();
@@ -156,5 +157,6 @@
         private Button buttonReducePrices;
         private Button buttonSaveReport;
         private Button buttonCancelFlight;
+        private System.Windows.Forms.Timer timer1;
     }
 }

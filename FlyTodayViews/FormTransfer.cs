@@ -61,6 +61,14 @@ namespace FlyTodayViews
                 try
                 {
                     _logger.LogInformation("Получение информации о рейсе");
+                    _flightSubscribers = _logic.GetSubscribers(new FlightSearchModel { Id = _id.Value });
+                    if (_currentUserId.HasValue)
+                    {
+                        if (_flightSubscribers.ContainsKey(_id.Value) && _flightSubscribers.ContainsValue(_currentUserId.Value))
+                        {
+                            buttonTrackPriceChanges.Text = "Отменить отслеживание изменения цены";
+                        }
+                    }
                     var view = _logic.ReadElement(new FlightSearchModel { Id = _id.Value });
                     if (view != null)
                     {
@@ -165,7 +173,31 @@ namespace FlyTodayViews
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Вы уже подписаны на этот рейс.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    if (_flightSubscribers.ContainsKey(flight.Id))
+                                    {
+                                        _flightSubscribers.Remove(flight.Id);
+                                        var dict = new Dictionary<int, IUserModel>();
+                                        dict.Remove(flight.Id);
+                                        var model = new FlightBindingModel
+                                        {
+                                            Id = flight.Id,
+                                            PlaneId = flight.PlaneId,
+                                            DirectionId = flight.DirectionId,
+                                            DepartureDate = flight.DepartureDate,
+                                            FreePlacesCountEconom = flight.FreePlacesCountEconom,
+                                            FreePlacesCountBusiness = flight.FreePlacesCountBusiness,
+                                            EconomPrice = flight.EconomPrice,
+                                            BusinessPrice = flight.BusinessPrice,
+                                            TimeInFlight = flight.TimeInFlight,
+                                            FlightSubscribers = dict,
+                                            FlightStatus = flight.FlightStatus
+                                        };
+                                        var operationResult = _logic.Update(model);
+                                        if (operationResult)
+                                        {
+                                            MessageBox.Show("Вы успешно отменили подписку на изменение цены.", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        }
+                                    }
                                 }
                                 Close();
                             }
