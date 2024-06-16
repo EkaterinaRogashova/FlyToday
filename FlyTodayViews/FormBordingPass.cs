@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -25,6 +26,7 @@ namespace FlyTodayViews
         private readonly IPlaneLogic _planelogic;
         private readonly IPlaceLogic _placelogic;
         private readonly IBoardingPassLogic _boardingpasslogic;
+        private readonly IPlaneSchemeLogic _planeschemelogic;
         private int? _currentTicketId;
         public int CurrentTicketId { set { _currentTicketId = value; } }
         private int? _currentRentId;
@@ -32,7 +34,7 @@ namespace FlyTodayViews
         private List<Button> allButtons = new List<Button>();
         private Button selectedButton = null;
 
-        public FormBordingPass(ILogger<FormMyRents> logger, ITicketLogic ticketLogic, IFlightLogic flightlogic, IPlaneLogic planelogic, IRentLogic rentlogic, IPlaceLogic placelogic, IBoardingPassLogic boardingPassLogic)
+        public FormBordingPass(ILogger<FormMyRents> logger, ITicketLogic ticketLogic, IFlightLogic flightlogic, IPlaneLogic planelogic, IRentLogic rentlogic, IPlaceLogic placelogic, IBoardingPassLogic boardingPassLogic, IPlaneSchemeLogic planeschemelogic)
         {
             InitializeComponent();
             _logger = logger;
@@ -43,6 +45,7 @@ namespace FlyTodayViews
             _placelogic = placelogic;
             _boardingpasslogic = boardingPassLogic;
             allButtons = new List<Button>();
+            _planeschemelogic = planeschemelogic;
         }
         private void LoadData()
         {
@@ -76,23 +79,41 @@ namespace FlyTodayViews
             {
                 panelEconom.Enabled = false;
             }
+            var plane = _planelogic.ReadElement(new PlaneSearchModel
+            {
+                Id = flight.PlaneId
+            });
+            var schema = _planeschemelogic.ReadElement(new PlaneSchemeSearchModel
+            {
+                Id = plane.PlaneSchemeId
+            });
 
             if (place != null)
             {
                 int buttonWidth = 45;
                 int buttonHeight = 45;
                 int buttonSpacing = 5; // промежуток между кнопками
-                int rowIndexEconom = 0;
-                int rowIndexBusiness = 0;
-                int colIndexEconom = 0;
-                int colIndexBusiness = 0;
+                int columnSpacing = 20; // промежуток между столбцами
+                int totalEconomPlaces = schema.EconomPlacesCount;
+                int economPlacesFirstRow = schema.PlacesInFirstLineEconom; //количество мест в одном ряду столбца 1
+                int economPlacesSecondRow = schema.PlacesInMiddleLineEconom;//количество мест в одном ряду столбца 2 
+                int economPlacesThirdRow = schema.PlacesInLastLineEconom;//количество мест в одном ряду столбца 3
+                int totalBusinessPlaces = schema.BusinessPlacesCount;
+                int businessPlacesFirstRow = schema.PlacesInFirstLineBusiness;//количество мест в одном ряду столбца 1 
+                int businessPlacesSecondRow = schema.PlacesInLastLineBusiness;//количество мест в одном ряду столбца 2
+
                 var sortedPlaces = place.OrderBy(p => p.Id);
                 int totalButtons = sortedPlaces.Count();
-                int maxButtonsPerRowEconom = (panelEconom.Width - buttonSpacing) / (buttonWidth + buttonSpacing);
-                int maxButtonsPerRowBusiness = (panelBusiness.Width - buttonSpacing) / (buttonWidth + buttonSpacing);
-                int rowCountEconom = (totalButtons + maxButtonsPerRowEconom - 1) / maxButtonsPerRowEconom;
-                int rowCountBusiness = (totalButtons + maxButtonsPerRowBusiness - 1) / maxButtonsPerRowBusiness;
 
+                int rowCountEconom = totalEconomPlaces / (economPlacesFirstRow + economPlacesSecondRow + economPlacesThirdRow); 
+                int rowCountBusiness = totalBusinessPlaces / (businessPlacesFirstRow + businessPlacesSecondRow);
+
+                int colEconom = economPlacesFirstRow + economPlacesSecondRow + economPlacesThirdRow;//количество мест в одном ряду эконома
+                int colBusiness = businessPlacesFirstRow + businessPlacesSecondRow;//количество мест в одном ряду бизнеса
+                int colIndexEconom = 0;
+                int rowIndexEconom = 0;
+                int colIndexBusiness = 0;
+                int rowIndexBusiness = 0;
                 foreach (var pl in sortedPlaces)
                 {
                     Button btn = new Button();
@@ -121,7 +142,7 @@ namespace FlyTodayViews
                         y = rowIndexEconom * (buttonHeight + buttonSpacing);
                         panelEconom.Controls.Add(btn);
                         colIndexEconom++;
-                        if (colIndexEconom >= maxButtonsPerRowEconom)
+                        if (colIndexEconom >= colEconom)  // Проверка достижения конца столбца
                         {
                             colIndexEconom = 0;
                             rowIndexEconom++;
@@ -133,7 +154,7 @@ namespace FlyTodayViews
                         y = rowIndexBusiness * (buttonHeight + buttonSpacing);
                         panelBusiness.Controls.Add(btn);
                         colIndexBusiness++;
-                        if (colIndexBusiness >= maxButtonsPerRowBusiness)
+                        if (colIndexBusiness >= colBusiness)
                         {
                             colIndexBusiness = 0;
                             rowIndexBusiness++;
@@ -142,8 +163,6 @@ namespace FlyTodayViews
                     btn.Location = new Point(x, y);
                 }
             }
-
-
         }
 
         private void FormBordingPass_Load(object sender, EventArgs e)

@@ -286,5 +286,21 @@ namespace FlyTodayBusinessLogics.BusinessLogics
                 Plane = plane.ModelName
             });
         }
+
+        public void SaveStatisticTicketToPdf(ReportBindingModel model)
+        {
+            _saveToPdf.CreateDocStatisticTickets(new PdfInfo
+            {
+                FileName = model.FileName,
+                Title = "Статистика проданных билетов",
+                Female = model.Female,
+                Male = model.Male,
+                WithBags = model.WithBags,
+                NotWithBags = model.NotWithBags,
+                Children = model.Children,
+                People = model.People,
+                OlderPeople = model.OlderPeople
+            });
+        }
     }
 }

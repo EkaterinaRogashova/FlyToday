@@ -246,7 +246,7 @@ namespace FlyTodayViews
             {
                 // Получаем значение TypeWork из выбранной строки
                 int workId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["PositionAtWorkId"].Value);
-                var typeWork = _joblogic.ReadElement(new PositionAtWorkSearchModel { Id =  workId });
+                var typeWork = _joblogic.ReadElement(new PositionAtWorkSearchModel { Id = workId });
                 if (typeWork != null)
                 {
                     // Проверяем, является ли тип работы "на рейсе"
@@ -304,7 +304,52 @@ namespace FlyTodayViews
                         _reportlogic.SaveReportScheduleForEmployeeToPdfFile(new ReportBindingModel
                         {
                             FileName = dialog.FileName,
-                            EmployeeId = Id
+                            EmployeeId = Id,
+                            DateTo = DateTime.Now,
+                            DateFrom = DateTime.Now + TimeSpan.FromDays(7)
+                        });
+                        _logger.LogInformation("Сохранение расписание за сотрудника");
+                        MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Ошибка сохранения");
+                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void buttonToPdfMonth_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count == 1)
+            {
+                // Получаем значение TypeWork из выбранной строки
+                int workId = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["PositionAtWorkId"].Value);
+                var typeWork = _joblogic.ReadElement(new PositionAtWorkSearchModel { Id = workId });
+                if (typeWork != null)
+                {
+                    // Проверяем, является ли тип работы "на рейсе"
+                    if (typeWork.TypeWork == "На рейсе")
+                    {
+                        // Выводим сообщение и выходим из метода
+                        MessageBox.Show("Этот сотрудник работает на рейсах", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+                // Получаем значение Id из выбранной строки
+                int Id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
+                using var dialog = new SaveFileDialog { Filter = "pdf|*.pdf" };
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        _reportlogic.SaveReportScheduleForEmployeeToPdfFile(new ReportBindingModel
+                        {
+                            FileName = dialog.FileName,
+                            EmployeeId = Id,
+                            DateTo = DateTime.Now,
+                            DateFrom = DateTime.Now + TimeSpan.FromDays(30)
                         });
                         _logger.LogInformation("Сохранение расписание за сотрудника");
                         MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);

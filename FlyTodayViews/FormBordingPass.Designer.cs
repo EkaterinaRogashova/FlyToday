@@ -43,9 +43,9 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 16F);
-            label1.Location = new Point(245, 9);
+            label1.Location = new Point(214, 7);
             label1.Name = "label1";
-            label1.Size = new Size(208, 37);
+            label1.Size = new Size(171, 30);
             label1.TabIndex = 0;
             label1.Text = "Места на рейсе";
             // 
@@ -53,9 +53,10 @@
             // 
             panelEconom.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panelEconom.AutoScroll = true;
-            panelEconom.Location = new Point(12, 52);
+            panelEconom.Location = new Point(12, 42);
+            panelEconom.Margin = new Padding(3, 2, 3, 2);
             panelEconom.Name = "panelEconom";
-            panelEconom.Size = new Size(469, 297);
+            panelEconom.Size = new Size(543, 307);
             panelEconom.TabIndex = 1;
             // 
             // buttonRegistration
@@ -63,9 +64,10 @@
             buttonRegistration.BackColor = SystemColors.ActiveCaption;
             buttonRegistration.Font = new Font("Segoe UI", 12F);
             buttonRegistration.ForeColor = SystemColors.ActiveCaptionText;
-            buttonRegistration.Location = new Point(487, 49);
+            buttonRegistration.Location = new Point(589, 45);
+            buttonRegistration.Margin = new Padding(3, 2, 3, 2);
             buttonRegistration.Name = "buttonRegistration";
-            buttonRegistration.Size = new Size(199, 60);
+            buttonRegistration.Size = new Size(174, 45);
             buttonRegistration.TabIndex = 2;
             buttonRegistration.Text = "Зарегистрировать";
             buttonRegistration.UseVisualStyleBackColor = false;
@@ -74,26 +76,27 @@
             // panelBusiness
             // 
             panelBusiness.AutoScroll = true;
-            panelBusiness.Location = new Point(12, 379);
+            panelBusiness.Location = new Point(9, 368);
+            panelBusiness.Margin = new Padding(3, 2, 3, 2);
             panelBusiness.Name = "panelBusiness";
-            panelBusiness.Size = new Size(469, 272);
+            panelBusiness.Size = new Size(546, 276);
             panelBusiness.TabIndex = 3;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(12, 29);
+            label2.Location = new Point(10, 22);
             label2.Name = "label2";
-            label2.Size = new Size(106, 20);
+            label2.Size = new Size(86, 15);
             label2.TabIndex = 4;
             label2.Text = "Эконом-класс";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(10, 356);
+            label3.Location = new Point(9, 351);
             label3.Name = "label3";
-            label3.Size = new Size(108, 20);
+            label3.Size = new Size(87, 15);
             label3.TabIndex = 5;
             label3.Text = "Бизнесс-класс";
             // 
@@ -101,9 +104,9 @@
             // 
             label4.Anchor = AnchorStyles.Top;
             label4.AutoSize = true;
-            label4.Location = new Point(520, 112);
+            label4.Location = new Point(626, 168);
             label4.Name = "label4";
-            label4.Size = new Size(123, 40);
+            label4.Size = new Size(98, 30);
             label4.TabIndex = 6;
             label4.Text = "Зеленые места -\r\nсвободные\r\n";
             label4.TextAlign = ContentAlignment.MiddleCenter;
@@ -111,9 +114,9 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(519, 164);
+            label5.Location = new Point(626, 119);
             label5.Name = "label5";
-            label5.Size = new Size(124, 40);
+            label5.Size = new Size(98, 30);
             label5.TabIndex = 7;
             label5.Text = "Красные места -\r\nзанятые";
             label5.TextAlign = ContentAlignment.MiddleCenter;
@@ -121,18 +124,19 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(498, 217);
+            label6.Location = new Point(614, 220);
             label6.Name = "label6";
-            label6.Size = new Size(161, 120);
+            label6.Size = new Size(125, 90);
             label6.TabIndex = 8;
             label6.Text = "Для того, чтобы\r\nпоменять выбранное\r\nместо - нажмите на \r\nэто место еще раз.\r\nА затем - выберите \r\nдругое.\r\n";
             label6.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // FormBordingPass
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(693, 690);
+            BackColor = SystemColors.ControlLightLight;
+            ClientSize = new Size(813, 685);
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(label4);
@@ -142,6 +146,7 @@
             Controls.Add(buttonRegistration);
             Controls.Add(panelEconom);
             Controls.Add(label1);
+            Margin = new Padding(3, 2, 3, 2);
             MaximizeBox = false;
             Name = "FormBordingPass";
             Text = "Получение посадочного талона";

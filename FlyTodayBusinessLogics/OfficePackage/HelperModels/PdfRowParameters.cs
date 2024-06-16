@@ -12,5 +12,6 @@ namespace FlyTodayBusinessLogics.OfficePackage.HelperModels
         public List<string> Texts { get; set; } = new();
         public string Style { get; set; } = string.Empty;
         public PdfParagraphAlignmentType ParagraphAlignment { get; set; }
+        public string? IntersectionValue { get; set; } // новое поле
     }
 }

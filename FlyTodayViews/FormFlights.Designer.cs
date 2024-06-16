@@ -44,18 +44,22 @@
             // 
             dataGridView.BackgroundColor = SystemColors.ControlLightLight;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView.Location = new Point(12, 12);
             dataGridView.Dock = DockStyle.Left;
             dataGridView.Location = new Point(0, 0);
             dataGridView.Name = "dataGridView";
             dataGridView.RowHeadersWidth = 51;
+            dataGridView.Size = new Size(1027, 426);
             dataGridView.Size = new Size(1136, 450);
             dataGridView.TabIndex = 0;
             dataGridView.CellFormatting += dataGridView_CellFormatting;
             // 
             // buttonAdd
             // 
+            buttonAdd.Location = new Point(1064, 12);
             buttonAdd.Location = new Point(1151, 116);
             buttonAdd.Name = "buttonAdd";
+            buttonAdd.Size = new Size(99, 23);
             buttonAdd.Size = new Size(113, 23);
             buttonAdd.TabIndex = 1;
             buttonAdd.Text = "Добавить";
@@ -64,8 +68,10 @@
             // 
             // buttonUpd
             // 
+            buttonUpd.Location = new Point(1064, 41);
             buttonUpd.Location = new Point(1151, 145);
             buttonUpd.Name = "buttonUpd";
+            buttonUpd.Size = new Size(99, 23);
             buttonUpd.Size = new Size(113, 23);
             buttonUpd.TabIndex = 2;
             buttonUpd.Text = "Изменить";
@@ -74,8 +80,10 @@
             // 
             // buttonDel
             // 
+            buttonDel.Location = new Point(1064, 70);
             buttonDel.Location = new Point(1151, 174);
             buttonDel.Name = "buttonDel";
+            buttonDel.Size = new Size(99, 23);
             buttonDel.Size = new Size(113, 23);
             buttonDel.TabIndex = 3;
             buttonDel.Text = "Удалить";
@@ -84,8 +92,10 @@
             // 
             // buttonRef
             // 
+            buttonRef.Location = new Point(1064, 99);
             buttonRef.Location = new Point(1151, 203);
             buttonRef.Name = "buttonRef";
+            buttonRef.Size = new Size(99, 23);
             buttonRef.Size = new Size(113, 23);
             buttonRef.TabIndex = 4;
             buttonRef.Text = "Обновить";
@@ -94,8 +104,10 @@
             // 
             // buttonCreatePlace
             // 
+            buttonCreatePlace.Location = new Point(1064, 128);
             buttonCreatePlace.Location = new Point(1151, 232);
             buttonCreatePlace.Name = "buttonCreatePlace";
+            buttonCreatePlace.Size = new Size(99, 41);
             buttonCreatePlace.Size = new Size(113, 24);
             buttonCreatePlace.TabIndex = 5;
             buttonCreatePlace.Text = "Добавить места";
@@ -104,8 +116,10 @@
             // 
             // buttonReducePrices
             // 
+            buttonReducePrices.Location = new Point(1064, 175);
             buttonReducePrices.Location = new Point(1151, 261);
             buttonReducePrices.Name = "buttonReducePrices";
+            buttonReducePrices.Size = new Size(99, 70);
             buttonReducePrices.Size = new Size(113, 70);
             buttonReducePrices.TabIndex = 6;
             buttonReducePrices.Text = "Снизить цены на оставшиеся билеты";
@@ -114,8 +128,10 @@
             // 
             // buttonSaveReport
             // 
+            buttonSaveReport.Location = new Point(1064, 250);
             buttonSaveReport.Location = new Point(1151, 336);
             buttonSaveReport.Name = "buttonSaveReport";
+            buttonSaveReport.Size = new Size(99, 68);
             buttonSaveReport.Size = new Size(113, 68);
             buttonSaveReport.TabIndex = 7;
             buttonSaveReport.Text = "Печать списка посадочных талонов";
@@ -136,6 +152,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ControlLightLight;
+            ClientSize = new Size(1187, 450);
             AutoScroll = true;
             BackColor = SystemColors.ControlLightLight;
             ClientSize = new Size(1276, 450);

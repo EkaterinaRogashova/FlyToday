@@ -55,7 +55,7 @@
             // 
             pictureBox1.Anchor = AnchorStyles.None;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(570, 42);
+            pictureBox1.Location = new Point(570, 58);
             pictureBox1.Margin = new Padding(3, 2, 3, 2);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(203, 180);
@@ -69,6 +69,7 @@
             buttonMainSearch.BackColor = SystemColors.ActiveCaption;
             buttonMainSearch.Font = new Font("Segoe UI", 16F);
             buttonMainSearch.Location = new Point(524, 226);
+            buttonMainSearch.Location = new Point(524, 256);
             buttonMainSearch.Margin = new Padding(3, 2, 3, 2);
             buttonMainSearch.Name = "buttonMainSearch";
             buttonMainSearch.Size = new Size(280, 59);
@@ -83,6 +84,7 @@
             buttonMainEnter.BackColor = SystemColors.ActiveCaption;
             buttonMainEnter.Font = new Font("Segoe UI", 16F);
             buttonMainEnter.Location = new Point(524, 350);
+            buttonMainEnter.Location = new Point(524, 420);
             buttonMainEnter.Margin = new Padding(3, 2, 3, 2);
             buttonMainEnter.Name = "buttonMainEnter";
             buttonMainEnter.Size = new Size(280, 57);
@@ -97,6 +99,7 @@
             buttonMainRegistration.BackColor = SystemColors.ControlLightLight;
             buttonMainRegistration.Font = new Font("Segoe UI", 16F);
             buttonMainRegistration.Location = new Point(524, 411);
+            buttonMainRegistration.Location = new Point(524, 501);
             buttonMainRegistration.Margin = new Padding(3, 2, 3, 2);
             buttonMainRegistration.Name = "buttonMainRegistration";
             buttonMainRegistration.Size = new Size(280, 57);
@@ -111,6 +114,7 @@
             buttonMainLK.BackColor = SystemColors.ActiveCaption;
             buttonMainLK.Font = new Font("Segoe UI", 16F);
             buttonMainLK.Location = new Point(524, 472);
+            buttonMainLK.Location = new Point(524, 582);
             buttonMainLK.Margin = new Padding(3, 2, 3, 2);
             buttonMainLK.Name = "buttonMainLK";
             buttonMainLK.Size = new Size(280, 57);
@@ -125,7 +129,7 @@
             buttonEmployees.AutoSize = true;
             buttonEmployees.BackColor = SystemColors.ControlLightLight;
             buttonEmployees.Font = new Font("Segoe UI", 9F);
-            buttonEmployees.Location = new Point(421, 6);
+            buttonEmployees.Location = new Point(421, 22);
             buttonEmployees.Margin = new Padding(3, 2, 3, 2);
             buttonEmployees.Name = "buttonEmployees";
             buttonEmployees.Size = new Size(185, 30);
@@ -140,7 +144,7 @@
             buttonSales.AutoSize = true;
             buttonSales.BackColor = SystemColors.ControlLightLight;
             buttonSales.Font = new Font("Segoe UI", 9F);
-            buttonSales.Location = new Point(212, 6);
+            buttonSales.Location = new Point(212, 22);
             buttonSales.Margin = new Padding(3, 2, 3, 2);
             buttonSales.Name = "buttonSales";
             buttonSales.Size = new Size(185, 31);
@@ -155,6 +159,7 @@
             buttonDirections.BackColor = SystemColors.ControlLightLight;
             buttonDirections.Font = new Font("Segoe UI", 9F);
             buttonDirections.Location = new Point(442, 676);
+            buttonDirections.Location = new Point(630, 753);
             buttonDirections.Margin = new Padding(3, 4, 3, 4);
             buttonDirections.Name = "buttonDirections";
             buttonDirections.Size = new Size(191, 31);
@@ -169,6 +174,7 @@
             buttonPlanes.BackColor = SystemColors.ControlLightLight;
             buttonPlanes.Font = new Font("Segoe UI", 9F);
             buttonPlanes.Location = new Point(245, 676);
+            buttonPlanes.Location = new Point(430, 753);
             buttonPlanes.Margin = new Padding(3, 4, 3, 4);
             buttonPlanes.Name = "buttonPlanes";
             buttonPlanes.Size = new Size(191, 30);
@@ -183,6 +189,7 @@
             buttonFlights.BackColor = SystemColors.ControlLightLight;
             buttonFlights.Font = new Font("Segoe UI", 9F);
             buttonFlights.Location = new Point(48, 675);
+            buttonFlights.Location = new Point(230, 752);
             buttonFlights.Margin = new Padding(3, 4, 3, 4);
             buttonFlights.Name = "buttonFlights";
             buttonFlights.Size = new Size(191, 31);
@@ -207,6 +214,7 @@
             buttonExit.BackColor = SystemColors.ControlLightLight;
             buttonExit.Font = new Font("Segoe UI", 16F);
             buttonExit.Location = new Point(524, 533);
+            buttonExit.Location = new Point(524, 663);
             buttonExit.Margin = new Padding(3, 2, 3, 2);
             buttonExit.Name = "buttonExit";
             buttonExit.Size = new Size(280, 57);
@@ -222,6 +230,7 @@
             buttonSchedule.BackColor = SystemColors.ControlLightLight;
             buttonSchedule.Font = new Font("Segoe UI", 16F);
             buttonSchedule.Location = new Point(524, 289);
+            buttonSchedule.Location = new Point(524, 339);
             buttonSchedule.Margin = new Padding(3, 2, 3, 2);
             buttonSchedule.Name = "buttonSchedule";
             buttonSchedule.Size = new Size(280, 57);
@@ -236,7 +245,7 @@
             buttonStatisticTickets.AutoSize = true;
             buttonStatisticTickets.BackColor = SystemColors.ControlLightLight;
             buttonStatisticTickets.Font = new Font("Segoe UI", 9F);
-            buttonStatisticTickets.Location = new Point(630, 6);
+            buttonStatisticTickets.Location = new Point(630, 22);
             buttonStatisticTickets.Name = "buttonStatisticTickets";
             buttonStatisticTickets.Size = new Size(185, 31);
             buttonStatisticTickets.TabIndex = 13;
@@ -250,6 +259,7 @@
             buttonDirStatistics.BackColor = SystemColors.ControlLightLight;
             buttonDirStatistics.Font = new Font("Segoe UI", 9F);
             buttonDirStatistics.Location = new Point(639, 678);
+            buttonDirStatistics.Location = new Point(21, 752);
             buttonDirStatistics.Name = "buttonDirStatistics";
             buttonDirStatistics.Size = new Size(191, 31);
             buttonDirStatistics.TabIndex = 13;
@@ -261,7 +271,7 @@
             // 
             slider.Anchor = AnchorStyles.None;
             slider.Image = (Image)resources.GetObject("slider.Image");
-            slider.Location = new Point(12, 41);
+            slider.Location = new Point(12, 57);
             slider.Name = "slider";
             slider.Size = new Size(473, 616);
             slider.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -280,6 +290,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ButtonHighlight;
             ClientSize = new Size(842, 749);
+            ClientSize = new Size(842, 809);
             Controls.Add(slider);
             Controls.Add(buttonStatisticTickets);
             Controls.Add(buttonDirStatistics);

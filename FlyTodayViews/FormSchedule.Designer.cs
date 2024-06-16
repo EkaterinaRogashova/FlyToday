@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
+            buttonEdit = new Button();
             checkBox = new CheckBox();
             buttonToPdf = new Button();
             buttonFilterCancel = new Button();
@@ -48,7 +49,10 @@
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Top;
+            groupBox1.AutoSize = true;
             groupBox1.BackColor = SystemColors.GradientActiveCaption;
+            groupBox1.Controls.Add(buttonEdit);
             groupBox1.Controls.Add(checkBox);
             groupBox1.Controls.Add(buttonToPdf);
             groupBox1.Controls.Add(buttonFilterCancel);
@@ -61,28 +65,47 @@
             groupBox1.Controls.Add(dateTimePickerTo);
             groupBox1.Controls.Add(dateTimePickerFrom);
             groupBox1.Controls.Add(comboBox1);
-            groupBox1.Location = new Point(12, 12);
+            groupBox1.Font = new Font("Segoe UI", 14F);
+            groupBox1.Location = new Point(0, 0);
+            groupBox1.Margin = new Padding(3, 2, 3, 2);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(712, 135);
+            groupBox1.Padding = new Padding(3, 2, 3, 2);
+            groupBox1.Size = new Size(1362, 172);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Фильтр";
             // 
+            // buttonEdit
+            // 
+            buttonEdit.Font = new Font("Segoe UI", 14F);
+            buttonEdit.Location = new Point(1170, 19);
+            buttonEdit.Margin = new Padding(3, 2, 3, 2);
+            buttonEdit.Name = "buttonEdit";
+            buttonEdit.Size = new Size(125, 119);
+            buttonEdit.TabIndex = 12;
+            buttonEdit.Text = "Изменить запись";
+            buttonEdit.UseVisualStyleBackColor = true;
+            buttonEdit.Click += buttonEdit_Click;
+            // 
             // checkBox
             // 
             checkBox.AutoSize = true;
-            checkBox.Location = new Point(339, 29);
+            checkBox.Font = new Font("Segoe UI", 14F);
+            checkBox.Location = new Point(592, 25);
+            checkBox.Margin = new Padding(3, 2, 3, 2);
             checkBox.Name = "checkBox";
-            checkBox.Size = new Size(177, 24);
+            checkBox.Size = new Size(214, 29);
             checkBox.TabIndex = 11;
             checkBox.Text = "Фильтровать по дате";
             checkBox.UseVisualStyleBackColor = true;
             // 
             // buttonToPdf
             // 
-            buttonToPdf.Location = new Point(586, 23);
+            buttonToPdf.Font = new Font("Segoe UI", 14F);
+            buttonToPdf.Location = new Point(982, 15);
+            buttonToPdf.Margin = new Padding(3, 2, 3, 2);
             buttonToPdf.Name = "buttonToPdf";
-            buttonToPdf.Size = new Size(108, 96);
+            buttonToPdf.Size = new Size(125, 123);
             buttonToPdf.TabIndex = 10;
             buttonToPdf.Text = "Отчет\r\nпо периоду";
             buttonToPdf.UseVisualStyleBackColor = true;
@@ -90,9 +113,11 @@
             // 
             // buttonFilterCancel
             // 
-            buttonFilterCancel.Location = new Point(169, 93);
+            buttonFilterCancel.Font = new Font("Segoe UI", 14F);
+            buttonFilterCancel.Location = new Point(303, 106);
+            buttonFilterCancel.Margin = new Padding(3, 2, 3, 2);
             buttonFilterCancel.Name = "buttonFilterCancel";
-            buttonFilterCancel.Size = new Size(155, 29);
+            buttonFilterCancel.Size = new Size(191, 32);
             buttonFilterCancel.TabIndex = 7;
             buttonFilterCancel.Text = "Сбросить";
             buttonFilterCancel.UseVisualStyleBackColor = true;
@@ -100,9 +125,12 @@
             // 
             // buttonSaveFilter
             // 
-            buttonSaveFilter.Location = new Point(6, 93);
+            buttonSaveFilter.Anchor = AnchorStyles.Top;
+            buttonSaveFilter.Font = new Font("Segoe UI", 14F);
+            buttonSaveFilter.Location = new Point(37, 106);
+            buttonSaveFilter.Margin = new Padding(3, 2, 3, 2);
             buttonSaveFilter.Name = "buttonSaveFilter";
-            buttonSaveFilter.Size = new Size(148, 29);
+            buttonSaveFilter.Size = new Size(191, 32);
             buttonSaveFilter.TabIndex = 6;
             buttonSaveFilter.Text = "Применить";
             buttonSaveFilter.UseVisualStyleBackColor = true;
@@ -111,97 +139,117 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(170, 34);
+            label2.Font = new Font("Segoe UI", 14F);
+            label2.Location = new Point(303, 26);
             label2.Name = "label2";
-            label2.Size = new Size(89, 20);
+            label2.Size = new Size(113, 25);
             label2.TabIndex = 3;
             label2.Text = "Должность:";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(333, 95);
+            label5.Font = new Font("Segoe UI", 14F);
+            label5.Location = new Point(569, 104);
             label5.Name = "label5";
-            label5.Size = new Size(32, 20);
+            label5.Size = new Size(41, 25);
             label5.TabIndex = 8;
             label5.Text = "По:";
             // 
             // comboBox2
             // 
             comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox2.Font = new Font("Segoe UI", 14F);
             comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(169, 58);
+            comboBox2.Location = new Point(303, 59);
+            comboBox2.Margin = new Padding(3, 2, 3, 2);
             comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(155, 28);
+            comboBox2.Size = new Size(191, 33);
             comboBox2.TabIndex = 2;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(339, 65);
+            label4.Font = new Font("Segoe UI", 14F);
+            label4.Location = new Point(569, 62);
             label4.Name = "label4";
-            label4.Size = new Size(21, 20);
+            label4.Size = new Size(28, 25);
             label4.TabIndex = 6;
             label4.Text = "С:";
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
-            label1.Location = new Point(7, 34);
+            label1.Font = new Font("Segoe UI", 14F);
+            label1.Location = new Point(37, 24);
             label1.Name = "label1";
-            label1.Size = new Size(57, 20);
+            label1.Size = new Size(72, 25);
             label1.TabIndex = 1;
             label1.Text = "Смена:";
             // 
             // dateTimePickerTo
             // 
-            dateTimePickerTo.Location = new Point(366, 94);
+            dateTimePickerTo.Font = new Font("Segoe UI", 14F);
+            dateTimePickerTo.Location = new Point(621, 104);
+            dateTimePickerTo.Margin = new Padding(3, 2, 3, 2);
             dateTimePickerTo.Name = "dateTimePickerTo";
-            dateTimePickerTo.Size = new Size(189, 27);
+            dateTimePickerTo.Size = new Size(319, 32);
             dateTimePickerTo.TabIndex = 7;
             // 
             // dateTimePickerFrom
             // 
-            dateTimePickerFrom.Location = new Point(366, 61);
+            dateTimePickerFrom.Font = new Font("Segoe UI", 14F);
+            dateTimePickerFrom.Location = new Point(621, 60);
+            dateTimePickerFrom.Margin = new Padding(3, 2, 3, 2);
             dateTimePickerFrom.Name = "dateTimePickerFrom";
-            dateTimePickerFrom.Size = new Size(189, 27);
+            dateTimePickerFrom.Size = new Size(319, 32);
             dateTimePickerFrom.TabIndex = 6;
             // 
             // comboBox1
             // 
+            comboBox1.Anchor = AnchorStyles.Top;
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.Font = new Font("Segoe UI", 14F);
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "", "День", "Ночь", "Отсыпной", "Выходной" });
-            comboBox1.Location = new Point(6, 58);
+            comboBox1.Location = new Point(37, 59);
+            comboBox1.Margin = new Padding(3, 2, 3, 2);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(148, 28);
+            comboBox1.Size = new Size(191, 33);
             comboBox1.TabIndex = 0;
             // 
             // dataGridView1
             // 
             dataGridView1.BackgroundColor = SystemColors.Control;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 153);
+            dataGridView1.Dock = DockStyle.Bottom;
+            dataGridView1.Location = new Point(0, 176);
+            dataGridView1.Margin = new Padding(3, 2, 3, 2);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(712, 398);
+            dataGridView1.Size = new Size(1362, 508);
             dataGridView1.TabIndex = 2;
             // 
             // FormSchedule
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(734, 563);
+            BackColor = SystemColors.ControlLightLight;
+            ClientSize = new Size(1362, 684);
             Controls.Add(dataGridView1);
             Controls.Add(groupBox1);
+            Margin = new Padding(3, 2, 3, 2);
             MaximizeBox = false;
             Name = "FormSchedule";
             Text = "Расписание";
+            WindowState = FormWindowState.Maximized;
             Load += FormSchedule_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -220,5 +268,6 @@
         private Button buttonSaveFilter;
         private Button buttonToPdf;
         private CheckBox checkBox;
+        private Button buttonEdit;
     }
 }

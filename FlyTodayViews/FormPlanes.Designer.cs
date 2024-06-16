@@ -49,8 +49,10 @@
             // 
             // buttonAdd
             // 
+            buttonAdd.Location = new Point(615, 106);
             buttonAdd.Location = new Point(615, 118);
             buttonAdd.Name = "buttonAdd";
+            buttonAdd.Size = new Size(75, 23);
             buttonAdd.Size = new Size(77, 23);
             buttonAdd.TabIndex = 1;
             buttonAdd.Text = "Добавить";
@@ -59,8 +61,10 @@
             // 
             // buttonUpd
             // 
+            buttonUpd.Location = new Point(615, 142);
             buttonUpd.Location = new Point(615, 154);
             buttonUpd.Name = "buttonUpd";
+            buttonUpd.Size = new Size(75, 23);
             buttonUpd.Size = new Size(77, 23);
             buttonUpd.TabIndex = 2;
             buttonUpd.Text = "Изменить";
@@ -69,8 +73,10 @@
             // 
             // buttonDel
             // 
+            buttonDel.Location = new Point(615, 182);
             buttonDel.Location = new Point(615, 194);
             buttonDel.Name = "buttonDel";
+            buttonDel.Size = new Size(75, 23);
             buttonDel.Size = new Size(77, 23);
             buttonDel.TabIndex = 3;
             buttonDel.Text = "Удалить";
@@ -79,8 +85,10 @@
             // 
             // buttonRef
             // 
+            buttonRef.Location = new Point(615, 224);
             buttonRef.Location = new Point(615, 236);
             buttonRef.Name = "buttonRef";
+            buttonRef.Size = new Size(75, 23);
             buttonRef.Size = new Size(77, 23);
             buttonRef.TabIndex = 4;
             buttonRef.Text = "Обновить";
@@ -92,6 +100,7 @@
             buttonPlaneSchemes.Location = new Point(615, 56);
             buttonPlaneSchemes.Margin = new Padding(3, 2, 3, 2);
             buttonPlaneSchemes.Name = "buttonPlaneSchemes";
+            buttonPlaneSchemes.Size = new Size(66, 35);
             buttonPlaneSchemes.Size = new Size(77, 48);
             buttonPlaneSchemes.TabIndex = 5;
             buttonPlaneSchemes.Text = "Схемы самолетов";
@@ -102,6 +111,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ControlLightLight;
+            ClientSize = new Size(704, 338);
             ClientSize = new Size(704, 338);
             Controls.Add(buttonPlaneSchemes);
             Controls.Add(buttonRef);

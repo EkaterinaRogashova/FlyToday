@@ -24,17 +24,18 @@ namespace FlyTodayDatabaseImplements.Implements
 
         public PlaneViewModel? GetElement(PlaneSearchModel model)
         {
-            if (string.IsNullOrEmpty(model.ModelName) && !model.Id.HasValue)
+            if (string.IsNullOrEmpty(model.ModelName) && !model.Id.HasValue && !model.PlaneSchemeId.HasValue)
             {
                 return null;
             }
+
             using var context = new FlyTodayDatabase();
             return context.Planes
-            .FirstOrDefault(x =>
-           (!string.IsNullOrEmpty(model.ModelName) && x.ModelName ==
-           model.ModelName) ||
-            (model.Id.HasValue && x.Id == model.Id))
-            ?.GetViewModel;
+                .FirstOrDefault(x =>
+                    (!string.IsNullOrEmpty(model.ModelName) && x.ModelName == model.ModelName) ||
+                    (model.Id.HasValue && x.Id == model.Id) ||
+                    (model.PlaneSchemeId.HasValue && x.PlaneSchemeId == model.PlaneSchemeId))
+                ?.GetViewModel;
         }
 
         public List<PlaneViewModel> GetFilteredList(PlaneSearchModel model)
@@ -45,7 +46,6 @@ namespace FlyTodayDatabaseImplements.Implements
             }
             using var context = new FlyTodayDatabase();
             return context.Planes
-                .Include(x => x.PlaneScheme)
             .Where(x => x.ModelName.Contains(model.ModelName))
            .Select(x => x.GetViewModel)
            .ToList();
@@ -55,7 +55,6 @@ namespace FlyTodayDatabaseImplements.Implements
         {
             using var context = new FlyTodayDatabase();
             return context.Planes
-                .Include(x => x.PlaneScheme)
             .Select(x => x.GetViewModel)
            .ToList();
         }

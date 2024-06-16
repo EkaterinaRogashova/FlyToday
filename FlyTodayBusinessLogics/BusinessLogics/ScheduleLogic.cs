@@ -107,7 +107,6 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             var element = _scheduleStorage.GetElement(new ScheduleSearchModel
             {
                 EmployeeId = model.EmployeeId,
-                Shift = model.Shift,
                 Date = model.Date
             });
             if (element != null && element.Id != model.Id)

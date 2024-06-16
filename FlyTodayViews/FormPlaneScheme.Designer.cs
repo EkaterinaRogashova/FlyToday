@@ -248,6 +248,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ControlLightLight;
             ClientSize = new Size(397, 379);
             Controls.Add(label9);
             Controls.Add(textBoxName);

@@ -156,6 +156,55 @@ namespace FlyTodayBusinessLogics.OfficePackage
 
             SavePdf(info);
         }
+
+        public void CreateDocStatisticTickets(PdfInfo info)
+        {
+            CreatePdf(info);
+            CreateParagraph(new PdfParagraph
+            {
+                Text = info.Title,
+                Style = "NormalTitle",
+                ParagraphAlignment = PdfParagraphAlignmentType.Center
+            });
+            CreateParagraph(new PdfParagraph
+            {
+                Text = "Статистика проданных билетов по полу (мужчины/женщины):",
+                Style = "NormalTitle",
+                ParagraphAlignment = PdfParagraphAlignmentType.Left
+            });
+            CreateParagraph(new PdfParagraph
+            {
+                Text = $"Женщины {info.Female}, мужчины {info.Male}",
+                Style = "Normal",
+                ParagraphAlignment = PdfParagraphAlignmentType.Left
+            });
+            CreateParagraph(new PdfParagraph
+            {
+                Text = "Статистика проданных билетов по наличию дополнительного багажа:",
+                Style = "NormalTitle",
+                ParagraphAlignment = PdfParagraphAlignmentType.Left
+            });
+            CreateParagraph(new PdfParagraph
+            {
+                Text = $"C багажом {info.WithBags}, без багажа {info.NotWithBags}",
+                Style = "Normal",
+                ParagraphAlignment = PdfParagraphAlignmentType.Left
+            });
+            CreateParagraph(new PdfParagraph
+            {
+                Text = "Статистика проданных билетов по возрасту пассажира:",
+                Style = "NormalTitle",
+                ParagraphAlignment = PdfParagraphAlignmentType.Left
+            });
+            CreateParagraph(new PdfParagraph
+            {
+                Text = $"Дети до 18 лет - {info.Children}, взрослые от 18 до 65 - {info.People} и пенсионеры от 65 - {info.OlderPeople}",
+                Style = "Normal",
+                ParagraphAlignment = PdfParagraphAlignmentType.Left
+            });
+            SavePdf(info);
+        }
+
         /// <summary>
         /// Создание doc-файла
         /// </summary>

@@ -172,6 +172,7 @@
             label8.AutoSize = true;
             label8.Location = new Point(397, 176);
             label8.Name = "label8";
+            label8.Size = new Size(39, 15);
             label8.Size = new Size(41, 15);
             label8.TabIndex = 18;
             label8.Text = "минут";
@@ -180,6 +181,8 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ControlLightLight;
+            ClientSize = new Size(448, 241);
             ClientSize = new Size(448, 241);
             Controls.Add(label8);
             Controls.Add(textBoxTimeInFlight);

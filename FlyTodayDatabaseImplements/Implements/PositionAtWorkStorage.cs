@@ -36,7 +36,15 @@ namespace FlyTodayDatabaseImplements.Implements
 
         public List<PositionAtWorkViewModel> GetFilteredList(PositionAtWorkSearchModel model)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(model.TypeWork))
+            {
+                return new();
+            }
+            using var context = new FlyTodayDatabase();
+            return context.PositionAtWorks
+            .Where(x => x.TypeWork.Contains(model.TypeWork))
+           .Select(x => x.GetViewModel)
+           .ToList();
         }
 
         public List<PositionAtWorkViewModel> GetFullList()

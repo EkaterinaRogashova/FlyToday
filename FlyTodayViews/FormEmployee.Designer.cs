@@ -45,10 +45,10 @@
             label5 = new Label();
             checkBoxMedAnalys = new CheckBox();
             groupBox3 = new GroupBox();
+            comboBoxTypeWork = new ComboBox();
+            label9 = new Label();
             comboBoxJob = new ComboBox();
             label7 = new Label();
-            label9 = new Label();
-            comboBoxTypeWork = new ComboBox();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -245,6 +245,29 @@
             groupBox3.TabStop = false;
             groupBox3.Text = "Данные о работе";
             // 
+            // comboBoxTypeWork
+            // 
+            comboBoxTypeWork.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxTypeWork.FormattingEnabled = true;
+            comboBoxTypeWork.Items.AddRange(new object[] { "На рейсе", "Посменная" });
+            comboBoxTypeWork.Location = new Point(18, 46);
+            comboBoxTypeWork.Margin = new Padding(3, 2, 3, 2);
+            comboBoxTypeWork.Name = "comboBoxTypeWork";
+            comboBoxTypeWork.Size = new Size(246, 23);
+            comboBoxTypeWork.Sorted = true;
+            comboBoxTypeWork.TabIndex = 11;
+            comboBoxTypeWork.SelectedIndexChanged += comboBoxTypeWork_SelectedIndexChanged;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 12F);
+            label9.Location = new Point(21, 17);
+            label9.Name = "label9";
+            label9.Size = new Size(96, 21);
+            label9.TabIndex = 10;
+            label9.Text = "Тип работы:";
+            // 
             // comboBoxJob
             // 
             comboBoxJob.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -265,32 +288,11 @@
             label7.TabIndex = 5;
             label7.Text = "Должность:";
             // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 12F);
-            label9.Location = new Point(21, 17);
-            label9.Name = "label9";
-            label9.Size = new Size(96, 21);
-            label9.TabIndex = 10;
-            label9.Text = "Тип работы:";
-            // 
-            // comboBoxTypeWork
-            // 
-            comboBoxTypeWork.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxTypeWork.FormattingEnabled = true;
-            comboBoxTypeWork.Items.AddRange(new object[] { "На рейсе", "Посменная" });
-            comboBoxTypeWork.Location = new Point(18, 46);
-            comboBoxTypeWork.Margin = new Padding(3, 2, 3, 2);
-            comboBoxTypeWork.Name = "comboBoxTypeWork";
-            comboBoxTypeWork.Size = new Size(246, 23);
-            comboBoxTypeWork.Sorted = true;
-            comboBoxTypeWork.TabIndex = 11;
-            // 
             // FormEmployee
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ControlLightLight;
             ClientSize = new Size(700, 332);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
