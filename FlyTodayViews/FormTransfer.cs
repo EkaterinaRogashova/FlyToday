@@ -24,7 +24,7 @@ namespace FlyTodayViews
         public int PlaneId { set { _planeId = value; } }
         private int? _currentUserId;
         public int CurrentUserId { set { _currentUserId = value; } }
-        private Dictionary<int, IUserModel> _flightSubscribers;
+        private Dictionary<int, int> _flightSubscribers;
 
         public FormTransfer(ILogger<FormViewFlight> logger, IFlightLogic logic, IDirectionLogic directionLogic, IPlaneLogic planeLogic, IUserLogic userLogic)
         {
@@ -34,7 +34,7 @@ namespace FlyTodayViews
             _directionLogic = directionLogic;
             _planeLogic = planeLogic;
             _userLogic = userLogic;
-            _flightSubscribers = new Dictionary<int, IUserModel>();
+            _flightSubscribers = new Dictionary<int, int>();
         }
 
         public IUserModel? UserModel
@@ -121,7 +121,6 @@ namespace FlyTodayViews
                     _logic.ReadElement(new FlightSearchModel { DirectionId = _dir })
                 };
                 var user = _userLogic.ReadElement(new UserSearchModel { Id = _currentUserId.Value });
-                bool operationResult = false;
                 if (user != null)
                 {
                     foreach (var flight in flights)
@@ -134,18 +133,39 @@ namespace FlyTodayViews
                         {
                             try
                             {
-                                foreach (var fs in _flightSubscribers)
+                                _flightSubscribers = _logic.GetSubscribers(new FlightSearchModel { Id = flight.Id });
+                                if (!_flightSubscribers.ContainsKey(flight.Id) && !_flightSubscribers.ContainsValue(user.Id))
                                 {
-                                    if (UserModel != null)
+                                    _flightSubscribers.Add(flight.Id, user.Id);
+                                    var dict = new Dictionary<int, IUserModel>
                                     {
-                                        _flightSubscribers.Add(flight.Id, UserModel);
-                                        operationResult = true;
+                                        { flight.Id, UserModel }
+                                    };
+
+
+                                    var model = new FlightBindingModel
+                                    {
+                                        Id = flight.Id,
+                                        PlaneId = flight.PlaneId,
+                                        DirectionId = flight.DirectionId,
+                                        DepartureDate = flight.DepartureDate,
+                                        FreePlacesCountEconom = flight.FreePlacesCountEconom,
+                                        FreePlacesCountBusiness = flight.FreePlacesCountBusiness,
+                                        EconomPrice = flight.EconomPrice,
+                                        BusinessPrice = flight.BusinessPrice,
+                                        TimeInFlight = flight.TimeInFlight,
+                                        FlightSubscribers = dict,
+                                        FlightStatus = flight.FlightStatus
+                                    };
+                                    var operationResult = _logic.Update(model);
+                                    if (operationResult)
+                                    {
+                                        MessageBox.Show("Вы успешно подписались на изменение цены.", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     }
                                 }
-
-                                if (!operationResult)
+                                else
                                 {
-                                    throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
+                                    MessageBox.Show("Вы уже подписаны на этот рейс.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                                 Close();
                             }
@@ -155,10 +175,6 @@ namespace FlyTodayViews
                                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
-                    }
-                    if (operationResult)
-                    {
-                        MessageBox.Show("Вы успешно подписались на изменение цены.", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 else MessageBox.Show("Пользователь не найден", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);

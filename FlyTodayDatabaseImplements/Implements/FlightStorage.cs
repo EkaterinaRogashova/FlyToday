@@ -5,6 +5,7 @@ using FlyTodayContracts.ViewModels;
 using FlyTodayDatabaseImplements.Models;
 using FlyTodayDataModels.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace FlyTodayDatabaseImplements.Implements
 {
@@ -134,19 +135,29 @@ namespace FlyTodayDatabaseImplements.Implements
                 {
                     return null;
                 }
+
                 flight.Update(model);
                 context.SaveChanges();
                 flight.UpdateSubscribers(context, model);
                 flight.UpdateDirection(context, model);
                 flight.UpdatePlane(context, model);
-                transaction.Commit();
+
+                if (transaction != null)
+                {
+                    transaction.Commit();
+                }
+
                 return flight.GetViewModel;
             }
             catch
             {
-                transaction.Rollback();
+                if (transaction != null)
+                {
+                    transaction.Rollback();
+                }
                 throw;
             }
         }
+
     }
 }

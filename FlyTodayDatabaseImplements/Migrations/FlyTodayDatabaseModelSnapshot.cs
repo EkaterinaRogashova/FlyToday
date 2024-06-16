@@ -154,8 +154,6 @@ namespace FlyTodayDatabaseImplements.Migrations
                     b.Property<int>("PlaneId")
                         .HasColumnType("integer");
 
-                    b.Property<double>("TimeInFlight")
-                        .HasColumnType("double precision");
                     b.Property<int>("TimeInFlight")
                         .HasColumnType("integer");
 

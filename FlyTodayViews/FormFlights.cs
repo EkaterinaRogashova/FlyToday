@@ -6,6 +6,7 @@ using FlyTodayContracts.ViewModels;
 using FlyTodayDataModels.Enums;
 using FlyTodayDataModels.Models;
 using Microsoft.Extensions.Logging;
+using System.Reflection.Metadata.Ecma335;
 
 namespace FlyTodayViews
 {
@@ -22,7 +23,7 @@ namespace FlyTodayViews
         private readonly AbstractMailWorker _mailWorker;
         private Dictionary<int, int>? _flightSubscribers;
         public Dictionary<int, int> FlightSubscribers { set { _flightSubscribers = value; } }
-    
+
         public FormFlights(ILogger<FormFlights> logger, IFlightLogic logic, IPlaneLogic planeLogic, IDirectionLogic directionLogic, IUserLogic userLogic, AbstractMailWorker mailWorker, IReportLogic reportLogic, IPlaceLogic placeLogic, IRentLogic rentLogic)
         {
             InitializeComponent();
@@ -36,7 +37,7 @@ namespace FlyTodayViews
             _userLogic = userLogic;
             _mailWorker = mailWorker;
             _reportLogic = reportLogic;
-            _placeLogic = placeLogic;            
+            _placeLogic = placeLogic;
             _flightSubscribers = new Dictionary<int, int>();
             _rentLogic = rentLogic;
         }
@@ -195,27 +196,6 @@ namespace FlyTodayViews
         private void ButtonRef_Click(object sender, EventArgs e)
         {
             LoadData();
-        }
-
-        private void buttonCreatePlace_Click(object sender, EventArgs e)
-        {
-            if (dataGridView.SelectedRows.Count == 1)
-            {
-                var places = _placeLogic.ReadList(new PlaceSearchModel { FlightId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value) });
-                if (places.Count == 0)
-                {
-                    var service = Program.ServiceProvider?.GetService(typeof(FormCreatePlaces));
-                    if (service is FormCreatePlaces form)
-                    {
-                        form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
-                        form.ShowDialog();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Места на текущий рейс уже существуют", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
         }
 
         private class PriceReductionNotification
@@ -494,9 +474,9 @@ namespace FlyTodayViews
                                         $"\nДля возврата средств обратитесь в Службу работы с клиентами." +
                                         $"\nВаша FlyToday."
                                     });
-                                }                                
+                                }
                             }
-                        }   
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -532,7 +512,68 @@ namespace FlyTodayViews
                 double price = (double)e.Value;
                 e.Value = $"{price} руб.";
                 e.FormattingApplied = true;
-            }            
+            }
+        }
+
+        private string GeneratePlaceName(int placeNumber, bool isBusiness)
+        {
+            const string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            string placeName = "";
+
+            int quotient = (placeNumber - 1) / alphabet.Length;
+            int remainder = (placeNumber - 1) % alphabet.Length;
+
+            if (isBusiness)
+                placeName = alphabet[quotient].ToString() + (remainder + 1).ToString() + " - business";
+            else
+                placeName = alphabet[quotient].ToString() + (remainder + 1).ToString() + " - econom";
+
+            return placeName;
+        }
+
+        private void FormFlights_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            var flights = _logic.ReadList(null);
+            if (flights != null)
+            {
+                foreach (var flight in flights)
+                {
+                    var existingPlaces = _placeLogic.ReadList(new PlaceSearchModel { FlightId = flight.Id });
+                    if (existingPlaces == null || existingPlaces.Count == 0)
+                    {
+                        for (int i = 0; i < (flight.FreePlacesCountBusiness); i++)
+                        {
+                            var model = new PlaceBindingModel
+                            {
+                                Id = 0,
+                                PlaceName = GeneratePlaceName(i, true),
+                                FlightId = flight.Id,
+                                IsFree = true
+                            };
+                            var operationResult = _placeLogic.Create(model);
+                            if (!operationResult)
+                            {
+                                throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
+                            }
+                        }
+                        for (int i = 0; i < (flight.FreePlacesCountEconom); i++)
+                        {
+                            var model = new PlaceBindingModel
+                            {
+                                Id = 0,
+                                PlaceName = GeneratePlaceName(i, false),
+                                FlightId = flight.Id,
+                                IsFree = true
+                            };
+                            var operationResult = _placeLogic.Create(model);
+                            if (!operationResult)
+                            {
+                                throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
+                            }
+                        }
+                    }
+                }
+            }                        
         }
     }
 }

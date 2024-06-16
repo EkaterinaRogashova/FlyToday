@@ -117,7 +117,6 @@ namespace FlyTodayViews
             services.AddTransient<FormTickets>();
             services.AddTransient<FormMyRents>();
             services.AddTransient<FormRentTickets>();
-            services.AddTransient<FormCreatePlaces>();
             services.AddTransient<FormBordingPass>();
             services.AddTransient<FormTransfer>();
             services.AddTransient<FormFlightsSchedule>();

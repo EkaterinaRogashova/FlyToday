@@ -101,6 +101,13 @@ namespace FlyTodayDatabaseImplements.Models
 
         public void UpdateSubscribers(FlyTodayDatabase context, FlightBindingModel model)
         {
+
+            //var flightSubscribers = context.FlightSubscribers.Where(rec => rec.FlightId == model.Id).ToList();
+            /*if (flightSubscribers != null && flightSubscribers.Count > 0)
+            {
+                context.FlightSubscribers.RemoveRange(flightSubscribers.Where(rec => !model.FlightSubscribers.ContainsKey(rec.FlightId)));
+                context.SaveChanges();
+            }*/
             var flight = context.Flights.First(x => x.Id == Id);
             foreach (var fs in model.FlightSubscribers)
             {
@@ -110,7 +117,7 @@ namespace FlyTodayDatabaseImplements.Models
                     User = context.Users.First(x => x.Id == fs.Value.Id)
                 });
                 context.SaveChanges();
-            }
+            }  
             _flightSubscribers = null;
         }
 
