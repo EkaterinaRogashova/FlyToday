@@ -29,11 +29,6 @@ namespace FlyTodayViews
 
         private void FormEmployee_Load(object sender, EventArgs e)
         {
-            var list = _joblogic.ReadList(null);
-            comboBoxJob.DataSource = list;
-            comboBoxJob.DisplayMember = "Name";
-            comboBoxJob.ValueMember = "Id";
-
             if (_id.HasValue)
             {
                 _logger.LogInformation("Загрузка сотрудника");
@@ -69,6 +64,12 @@ namespace FlyTodayViews
             if (string.IsNullOrEmpty(textBoxName.Text) || string.IsNullOrEmpty(textBoxSurname.Text) || comboBoxGender.Text == null || comboBoxJob.Text == null)
             {
                 MessageBox.Show("Заполните поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            int days18 = 365 * 18;
+            if (dateTimePickerBirth.Value >= DateTime.Now - TimeSpan.FromDays(days18))
+            {
+                MessageBox.Show("Возраст сотрудника не может быть меньше 18 лет", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             _logger.LogInformation("Сохранение сотрудника");
