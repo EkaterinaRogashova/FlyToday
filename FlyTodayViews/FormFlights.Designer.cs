@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             dataGridView = new DataGridView();
             buttonAdd = new Button();
             buttonUpd = new Button();
@@ -48,15 +47,16 @@
             dataGridView.Location = new Point(0, 0);
             dataGridView.Name = "dataGridView";
             dataGridView.RowHeadersWidth = 51;
-            dataGridView.Size = new Size(1136, 450);
+            dataGridView.Size = new Size(1603, 1041);
             dataGridView.TabIndex = 0;
             dataGridView.CellFormatting += dataGridView_CellFormatting;
             // 
             // buttonAdd
             // 
-            buttonAdd.Location = new Point(1151, 116);
+            buttonAdd.Font = new Font("Segoe UI", 14F);
+            buttonAdd.Location = new Point(1677, 27);
             buttonAdd.Name = "buttonAdd";
-            buttonAdd.Size = new Size(113, 23);
+            buttonAdd.Size = new Size(172, 80);
             buttonAdd.TabIndex = 1;
             buttonAdd.Text = "Добавить";
             buttonAdd.UseVisualStyleBackColor = true;
@@ -64,9 +64,10 @@
             // 
             // buttonUpd
             // 
-            buttonUpd.Location = new Point(1151, 145);
+            buttonUpd.Font = new Font("Segoe UI", 14F);
+            buttonUpd.Location = new Point(1677, 132);
             buttonUpd.Name = "buttonUpd";
-            buttonUpd.Size = new Size(113, 23);
+            buttonUpd.Size = new Size(172, 80);
             buttonUpd.TabIndex = 2;
             buttonUpd.Text = "Изменить";
             buttonUpd.UseVisualStyleBackColor = true;
@@ -74,9 +75,10 @@
             // 
             // buttonDel
             // 
-            buttonDel.Location = new Point(1151, 174);
+            buttonDel.Font = new Font("Segoe UI", 14F);
+            buttonDel.Location = new Point(1677, 233);
             buttonDel.Name = "buttonDel";
-            buttonDel.Size = new Size(113, 23);
+            buttonDel.Size = new Size(172, 80);
             buttonDel.TabIndex = 3;
             buttonDel.Text = "Удалить";
             buttonDel.UseVisualStyleBackColor = true;
@@ -84,9 +86,10 @@
             // 
             // buttonRef
             // 
-            buttonRef.Location = new Point(1151, 203);
+            buttonRef.Font = new Font("Segoe UI", 14F);
+            buttonRef.Location = new Point(1677, 338);
             buttonRef.Name = "buttonRef";
-            buttonRef.Size = new Size(113, 23);
+            buttonRef.Size = new Size(172, 80);
             buttonRef.TabIndex = 4;
             buttonRef.Text = "Обновить";
             buttonRef.UseVisualStyleBackColor = true;
@@ -94,9 +97,10 @@
             // 
             // buttonReducePrices
             // 
-            buttonReducePrices.Location = new Point(1151, 232);
+            buttonReducePrices.Font = new Font("Segoe UI", 14F);
+            buttonReducePrices.Location = new Point(1677, 437);
             buttonReducePrices.Name = "buttonReducePrices";
-            buttonReducePrices.Size = new Size(113, 70);
+            buttonReducePrices.Size = new Size(172, 127);
             buttonReducePrices.TabIndex = 6;
             buttonReducePrices.Text = "Снизить цены на оставшиеся билеты";
             buttonReducePrices.UseVisualStyleBackColor = true;
@@ -104,9 +108,10 @@
             // 
             // buttonSaveReport
             // 
-            buttonSaveReport.Location = new Point(1151, 307);
+            buttonSaveReport.Font = new Font("Segoe UI", 14F);
+            buttonSaveReport.Location = new Point(1677, 586);
             buttonSaveReport.Name = "buttonSaveReport";
-            buttonSaveReport.Size = new Size(113, 68);
+            buttonSaveReport.Size = new Size(172, 125);
             buttonSaveReport.TabIndex = 7;
             buttonSaveReport.Text = "Печать списка посадочных талонов";
             buttonSaveReport.UseVisualStyleBackColor = true;
@@ -114,9 +119,10 @@
             // 
             // buttonCancelFlight
             // 
-            buttonCancelFlight.Location = new Point(1151, 381);
+            buttonCancelFlight.Font = new Font("Segoe UI", 14F);
+            buttonCancelFlight.Location = new Point(1677, 733);
             buttonCancelFlight.Name = "buttonCancelFlight";
-            buttonCancelFlight.Size = new Size(113, 23);
+            buttonCancelFlight.Size = new Size(172, 80);
             buttonCancelFlight.TabIndex = 8;
             buttonCancelFlight.Text = "Отменить рейс";
             buttonCancelFlight.UseVisualStyleBackColor = true;
@@ -128,7 +134,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
             BackColor = SystemColors.ControlLightLight;
-            ClientSize = new Size(1276, 450);
+            ClientSize = new Size(1904, 1041);
             Controls.Add(buttonCancelFlight);
             Controls.Add(buttonSaveReport);
             Controls.Add(buttonReducePrices);

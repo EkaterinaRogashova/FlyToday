@@ -93,7 +93,7 @@ namespace FlyTodayViews
                             var flights = _logic.ReadList(new FlightSearchModel { DirectionId = dir.Id });
                             if (flights != null && flights.Count > 0)
                             {
-                                var filteredFlights = flights.Where(f => f.DepartureDate >= dateTimePickerDateFrom.Value.ToUniversalTime() && f.DepartureDate <= dateTimePickerDateTo.Value.ToUniversalTime()).ToList();
+                                var filteredFlights = flights.Where(f => f.DepartureDate >= dateTimePickerDateFrom.Value.ToUniversalTime() + TimeSpan.FromHours(4) && f.DepartureDate <= dateTimePickerDateTo.Value.ToUniversalTime() + TimeSpan.FromHours(4)).ToList();
                                 foundFlights.AddRange(filteredFlights);
                             }                            
                         }
@@ -133,7 +133,7 @@ namespace FlyTodayViews
                         MessageBox.Show("По запросу ничего не найдено", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
-
+                    
                     dataGridView.Visible = true;
                     dataGridView.DataSource = foundFlights;
                     dataGridView.Columns["Id"].Visible = false;
@@ -155,7 +155,6 @@ namespace FlyTodayViews
                     dataGridView.Columns["FlightStatus"].Visible = false;
                     var sortedList = SortList(foundFlights, dataGridView.Columns["EconomPrice"].DataPropertyName, isAscending);
                     dataGridView.DataSource = sortedList;
-                    ShowPlanesAndDirections();
                     foreach (DataGridViewRow row in dataGridView.Rows)
                     {
                         int flightId = Convert.ToInt32(row.Cells["Id"].Value);
@@ -182,8 +181,14 @@ namespace FlyTodayViews
                             {
                                 row.Cells["Status"].Value = "Неизвестен";
                             }
+                            else if (flight.FlightStatus == FlightStatusEnum.Вылетел)
+                            {
+                                row.Cells["Status"].Value = "Вылетел";
+                            }
                         }
                     }
+                    ShowPlanesAndDirections();
+                    
                 }
                 MessageBox.Show("Поиск завершен", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 _logger.LogInformation("Загрузка рейсов");
@@ -211,29 +216,31 @@ namespace FlyTodayViews
                         foreach (var secFlight in secondFlights)
                         {
                             if (secFlight.DepartureDate - (firFlight.DepartureDate + TimeSpan.FromMinutes(firFlight.TimeInFlight)) >= TimeSpan.FromHours(1) &&
-                                secFlight.DepartureDate - (firFlight.DepartureDate + TimeSpan.FromMinutes(firFlight.TimeInFlight)) < TimeSpan.FromHours(6)) continue;
-                            var directionFirst = _directionLogic.ReadElement(new DirectionSearchModel { Id = firFlight.DirectionId });
-                            var directionSecond = _directionLogic.ReadElement(new DirectionSearchModel { Id = secFlight.DirectionId });
-                            if (directionFirst != null && directionSecond != null)
+                                secFlight.DepartureDate - (firFlight.DepartureDate + TimeSpan.FromMinutes(firFlight.TimeInFlight)) < TimeSpan.FromHours(6))
                             {
-                                directionToId = directionSecond.Id;
-                                var newFlight = new FlightViewModel
+                                var directionFirst = _directionLogic.ReadElement(new DirectionSearchModel { Id = firFlight.DirectionId });
+                                var directionSecond = _directionLogic.ReadElement(new DirectionSearchModel { Id = secFlight.DirectionId });
+                                if (directionFirst != null && directionSecond != null)
                                 {
-                                    Id = firFlight.Id,
-                                    PlaneId = firFlight.PlaneId,
-                                    DirectionId = -1,
-                                    DepartureDate = firFlight.DepartureDate.ToUniversalTime(),
-                                    FreePlacesCountEconom = firFlight.FreePlacesCountEconom <= secFlight.FreePlacesCountEconom ? firFlight.FreePlacesCountEconom : secFlight.FreePlacesCountEconom,
-                                    FreePlacesCountBusiness = firFlight.FreePlacesCountBusiness <= secFlight.FreePlacesCountBusiness ? firFlight.FreePlacesCountBusiness : secFlight.FreePlacesCountBusiness,
-                                    EconomPrice = firFlight.EconomPrice + secFlight.EconomPrice,
-                                    BusinessPrice = firFlight.BusinessPrice + secFlight.BusinessPrice,
-                                    HasTransit = "Есть",
-                                    TimeInFlight = (int)(firFlight.TimeInFlight + secFlight.TimeInFlight + (secFlight.DepartureDate - firFlight.DepartureDate.AddMinutes(firFlight.TimeInFlight)).TotalMinutes)
-                                };
+                                    directionToId = directionSecond.Id;
+                                    var newFlight = new FlightViewModel
+                                    {
+                                        Id = firFlight.Id,
+                                        PlaneId = firFlight.PlaneId,
+                                        DirectionId = -1,
+                                        DepartureDate = firFlight.DepartureDate.ToUniversalTime(),
+                                        FreePlacesCountEconom = firFlight.FreePlacesCountEconom <= secFlight.FreePlacesCountEconom ? firFlight.FreePlacesCountEconom : secFlight.FreePlacesCountEconom,
+                                        FreePlacesCountBusiness = firFlight.FreePlacesCountBusiness <= secFlight.FreePlacesCountBusiness ? firFlight.FreePlacesCountBusiness : secFlight.FreePlacesCountBusiness,
+                                        EconomPrice = firFlight.EconomPrice + secFlight.EconomPrice,
+                                        BusinessPrice = firFlight.BusinessPrice + secFlight.BusinessPrice,
+                                        HasTransit = "Есть",
+                                        TimeInFlight = (int)(firFlight.TimeInFlight + secFlight.TimeInFlight + (secFlight.DepartureDate - firFlight.DepartureDate.AddMinutes(firFlight.TimeInFlight)).TotalMinutes)
+                                    };
 
-                                list.Add(newFlight);
-                                dataGridView.Rows.Add(newFlight);
-                            }
+                                    list.Add(newFlight);
+                                    dataGridView.Rows.Add(newFlight);
+                                }
+                            }                            
                         }
                     }
                 }
@@ -315,14 +322,28 @@ namespace FlyTodayViews
             }
             else
             {
-                var service = Program.ServiceProvider?.GetService(typeof(FormViewFlight));
-                if (service is FormViewFlight form)
+                if (dataGridView.SelectedRows[0].Cells["HasTransit"].Value.ToString() == "Есть")
                 {
-                    form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
-                    form.DirectionId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["DirectionId"].Value);
-                    form.PlaneId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["PlaneId"].Value);
-                    form.ShowDialog();
+                    var service = Program.ServiceProvider?.GetService(typeof(FormTransfer));
+                    if (service is FormTransfer form)
+                    {
+                        form.IdFirst = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
+                        form.PlaneId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["PlaneId"].Value);
+                        form.DirectionTo = directionToId;
+                        form.ShowDialog();
+                    }
                 }
+                else
+                {
+                    var service = Program.ServiceProvider?.GetService(typeof(FormViewFlight));
+                    if (service is FormViewFlight form)
+                    {
+                        form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["Id"].Value);
+                        form.DirectionId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["DirectionId"].Value);
+                        form.PlaneId = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["PlaneId"].Value);
+                        form.ShowDialog();
+                    }
+                }                
             }
 
         }
@@ -427,6 +448,38 @@ namespace FlyTodayViews
                 var sortedList = SortList(list, dataGridView.Columns[e.ColumnIndex].DataPropertyName, isAscending);
                 dataGridView.DataSource = sortedList;
                 ShowPlanesAndDirections();
+                foreach (DataGridViewRow row in dataGridView.Rows)
+                {
+                    int flightId = Convert.ToInt32(row.Cells["Id"].Value);
+                    var flight = _logic.ReadElement(new FlightSearchModel { Id = flightId });
+                    if (flight != null)
+                    {
+                        if (flight.FlightStatus == FlightStatusEnum.РегистрацияНеНачалась)
+                        {
+                            row.Cells["Status"].Value = "Регистрация не началась";
+                        }
+                        else if (flight.FlightStatus == FlightStatusEnum.РегистрацияИдет)
+                        {
+                            row.Cells["Status"].Value = "Регистрация идет";
+                        }
+                        else if (flight.FlightStatus == FlightStatusEnum.РегистрацияЗакончилась)
+                        {
+                            row.Cells["Status"].Value = "Регистрация закончилась";
+                        }
+                        else if (flight.FlightStatus == FlightStatusEnum.Отменен)
+                        {
+                            row.Cells["Status"].Value = "Отменен";
+                        }
+                        else if (flight.FlightStatus == FlightStatusEnum.Неизвестен)
+                        {
+                            row.Cells["Status"].Value = "Неизвестен";
+                        }
+                        else if (flight.FlightStatus == FlightStatusEnum.Вылетел)
+                        {
+                            row.Cells["Status"].Value = "Вылетел";
+                        }
+                    }
+                }
                 dataGridView.Refresh();
                 isAscending = !isAscending;
             }

@@ -36,8 +36,7 @@ namespace FlyTodayViews
                 _logger.LogInformation("Сохранение схемы самолета");
             try
             {
-                if (Convert.ToInt32(textBoxBusinessPlacesCount.Text) == 0)
-                {
+
                     var model = new PlaneSchemeBindingModel
                     {
                         Id = _id ?? 0,
@@ -55,7 +54,6 @@ namespace FlyTodayViews
                     {
                         throw new Exception("Ошибка при сохранении. Дополнительная информация в логах.");
                     }
-                }
                 
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;

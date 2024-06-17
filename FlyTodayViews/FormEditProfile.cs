@@ -24,7 +24,7 @@ namespace FlyTodayViews
         }
 
         private void ButtonSave_Click(object sender, EventArgs e)
-         {
+        {
             if (string.IsNullOrEmpty(textBoxSurname.Text) || string.IsNullOrEmpty(textBoxName.Text) || string.IsNullOrEmpty(textBoxLastname.Text) || string.IsNullOrEmpty(dateTimePickerDateOfBirth.Text))
             {
                 MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -165,6 +165,41 @@ namespace FlyTodayViews
         private void buttonShowRepeatPassword_MouseUp(object sender, MouseEventArgs e)
         {
             textBoxRepeatPassword.UseSystemPasswordChar = true;
+        }
+
+        private void FormEditProfile_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (_id.HasValue || _id > 0)
+            {
+                try
+                {
+                    Hide();
+                    var currentUser = _logic.ReadElement(new UserSearchModel { Id = _id.Value });
+                    if (currentUser != null)
+                    {
+                        var service = Program.ServiceProvider?.GetService(typeof(FormProfile));
+                        if (service is FormProfile form)
+                        {
+                            form.Id = _id.Value;
+                            form.Show();
+                            Hide();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Пользователь не найден", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Ошибка получения пользователя");
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Сначала авторизуйтесь в системе!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

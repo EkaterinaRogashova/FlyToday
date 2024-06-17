@@ -179,17 +179,27 @@ namespace FlyTodayViews
 
         private void buttonCreateBoardingPass_Click(object sender, EventArgs e)
         {
+            
             var service = Program.ServiceProvider?.GetService(typeof(FormBordingPass));
             if (service is FormBordingPass form)
             {
                 if (buttonTicketIdMap.TryGetValue(sender as Button, out int ticketId))
                 {
-                    form.CurrentTicketId = ticketId;
-                    form.CurrentRentId = _currentRentId.Value;
-                    if (form.ShowDialog() == DialogResult.OK)
+                    var pass = _boardingpasslogic.ReadElement(new BoardingPassSearchModel { TicketId = ticketId });
+                    if (pass != null)
                     {
-                        LoadData();
+                        MessageBox.Show("Билет уже зарегистрован", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
+                    else
+                    {
+                        form.CurrentTicketId = ticketId;
+                        form.CurrentRentId = _currentRentId.Value;
+                        if (form.ShowDialog() == DialogResult.OK)
+                        {
+                            LoadData();
+                        }
+                    }
+                    
                 }
             }
         }

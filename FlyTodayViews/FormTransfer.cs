@@ -78,7 +78,8 @@ namespace FlyTodayViews
                         });
                         if (direction != null) labelFirstDir.Text = direction.CityFrom + " - " + direction.CityTo;
                         labelDepartureDate1.Text = view.DepartureDate.ToShortDateString() + " " + view.DepartureDate.ToShortTimeString() + " МСК";
-                        labelArrivalDate1.Text = (view.DepartureDate + TimeSpan.FromHours(view.TimeInFlight)).ToShortDateString() + " " + (view.DepartureDate + TimeSpan.FromHours(view.TimeInFlight)).ToShortTimeString() + " МСК";
+                        DateTime arrivalDateTime = view.DepartureDate.AddMinutes(view.TimeInFlight);
+                        labelArrivalDate1.Text = arrivalDateTime.ToShortDateString() + " " + arrivalDateTime.ToShortTimeString() + " МСК";
                         var plane = _planeLogic.ReadElement(new PlaneSearchModel
                         {
                             Id = view.PlaneId
@@ -86,7 +87,9 @@ namespace FlyTodayViews
                         if (plane != null) labelPlane1.Text = plane.ModelName;
                         labelEconomPrice1.Text = view.EconomPrice.ToString();
                         labelBusinessPrice1.Text = view.BusinessPrice.ToString();
-                        labelTimeInFlight1.Text = TimeSpan.FromHours(view.TimeInFlight).TotalHours + " час(ов/а)";
+                        int totalHours1 = (int)TimeSpan.FromMinutes(view.TimeInFlight).TotalHours;
+                        int totalMinutes1 = (int)TimeSpan.FromMinutes(view.TimeInFlight).Minutes;
+                        labelTimeInFlight1.Text = $"{totalHours1} час(ов/а) {totalMinutes1} мин.";
                     }
                     var directionTo = _directionLogic.ReadElement(new DirectionSearchModel { Id = _dir });
                     var viewSecond = _logic.ReadElement(new FlightSearchModel { DirectionId = _dir });
@@ -94,7 +97,8 @@ namespace FlyTodayViews
                     {
                         labelSecondDir.Text = directionTo.CityFrom + " - " + directionTo.CityTo;
                         labelDepartureDate2.Text = viewSecond.DepartureDate.ToShortDateString() + " " + viewSecond.DepartureDate.ToShortTimeString() + " МСК";
-                        labelArrivalDate2.Text = (viewSecond.DepartureDate + TimeSpan.FromHours(viewSecond.TimeInFlight)).ToShortDateString() + " " + (viewSecond.DepartureDate + TimeSpan.FromHours(viewSecond.TimeInFlight)).ToShortTimeString() + " МСК";
+                        DateTime arrivalDateTime = viewSecond.DepartureDate.AddMinutes(viewSecond.TimeInFlight);
+                        labelArrivalDate2.Text = arrivalDateTime.ToShortDateString() + " " + arrivalDateTime.ToShortTimeString() + " МСК"; 
                         var plane = _planeLogic.ReadElement(new PlaneSearchModel
                         {
                             Id = viewSecond.PlaneId
@@ -102,14 +106,24 @@ namespace FlyTodayViews
                         if (plane != null) labelPlane2.Text = plane.ModelName;
                         labelEconomPrice2.Text = viewSecond.EconomPrice.ToString();
                         labelBusinessPrice2.Text = viewSecond.BusinessPrice.ToString();
-                        labelTimeInFlight2.Text = TimeSpan.FromHours(viewSecond.TimeInFlight).TotalHours + " час(ов/а)";
+                        int totalHours2 = (int)TimeSpan.FromMinutes(viewSecond.TimeInFlight).TotalHours;
+                        int totalMinutes2 = (int)TimeSpan.FromMinutes(viewSecond.TimeInFlight).Minutes;
+                        labelTimeInFlight2.Text = $"{totalHours2} час(ов/а) {totalMinutes2} мин.";
                     }
-                    TimeSpan timeBetweenFlights = viewSecond.DepartureDate - (view.DepartureDate.AddHours(view.TimeInFlight));
-                    double duration = Math.Round(timeBetweenFlights.TotalHours, 2);
-                    double totalTimeInFlight = Math.Round(view.TimeInFlight + viewSecond.TimeInFlight + duration, 2);
+                    TimeSpan timeBetweenFlights = viewSecond.DepartureDate - view.DepartureDate.AddMinutes(view.TimeInFlight);
+                    double totalTimeInFlight = view.TimeInFlight + viewSecond.TimeInFlight + timeBetweenFlights.TotalMinutes;
 
-                    labelGeneralTimeInFlight.Text = totalTimeInFlight.ToString() + " час(а/ов)";
-                    labelTransferDur.Text = duration.ToString() + " час(а/ов)";
+                    int totalFlightHours = (int)(totalTimeInFlight / 60);
+                    int totalFlightMinutes = (int)(totalTimeInFlight % 60);
+
+                    labelGeneralTimeInFlight.Text = $"{totalFlightHours} час(а/ов) {totalFlightMinutes:D2} мин.";
+
+                    int transferHours = (int)(timeBetweenFlights.TotalMinutes / 60);
+                    int transferMinutes = (int)(timeBetweenFlights.TotalMinutes % 60);
+
+                    labelTransferDur.Text = $"{transferHours} час(а/ов) {transferMinutes:D2} мин.";
+
+
                 }
                 catch (Exception ex)
                 {

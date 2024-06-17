@@ -55,55 +55,61 @@ namespace FlyTodayViews
                 var list = _logic.ReadList(null);
                 if (list != null)
                 {
-                    dataGridView.DataSource = list;
-                    dataGridView.Columns["Id"].Visible = false;
-                    dataGridView.Columns["DepartureDate"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns["FreePlacesCountEconom"].Visible = false;
-                    dataGridView.Columns["FreePlacesCountBusiness"].Visible = false;
-                    dataGridView.Columns["EconomPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns["BusinessPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns["TimeInFlight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns["PlaneId"].Visible = false;
-                    dataGridView.Columns["DirectionId"].Visible = false;
-                    dataGridView.Columns["HasTransit"].Visible = false;
-                    dataGridView.Columns["PlaneModel"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView.Columns["FlightDirection"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-                    dataGridView.Columns["FlightSubscribers"].Visible = false;
-                    dataGridView.Columns["FlightStatus"].Visible = false;
-
                     foreach (var flight in list)
                     {
-                        var flightStatus = FlightStatusEnum.Неизвестен;
-                        if (DateTime.Now.CompareTo(flight.DepartureDate) >= 0)
+                        if (flight.FlightStatus != FlightStatusEnum.Отменен)
                         {
-                            flightStatus = FlightStatusEnum.Вылетел;
+                            var flightStatus = FlightStatusEnum.Неизвестен;
+                            if (DateTime.Now.CompareTo(flight.DepartureDate) >= 0)
+                            {
+                                flightStatus = FlightStatusEnum.Вылетел;
+                            }
+                            if (DateTime.Now.CompareTo(flight.DepartureDate - TimeSpan.FromMinutes(40)) >= 0 && DateTime.Now.CompareTo(flight.DepartureDate) < 0)
+                            {
+                                flightStatus = FlightStatusEnum.РегистрацияЗакончилась;
+                            }
+                            if (DateTime.Now.CompareTo(flight.DepartureDate - TimeSpan.FromHours(2)) > 0 && DateTime.Now.CompareTo(flight.DepartureDate - TimeSpan.FromMinutes(40)) < 0)
+                            {
+                                flightStatus = FlightStatusEnum.РегистрацияИдет;
+                            }
+                            if (DateTime.Now.CompareTo(flight.DepartureDate - TimeSpan.FromHours(2)) < 0)
+                            {
+                                flightStatus = FlightStatusEnum.РегистрацияНеНачалась;
+                            }
+                            var model = new FlightBindingModel
+                            {
+                                Id = flight.Id,
+                                DepartureDate = flight.DepartureDate,
+                                FreePlacesCountEconom = flight.FreePlacesCountEconom,
+                                FreePlacesCountBusiness = flight.FreePlacesCountBusiness,
+                                EconomPrice = flight.EconomPrice,
+                                BusinessPrice = flight.BusinessPrice,
+                                TimeInFlight = flight.TimeInFlight,
+                                FlightStatus = flightStatus
+                            };
+                            _logic.SimpleUpdate(model);
                         }
-                        if (DateTime.Now.CompareTo(flight.DepartureDate - TimeSpan.FromMinutes(40)) >= 0 && DateTime.Now.CompareTo(flight.DepartureDate) < 0)
-                        {
-                            flightStatus = FlightStatusEnum.РегистрацияЗакончилась;
-                        }
-                        if (DateTime.Now.CompareTo(flight.DepartureDate - TimeSpan.FromHours(2)) > 0 && DateTime.Now.CompareTo(flight.DepartureDate - TimeSpan.FromMinutes(40)) < 0)
-                        {
-                            flightStatus = FlightStatusEnum.РегистрацияИдет;
-                        }
-                        if (DateTime.Now.CompareTo(flight.DepartureDate - TimeSpan.FromHours(2)) < 0)
-                        {
-                            flightStatus = FlightStatusEnum.РегистрацияНеНачалась;
-                        }
-                        var model = new FlightBindingModel
-                        {
-                            DepartureDate = flight.DepartureDate,
-                            FreePlacesCountEconom = flight.FreePlacesCountEconom,
-                            FreePlacesCountBusiness = flight.FreePlacesCountBusiness,
-                            EconomPrice = flight.EconomPrice,
-                            BusinessPrice = flight.BusinessPrice,
-                            TimeInFlight = flight.TimeInFlight,
-                            FlightStatus = flightStatus
-                        };
-                        _logic.SimpleUpdate(model);
+                           
+
+                        dataGridView.DataSource = list;
+                        dataGridView.Columns["Id"].Visible = false;
+                        dataGridView.Columns["DepartureDate"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        dataGridView.Columns["FreePlacesCountEconom"].Visible = false;
+                        dataGridView.Columns["FreePlacesCountBusiness"].Visible = false;
+                        dataGridView.Columns["EconomPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        dataGridView.Columns["BusinessPrice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        dataGridView.Columns["TimeInFlight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        dataGridView.Columns["PlaneId"].Visible = false;
+                        dataGridView.Columns["DirectionId"].Visible = false;
+                        dataGridView.Columns["HasTransit"].Visible = false;
+                        dataGridView.Columns["PlaneModel"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        dataGridView.Columns["FlightDirection"].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+                        dataGridView.Columns["FlightSubscribers"].Visible = false;
+                        dataGridView.Columns["FlightStatus"].Visible = false;
+
                         if (flight.FlightStatus == FlightStatusEnum.Вылетел || flight.FlightStatus == FlightStatusEnum.Отменен)
                         {
-                            var existPlaces = _placeLogic.ReadList(new PlaceSearchModel { FlightId = flight.Id });
+                            var existPlaces = _placeLogic.ReadList(new PlaceSearchModel { FlightId = flight.Id, IsFree = true });
                             if (existPlaces != null && existPlaces.Count > 0)
                             {
                                 foreach (var place in existPlaces)
@@ -488,6 +494,7 @@ namespace FlyTodayViews
                     {
                         _logic.SimpleUpdate(new FlightBindingModel
                         {
+                            Id = flight.Id,
                             DepartureDate = flight.DepartureDate,
                             FreePlacesCountEconom = flight.FreePlacesCountEconom,
                             FreePlacesCountBusiness = flight.FreePlacesCountBusiness,
@@ -499,14 +506,14 @@ namespace FlyTodayViews
                         _logger.LogInformation("Обновление статуса рейса на Отменен");
                         MessageBox.Show("Рейс успешно отменен", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         var direction = _directionLogic.ReadElement(new DirectionSearchModel { Id = flight.DirectionId });
-                        var rents = _rentLogic.ReadList(null);
+                        var rents = _rentLogic.ReadList( new RentSearchModel { FlightId = flight.Id });
                         foreach (var rent in rents)
                         {
                             var users = _userLogic.ReadList(new UserSearchModel
                             {
                                 Id = rent.UserId
                             });
-                            if (rent.Status == "Оплачено")
+                            if (rent.Status == "Оплачено" && flight.Id.Equals(dataGridView.SelectedRows[0].Cells["Id"].Value))
                             {
                                 foreach (var user in users)
                                 {
@@ -514,13 +521,14 @@ namespace FlyTodayViews
                                     {
                                         MailAddress = user.Email,
                                         Subject = $"Отмена рейса",
-                                        Text = $"Вы оплатили билеты на рейс {direction.CountryFrom} {direction.CityFrom} - {direction.CountryTo} {direction.CityTo} {flight.DepartureDate}, он по техническим причинам был отменен." +
+                                        Text = $"Вы оплатили билеты на рейс {direction.CountryFrom} {direction.CityFrom} - {direction.CountryTo} {direction.CityTo} {flight.DepartureDate.ToShortDateString()} {flight.DepartureDate.ToShortTimeString()}, он по техническим причинам был отменен." +
                                         $"\nДля возврата средств обратитесь в Службу работы с клиентами." +
                                         $"\nВаша FlyToday."
                                     });
                                 }
                             }
                         }
+                        LoadData();
                     }
                     catch (Exception ex)
                     {

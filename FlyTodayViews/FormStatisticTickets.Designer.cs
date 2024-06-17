@@ -235,7 +235,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLightLight;
-            ClientSize = new Size(892, 439);
+            ClientSize = new Size(559, 439);
             Controls.Add(buttonSavePdf);
             Controls.Add(label65);
             Controls.Add(label12to65);

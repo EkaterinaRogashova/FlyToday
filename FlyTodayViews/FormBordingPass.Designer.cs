@@ -30,13 +30,18 @@
         {
             label1 = new Label();
             panelEconom = new Panel();
+            labelProhod2 = new Label();
+            labelProhod1 = new Label();
             buttonRegistration = new Button();
             panelBusiness = new Panel();
+            labelProhod3 = new Label();
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
             label5 = new Label();
             label6 = new Label();
+            panelEconom.SuspendLayout();
+            panelBusiness.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -53,11 +58,36 @@
             // 
             panelEconom.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panelEconom.AutoScroll = true;
+            panelEconom.Controls.Add(labelProhod2);
+            panelEconom.Controls.Add(labelProhod1);
             panelEconom.Location = new Point(12, 42);
             panelEconom.Margin = new Padding(3, 2, 3, 2);
             panelEconom.Name = "panelEconom";
             panelEconom.Size = new Size(543, 307);
             panelEconom.TabIndex = 1;
+            // 
+            // labelProhod2
+            // 
+            labelProhod2.AutoSize = true;
+            labelProhod2.Font = new Font("Segoe UI", 9F);
+            labelProhod2.Location = new Point(309, 3);
+            labelProhod2.Name = "labelProhod2";
+            labelProhod2.Size = new Size(16, 90);
+            labelProhod2.TabIndex = 10;
+            labelProhod2.Text = "П\r\nР\r\nО\r\nХ\r\nО\r\nД";
+            labelProhod2.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // labelProhod1
+            // 
+            labelProhod1.AutoSize = true;
+            labelProhod1.BackColor = Color.Transparent;
+            labelProhod1.Font = new Font("Segoe UI", 9F);
+            labelProhod1.Location = new Point(138, 3);
+            labelProhod1.Name = "labelProhod1";
+            labelProhod1.Size = new Size(16, 90);
+            labelProhod1.TabIndex = 9;
+            labelProhod1.Text = "П\r\nР\r\nО\r\nХ\r\nО\r\nД";
+            labelProhod1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // buttonRegistration
             // 
@@ -76,11 +106,24 @@
             // panelBusiness
             // 
             panelBusiness.AutoScroll = true;
+            panelBusiness.Controls.Add(labelProhod3);
             panelBusiness.Location = new Point(9, 368);
             panelBusiness.Margin = new Padding(3, 2, 3, 2);
             panelBusiness.Name = "panelBusiness";
             panelBusiness.Size = new Size(546, 276);
             panelBusiness.TabIndex = 3;
+            // 
+            // labelProhod3
+            // 
+            labelProhod3.AutoSize = true;
+            labelProhod3.BackColor = Color.Transparent;
+            labelProhod3.Font = new Font("Segoe UI", 9F);
+            labelProhod3.Location = new Point(141, 10);
+            labelProhod3.Name = "labelProhod3";
+            labelProhod3.Size = new Size(16, 90);
+            labelProhod3.TabIndex = 11;
+            labelProhod3.Text = "П\r\nР\r\nО\r\nХ\r\nО\r\nД";
+            labelProhod3.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
@@ -151,6 +194,10 @@
             Name = "FormBordingPass";
             Text = "Получение посадочного талона";
             Load += FormBordingPass_Load;
+            panelEconom.ResumeLayout(false);
+            panelEconom.PerformLayout();
+            panelBusiness.ResumeLayout(false);
+            panelBusiness.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -166,5 +213,8 @@
         private Label label4;
         private Label label5;
         private Label label6;
+        private Label labelProhod1;
+        private Label labelProhod2;
+        private Label labelProhod3;
     }
 }

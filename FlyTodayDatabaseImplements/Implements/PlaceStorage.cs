@@ -44,16 +44,23 @@ namespace FlyTodayDatabaseImplements.Implements
         }
 
         public List<PlaceViewModel> GetFilteredList(PlaceSearchModel model)
-        {
-            if (!model.FlightId.HasValue)
-            {
-                return new();
-            }
+        {            
             using var context = new FlyTodayDatabase();
-            return context.Places
-            .Where(x => x.FlightId.Equals(model.FlightId))
-           .Select(x => x.GetViewModel)
-           .ToList();
+            IQueryable<Place> placeQuery = context.Places;
+
+            // Фильтрация по PositionAtWorkId
+            if (model.FlightId.HasValue)
+            {
+                placeQuery = placeQuery.Where(x => x.FlightId == model.FlightId);
+            }
+
+            // Фильтрация по Id
+            if (model.Id.HasValue)
+            {
+                placeQuery = placeQuery.Where(x => x.Id == model.Id);
+            }
+
+            return placeQuery.Select(x => x.GetViewModel).ToList();
         }
 
         public List<PlaceViewModel> GetFullList()

@@ -4,6 +4,7 @@ using FlyTodayContracts.StoragesContracts;
 using FlyTodayContracts.ViewModels;
 using FlyTodayDatabaseImplements.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace FlyTodayDatabaseImplements.Implements
 {
@@ -34,7 +35,13 @@ namespace FlyTodayDatabaseImplements.Implements
 
         public List<UserViewModel> GetFilteredList(UserSearchModel model)
         {
-            throw new NotImplementedException();
+            using var context = new FlyTodayDatabase();
+
+                return context.Users
+             .Where(x => 
+                (model.Id.HasValue && x.Id == model.Id)).ToList()
+            .Select(x => x.GetViewModel).ToList();          
+
         }
 
         public List<UserViewModel> GetFullList()

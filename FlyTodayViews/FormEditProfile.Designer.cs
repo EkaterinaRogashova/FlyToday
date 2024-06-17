@@ -237,6 +237,7 @@
             MaximizeBox = false;
             Name = "FormEditProfile";
             Text = "Редактирование профиля";
+            FormClosed += FormEditProfile_FormClosed;
             Load += FormEditProfile_Load;
             ResumeLayout(false);
             PerformLayout();

@@ -39,6 +39,7 @@ namespace FlyTodayViews
             clone.ForeColor = original.ForeColor;
             clone.BackColor = original.BackColor;
             clone.FlatStyle = original.FlatStyle;
+            clone.Font = new Font(original.Font.FontFamily, original.Font.Size);
             foreach (Control control in original.Controls)
             {
                 Control clonedControl = CloneControl(control, control.Name);
@@ -57,6 +58,7 @@ namespace FlyTodayViews
             clone.Anchor = original.Anchor;
             clone.ForeColor = original.ForeColor;
             clone.BackColor = original.BackColor;
+            clone.Font = new Font(original.Font.FontFamily, original.Font.Size);
             if (original is Label)
             {
                 ((Label)clone).Text = ((Label)original).Text;
@@ -97,7 +99,6 @@ namespace FlyTodayViews
                         labelDate.Text = flight.DepartureDate.ToShortDateString() + " " + flight.DepartureDate.ToShortTimeString();
                         labelPlane.Text = plane.ModelName;
                         labelRegist.TextAlign = ContentAlignment.MiddleCenter;
-                        labelDir.Font = new Font(labelDir.Font.FontFamily, labelDir.Font.Size, FontStyle.Bold | FontStyle.Italic);
                         if (DateTime.Now >= flight.DepartureDate)
                         {
                             labelRegist.Text = "Вылетел";

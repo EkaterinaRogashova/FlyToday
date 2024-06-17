@@ -60,10 +60,6 @@ namespace FlyTodayDatabaseImplements.Implements
 
         public List<FlightViewModel> GetFilteredList(FlightSearchModel model)
         {
-            if (model.DirectionId == null)
-            {
-                return new();
-            }
             using var context = new FlyTodayDatabase();
 
             if (model.FlightStatus != null)
@@ -72,7 +68,7 @@ namespace FlyTodayDatabaseImplements.Implements
              .Include(x => x.Direction)
              .Include(x => x.Subscribers)
              .ThenInclude(x => x.User)
-             .Where(x => (x.FlightStatus == model.FlightStatus) &&
+             .Where(x => (x.FlightStatus == model.FlightStatus) ||
                 (model.Id.HasValue && x.Id == model.Id)).ToList()
             .Select(x => x.GetViewModel).ToList();
             }

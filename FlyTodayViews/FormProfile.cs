@@ -2,6 +2,7 @@
 using FlyTodayContracts.BindingModels;
 using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
+using FlyTodayContracts.ViewModels;
 using FlyTodayDataModels.Enums;
 using Microsoft.Extensions.Logging;
 using System.Windows.Forms;
@@ -27,6 +28,7 @@ namespace FlyTodayViews
             dataGridView1.Columns.Add("StatusFlight", "Состояние");
             _flightlogic = flightlogic;
             _directionlogic = directionlogic;
+            dataGridView1.Visible = false;
         }
 
         private void buttonUpd_Click(object sender, EventArgs e)
@@ -88,8 +90,7 @@ namespace FlyTodayViews
                 newForm.CurrentUserId = _id.Value;
                 newForm.Show();
                 newForm.LoadData();
-                newForm.Refresh();
-                Close();
+                newForm.Refresh();                
             }
         }
 
@@ -131,20 +132,19 @@ namespace FlyTodayViews
                     var flightlistRegIdet = _flightlogic.ReadList(new FlightSearchModel { FlightStatus = FlightStatusEnum.РегистрацияИдет });
                     var flightlistRehNeNach = _flightlogic.ReadList(new FlightSearchModel { FlightStatus = FlightStatusEnum.РегистрацияНеНачалась });
 
-                    var flightIds = 
-                        flightlistRegZakonch.Select(f => f.Id)
-                        .Union(flightlistRegIdet.Select(f => f.Id))
-                        .Union(flightlistRehNeNach.Select(f => f.Id))
-                        .ToList();
+                    var flights = flightlistRegZakonch.Concat(flightlistRegIdet).Concat(flightlistRehNeNach);
 
                     // Фильтруем список бронирований по UserId и FlightId
-                    var filteredList = list.Where(r => flightIds.Contains(r.FlightId)).ToList();
-
-                    // Выводим результат в DataGridView
-                    dataGridView1.DataSource = filteredList;
-                    if (list != null)
+                    var filteredList = new List<RentViewModel>();
+                    foreach (var flight in flights)
                     {
-                        dataGridView1.DataSource = list;
+                        filteredList.AddRange(list.Where(r => flight.Id.Equals(r.FlightId)).ToList());
+                    }
+
+                    if (filteredList != null && filteredList.Count > 0)
+                    {
+                        dataGridView1.Visible = true;
+                        dataGridView1.DataSource = filteredList;
                         dataGridView1.Columns["Id"].Visible = false;
                         dataGridView1.Columns["UserId"].Visible = false;
                         dataGridView1.Columns["FlightId"].Visible = false;
@@ -195,6 +195,10 @@ namespace FlyTodayViews
                                 {
                                     row.Cells["StatusFlight"].Value = "Неизвестен";
                                 }
+                                else if (flight.FlightStatus == FlightStatusEnum.Вылетел)
+                                {
+                                    row.Cells["StatusFlight"].Value = "Вылетел";
+                                }
                                 dataGridView1.Columns["StatusFlight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                             }
                         }
@@ -238,19 +242,6 @@ namespace FlyTodayViews
             {
                 _logger.LogError(ex, "Ошибка сохранения пользователя");
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            var service = Program.ServiceProvider?.GetService(typeof(FormMainMenu));
-            if (service is FormMainMenu newForm)
-            {
-                newForm.CurrentUserId = _id.Value;
-                newForm.Show();
-                newForm.LoadData();
-                newForm.Refresh();
-                Close();
             }
         }
 
@@ -329,6 +320,18 @@ namespace FlyTodayViews
                     form.CurrentUserId = _id.Value;
                     form.Show();
                 }
+            }
+        }
+
+        private void FormProfile_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            var service = Program.ServiceProvider?.GetService(typeof(FormMainMenu));
+            if (service is FormMainMenu newForm)
+            {
+                newForm.CurrentUserId = _id.Value;
+                newForm.Show();
+                newForm.LoadData();
+                newForm.Refresh();
             }
         }
     }

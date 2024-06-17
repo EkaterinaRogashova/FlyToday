@@ -151,7 +151,7 @@
             // 
             labelTimeInFlight1.AutoSize = true;
             labelTimeInFlight1.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelTimeInFlight1.Location = new Point(218, 73);
+            labelTimeInFlight1.Location = new Point(221, 73);
             labelTimeInFlight1.Name = "labelTimeInFlight1";
             labelTimeInFlight1.Size = new Size(90, 15);
             labelTimeInFlight1.TabIndex = 34;
@@ -180,7 +180,7 @@
             // 
             labelDepartureDate1.AutoSize = true;
             labelDepartureDate1.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelDepartureDate1.Location = new Point(220, 43);
+            labelDepartureDate1.Location = new Point(220, 40);
             labelDepartureDate1.Name = "labelDepartureDate1";
             labelDepartureDate1.Size = new Size(91, 15);
             labelDepartureDate1.TabIndex = 31;
@@ -210,7 +210,7 @@
             // 
             labelPlane1.AutoSize = true;
             labelPlane1.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            labelPlane1.Location = new Point(220, 88);
+            labelPlane1.Location = new Point(218, 88);
             labelPlane1.Name = "labelPlane1";
             labelPlane1.Size = new Size(64, 15);
             labelPlane1.TabIndex = 27;
@@ -265,22 +265,22 @@
             // labelSecondDir
             // 
             labelSecondDir.AutoSize = true;
-            labelSecondDir.Font = new Font("Segoe UI", 9F, FontStyle.Bold | FontStyle.Italic);
+            labelSecondDir.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic);
             labelSecondDir.Location = new Point(485, 19);
             labelSecondDir.MinimumSize = new Size(262, 0);
             labelSecondDir.Name = "labelSecondDir";
-            labelSecondDir.Size = new Size(262, 15);
+            labelSecondDir.Size = new Size(262, 21);
             labelSecondDir.TabIndex = 20;
             labelSecondDir.Text = "Казань - Москва";
             // 
             // labelFirstDir
             // 
             labelFirstDir.AutoSize = true;
-            labelFirstDir.Font = new Font("Segoe UI", 9F, FontStyle.Bold | FontStyle.Italic);
+            labelFirstDir.Font = new Font("Segoe UI", 12F, FontStyle.Bold | FontStyle.Italic);
             labelFirstDir.Location = new Point(218, 19);
             labelFirstDir.MinimumSize = new Size(262, 0);
             labelFirstDir.Name = "labelFirstDir";
-            labelFirstDir.Size = new Size(262, 15);
+            labelFirstDir.Size = new Size(262, 21);
             labelFirstDir.TabIndex = 19;
             labelFirstDir.Text = "Ульяновск - Казань";
             // 

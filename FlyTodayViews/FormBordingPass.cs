@@ -92,8 +92,7 @@ namespace FlyTodayViews
             {
                 int buttonWidth = 45;
                 int buttonHeight = 45;
-                int buttonSpacing = 5; // промежуток между кнопками
-                int columnSpacing = 20; // промежуток между столбцами
+                int buttonSpacing = 20; // промежуток между кнопками
                 int totalEconomPlaces = schema.EconomPlacesCount;
                 int economPlacesFirstRow = schema.PlacesInFirstLineEconom; //количество мест в одном ряду столбца 1
                 int economPlacesSecondRow = schema.PlacesInMiddleLineEconom;//количество мест в одном ряду столбца 2 
@@ -105,7 +104,7 @@ namespace FlyTodayViews
                 var sortedPlaces = place.OrderBy(p => p.Id);
                 int totalButtons = sortedPlaces.Count();
 
-                int rowCountEconom = totalEconomPlaces / (economPlacesFirstRow + economPlacesSecondRow + economPlacesThirdRow); 
+                int rowCountEconom = totalEconomPlaces / (economPlacesFirstRow + economPlacesSecondRow + economPlacesThirdRow);
                 int rowCountBusiness = totalBusinessPlaces / (businessPlacesFirstRow + businessPlacesSecondRow);
 
                 int colEconom = economPlacesFirstRow + economPlacesSecondRow + economPlacesThirdRow;//количество мест в одном ряду эконома
@@ -114,6 +113,12 @@ namespace FlyTodayViews
                 int rowIndexEconom = 0;
                 int colIndexBusiness = 0;
                 int rowIndexBusiness = 0;
+
+                labelProhod1.Location = new Point(Convert.ToInt32((buttonWidth*economPlacesFirstRow + buttonSpacing*(economPlacesFirstRow-1) + buttonSpacing/3.3)), 0);
+                if (economPlacesThirdRow == 0) { labelProhod2.Visible = false; }
+                labelProhod2.Location = new Point(Convert.ToInt32((economPlacesSecondRow + economPlacesFirstRow)*buttonWidth + (economPlacesSecondRow + economPlacesFirstRow - 1)* buttonSpacing + buttonSpacing/3.3), 0);
+                if (businessPlacesSecondRow == 0 || businessPlacesFirstRow == 0) { labelProhod3.Visible = false; }
+                labelProhod3.Location = new Point(Convert.ToInt32((buttonWidth * businessPlacesFirstRow + buttonSpacing * (businessPlacesFirstRow - 1) + buttonSpacing / 3.3)), 0);
                 foreach (var pl in sortedPlaces)
                 {
                     Button btn = new Button();
@@ -164,7 +169,6 @@ namespace FlyTodayViews
                 }
             }
         }
-
         private void FormBordingPass_Load(object sender, EventArgs e)
         {
             LoadData();
@@ -214,7 +218,6 @@ namespace FlyTodayViews
                 {
                     FlightId = flight.Id
                 });
-                
                 foreach (var pl in place)
                 {
                     if (pl.PlaceName == selectedButton.Text)
@@ -243,6 +246,11 @@ namespace FlyTodayViews
                             var createPass = _boardingpasslogic.Create(model); 
                             if (createPass) {
                                 MessageBox.Show("Билет зарегистрирован на рейс", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                var service = Program.ServiceProvider?.GetService(typeof(FormRentTickets));
+                                if (service is FormRentTickets form)
+                                {
+                                    form.LoadData();
+                                }
                                 Close();
                             }
                             

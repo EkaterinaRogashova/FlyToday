@@ -1,4 +1,6 @@
-﻿namespace FlyTodayContracts.BindingModels
+﻿using FlyTodayContracts.ViewModels;
+
+namespace FlyTodayContracts.BindingModels
 {
     public class ReportBindingModel
     {
@@ -16,5 +18,7 @@
         public string Children { get; set; } = string.Empty;
         public string People { get; set; } = string.Empty;
         public string OlderPeople { get; set; } = string.Empty;
+        //public Dictionary<string, (int, string)> Statistics = new();
+        public List<ReportDirectionsViewModel> Statistics { get; set; }
     }
 }

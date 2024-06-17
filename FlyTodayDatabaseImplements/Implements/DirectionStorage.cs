@@ -86,22 +86,6 @@ namespace FlyTodayDatabaseImplements.Implements
                 .ToList();
         }
 
-
-        public List<DirectionViewModel> GetDirectionsTo(DirectionSearchModel model)
-        {
-            if (string.IsNullOrEmpty(model.CountryFrom) && string.IsNullOrEmpty(model.CountryTo)
-                && string.IsNullOrEmpty(model.CityFrom) && string.IsNullOrEmpty(model.CityTo))
-            {
-                return new();
-            }
-            using var context = new FlyTodayDatabase();
-            return context.Directions
-            .Where(x => x.CountryTo.Equals(model.CountryTo) && x.CityTo.Equals(model.CityTo))
-            .ToList()
-            .Select(x => x.GetViewModel)
-            .ToList();
-        }
-
         public List<DirectionViewModel> GetDirectionsFrom(DirectionSearchModel model)
         {
             if (string.IsNullOrEmpty(model.CountryFrom) && string.IsNullOrEmpty(model.CountryTo)

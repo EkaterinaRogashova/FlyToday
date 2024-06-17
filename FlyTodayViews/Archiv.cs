@@ -1,5 +1,6 @@
 ﻿using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
+using FlyTodayContracts.ViewModels;
 using FlyTodayDataModels.Enums;
 using Microsoft.Extensions.Logging;
 using System;
@@ -53,16 +54,18 @@ namespace FlyTodayViews
                     var flightlistOtmena = _flightlogic.ReadList(new FlightSearchModel { FlightStatus = FlightStatusEnum.Отменен });
                     var flightlistViletel = _flightlogic.ReadList(new FlightSearchModel { FlightStatus = FlightStatusEnum.Вылетел });
 
-                    var flightIds = flightlistOtmena.Select(f => f.Id).Union(flightlistViletel.Select(f => f.Id)).ToList();
+                    var flights = flightlistOtmena.Concat(flightlistViletel);
 
                     // Фильтруем список бронирований по UserId и FlightId
-                    var filteredList = list.Where(r => flightIds.Contains(r.FlightId)).ToList();
-
-                    // Выводим результат в DataGridView
-                    dataGridView1.DataSource = filteredList;
-                    if (list != null)
+                    var filteredList = new List<RentViewModel>();
+                    foreach (var flight in flights)
                     {
-                        dataGridView1.DataSource = list;
+                        filteredList.AddRange(list.Where(r => flight.Id.Equals(r.FlightId)).ToList());
+                    }
+
+                    if (filteredList != null)
+                    {
+                        dataGridView1.DataSource = filteredList;
                         dataGridView1.Columns["Id"].Visible = false;
                         dataGridView1.Columns["UserId"].Visible = false;
                         dataGridView1.Columns["FlightId"].Visible = false;
@@ -82,39 +85,43 @@ namespace FlyTodayViews
                             if (flight != null)
                             {
 
-                                    var dir = _directionlogic.ReadElement(new DirectionSearchModel
-                                    {
-                                        Id = flight.DirectionId
-                                    });
-                                    if (dir != null)
-                                    {
-                                        row.Cells["Flight"].Value = dir.CityFrom + " - " + dir.CityTo + " " + flight.DepartureDate;
-                                    }
-                                    else
-                                    {
-                                        row.Cells["Flight"].Value = "Рейс не найден";
-                                    }
-                                    if (flight.FlightStatus == FlightStatusEnum.РегистрацияНеНачалась)
-                                    {
-                                        row.Cells["StatusFlight"].Value = "Регистрация не началась";
-                                    }
-                                    else if (flight.FlightStatus == FlightStatusEnum.РегистрацияИдет)
-                                    {
-                                        row.Cells["StatusFlight"].Value = "Регистрация идет";
-                                    }
-                                    else if (flight.FlightStatus == FlightStatusEnum.РегистрацияЗакончилась)
-                                    {
-                                        row.Cells["StatusFlight"].Value = "Регистрация закончилась";
-                                    }
-                                    else if (flight.FlightStatus == FlightStatusEnum.Отменен)
-                                    {
-                                        row.Cells["StatusFlight"].Value = "Отменен";
-                                    }
-                                    else if (flight.FlightStatus == FlightStatusEnum.Неизвестен)
-                                    {
-                                        row.Cells["StatusFlight"].Value = "Неизвестен";
-                                    }
-                                    dataGridView1.Columns["StatusFlight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                                var dir = _directionlogic.ReadElement(new DirectionSearchModel
+                                {
+                                    Id = flight.DirectionId
+                                });
+                                if (dir != null)
+                                {
+                                    row.Cells["Flight"].Value = dir.CityFrom + " - " + dir.CityTo + " " + flight.DepartureDate;
+                                }
+                                else
+                                {
+                                    row.Cells["Flight"].Value = "Рейс не найден";
+                                }
+                                if (flight.FlightStatus == FlightStatusEnum.РегистрацияНеНачалась)
+                                {
+                                    row.Cells["StatusFlight"].Value = "Регистрация не началась";
+                                }
+                                else if (flight.FlightStatus == FlightStatusEnum.РегистрацияИдет)
+                                {
+                                    row.Cells["StatusFlight"].Value = "Регистрация идет";
+                                }
+                                else if (flight.FlightStatus == FlightStatusEnum.РегистрацияЗакончилась)
+                                {
+                                    row.Cells["StatusFlight"].Value = "Регистрация закончилась";
+                                }
+                                else if (flight.FlightStatus == FlightStatusEnum.Отменен)
+                                {
+                                    row.Cells["StatusFlight"].Value = "Отменен";
+                                }
+                                else if (flight.FlightStatus == FlightStatusEnum.Неизвестен)
+                                {
+                                    row.Cells["StatusFlight"].Value = "Неизвестен";
+                                }
+                                else if (flight.FlightStatus == FlightStatusEnum.Вылетел)
+                                {
+                                    row.Cells["StatusFlight"].Value = "Вылетел";
+                                }
+                                dataGridView1.Columns["StatusFlight"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                             }
                         }
 

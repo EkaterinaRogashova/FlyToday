@@ -1,11 +1,14 @@
 ﻿using FlyTodayBusinessLogics.BusinessLogics;
+using FlyTodayContracts.BindingModels;
 using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using FlyTodayContracts.ViewModels;
 using FlyTodayDatabaseImplements.Models;
 using Microsoft.Extensions.Logging;
 using System.Drawing;
+using System.Linq;
 using System.Numerics;
+using System.Windows.Forms;
 
 namespace FlyTodayViews
 {
@@ -16,7 +19,10 @@ namespace FlyTodayViews
         private readonly IFlightLogic _flightLogic;
         private readonly ITicketLogic _ticketLogic;
         private readonly IRentLogic _rentLogic;
-        public FormDirectionStatistics(ILogger<FormDirectionStatistics> logger, IDirectionLogic logic, IFlightLogic flightLogic, ITicketLogic ticketLogic, IRentLogic rentLogic)
+        //private Dictionary<string, (int, string)> statistics;
+        private readonly IReportLogic _reportLogic;
+        private List<ReportDirectionsViewModel> _list;
+        public FormDirectionStatistics(ILogger<FormDirectionStatistics> logger, IDirectionLogic logic, IFlightLogic flightLogic, ITicketLogic ticketLogic, IRentLogic rentLogic, IReportLogic reportLogic)
         {
             InitializeComponent();
             _logger = logger;
@@ -24,6 +30,8 @@ namespace FlyTodayViews
             _flightLogic = flightLogic;
             _ticketLogic = ticketLogic;
             _rentLogic = rentLogic;
+            _reportLogic = reportLogic;
+            _list = new List<ReportDirectionsViewModel>();
         }
 
         private GroupBox CloneGroupBox(GroupBox original)
@@ -93,14 +101,15 @@ namespace FlyTodayViews
                                         }
                                     }
                                 }
-                            }                            
+                            }
                         }
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Не корректные значения периода.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Некорректные значения периода.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                //statistics.Keys = directionsTickets.OrderBy(d => d.Value);
                 foreach (var dir in directionsTickets.OrderBy(d => d.Value))
                 {
                     if (dir.Key != null && dir.Value != 0)
@@ -110,6 +119,7 @@ namespace FlyTodayViews
                         var labelDir = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelDir");
                         var labelTicketsCount = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelTicketsCount");
                         var labelPercent = groupBox.Controls.OfType<Label>().FirstOrDefault(tb => tb.Name == "labelPercent");
+                       
 
                         groupBox.Name = $"groupBoxDirection{dir.Key.Id}";
                         groupBox.Dock = DockStyle.Top;
@@ -120,6 +130,15 @@ namespace FlyTodayViews
                         double percent = (double)dir.Value / totalTickets * 100;
                         labelPercent.Text = $"{Math.Round(percent, 0)} %";
                         panel1.Controls.Add(groupBox);
+                        //statistics[labelDir.Text] = (Convert.ToInt32(labelTicketsCount.Text), labelPercent.Text);
+
+                        var model = new ReportDirectionsViewModel
+                        {
+                            Direction = labelDir.Text,
+                            TicketsCount = labelTicketsCount.Text,
+                            Percent = percent
+                        };
+                        _list.Add(model);
                     }
                 }
             }
@@ -133,6 +152,29 @@ namespace FlyTodayViews
         private void buttonView_Click(object sender, EventArgs e)
         {
             LoadData();
+        }
+
+        private void buttonSaveStatistics_Click(object sender, EventArgs e)
+        {
+            
+                using var dialog = new SaveFileDialog { Filter = "pdf|*.pdf" };
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    _reportLogic.SaveStatisticsDirectionsToPdf(new ReportBindingModel
+                    {
+                        FileName = dialog.FileName,
+                        Statistics = _list
+                    });
+                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Ошибка сохранения статистики по направлениям");
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

@@ -151,7 +151,7 @@
             // 
             // buttonDirections
             // 
-            buttonDirections.Anchor = AnchorStyles.Bottom;
+            buttonDirections.Anchor = AnchorStyles.None;
             buttonDirections.BackColor = SystemColors.ControlLightLight;
             buttonDirections.Font = new Font("Segoe UI", 9F);
             buttonDirections.Location = new Point(630, 753);
@@ -165,7 +165,7 @@
             // 
             // buttonPlanes
             // 
-            buttonPlanes.Anchor = AnchorStyles.Bottom;
+            buttonPlanes.Anchor = AnchorStyles.None;
             buttonPlanes.BackColor = SystemColors.ControlLightLight;
             buttonPlanes.Font = new Font("Segoe UI", 9F);
             buttonPlanes.Location = new Point(430, 753);
@@ -179,7 +179,7 @@
             // 
             // buttonFlights
             // 
-            buttonFlights.Anchor = AnchorStyles.Bottom;
+            buttonFlights.Anchor = AnchorStyles.None;
             buttonFlights.BackColor = SystemColors.ControlLightLight;
             buttonFlights.Font = new Font("Segoe UI", 9F);
             buttonFlights.Location = new Point(230, 752);
@@ -246,7 +246,7 @@
             // 
             // buttonDirStatistics
             // 
-            buttonDirStatistics.Anchor = AnchorStyles.Bottom;
+            buttonDirStatistics.Anchor = AnchorStyles.None;
             buttonDirStatistics.BackColor = SystemColors.ControlLightLight;
             buttonDirStatistics.Font = new Font("Segoe UI", 9F);
             buttonDirStatistics.Location = new Point(21, 752);

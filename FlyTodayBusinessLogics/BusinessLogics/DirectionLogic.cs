@@ -81,18 +81,26 @@ namespace FlyTodayBusinessLogics.BusinessLogics
                     CountryFrom = model.CountryFrom,
                     CityFrom = model.CityFrom
                 });
-                if (listDirFrom != null)
+
+                if (listDirFrom != null && listDirFrom.Count > 0)
                 {
-                    foreach (var dirFrom in listDirFrom)
+                    var listDirTo = _directionStorage.GetFilteredList(new DirectionSearchModel
                     {
-                        var directionTo = _directionStorage.GetCountryCityFrom(new DirectionSearchModel
+                        CountryTo = model.CountryTo,
+                        CityTo = model.CityTo
+                    });
+
+                    if (listDirTo != null && listDirTo.Count > 0)
+                    {
+                        foreach (var dirFrom in listDirFrom)
                         {
-                            CityFrom = dirFrom.CityTo,
-                            CountryFrom = dirFrom.CountryTo
-                        });
-                        if (directionTo != null && (directionTo.CityTo.Equals(model.CityTo) || directionTo.CountryTo.Equals(model.CountryTo)))
-                        {
-                            list.Add((dirFrom, directionTo));
+                            foreach (var dirTo in listDirTo)
+                            {
+                                if (dirFrom.CityTo == dirTo.CityFrom && dirFrom.CountryTo == dirTo.CountryFrom)
+                                {
+                                    list.Add((dirFrom, dirTo));
+                                }
+                            }
                         }
                     }
                 }
@@ -100,6 +108,7 @@ namespace FlyTodayBusinessLogics.BusinessLogics
             _logger.LogInformation("GetTwoDirectionsWithTransfer. Count:{Count}", list.Count);
             return list;
         }
+
 
         public bool Update(DirectionBindingModel model)
         {

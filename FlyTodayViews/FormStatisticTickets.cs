@@ -1,19 +1,11 @@
 ﻿using FlyTodayContracts.BusinessLogicContracts;
 using FlyTodayContracts.SearchModels;
 using Microsoft.Extensions.Logging;
-using LiveCharts;
-using LiveCharts.WinForms;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using FlyTodayBusinessLogics.BusinessLogics;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using FlyTodayContracts.BindingModels;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using DocumentFormat.OpenXml.Drawing.Charts;
 
 namespace FlyTodayViews
 {

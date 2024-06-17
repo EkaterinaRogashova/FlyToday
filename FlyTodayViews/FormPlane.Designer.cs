@@ -38,7 +38,6 @@
             // 
             // buttonSave
             // 
-            buttonSave.Location = new Point(168, 67);
             buttonSave.Location = new Point(191, 85);
             buttonSave.Name = "buttonSave";
             buttonSave.Size = new Size(84, 23);
@@ -50,7 +49,6 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 22);
             label1.Location = new Point(12, 23);
             label1.Name = "label1";
             label1.Size = new Size(107, 15);
@@ -66,7 +64,6 @@
             // 
             // buttonCancel
             // 
-            buttonCancel.Location = new Point(242, 67);
             buttonCancel.Location = new Point(281, 85);
             buttonCancel.Name = "buttonCancel";
             buttonCancel.Size = new Size(87, 23);
@@ -79,19 +76,16 @@
             // 
             comboBoxPlaneScheme.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxPlaneScheme.FormattingEnabled = true;
-            comboBoxPlaneScheme.Location = new Point(109, 36);
-            comboBoxPlaneScheme.Margin = new Padding(3, 2, 3, 2);
             comboBoxPlaneScheme.Location = new Point(137, 48);
             comboBoxPlaneScheme.Margin = new Padding(3, 2, 3, 2);
             comboBoxPlaneScheme.Name = "comboBoxPlaneScheme";
-            comboBoxPlaneScheme.Size = new Size(200, 23);
             comboBoxPlaneScheme.Size = new Size(227, 23);
             comboBoxPlaneScheme.TabIndex = 10;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(10, 38);
+            label2.Location = new Point(12, 51);
             label2.Name = "label2";
             label2.Size = new Size(45, 15);
             label2.TabIndex = 11;
@@ -102,7 +96,6 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLightLight;
-            ClientSize = new Size(318, 90);
             ClientSize = new Size(376, 120);
             Controls.Add(label2);
             Controls.Add(comboBoxPlaneScheme);

@@ -162,7 +162,7 @@ namespace FlyTodayBusinessLogics.OfficePackage
 
             CreateTable(new List<string> { "6cm", "3cm", "5cm", "3cm" });
 
-            CreateRow(new PdfRowParameters
+            CreateRowWhiteTable(new PdfRowParameters
             {
                 Texts = new List<string> { "ФИО", "Серия документа", "Номер документа", "Место" },
                 Style = "NormalTitle",
@@ -171,7 +171,7 @@ namespace FlyTodayBusinessLogics.OfficePackage
 
             foreach (var boardingPass in info.BoardingPass)
             {
-                CreateRow(new PdfRowParameters
+                CreateRowWhiteTable(new PdfRowParameters
                 {
                     Texts = new List<string> { boardingPass.FIO, boardingPass.Seria, boardingPass.Number, boardingPass.Place },
                     Style = "Normal",
@@ -230,6 +230,37 @@ namespace FlyTodayBusinessLogics.OfficePackage
             SavePdf(info);
         }
 
+        public void CreateDocStatisticDirections(PdfInfo info)
+        {
+            CreatePdf(info);
+
+            CreateParagraph(new PdfParagraph
+            {
+                Text = info.Title,
+                Style = "NormalTitle",
+                ParagraphAlignment = PdfParagraphAlignmentType.Center
+            });
+            CreateTable(new List<string> { "8cm", "4cm", "4cm"});
+            CreateRowWhiteTable(new PdfRowParameters
+            {
+                Texts = new List<string> { "Направление", "Кол-во проданных билетов", "Процент" },
+                Style = "NormalTitle",
+                ParagraphAlignment = PdfParagraphAlignmentType.Center
+            });
+
+            foreach (var direction in info.Directions)
+            {
+                CreateRowWhiteTable(new PdfRowParameters
+                {
+                    Texts = new List<string> { direction.Direction, direction.TicketsCount.ToString(), direction.Percent.ToString() + " %"},
+                    Style = "Normal",
+                    ParagraphAlignment = PdfParagraphAlignmentType.Center
+                });
+            }
+
+            SavePdf(info);
+        }
+
         /// <summary>
         /// Создание doc-файла
         /// </summary>
@@ -253,6 +284,7 @@ namespace FlyTodayBusinessLogics.OfficePackage
         /// </summary>
         /// <param name="rowParameters"></param>
         protected abstract void CreateRow(PdfRowParameters rowParameters);
+        protected abstract void CreateRowWhiteTable(PdfRowParameters rowParameters);
         /// <summary>
         /// Сохранение файла
         /// </summary>

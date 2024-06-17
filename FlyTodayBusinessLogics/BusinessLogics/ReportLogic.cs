@@ -325,5 +325,15 @@ namespace FlyTodayBusinessLogics.BusinessLogics
                 OlderPeople = model.OlderPeople
             });
         }
+
+        public void SaveStatisticsDirectionsToPdf(ReportBindingModel model)
+        {
+            _saveToPdf.CreateDocStatisticDirections(new PdfInfo
+            {
+                FileName = model.FileName,
+                Title = "Статистика по популярным направлениям",
+                Directions = model.Statistics,
+            });
+        }
     }
 }

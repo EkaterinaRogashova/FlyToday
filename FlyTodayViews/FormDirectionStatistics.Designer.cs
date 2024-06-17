@@ -42,6 +42,7 @@
             label5 = new Label();
             buttonView = new Button();
             label6 = new Label();
+            buttonSaveStatistics = new Button();
             groupBoxDir.SuspendLayout();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -180,12 +181,23 @@
             label6.TabIndex = 22;
             label6.Text = "Проценты";
             // 
+            // buttonSaveStatistics
+            // 
+            buttonSaveStatistics.Location = new Point(655, 24);
+            buttonSaveStatistics.Name = "buttonSaveStatistics";
+            buttonSaveStatistics.Size = new Size(120, 23);
+            buttonSaveStatistics.TabIndex = 23;
+            buttonSaveStatistics.Text = "Скачать PDF";
+            buttonSaveStatistics.UseVisualStyleBackColor = true;
+            buttonSaveStatistics.Click += buttonSaveStatistics_Click;
+            // 
             // FormDirectionStatistics
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLightLight;
             ClientSize = new Size(781, 450);
+            Controls.Add(buttonSaveStatistics);
             Controls.Add(label6);
             Controls.Add(buttonView);
             Controls.Add(dateTimePickerDateTo);
@@ -222,5 +234,6 @@
         private Button buttonView;
         private Label labelPercent;
         private Label label6;
+        private Button buttonSaveStatistics;
     }
 }

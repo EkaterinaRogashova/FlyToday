@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 using MigraDoc.Rendering;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
+using DocumentFormat.OpenXml.Office2010.PowerPoint;
 
 namespace FlyTodayBusinessLogics.OfficePackage.Implements
 {
     public class SaveToPdf : AbstractSaveToPdf
     {
         private Document? _document;
-        private Section? _section;
+        private MigraDoc.DocumentObjectModel.Section? _section;
         private Table? _table;
         private static ParagraphAlignment
        GetParagraphAlignment(PdfParagraphAlignmentType type)
@@ -108,6 +109,39 @@ namespace FlyTodayBusinessLogics.OfficePackage.Implements
                 row.Cells[i].VerticalAlignment = VerticalAlignment.Center;
             }
         }
+
+        protected override void CreateRowWhiteTable(PdfRowParameters rowParameters)
+        {
+            if (_table == null)
+            {
+                return;
+            }
+            var row = _table.AddRow();
+            for (int i = 0; i < rowParameters.Texts.Count; ++i)
+            {
+                row.Cells[i].AddParagraph(rowParameters.Texts[i]);
+                if (!string.IsNullOrEmpty(rowParameters.Style))
+                {
+                    row.Cells[i].Style = rowParameters.Style;
+                }
+                // Set border color to white
+                row.Cells[i].Borders.Left.Color = Color.FromArgb(0, 255, 255, 255);
+                row.Cells[i].Borders.Right.Color = Color.FromArgb(0, 255, 255, 255); ;
+                row.Cells[i].Borders.Top.Color = Color.FromArgb(0, 255, 255, 255); ;
+                row.Cells[i].Borders.Bottom.Color = Color.FromArgb(0, 255, 255, 255); ;
+
+                // You can keep the width if you want a visible border 
+                // row.Cells[i].Borders.Left.Width = borderWidth;
+                // row.Cells[i].Borders.Right.Width = borderWidth;
+                // row.Cells[i].Borders.Top.Width = borderWidth;
+                // row.Cells[i].Borders.Bottom.Width = borderWidth;
+
+                row.Cells[i].Format.Alignment =
+               GetParagraphAlignment(rowParameters.ParagraphAlignment);
+                row.Cells[i].VerticalAlignment = VerticalAlignment.Center;
+            }
+        }
+
         protected override void SavePdf(PdfInfo info)
         {
             var renderer = new PdfDocumentRenderer(true)

@@ -36,7 +36,6 @@
             labelEmail = new Label();
             buttonUpd = new Button();
             buttonDel = new Button();
-            buttonMenu = new Button();
             groupBox1 = new GroupBox();
             checkBoxAllowNotif = new CheckBox();
             label4 = new Label();
@@ -74,7 +73,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(11, 79);
+            label2.Location = new Point(11, 102);
             label2.Name = "label2";
             label2.Size = new Size(124, 21);
             label2.TabIndex = 4;
@@ -84,7 +83,7 @@
             // 
             labelDateOfBirth.AutoSize = true;
             labelDateOfBirth.Font = new Font("Segoe UI", 12F, FontStyle.Italic);
-            labelDateOfBirth.Location = new Point(152, 79);
+            labelDateOfBirth.Location = new Point(152, 102);
             labelDateOfBirth.Name = "labelDateOfBirth";
             labelDateOfBirth.Size = new Size(88, 21);
             labelDateOfBirth.TabIndex = 5;
@@ -93,7 +92,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(11, 112);
+            label3.Location = new Point(11, 162);
             label3.Name = "label3";
             label3.Size = new Size(152, 21);
             label3.TabIndex = 6;
@@ -103,7 +102,7 @@
             // 
             labelEmail.AutoSize = true;
             labelEmail.Font = new Font("Segoe UI", 12F, FontStyle.Italic);
-            labelEmail.Location = new Point(164, 112);
+            labelEmail.Location = new Point(169, 162);
             labelEmail.Name = "labelEmail";
             labelEmail.Size = new Size(133, 21);
             labelEmail.TabIndex = 7;
@@ -114,7 +113,7 @@
             buttonUpd.Anchor = AnchorStyles.None;
             buttonUpd.BackColor = SystemColors.ActiveCaption;
             buttonUpd.Font = new Font("Segoe UI", 14F);
-            buttonUpd.Location = new Point(32, 327);
+            buttonUpd.Location = new Point(32, 413);
             buttonUpd.Name = "buttonUpd";
             buttonUpd.Size = new Size(378, 64);
             buttonUpd.TabIndex = 8;
@@ -126,26 +125,13 @@
             // 
             buttonDel.Anchor = AnchorStyles.None;
             buttonDel.Font = new Font("Segoe UI", 14F);
-            buttonDel.Location = new Point(32, 422);
+            buttonDel.Location = new Point(32, 508);
             buttonDel.Name = "buttonDel";
             buttonDel.Size = new Size(378, 64);
             buttonDel.TabIndex = 9;
             buttonDel.Text = "Удалить профиль";
             buttonDel.UseVisualStyleBackColor = true;
             buttonDel.Click += buttonDel_Click;
-            // 
-            // buttonMenu
-            // 
-            buttonMenu.Anchor = AnchorStyles.None;
-            buttonMenu.BackColor = SystemColors.ActiveCaption;
-            buttonMenu.Font = new Font("Segoe UI", 14F);
-            buttonMenu.Location = new Point(32, 508);
-            buttonMenu.Name = "buttonMenu";
-            buttonMenu.Size = new Size(378, 64);
-            buttonMenu.TabIndex = 10;
-            buttonMenu.Text = "В главное меню";
-            buttonMenu.UseVisualStyleBackColor = false;
-            buttonMenu.Click += buttonMyRents_Click;
             // 
             // groupBox1
             // 
@@ -158,7 +144,7 @@
             groupBox1.Font = new Font("Segoe UI", 12F);
             groupBox1.Location = new Point(32, 120);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(378, 180);
+            groupBox1.Size = new Size(378, 271);
             groupBox1.TabIndex = 11;
             groupBox1.TabStop = false;
             groupBox1.Text = "Личные данные";
@@ -251,7 +237,6 @@
             Controls.Add(label4);
             Controls.Add(checkBoxAllowNotif);
             Controls.Add(groupBox1);
-            Controls.Add(buttonMenu);
             Controls.Add(buttonDel);
             Controls.Add(buttonUpd);
             Controls.Add(label1);
@@ -259,6 +244,7 @@
             Name = "FormProfile";
             Text = "Профиль";
             WindowState = FormWindowState.Maximized;
+            FormClosed += FormProfile_FormClosed;
             Load += FormProfile_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
@@ -277,7 +263,6 @@
         private Label labelEmail;
         private Button buttonUpd;
         private Button buttonDel;
-        private Button buttonMenu;
         private GroupBox groupBox1;
         private CheckBox checkBoxAllowNotif;
         private Label label4;
