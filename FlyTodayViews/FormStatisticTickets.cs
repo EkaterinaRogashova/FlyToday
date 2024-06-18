@@ -16,8 +16,9 @@ namespace FlyTodayViews
         private readonly ITicketLogic _ticketLogic;
         private readonly IRentLogic _rentLogic;
         private readonly IReportLogic _reportlogic;
+        private readonly IFlightLogic _flightlogic;
 
-        public FormStatisticTickets(ILogger<FormStatisticTickets> logger, IUserLogic userLogic, ITicketLogic ticketLogic, IRentLogic rentLogic, IReportLogic reportlogic)
+        public FormStatisticTickets(ILogger<FormStatisticTickets> logger, IUserLogic userLogic, ITicketLogic ticketLogic, IRentLogic rentLogic, IReportLogic reportlogic, IFlightLogic flightlogic)
         {
             InitializeComponent();
             _ticketLogic = ticketLogic;
@@ -25,11 +26,7 @@ namespace FlyTodayViews
             _userLogic = userLogic;
             _logger = logger;
             _reportlogic = reportlogic;
-        }
-
-        private void FormStatisticTickets_Load(object sender, EventArgs e)
-        {
-            LoadTicketStatistics();
+            _flightlogic = flightlogic;
         }
 
         private void LoadTicketStatistics()
@@ -43,40 +40,45 @@ namespace FlyTodayViews
             int yearsold1265 = 0;
             int yearsold = 0;
             int totalTickets = 0;
+
             foreach (var rent in rents)
             {
-                var tickets = _ticketLogic.ReadList(new TicketSearchModel { RentId = rent.Id });
-                foreach (var ticket in tickets)
+                var flights = _flightlogic.ReadElement(new FlightSearchModel { Id = rent.FlightId });
+                if (flights != null && flights.DepartureDate >= dateTimePickerFrom.Value && flights.DepartureDate <= dateTimePickerTo.Value)
                 {
-                    totalTickets++;
-                    if (ticket.Gender == "Ж")
+                    var tickets = _ticketLogic.ReadList(new TicketSearchModel { RentId = rent.Id });
+                    foreach (var ticket in tickets)
                     {
-                        femaleCount++;
-                    }
-                    else if (ticket.Gender == "М")
-                    {
-                        maleCount++;
-                    }
-                    if (ticket.Bags == true)
-                    {
-                        BagsCount++;
-                    }
-                    else if (ticket.Bags == false)
-                    {
-                        NotBagsCount++;
-                    }
-                    int age = DateTime.Now.Year - ticket.DateOfBirthday.Year;
-                    if (age <= 18)
-                    {
-                        yearsold12++;
-                    }
-                    else if (age < 65 && age > 18)
-                    {
-                        yearsold1265++;
-                    }
-                    else
-                    {
-                        yearsold++;
+                        totalTickets++;
+                        if (ticket.Gender == "Ж")
+                        {
+                            femaleCount++;
+                        }
+                        else if (ticket.Gender == "М")
+                        {
+                            maleCount++;
+                        }
+                        if (ticket.Bags == true)
+                        {
+                            BagsCount++;
+                        }
+                        else if (ticket.Bags == false)
+                        {
+                            NotBagsCount++;
+                        }
+                        int age = DateTime.Now.Year - ticket.DateOfBirthday.Year;
+                        if (age <= 18)
+                        {
+                            yearsold12++;
+                        }
+                        else if (age < 65 && age > 18)
+                        {
+                            yearsold1265++;
+                        }
+                        else
+                        {
+                            yearsold++;
+                        }
                     }
                 }
             }
@@ -90,7 +92,6 @@ namespace FlyTodayViews
             label12.Text = yearsold12.ToString() + " (" + yearsOld12Percentage + "%)";
             label12to65.Text = yearsold1265.ToString() + " (" + yearsOld1265Percentage + "%)";
             label65.Text = yearsold.ToString() + " (" + yearsOldPercentage + "%)";
-
             labelMale.Text = maleCount.ToString() + " (" + malePercentage + "%)";
             labelFemale.Text = femaleCount.ToString() + " (" + femalePercentage + "%)";
             labelWithBags.Text = BagsCount.ToString() + " (" + bagsPercentage + "%)";
@@ -113,7 +114,9 @@ namespace FlyTodayViews
                         NotWithBags = labelNotWithBags.Text,
                         Children = label12.Text,
                         People = label12to65.Text,
-                        OlderPeople = label65.Text
+                        OlderPeople = label65.Text,
+                        DateFrom = dateTimePickerFrom.Value.ToUniversalTime(),
+                        DateTo = dateTimePickerTo.Value.ToUniversalTime()
                     });
                     _logger.LogInformation("Сохранение расписание за сотрудника");
                     MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -124,6 +127,11 @@ namespace FlyTodayViews
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void buttonCreateStatistic_Click(object sender, EventArgs e)
+        {
+            LoadTicketStatistics();
         }
     }
 }

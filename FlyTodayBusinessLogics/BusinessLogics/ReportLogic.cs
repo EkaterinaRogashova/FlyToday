@@ -322,7 +322,9 @@ namespace FlyTodayBusinessLogics.BusinessLogics
                 NotWithBags = model.NotWithBags,
                 Children = model.Children,
                 People = model.People,
-                OlderPeople = model.OlderPeople
+                OlderPeople = model.OlderPeople,
+                DateFrom = model.DateFrom!.Value,
+                DateTo = model.DateTo!.Value,
             });
         }
 

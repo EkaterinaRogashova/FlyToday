@@ -21,12 +21,12 @@ namespace FlyTodayBusinessLogics.OfficePackage
                 Style = "Normal",
                 ParagraphAlignment = PdfParagraphAlignmentType.Center
             });
-            List<string> columnWidths = new List<string> { "1.5cm" }; // первая колонка для сотрудников
+            List<string> columnWidths = new List<string> { "4cm" }; // первая колонка для сотрудников
             List<string> uniqueDates = info.Schedule.Select(x => x.Date.ToString("dd.MM")).Distinct().ToList(); // получаем уникальные даты
 
             foreach (var date in uniqueDates)
             {
-                columnWidths.Add("1cm"); // добавляем колонку для каждой уникальной даты
+                columnWidths.Add("1.5cm"); // добавляем колонку для каждой уникальной даты
             }
 
             CreateTable(columnWidths);
@@ -84,7 +84,7 @@ namespace FlyTodayBusinessLogics.OfficePackage
             });
             foreach (var scheduleForEmployee in info.ScheduleForEmployee)
             {
-                foreach (var schedule in scheduleForEmployee.Schedule)
+                foreach (var schedule in scheduleForEmployee.Schedule) 
                 {
                     CreateParagraph(new PdfParagraph
                     {
@@ -189,6 +189,12 @@ namespace FlyTodayBusinessLogics.OfficePackage
             {
                 Text = info.Title,
                 Style = "NormalTitle",
+                ParagraphAlignment = PdfParagraphAlignmentType.Center
+            });
+            CreateParagraph(new PdfParagraph
+            {
+                Text = $"с {info.DateFrom.Date} по {info.DateTo.Date}",
+                Style = "Normal",
                 ParagraphAlignment = PdfParagraphAlignmentType.Center
             });
             CreateParagraph(new PdfParagraph

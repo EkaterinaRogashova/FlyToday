@@ -226,16 +226,7 @@ namespace FlyTodayViews
                                     throw new Exception("Ошибка при сохранении второго бронирования. Дополнительная информация в логах.");
                                 }
                                 Close();
-                                if (MessageBox.Show("Бронирования в личном кабинете. Перейти в личный кабинет?", "Сообщение",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                                {
-                                    var service = Program.ServiceProvider?.GetService(typeof(FormProfile));
-                                    if (service is FormProfile form)
-                                    {
-                                        form.Id = _currentUserId.Value;
-                                        form.ShowDialog();
-                                    }
-                                }
+                                MessageBox.Show("Бронирования в личном кабинете", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                             catch (Exception ex)
                             {

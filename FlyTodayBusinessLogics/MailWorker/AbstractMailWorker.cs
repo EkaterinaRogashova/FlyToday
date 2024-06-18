@@ -42,29 +42,6 @@ namespace FlyTodayBusinessLogics.MailWorker
             _logger.LogDebug("Send Mail: {To}, {Subject}", info.MailAddress, info.Subject);
             await SendMailAsync(info);
         }
-
-        //public async void MailCheck()
-        //{
-        //    if (string.IsNullOrEmpty(_mailLogin) ||
-        //   string.IsNullOrEmpty(_mailPassword))
-        //    {
-        //        return;
-        //    }
-        //    if (string.IsNullOrEmpty(_popHost) || _popPort == 0)
-        //    {
-        //        return;
-        //    }
-        //    if (_messageInfoLogic == null)
-        //    {
-        //        return;
-        //    }
-        //    var list = await ReceiveMailAsync();
-        //    _logger.LogDebug("Check Mail: {Count} new mails", list.Count);
-        //    foreach (var mail in list)
-        //    {
-        //        _messageInfoLogic.Create(mail);
-        //    }
-        //}
         protected abstract Task SendMailAsync(MailSendInfoBindingModel info);
     }
 }

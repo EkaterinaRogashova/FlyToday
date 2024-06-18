@@ -109,7 +109,9 @@ namespace FlyTodayViews
                 {
                     if (flight != null)
                     {
-                        if (!user.AllowNotifications)
+                        if (flight.FlightStatus != FlightStatusEnum.Вылетел && flight.FlightStatus != FlightStatusEnum.Отменен)
+                        {
+                            if (!user.AllowNotifications)
                         {
                             MessageBox.Show("Сначала разрешите уведомления! Это можно сделать в личном кабинете.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
@@ -176,12 +178,15 @@ namespace FlyTodayViews
                                 }                             
                                 Close();
                             }
-                            catch (Exception ex)
-                            {
-                                _logger.LogError(ex, "Ошибка сохранения подписки на рейс");
-                                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }                            
+                                catch (Exception ex)
+                                {
+                                    _logger.LogError(ex, "Ошибка сохранения подписки на рейс");
+                                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
                         }
+                        else MessageBox.Show("Рейс уже вылетел или отменен", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    
                     }
                     else MessageBox.Show("Рейс не найден", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -191,22 +196,30 @@ namespace FlyTodayViews
 
         private void buttonRent_Click(object sender, EventArgs e)
         {
-            if (_currentUserId.HasValue || _currentUserId > 0)
-            {
+            if (_currentUserId.HasValue ||  _currentUserId > 0)
+     {
                 try
                 {
-                    var currentUser = _userLogic.ReadElement(new UserSearchModel { Id = _currentUserId.Value });
-                    if (currentUser.AccessRule == AccessEnum.Взрослый || currentUser.AccessRule == AccessEnum.Администратор)
+                    var flight = _logic.ReadElement(new FlightSearchModel { Id = _id.Value });
+                    if (flight != null)
                     {
-                        var service = Program.ServiceProvider?.GetService(typeof(FormRent));
-                        if (service is FormRent form)
+                        if (flight.FlightStatus != FlightStatusEnum.Вылетел && flight.FlightStatus != FlightStatusEnum.Отменен)
                         {
-                            form.CurrentFlightId = _id.Value;
-                            form.CurrentUserId = _currentUserId.Value;
-                            form.ShowDialog();
+                            var currentUser = _userLogic.ReadElement(new UserSearchModel { Id = _currentUserId.Value });
+                            if (currentUser.AccessRule == AccessEnum.Взрослый || currentUser.AccessRule == AccessEnum.Администратор)
+                     {
+                                var service = Program.ServiceProvider?.GetService(typeof(FormRent));
+                                if (service is FormRent form)
+                                {
+                                    form.CurrentFlightId = _id.Value;
+                                    form.CurrentUserId = _currentUserId.Value;
+                                    form.ShowDialog();
+                                }
+                            }
+                     else MessageBox.Show("Недостаточно прав доступа", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
+                        else MessageBox.Show("Рейс уже вылетел или отменен", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    else MessageBox.Show("Недостаточно прав доступа", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception ex)
                 {
@@ -214,7 +227,7 @@ namespace FlyTodayViews
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else
+     else
             {
                 MessageBox.Show("Сначала авторизуйтесь в системе!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

@@ -274,7 +274,7 @@ namespace FlyTodayViews
                     {
                         FileName = dialog.FileName,
                         DateFrom = dateTimePicker1.Value.ToUniversalTime(),
-                        DateTo = (dateTimePicker1.Value + TimeSpan.FromDays(30)).ToUniversalTime()
+                        DateTo = (dateTimePicker1.Value + TimeSpan.FromDays(14)).ToUniversalTime()
                     });
                     _logger.LogInformation("Сохранение расписание за период {From}-{To}", dateTimePickerFrom.Value.ToShortDateString(), dateTimePickerTo.Value.ToShortDateString());
                     MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);

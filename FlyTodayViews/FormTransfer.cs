@@ -147,7 +147,9 @@ namespace FlyTodayViews
                 {
                     foreach (var flight in flights)
                     {
-                        if (!user.AllowNotifications)
+                        if (flight.FlightStatus != FlightStatusEnum.Вылетел && flight.FlightStatus != FlightStatusEnum.Отменен)
+                        {
+                            if (!user.AllowNotifications)
                         {
                             MessageBox.Show("Сначала разрешите уведомления! Это можно сделать в личном кабинете.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
@@ -215,13 +217,16 @@ namespace FlyTodayViews
                                 }
                                 Close();
                             }
-                            catch (Exception ex)
-                            {
-                                _logger.LogError(ex, "Ошибка сохранения подписки на рейс");
-                                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                catch (Exception ex)
+                                {
+                                    _logger.LogError(ex, "Ошибка сохранения подписки на рейс");
+                                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
                             }
                         }
+                        else MessageBox.Show("Рейс уже вылетел или отменен", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+                    
                 }
                 else MessageBox.Show("Пользователь не найден", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -238,7 +243,9 @@ namespace FlyTodayViews
                 };
                 try
                 {
-                    var currentUser = _userLogic.ReadElement(new UserSearchModel { Id = _currentUserId.Value });
+                    if (flights[0].FlightStatus != FlightStatusEnum.Вылетел && flights[1].FlightStatus != FlightStatusEnum.Вылетел && flights[0].FlightStatus != FlightStatusEnum.Отменен && flights[1].FlightStatus != FlightStatusEnum.Отменен)
+                    {
+                        var currentUser = _userLogic.ReadElement(new UserSearchModel { Id = _currentUserId.Value });
                     if (currentUser.AccessRule == AccessEnum.Взрослый || currentUser.AccessRule == AccessEnum.Администратор)
                     {
                         var service = Program.ServiceProvider?.GetService(typeof(FormRent));
@@ -251,6 +258,8 @@ namespace FlyTodayViews
                         }
                     }
                     else MessageBox.Show("Недостаточно прав доступа", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else MessageBox.Show("Рейс уже вылетел или отменен", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception ex)
                 {

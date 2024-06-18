@@ -96,8 +96,8 @@ namespace FlyTodayViews
                         DepartureDate = dateTimePickerDeparture.Value.ToUniversalTime() + TimeSpan.FromHours(4),
                         FreePlacesCountEconom = placesCountEconom,
                         FreePlacesCountBusiness = placesCountBusiness,
-                        EconomPrice = Convert.ToInt32(textBoxEconomCost.Text),
-                        BusinessPrice = Convert.ToInt32(textBoxBusinessCost.Text),
+                        EconomPrice = Convert.ToDouble(textBoxEconomCost.Text),
+                        BusinessPrice = Convert.ToDouble(textBoxBusinessCost.Text),
                         TimeInFlight = Convert.ToInt32(textBoxTimeInFlight.Text),
                         FlightSubscribers = _flightSubscribers,
                         FlightStatus = FlightStatusEnum.Неизвестен

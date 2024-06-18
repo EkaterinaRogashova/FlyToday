@@ -60,11 +60,11 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 10F);
             label2.ForeColor = Color.Blue;
-            label2.Location = new Point(142, 46);
+            label2.Location = new Point(161, 46);
             label2.Name = "label2";
-            label2.Size = new Size(723, 19);
+            label2.Size = new Size(649, 19);
             label2.TabIndex = 2;
-            label2.Text = "(бронирования рейсов, которые были отменены или вылетели сутки назад - автоматически добавляются сюда)";
+            label2.Text = "(бронирования рейсов, которые были отменены или вылетели  - автоматически добавляются сюда)";
             // 
             // button1
             // 
@@ -86,6 +86,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(dataGridView1);
+            MaximizeBox = false;
             Name = "Archiv";
             Text = "Мой архив с бронированиями";
             Load += Archiv_Load;

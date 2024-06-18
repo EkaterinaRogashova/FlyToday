@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
+            label6 = new Label();
             label3 = new Label();
             buttonCreatePdfMonth = new Button();
             dateTimePicker1 = new DateTimePicker();
             buttonEdit = new Button();
             checkBox = new CheckBox();
-            buttonToPdf = new Button();
             buttonFilterCancel = new Button();
             buttonSaveFilter = new Button();
             label2 = new Label();
@@ -46,7 +46,6 @@
             dateTimePickerFrom = new DateTimePicker();
             comboBox1 = new ComboBox();
             dataGridView1 = new DataGridView();
-            label6 = new Label();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
@@ -62,7 +61,6 @@
             groupBox1.Controls.Add(dateTimePicker1);
             groupBox1.Controls.Add(buttonEdit);
             groupBox1.Controls.Add(checkBox);
-            groupBox1.Controls.Add(buttonToPdf);
             groupBox1.Controls.Add(buttonFilterCancel);
             groupBox1.Controls.Add(buttonSaveFilter);
             groupBox1.Controls.Add(label2);
@@ -78,16 +76,26 @@
             groupBox1.Margin = new Padding(3, 2, 3, 2);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(3, 2, 3, 2);
-            groupBox1.Size = new Size(1880, 202);
+            groupBox1.Size = new Size(1880, 204);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Фильтр";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 14F);
+            label6.Location = new Point(967, 25);
+            label6.Name = "label6";
+            label6.Size = new Size(17, 150);
+            label6.TabIndex = 17;
+            label6.Text = "|\r\n|\r\n|\r\n|\r\n|\r\n|";
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 14F);
-            label3.Location = new Point(1195, 18);
+            label3.Location = new Point(1053, 18);
             label3.Name = "label3";
             label3.Size = new Size(251, 25);
             label3.TabIndex = 16;
@@ -96,22 +104,22 @@
             // buttonCreatePdfMonth
             // 
             buttonCreatePdfMonth.Font = new Font("Segoe UI", 14F);
-            buttonCreatePdfMonth.Location = new Point(1195, 81);
+            buttonCreatePdfMonth.Location = new Point(1053, 81);
             buttonCreatePdfMonth.Margin = new Padding(3, 2, 3, 2);
             buttonCreatePdfMonth.Name = "buttonCreatePdfMonth";
-            buttonCreatePdfMonth.Size = new Size(319, 71);
+            buttonCreatePdfMonth.Size = new Size(461, 94);
             buttonCreatePdfMonth.TabIndex = 15;
-            buttonCreatePdfMonth.Text = "Отчет\r\nPdf на выбранный период (месяц)";
+            buttonCreatePdfMonth.Text = "Отчет\r\nPdf на выбранный период (2 недели)";
             buttonCreatePdfMonth.UseVisualStyleBackColor = true;
             buttonCreatePdfMonth.Click += buttonCreatePdfMonth_Click;
             // 
             // dateTimePicker1
             // 
             dateTimePicker1.Font = new Font("Segoe UI", 14F);
-            dateTimePicker1.Location = new Point(1195, 45);
+            dateTimePicker1.Location = new Point(1053, 45);
             dateTimePicker1.Margin = new Padding(3, 2, 3, 2);
             dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(319, 32);
+            dateTimePicker1.Size = new Size(461, 32);
             dateTimePicker1.TabIndex = 14;
             // 
             // buttonEdit
@@ -120,7 +128,7 @@
             buttonEdit.Location = new Point(1586, 33);
             buttonEdit.Margin = new Padding(3, 2, 3, 2);
             buttonEdit.Name = "buttonEdit";
-            buttonEdit.Size = new Size(125, 119);
+            buttonEdit.Size = new Size(125, 142);
             buttonEdit.TabIndex = 12;
             buttonEdit.Text = "Изменить запись";
             buttonEdit.UseVisualStyleBackColor = true;
@@ -137,18 +145,6 @@
             checkBox.TabIndex = 11;
             checkBox.Text = "Фильтровать по дате";
             checkBox.UseVisualStyleBackColor = true;
-            // 
-            // buttonToPdf
-            // 
-            buttonToPdf.Font = new Font("Segoe UI", 14F);
-            buttonToPdf.Location = new Point(990, 31);
-            buttonToPdf.Margin = new Padding(3, 2, 3, 2);
-            buttonToPdf.Name = "buttonToPdf";
-            buttonToPdf.Size = new Size(160, 123);
-            buttonToPdf.TabIndex = 10;
-            buttonToPdf.Text = "Отчет\r\nPdf на текущий месяц";
-            buttonToPdf.UseVisualStyleBackColor = true;
-            buttonToPdf.Click += ButtonToPdf_Click;
             // 
             // buttonFilterCancel
             // 
@@ -269,16 +265,6 @@
             dataGridView1.Size = new Size(1880, 798);
             dataGridView1.TabIndex = 2;
             // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 14F);
-            label6.Location = new Point(967, 25);
-            label6.Name = "label6";
-            label6.Size = new Size(17, 150);
-            label6.TabIndex = 17;
-            label6.Text = "|\r\n|\r\n|\r\n|\r\n|\r\n|";
-            // 
             // FormSchedule
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -314,7 +300,6 @@
         private DataGridView dataGridView1;
         private Button buttonFilterCancel;
         private Button buttonSaveFilter;
-        private Button buttonToPdf;
         private CheckBox checkBox;
         private Button buttonEdit;
         private Button buttoncreateExel;
